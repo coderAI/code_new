@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="view_hr_contract_form_recruitment_inherit" model="ir.ui.view">
+            <field name="name">view.hr.contract.form.recruitment.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="vhr_human_resource.view_hr_contract_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_created']" position="after">
+                    <field name="job_applicant_id" invisible='1'/>
+                    <field name='is_date_start_greater_today' invisible='1'/>
+                </xpath>
+                <xpath expr="//field[@name='change_form_id']" position="attributes">
+                    <attribute name="context">{'job_applicant_id': job_applicant_id}</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_hr_contract_search_recruitment_inherit" model="ir.ui.view">
+            <field name="name">view.hr.contract.search.recruitment.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="vhr_human_resource.view_hr_contract_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='waiting_active']" position="after">
+                    <filter string="Transfer from RR" name="rr_transfer" icon="terp-stage"
+                            domain="[('job_applicant_id', '!=', False)]"/>
+                </xpath>
+            </field>
+        </record>
+          
+        <record id="hr_contract.action_hr_contract" model="ir.actions.act_window">
+            <field name="name">Contract</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{
+            	'search_default_waiting_active':1,
+                'search_default_current':1, 'search_default_active_contract': 1,'filter_by_group': 1,
+            	'create_directly_from_contract':1,'get_office_name_by_code':True,
+            	'search_default_group_state': 1,'get_department_name_by_code':True,
+            	'search_default_rr_transfer':1,
+            	
+                }
+            </field>
+            <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+        </record>
+    </data>
+</openerp>

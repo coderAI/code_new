@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate='1'>
+        <!--step 1 : delete in openerp  step 2 : uncomment and upgrate module  -->
+        <!--<record model="audittrail.rule" id="vhr_recruitment_vhr_post_job">
+            <field name="name">VHR Recruitment - Vhr post job</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_post_job"/>
+            <field name="user_id" search="[]"/>
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>   -->
+        <record model="audittrail.rule" id="vhr_recruitment_vhr_job">
+            <field name="name">VHR Recruitment - Vhr Resource request</field>
+            <field name="object_id" ref="vhr_recruitment.model_hr_job"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>
+
+        <record model="audittrail.rule" id="vhr_recruitment_vhr_job_applicant">
+            <field name="name">VHR Recruitment - Vhr Job - Applicant</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_job_applicant"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>
+
+        <record model="audittrail.rule" id="vhr_recruitment_vhr_applicant">
+            <field name="name">VHR Recruitment - Vhr Applicant</field>
+            <field name="object_id" ref="vhr_recruitment.model_hr_applicant"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>
+		
+		<record model="audittrail.rule" id="vhr_recruitment_vhr_close_reason">
+            <field name="name">VHR Recruitment - Vhr Close Reason</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_close_reason"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>
+        
+        <!-- EXECUTION FUNCTION -->
+
+        <record model="audittrail.rule" id="vhr_master_data.vhr_school">
+            <field name="name">VHR Master Data - School</field>
+            <field name="object_id" ref="vhr_master_data.model_vhr_school"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+            <field name="execute_obj_id" ref="vhr_recruitment.model_vhr_recruitment_interface"/>
+            <field name="execute_function">notify_change</field>
+            <field name="execute_parameter">()</field>
+        </record>
+
+        <record model="audittrail.rule" id="vhr_master_data.vhr_master_data_vhr_job">
+            <field name="name">VHR Master Data - Job</field>
+            <field name="object_id" ref="vhr_master_data.model_vhr_job"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+            <field name="execute_obj_id" ref="vhr_recruitment.model_vhr_recruitment_interface"/>
+            <field name="execute_function">notify_change</field>
+            <field name="execute_parameter">()</field>
+        </record>
+
+        <record model="audittrail.rule" id="vhr_master_data.vhr_office">
+            <field name="name">VHR Master Data - Office</field>
+            <field name="object_id" ref="vhr_master_data.model_vhr_office"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+            <field name="execute_obj_id" ref="vhr_recruitment.model_vhr_recruitment_interface"/>
+            <field name="execute_function">notify_change</field>
+            <field name="execute_parameter">()</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_master_data.vhr_recruitment_source_type">
+            <field name="name">VHR Master Data - Recruitment Source Type</field>
+            <field name="object_id" ref="vhr_master_data.model_vhr_recruitment_source_type"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+            <field name="execute_obj_id" ref="vhr_recruitment.model_vhr_recruitment_interface"/>
+            <field name="execute_function">notify_change</field>
+            <field name="execute_parameter">()</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_recruitment_typical_face">
+            <field name="name">VHR Recruitment Typical Face</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_typical_face"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+            <field name="execute_obj_id" ref="vhr_recruitment.model_vhr_recruitment_interface"/>
+            <field name="execute_function">notify_change</field>
+            <field name="execute_parameter">()</field>
+        </record>
+
+
+        <record model="audittrail.rule" id="vhr_recruitment_program_event">
+            <field name="name">VHR Recruitment Program Event</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_program_event"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+            <field name="execute_obj_id" ref="vhr_recruitment.model_vhr_recruitment_interface"/>
+            <field name="execute_function">notify_change</field>
+            <field name="execute_parameter">()</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_erp_bonus_exclusion">
+            <field name="name">VHR Recruitment ERP Bonus Exclusion</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_erp_bonus_exclusion"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>
+        <record model="audittrail.rule" id="vhr_erp_bonus_payment">
+            <field name="name">VHR Recruitment ERP Bonus Payment</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_erp_bonus_payment"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>
+		<record model="audittrail.rule" id="vhr_erp_bonus_rate_by_dept">
+            <field name="name">VHR Recruitment ERP Bonus Rate By Dept</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_erp_bonus_rate_by_dept"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>
+        <record model="audittrail.rule" id="vhr_erp_bonus_scheme">
+            <field name="name">VHR Recruitment ERP Bonus Scheme</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_erp_bonus_scheme"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record>
+        <record model="audittrail.rule" id="vhr_erp_payment_time">
+            <field name="name">VHR Recruitment ERP Payment Time</field>
+            <field name="object_id" ref="vhr_recruitment.model_vhr_erp_payment_time"/>
+            <!--<field name="user_id" search="[]"/>-->
+            <field name="log_read" eval="False"/>
+            <field name="log_create" eval="True"/>
+            <field name="log_write" eval="True"/>
+            <field name="log_unlink" eval="True"/>
+            <field name="log_action" eval="False"/>
+            <field name="log_workflow" eval="False"/>
+        </record> 
+    </data>
+</openerp>
+

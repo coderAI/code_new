@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.sequence.type" id="seq_type_year_end_bonus">
+	        <field name="name">Year End Bonus</field>
+	        <field name="code">year.end.bonus</field>
+	    </record>
+	    <record model="ir.sequence" id="seq_year_end_bonus">
+	        <field name="name">Year End Bonus</field>
+	        <field name="code">year.end.bonus</field>
+	        <field name="prefix">BONUS-YEAR-</field>
+	        <field name="padding">5</field>
+	    </record>
+	</data>
+</openerp>

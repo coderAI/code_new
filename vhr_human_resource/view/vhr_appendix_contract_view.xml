@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_vhr_appendix_contract_form" model="ir.ui.view">
+       		<field name="name">vhr.appendix.contract.view.form</field>
+       		<field name="model">vhr.appendix.contract</field>
+       		<field name="arch" type="xml">
+       			<form duplicate='false'>
+       				<sheet>
+       					<div class="oe_title">
+                            <div class="oe_edit_only">
+                                <label for="name"/>
+                            </div>
+                            <h1>
+                                <field name="name" placeholder="Appendix number" readonly="1"
+                                       options="{'save_readonly': True}"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right" name="button_box">
+                        	<button class="oe_stat_button bg_icon_orange" style="width:40px !important"
+                        			attrs="{'invisible':[('is_created','=',False)]}"
+                                    name="print_appendix_contract"
+						   		    icon="fa-print" type="object"/>
+                        </div>
+       					<group>
+       						<group>
+       							<field name="contract_id" required='1' 
+       							context="{'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_contract_tree','filter_by_group':True}"
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"	
+       							on_change="onchange_contract_id(contract_id, appendix_type_id)"
+       							domain="[('state','=','signed')]"
+       							attrs="{'readonly':['|',('is_readonly','=',True),'&amp;',('is_extension_appendix','=',True),('is_created','=',True)]}"/>
+       							<field name="employee_id" readonly='1' 
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       							<field name="is_extension_appendix" readonly='1' options="{'save_readonly': True}"
+       							on_change="onchange_is_extension_appendix(is_extension_appendix)"/>
+       							<label for="is_create_code" string="Is Create Appendix Name" class="vhr_human_resource_important_message"/>
+       							<field name="is_create_code" on_change="onchange_is_create_code(is_create_code, sign_date)" nolabel='1'
+       							  options="{'save_readonly': True}"
+       							 attrs="{'readonly':[('is_created','=',True),('is_create_code','=',True)]}"/>
+       							<field name="active" readonly='1'/>
+       						</group>
+       						<group>
+       							<field name="appendix_type_id" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+       							    attrs="{'readonly':[('is_readonly','=',True)]}"
+       							    on_change="onchange_appendix_type_id(appendix_type_id, contract_id, context)"
+       							    context="{'contract_sub_type_id':contract_sub_type_id}"/>
+       							<field name="date_start" required='1' 
+       							 attrs="{'readonly':['|',('is_extension_appendix','=',True),('is_readonly','=',True)]}"
+       							 on_change="on_change_date_start(date_start, context)"
+       							 context="{'contract_id': contract_id}"
+       							 options="{'save_readonly': True}"/>
+       							<field name="date_end" 
+       							attrs="{'required': [('is_extension_appendix','=', True)],'readonly':[('is_readonly','=',True)]}"/>
+       							<field name="job_title" attrs="{'readonly':[('is_readonly','=',True)]}"/>
+       							<field name="contract_sub_type_id" invisible='1'/>
+       							
+       							<field name="is_created" invisible='1'/>
+       							<field name="is_change_mission" invisible='1'/>
+       							<field name="is_change_salary" invisible='1'/>
+       							<field name="is_change_allowance" invisible='1'/>
+       							<field name="is_readonly" invisible='1'/>
+       						</group>								
+						</group>
+						<group string="Sign Information" col='4'>
+                            <field name="sign_date" required='1' 
+                            on_change="onchange_sign_date(sign_date, is_create_code)"
+                            attrs="{'readonly':[('is_created','=',True),('name','!=',False)]}"/>
+                            <field name="info_signer" required="1"
+                            options="{'save_readonly': True}"/>
+                            <field name="title_signer" 
+                            options="{'save_readonly': True}"/>
+                            <field name="country_signer"
+                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                        </group>
+						<group string="Collaborator Info" attrs="{'invisible':[('is_change_mission','=',False)]}">
+							<field name="mission_ids" nolabel="1">
+								<!-- context="{'default_name':next_number_of_mission}" on_change="onchange_mission_ids(mission_ids)"-->
+								<tree version="7.0" editable="bottom">
+									<field name="appendix_id" invisible='1'/>
+									<field name="name" readonly='1'/>
+									<field name="value" required='1'/>
+									<field name="salary" sum="Total"/>
+								</tree>
+							</field>
+						</group>
+       					<group>
+       						<field name="description"/>
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+       		</field>
+       	</record>
+       	
+       	<record id="view_vhr_appendix_contract_tree" model="ir.ui.view">
+       		<field name="name">vhr.appendix.contract.view.tree</field>
+       		<field name="model">vhr.appendix.contract</field>
+       		<field name="arch" type="xml">
+  				<tree string="Appendix Contract" version="7.0">
+  					<field name="employee_id"/>
+  					<field name="contract_id"/>
+      				<field name="appendix_type_id"/>
+					<field name="date_start"/>
+					<field name="date_end"/>
+					<field name="active"/>
+					<field name="department_id" invisible='1'/>
+					<field name="division_id" invisible='1'/>
+      			</tree>
+     		</field>
+       	</record>
+       	
+       	<record id="view_vhr_appendix_contract_search" model="ir.ui.view">
+        	<field name="name">vhr.appendix.contract.view.search</field>
+        	<field name="model">vhr.appendix.contract</field>
+        	<field name="arch" type="xml">
+    			<search string="Appendix Contract">
+        			<field name="name" string="Appendix Contract" 
+        			 filter_domain="['|','|','|','|',('name','ilike',self),
+		        									 ('contract_id.name','ilike',self),
+		        									 ('contract_id.employee_id.code','ilike',self),
+		        									 ('contract_id.employee_id.login','ilike',self),
+		        									 ('contract_id.employee_id.name','ilike',self)	]"/>
+        			
+        			<group expand="0" string="Group By">
+                        <filter string="Appendix Type" icon="terp-go-home" domain="[]"
+                                name="group_appendix_type" context="{'group_by':'appendix_type_id'}"/>
+                        <filter string="Contract" icon="terp-go-home" domain="[]"
+                                name="group_contract" context="{'group_by':'contract_id'}"/>
+                    </group>
+        			<group expand="0" string="Filter">
+						<filter string="Active = True" name="active_true" icon="terp-stage"
+	                            domain="[('active', '=', True)]"/>
+	                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+	                            domain="[('active', '=', False)]"/>	                   
+	                </group>  
+	                <group expand="0" string="Filter">
+						<filter string="Is Extension Appendix = True" name="extension_appendix" icon="terp-stage"
+	                            domain="[('is_extension_appendix', '=', True)]"/>
+	                    <filter string="Is Extension Appendix = False" name="not_extension_appendix" icon="STOCK_NEW"
+	                            domain="[('is_extension_appendix', '=', False)]"/>	                   
+	                </group>      
+	                <field name="department_id"/>
+	                <!--<field name="division_id"/>-->
+	                
+        		</search>        
+        	</field>
+        </record>
+        
+        
+        <record id="action_vhr_appendix_contract_print_multi_merge" model="ir.actions.server">
+            <field name="name">Print Multi Appendix Contract</field>
+            <field name="model_id" ref="model_vhr_appendix_contract"/>
+            <field name="state">code</field>
+            <field name="code">action = self.action_print_multi_merge_appendix_contract(cr, uid, context.get('active_ids', []))</field>
+        </record>
+        
+        <record model="ir.values" id="action_vhr_appendix_contract_print_multi_merge_act">
+            <field name="key2">client_print_multi</field>
+            <field name="model">vhr.appendix.contract</field>
+            <field name="name">Print Multi Appendix Contract</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_vhr_appendix_contract_print_multi_merge"/>
+            <field name="object" eval="True"/>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_appendix_contract">
+       		<field name="name">Appendix Contract</field> 
+            <field name="res_model">vhr.appendix.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_active_true':1,'filter_by_group': 1}</field> 
+            <field name="view_id" ref="view_vhr_appendix_contract_tree"/>
+            <field name="search_view_id" ref="view_vhr_appendix_contract_search"/>
+       	</record>
+        
+       	
+       	
+    </data>
+</openerp>

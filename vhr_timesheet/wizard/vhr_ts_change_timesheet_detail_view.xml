@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="vhr_ts_change_timesheet_detail_view" model="ir.ui.view">
+            <field name="name">vhr.ts.change.timesheet.detail.form</field>
+            <field name="model">vhr.ts.change.timesheet.detail</field>
+            <field name="arch" type="xml">
+                <form string="Change Admin/Approver Timesheet Period">
+                <sheet>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <button name="execute"
+                                    string="Execute" type="object" one_click_button="True"
+                                    class="oe_stat_button bg_icon_green" icon="fa-mail-forward"/>
+                            <button string="Cancel" class="oe_stat_button bg_icon_red" special="cancel"
+                                    icon="fa-times"/>
+                        </div>
+                        <group string="Change Admin/Approver Timesheet Period">
+                            <group>
+                                <field name="timesheet_id" required="1"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                       on_change="onchange_timesheet(timesheet_id, from_month_year)"/>
+                            </group>
+                            <group></group>
+                            <group>
+                                <field name="current_admin_id" readonly="1"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                <field name="new_admin_id"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                <field name="from_month_year" required="1"
+                                       placeholder="mm/yyyy eg: 12/2014"
+                                       on_change="onchange_timesheet(timesheet_id, from_month_year)"/>
+                                <field name="is_salary_calculation"/>
+                            </group>
+                            <group>
+                                <field name="current_approve_id" readonly="1"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                <field name="new_approve_id"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                <field name="to_month_year"
+                                       placeholder="mm/yyyy eg: 12/2014"
+                                       required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_vhr_ts_change_timesheet_detail" model="ir.actions.act_window">
+            <field name="name">Change Admin Timesheet Period</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vhr.ts.change.timesheet.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="vhr_ts_change_timesheet_detail_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="vhr_ts_generate_timesheet_detail_view" model="ir.ui.view">
+            <field name="name">vhr.ts.change.timesheet.detail.form</field>
+            <field name="model">vhr.ts.change.timesheet.detail</field>
+            <field name="arch" type="xml">
+                <form string="Timesheet Period Generation">
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <button name="generate"
+                                    string="Generate" type="object"
+                                    class="oe_stat_button bg_icon_green" icon="fa-mail-forward"/>
+                            <button string="Cancel" class="oe_stat_button bg_icon_red" special="cancel"
+                                    icon="fa-times"/>
+                        </div>
+                        <group string="Timesheet Period Generation">
+                            <group col="4">
+                                <field name="timesheet_id" required="1"/>
+                                <field name="year" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_vhr_ts_generate_timesheet_detail" model="ir.actions.act_window">
+            <field name="name">Timesheet Period Generation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vhr.ts.change.timesheet.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="vhr_ts_generate_timesheet_detail_view"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

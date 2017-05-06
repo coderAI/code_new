@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_ts_param_job_level_tree">
+            <field name="name">vhr.ts.param.job.level.tree</field>
+            <field name="model">vhr.ts.param.job.level</field>
+            <field name="arch" type="xml">
+                <tree string="Parameter By Job Level">
+                    <field name="job_level_id"/>
+                    <field name="job_level_new_id"/>
+                    <field name="param_type_id"/>
+                    <field name="effect_from"/>
+                    <field name="effect_to"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_param_job_level_form">
+            <field name="name">vhr.ts.param.job.level.form</field>
+            <field name="model">vhr.ts.param.job.level</field>
+            <field name="arch" type="xml">
+                <form version="7.0" string="Parameter By Job Level">
+                    <sheet>
+                        <group col='4'>
+                            <field name="job_level_id" required="0" on_change="onchange_job_level_id(job_level_id)"
+                                   options="{'no_open': True, 'no_create': True}"
+                                   readonly='1'/>
+                            <field name="job_level_type_id" readonly="1"
+                                   options="{'no_open': True, 'save_readonly': True}"/>
+                            
+                            <field name="job_level_new_id" required="1"
+                                   options="{'no_open': True, 'no_create': True}"
+                                   attrs="{'readonly': [('is_latest','=',False)]}"/>
+                            
+                            <field name="param_type_id" required="1" context="{'param_type_group': 'TS_JOB_LEVEL'}"
+                                   options="{'no_open': True, 'no_create': True}"
+                                   attrs="{'readonly': [('is_latest','=',False)]}"/>
+                            <field name="effect_from" required="1" attrs="{'readonly': [('is_latest','=',False)]}"/>
+                            <field name="value" required="1" attrs="{'readonly': [('is_latest','=',False)]}"/>
+                            <field name="active" readonly="1"/>
+                            <field name="is_latest" invisible="1"/>
+                            <field name="effect_to" invisible='1'/>
+                        </group>
+                        <group>
+                            <field name="note" attrs="{'readonly': [('is_latest','=',False)]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_param_job_level_search">
+            <field name="name">vhr.ts.param.job.level.search</field>
+            <field name="model">vhr.ts.param.job.level</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group expand="0" string="Group by...">
+                        <!--<filter string="Job Level Type" name="job_level_type_id"
+                                context="{'group_by':'job_level_type_id'}"/> -->
+                        <filter string="Job Level" name="job_level_id" context="{'group_by':'job_level_id'}"/>
+                        <filter string="Job Level New" name="job_level_id_new" context="{'group_by':'job_level_new_id'}"/>
+                        <filter string="Parameter" name="param_type_id" context="{'group_by':'param_type_id'}"/>
+                    </group>
+                    <group expand="0" string="Filter">
+                        <filter string="Active = True" name="active_true" icon="terp-stage"
+                                domain="[('active', '=', True)]"/>
+                        <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                                domain="[('active', '=', False)]"/>
+                    </group>
+                    <field name='job_level_id'/>
+                    <field name='job_level_new_id'/>
+                    <field name="param_type_id"/>
+                    <field name='effect_from'/>
+                </search>
+            </field>
+        </record>
+
+        <record id="act_vhr_ts_param_job_level" model="ir.actions.act_window">
+            <field name="name">Parameter By Job Level</field>
+            <field name="res_model">vhr.ts.param.job.level</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="context">{'search_default_job_level_id_new':1}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>

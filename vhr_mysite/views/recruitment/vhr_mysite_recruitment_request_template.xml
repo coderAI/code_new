@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<template id="vhr_mysite.vhr_recruitment_request" name="Tạo yêu cầu tuyển dụng">
+    		<t t-call="website.layout">
+				<div class="my_recruitment_request">
+					<t t-if="message">
+						<div class="my_notices">
+							<div class="my_common_notice">
+								<i class="fa fa-check-square-o"></i><span t-raw="message" />
+							</div>
+						</div>
+					</t>
+					<div class="title-info">
+						<h5>CREATE RECRUITMENT REQUEST</h5>
+					</div>
+					<form action="/mysite/action_recruitment_request" method="post"
+							data-toggle="validator" role="form"
+							name="request_form" id="request_form">
+						<div class="form_line">
+							<span class="required">(*) Required field</span>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-2">
+								<span class="info_label">Requester:</span>
+							</div>
+				    		<div class="col-xs-4">
+	   							<select class="form-control requester"
+	   									required="required">
+	   								<t t-foreach="requesters" t-as="requester">
+   										<t t-if="employee.id and requester['id'] == employee.id">
+   											<option selected="selected" t-att-value="requester['id']"><t t-esc="requester['login']" /> - <t t-esc="requester['name']"/></option>
+   										</t>
+   										<t t-if="not employee.id or requester['id'] != employee.id">
+   											<option t-att-value="requester['id']"><t t-esc="requester['login']" /> - <t t-esc="requester['name']"/></option>
+   										</t>
+   									</t>
+	   							</select>
+	   						</div>
+						</div>
+						<div class="form_line">
+							<h6>Recruitment Information</h6>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-2">
+								<span class="info_label">Expected Date:</span>
+							</div>
+				    		<div class="col-xs-4 date">
+				    			<input class="form-control"
+	   									type="text"
+	   									name="expected_date"
+	   									required="required"/>
+	   						</div>
+	   						<div class="col-xs-2">
+								<span class="info_label">Request Type: </span>
+							</div>
+				    		<div class="col-xs-4">
+	   							<select class="form-control"
+	   									name="request_type"
+	   									required="required">
+	   								<t t-if="request_types">
+	   									<t t-foreach="request_types" t-as="type">
+	   										<option t-att-value="type['id']"><t t-esc="type['name']"/></option>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-2">
+								<span class="info_label">For Company:</span>
+							</div>
+				    		<div class="col-xs-4">
+	   							<select class="form-control request_for_comp"
+	   									required="required">
+	   								<t t-if="companies">
+	   									<t t-foreach="companies" t-as="company">
+	   										<t t-if="employee.company_id and company['id'] == employee.company_id.id">
+	   											<option selected="selected" t-att-value="company['id']"><t t-esc="company['name']"/></option>
+	   										</t>
+	   										<t t-if="not employee.company_id or company['id'] != employee.company_id.id">
+	   											<option t-att-value="company['id']"><t t-esc="company['name']"/></option>
+	   										</t>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+	   						<div class="col-xs-2">
+								<span class="info_label">Gender: </span>
+							</div>
+				    		<div class="col-xs-4">
+	   							<select class="form-control"
+	   									name="gender"
+	   									required="required">
+	   								<t t-if="genders">
+	   									<t t-foreach="genders" t-as="gender">
+	   										<option t-att-value="gender[0]"><t t-esc="gender[1]"/></option>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-2">
+								<span class="info_label">For Department: </span>
+							</div>
+	   						<div class="col-xs-4">
+	   							<select class="form-control request_for_dept"
+	   									required="required">
+	   								<t t-if="departments">
+	   									<t t-foreach="departments" t-as="dept">
+	   										<t t-if="employee.department_id and dept['id'] == employee.department_id.id">
+	   											<option selected="selected" t-att-value="dept['id']"><t t-esc="dept['code']"/> - <t t-esc="dept['name']"/></option>
+	   										</t>
+	   										<t t-if="not employee.department_id or dept['id'] != employee.department_id.id">
+	   											<option t-att-value="dept['id']"><t t-esc="dept['code']"/> - <t t-esc="dept['name']"/></option>
+	   										</t>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+	   						<div class="col-xs-2">
+								<span class="info_label">Education Level: </span>
+							</div>
+	   						<div class="col-xs-4">
+	   							<select class="form-control education_level"
+	   									required="required">
+	   								<t t-if="educations">
+	   									<t t-foreach="educations" t-as="education">
+	   										<t t-if="education['id'] == 13">
+	   											<option selected="selected" t-att-value="education['id']"><t t-esc="education['name']"/></option>
+	   										</t>
+	   										<t t-if="education['id'] != 13">
+	   											<option t-att-value="education['id']"><t t-esc="education['name']"/></option>
+	   										</t>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-2">
+								<span class="info_label">Title/Role:</span>
+							</div>
+	   						<div class="col-xs-4">
+	   							<select class="form-control request_role"
+	   									required="required">
+	   								<option value="">&#160;</option>
+	   								<t t-if="roles">
+	   									<t t-foreach="roles" t-as="role">
+	   										<option t-att-value="role['id']"><t t-esc="role['name']"/></option>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+	   						<div class="col-xs-2">
+								<span class="info_label">Job Type: </span>
+							</div>
+	   						<div class="col-xs-4">
+	   							<select class="form-control"
+	   									name="job_type"
+	   									required="required">
+	   								<t t-if="job_types">
+	   									<t t-foreach="job_types" t-as="job_type">
+	   										<option t-att-value="job_type['id']"><t t-esc="job_type['name']"/></option>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+						</div>
+						<div class="form_line">
+	   						<div class="col-xs-2">
+								<span class="info_label">Request Qty:</span>
+							</div>
+				    		<div class="col-xs-4">
+				    			<input class="form-control"
+	   									type="number"
+	   									name="request_qty"
+	   									required="required"
+	   									value="1"/>
+	   						</div>
+	   						<div class="col-xs-2">
+								<span class="info_label">Report to: </span>
+							</div>
+				    		<div class="col-xs-4">
+	   							<select class="form-control report_to"
+	   									required="required">
+	   								<option value="">&#160;</option>
+	   								<t t-if="requesters">
+	   									<t t-foreach="requesters" t-as="to">
+	   										<option t-att-value="to['id']"><t t-esc="to['login']" /> - <t t-esc="to['name']"/></option>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-2">
+								<span class="info_label">Working Place:</span>
+							</div>
+	   						<div class="col-xs-4">
+	   							<select class="form-control working_place"
+	   									required="required">
+	   								<t t-if="places">
+	   									<t t-foreach="places" t-as="place">
+	   										<t t-if="place['id'] == 5">
+	   											<option selected="selected" t-att-value="place['id']"><t t-esc="place['name']"/></option>
+	   										</t>
+	   										<t t-if="place['id'] != 5">
+	   											<option t-att-value="place['id']"><t t-esc="place['name']"/></option>
+	   										</t>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+	   						<div class="col-xs-2">
+								<span class="info_label">Reason:</span>
+							</div>
+	   						<div class="col-xs-4">
+	   							<select class="form-control reason"
+	   									name="request_reason"
+	   									required="required">
+	   								<t t-if="reasons">
+	   									<t t-foreach="reasons" t-as="reason">
+	   										<option t-att-value="reason['id']"><t t-esc="reason['name']"/></option>
+	   									</t>
+	   								</t>
+	   							</select>
+	   						</div>
+   						</div>
+						<div class="form_line">
+							<div class="col-xs-6"></div>
+	   						<div class="col-xs-6 padding-none for_employee">
+	   							<div class="col-xs-4">
+									<span class="info_label">For Employee: </span>
+								</div>
+		   						<div class="col-xs-8">
+		   							<select multiple="multiple" class="form-control for_employee multipleSelect"
+		   									name="for_employee">
+		   								<t t-if="requesters">
+		   									<t t-foreach="requesters" t-as="to">
+		   										<option t-att-value="to['id']"><t t-esc="to['login']" /> - <t t-esc="to['name']"/></option>
+		   									</t>
+		   								</t>
+		   							</select>
+		   						</div>
+	   						</div>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-6">
+								<div class="col-xs-12">
+									<span class="info_label">Description (Vietnamese)</span>
+								</div>
+		   						<div class="col-xs-12 padding-none">
+		   							<textarea class="form-control summer_note"
+		   									name="desc_vietnamese" 
+		   									required="required"></textarea>
+		   						</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="col-xs-12">
+									<span class="info_label no_required">Description (English)</span>
+								</div>
+		   						<div class="col-xs-12 padding-none">
+		   							<textarea class="form-control summer_note"
+		   									name="desc_english"></textarea>
+		   						</div>
+							</div>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-6">
+								<div class="col-xs-12">
+									<span class="info_label">Requirement (Vietnamese)</span>
+								</div>
+		   						<div class="col-xs-12 padding-none">
+		   							<textarea class="form-control summer_note"
+		   									name="requirement_vietnamese" 
+		   									required="required"></textarea>
+		   						</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="col-xs-12">
+									<span class="info_label no_required">Requirement (English)</span>
+								</div>
+		   						<div class="col-xs-12 padding-none">
+		   							<textarea class="form-control summer_note"
+		   									name="requirement_english"></textarea>
+		   						</div>
+							</div>
+						</div>
+						<div class="form_line">
+							<div class="col-xs-6">
+								<div class="col-xs-12">
+									<span class="info_label no_required">Preference (Vietnamese)</span>
+								</div>
+		   						<div class="col-xs-12 padding-none">
+		   							<textarea class="form-control summer_note"
+		   									name="preference_vietnamese"></textarea>
+		   						</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="col-xs-12">
+									<span class="info_label no_required">Preference (English)</span>
+								</div>
+		   						<div class="col-xs-12 padding-none">
+		   							<textarea class="form-control summer_note"
+		   									name="preference_english"></textarea>
+		   						</div>
+							</div>
+						</div>
+						<div class="form_line">
+							<div class="form-group col-xs-12 text-center">
+							    <button type="submit" class="btn btn-primary"
+							    		onclick="return confirm('Bạn chắc chắn những thông tin trên là chính xác?')">SUBMIT</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</t>
+    	</template>
+    
+    </data>
+</openerp>

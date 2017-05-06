@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<function model="function.create.data.bonus.payment" name="create_data_bonus_payment">
+			<value>create_data_bonus_payment</value>
+            <value>vhr_recruitment</value>
+            <value>1</value>
+        </function>
+       
+	</data>
+</openerp>

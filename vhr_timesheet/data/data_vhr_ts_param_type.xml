@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<record id="data_vhr_ts_param_type_ot_score_OT_ALLOWANCE_SCORE_NIGHT" model="vhr.ts.param.type">
+			<field name="name">Hệ số phụ cấp đêm</field>
+			<field name="name_en">OT Allowance Score Night</field>
+			<field name="code">23</field>
+			<field name="description">Dùng cho thiết lập tham số theo lịch làm việc</field>
+			<field name="group_id" eval="ref('data_ts_param_type_group_SCHEDULE')"/>
+		</record>
+		<record id="data_vhr_ts_param_working_schedule_OT_ALLOWANCE_SCORE_NIGHT" model="vhr.ts.param.working.schedule">
+			<field name="value_type">coef</field>
+			<field name="effect_from">2011-1-1</field>
+			<field name="coef">0.2</field>
+			<field name="param_type_id" eval="ref('data_vhr_ts_param_type_ot_score_OT_ALLOWANCE_SCORE_NIGHT')"/>
+			<field name="active">True</field>
+		</record>
+		
+	</data>
+</openerp>

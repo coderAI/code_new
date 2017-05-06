@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_vhr_branch_bank_form">
+            <field name="name">vhr.branch.bank.form</field>
+            <field name="model">res.branch.bank</field>
+            <field name="arch" type="xml">
+                <form string="Branch Bank" version="7.0">
+                    <sheet>
+                        <group col="4">
+                        	<group>
+                        		<field name="name" required="True"/>
+                        		<field name="code" required="True"/>
+                            	<field name="bank_id" required="True" options="{'no_quick_create':True, 'no_create':True}"/>
+                        	</group>
+                            <group>
+                            	<field name="name_en"/>                            
+                            	<field name="active"/>
+                            </group>                            
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_branch_bank_tree" model="ir.ui.view">
+            <field name="name">vhr.branch.bank.tree</field>
+            <field name="model">res.branch.bank</field>
+            <field name="arch" type="xml">
+                <tree string="Branch Bank">
+                    <field name="name"/>
+                    <field name="name_en"/>
+                    <field name="code"/>
+                    <field name="bank_id"/>
+                    <field name="active"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_branch_bank_search" model="ir.ui.view">
+            <field name="name">vhr.branch.bank.search</field>
+            <field name="model">res.branch.bank</field>
+            <field name="arch" type="xml">
+                <search string="Branch Bank">
+                	<field name="name" string="Branch Bank" 
+        			 filter_domain="['|','|','|',('name','ilike',self),('name_en','ilike',self),('code','ilike',self),('description','ilike',self)]"/>
+        			
+                    <field name="bank_id"/>
+
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_vhr_branch_bank_tree" model="ir.actions.act_window">
+            <field name="name">Branch Bank</field>
+            <field name="res_model">res.branch.bank</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_branch_bank_tree"/>
+            <field name="search_view_id" ref="view_vhr_branch_bank_search"/>
+        </record>
+
+    </data>
+</openerp>
+
+

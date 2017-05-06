@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_duty_free_form" model="ir.ui.view">
+            <field name="name">vhr.duty.free.view.form</field>
+            <field name="model">vhr.duty.free</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <form string="Duty Free" version="7.0">
+       				<sheet>
+       					<group col="4">
+       						<group>
+       							<field name="employee_id" required="1" options="{'no_quick_create':True, 'no_create':True}"
+       						       on_change="onchange_employee_id(employee_id)"/>
+       							<field name="from_date" on_change="onchange_selected_date(from_date, to_date)" required="1"/>
+       							<field name="to_date" on_change="onchange_selected_date(from_date, to_date)" required="1"/>
+       						</group>
+                            <group>
+                            	<field name="department_id" readonly="1"  options="{'no_quick_create':True, 'no_create':True}"/>       						
+                            	<field name="active"/>
+                            </group>                            
+       					</group>
+                        <group>
+       						<field name="description"/>
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record id="view_vhr_duty_free_tree" model="ir.ui.view">
+            <field name="name">vhr.duty.free.view.tree</field>
+            <field name="model">vhr.duty.free</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Duty Free" version="7.0">
+					<field name="employee_id"/>
+					<field name="department_id"/>
+                    <field name="from_date"/>
+       				<field name="to_date"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_duty_free_search" model="ir.ui.view">
+            <field name="name">vhr.duty.free.view.search</field>
+            <field name="model">vhr.duty.free</field>
+            <field name="arch" type="xml">
+                <search string="Search">	
+                	<field name="name" string="Duty Free" 
+	                  		filter_domain="['|','|','|',('name','ilike',self),('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+                	
+                    <field name="department_id"/>
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_vhr_duty_free">
+            <field name="name">Duty Free</field>
+            <field name="res_model">vhr.duty.free</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_duty_free_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="context">{'search_default_group_by_property_type': 1}</field>
+            <field name="search_view_id" ref="view_vhr_duty_free_search"/>
+        </record>
+    </data>
+</openerp>

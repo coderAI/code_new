@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+import vhr_holiday_line
+import vhr_holidays_status_group
+import vhr_holidays_status
+import vhr_holidays
+import vhr_public_holidays
+import vhr_public_holidays_type
+
+import vhr_ts_new_staff_param
+import vhr_ts_termination_param
+import vhr_ts_change_level_param
+import vhr_ts_general_param
+import vhr_ts_param_type_group
+import vhr_ts_param_type
+import vhr_ts_param_job_level
+import vhr_ts_working_group
+import vhr_ts_working_schedule_group
+import vhr_ts_working_schedule
+import vhr_ts_param_working_schedule
+import vhr_ts_working_shift
+
+import vhr_ts_timesheet
+import vhr_ts_timesheet_period
+import vhr_ts_timesheet_detail
+
+import vhr_ts_overtime_detail
+import vhr_ts_overtime
+import vhr_ts_emp_timesheet
+import vhr_ts_ws_employee
+
+import vhr_employee_instance
+import vhr_working_record
+import vhr_mass_movement
+import vhr_ts_ws_detail
+import vhr_ts_ws_employee
+import vhr_ts_monthly
+import vhr_ts_overtime_summarize
+import vhr_ts_lock_timesheet_detail
+
+import vhr_employee_timesheet_summary
+import vhr_ts_type_workday
+import vhr_ts_type_cs_shift
+#
+import vhr_ts_working_schedule_working_group
+
+import hr_employee
+import hr_contract
+import hr_department
+import vhr_ts_leave_email
+import vhr_sm_email
+import vhr_ts_overtime_email_process
+import vhr_holidays_email_process
+
+import vhr_ts_working_schedule_permission
+import vhr_compensation_ot_payment
+import vhr_ts_employee_expat
+import vhr_termination_request
+
+import vhr_mass_status
+import ir_view_security
+import ir_ui_view

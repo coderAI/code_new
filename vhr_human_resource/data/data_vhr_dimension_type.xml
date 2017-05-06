@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate='1'>
+		<record id="data_dimension_type_PRIVACY_STATEMENT_REPORT" model="vhr.dimension.type">
+            <field name="code">PRIVACY_STATEMENT_REPORT</field>
+            <field name="name">PRIVACY_STATEMENT_REPORT</field>
+            <field name="active">true</field>
+        </record>
+        
+        <record id="data_dimension_type_CAREER_TRACK" model="vhr.dimension.type">
+            <field name="code">CAREER_TRACK</field>
+            <field name="name">CAREER_TRACK</field>
+            <field name="active">true</field>
+        </record>
+        
+        <record id="data_dimension_type_multi_renew_contract_type_of_person" model="vhr.dimension.type">
+            <field name="code">PERSON_MULTI_RENEW_CONTRACT</field>
+            <field name="name">PERSON_MULTI_RENEW_CONTRACT</field>
+            <field name="active">true</field>
+        </record>
+        
+        <record id="data_dimension_type_of_extend_appendix_contract" model="vhr.dimension.type">
+            <field name="code">TYPE_OF_EXTEND_APPENDIX_CONTRACT</field>
+            <field name="name">TYPE_OF_EXTEND_APPENDIX_CONTRACT</field>
+            <field name="active">true</field>
+        </record>
+    </data>
+</openerp>

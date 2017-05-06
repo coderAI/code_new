@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<record id="hrs_check_list_department_1" model="vhr.dimension">
+			<field name="name">Responsibilities Hand-Over</field>
+			<field name="description">Bàn giao công việc</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_checklist_department')"/>
+			<field name="code">is_approve_responsibilities_hand_over</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_check_list_department_2" model="vhr.dimension">
+			<field name="name">Administrator Office</field>
+			<field name="description">Phòng hành chính</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_checklist_department')"/>
+			<field name="code">is_approve_administrative_office</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_check_list_department_3" model="vhr.dimension">
+			<field name="name">Administrator Office (Other)</field>
+			<field name="description">Phòng hành chính (OTHER)</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_checklist_department')"/>
+			<field name="code">is_approve_administrative_office_other</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_check_list_department_4" model="vhr.dimension">
+			<field name="name">Accounting Office</field>
+			<field name="description">Phòng tài chính &amp; kế toán</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_checklist_department')"/>
+			<field name="code">is_approve_accounting_office</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_check_list_department_5" model="vhr.dimension">
+			<field name="name">IT Office</field>
+			<field name="description">Phòng Công Nghệ Thông Tin</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_checklist_department')"/>
+			<field name="code">is_approve_it_office</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		
+		<record id="hrs_check_list_department_6" model="vhr.dimension">
+			<field name="name">IT Office (Other)</field>
+			<field name="description">Phòng Công Nghệ Thông Tin (Other)</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_checklist_department')"/>
+			<field name="code">is_approve_it_office_other</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		
+		<record id="hrs_check_list_department_7" model="vhr.dimension">
+			<field name="name">HR Office (Training)</field>
+			<field name="description">Phòng Nhân Sự (Training)</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_checklist_department')"/>
+			<field name="code">is_approve_hr_office_training</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		
+		<record id="hrs_check_list_department_8" model="vhr.dimension">
+			<field name="name">HR Office (Other)</field>
+			<field name="description">Phòng Nhân Sự (Other)</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_checklist_department')"/>
+			<field name="code">is_approve_hr_office_other</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		
+	</data>
+	<data noupdate="1">
+		<record id="hrs_core_value_01" model="vhr.dimension">
+			<field name="name">Passion</field>
+			<field name="description">Yêu thích công việc, đón nhận thử thách</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CORE_VALUE')"/>
+			<field name="code">01</field>
+			<field name="level">1</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_core_value_02" model="vhr.dimension">
+			<field name="name">Learning</field>
+			<field name="description">Mong muốn học hỏi, tôn trọng khác biệt</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CORE_VALUE')"/>
+			<field name="code">02</field>
+			<field name="level">2</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_core_value_03" model="vhr.dimension">
+			<field name="name">Dynamic</field>
+			<field name="description">Chủ động quyết liệt, nỗ lực cải tiến</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CORE_VALUE')"/>
+			<field name="code">03</field>
+			<field name="level">3</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_core_value_04" model="vhr.dimension">
+			<field name="name">Integrity</field>
+			<field name="description">Thực hiện cam kết, trung thực tận tâm</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CORE_VALUE')"/>
+			<field name="code">04</field>
+			<field name="level">4</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_core_value_05" model="vhr.dimension">
+			<field name="name">Teamwork</field>
+			<field name="description">Ưu tiên tập thể, hỗ trợ đồng nghiệp</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CORE_VALUE')"/>
+			<field name="code">05</field>
+			<field name="level">5</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_core_value_06" model="vhr.dimension">
+			<field name="name">Customer</field>
+			<field name="description">Lắng nghe người dùng, thay đổi cuộc sống</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CORE_VALUE')"/>
+			<field name="code">06</field>
+			<field name="level">6</field>
+			<field name="active">true</field>
+		</record>
+		
+		<!-- Data of dimension type=CONTINUE_RECRUITING-->
+    	<record id="vhr_continue_recruiting_01" model="vhr.dimension">
+			<field name="name">Tuyệt đối không tuyển lại</field>
+			<field name="name_en">Absolutely Not</field>			
+			<field name="description"></field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTINUE_RECRUITING')"/>
+			<field name="code">CR-001</field>
+			<field name="level">0</field>
+			<field name="active">true</field>
+		</record>
+		<record id="vhr_continue_recruiting_02" model="vhr.dimension">
+			<field name="name">Xem xét kỹ khi tuyển lại</field>
+			<field name="name_en">Consider When Recruiting</field>			
+			<field name="description"></field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTINUE_RECRUITING')"/>
+			<field name="code">CR-002</field>
+			<field name="level">0</field>
+			<field name="active">true</field>
+		</record>
+		<record id="vhr_continue_recruiting_03" model="vhr.dimension">
+			<field name="name">Nên tuyển lại</field>
+			<field name="name_en">Should Recruiting</field>			
+			<field name="description"></field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTINUE_RECRUITING')"/>
+			<field name="code">CR-003</field>
+			<field name="level">0</field>
+			<field name="active">true</field>
+		</record>
+		
+		
+	</data>
+</openerp>

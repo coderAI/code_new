@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+
+import vhr_working_record_mass_movement
+import vhr_holidays_multi
+import vhr_ts_monthly_gen
+import vhr_ts_overtime_multi
+import vhr_ts_incremental_annual_leave
+import vhr_ts_employee_annual_leave_gen
+import vhr_ts_change_timesheet_detail
+import vhr_ts_detail_dashboard
+import vhr_ts_summary_dashboard
+import vhr_ts_view_result_detail
+import vhr_ts_update_ot_summary
+import vhr_holidays_execute_workflow
+import vhr_ts_timesheet_period_copy
+import vhr_compensation_ot_payment_wizard
+import vhr_ts_lock_timesheet_detail_wizard
+import vhr_ts_working_schedule_employee_wizard

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate='0'>
+        <menuitem id="menu_vhr_recruitment_root" name="Recruitments" sequence="100"
+                  groups="base.group_user"/>
+        <!-- 1. My Recruitment -->
+        <menuitem id="menu_vhr_recruitment_end_user" name="My pages"
+                  parent="menu_vhr_recruitment_root" sequence="1" groups="base.group_user"/>
+
+        <!--1.1. My Job position/ resource request-->
+        <menuitem id="menu_vhr_recruitment_my_request" name="My Requests" groups="base.group_user"
+                  parent="menu_vhr_recruitment_end_user" action="action_vhr_resource_request_request"
+                  sequence="1"/>
+        <!--1.2. My Job position/ resource approve-->
+        <menuitem id="menu_vhr_recruitment_my_approve" name="My Approvals" groups="base.group_user"
+                  parent="menu_vhr_recruitment_end_user" action="action_vhr_resource_request_approvals"
+                  sequence="2"/>
+        <!--1.3. My Job position/ resource Task-->
+        <menuitem id="menu_vhr_recruitment_my_task" name="My Tasks" groups="base.group_user"
+                  parent="menu_vhr_recruitment_end_user" action="action_vhr_resource_request_tasks"
+                  sequence="3"/>
+        <!-- 2. Recruitment -->
+        <menuitem id="menu_vhr_recruitment" name="Recruitments" groups="base.group_user"
+                  parent="menu_vhr_recruitment_root" sequence="2"/>
+
+        <!--2.1. Job position/ resource request-->
+        <menuitem id="menu_vhr_recruitment_resource_request" name="Resource Requests"
+                  parent="menu_vhr_recruitment" action="action_vhr_resource_request"
+                  groups="vhr_recruitment.vhr_recruitment_admin"
+                  sequence="2"/>
+        <!--2.2. Job - Applicant-->
+        <menuitem id="menu_vhr_job_applicant" name="Candidate’s Interview"
+                  parent="menu_vhr_recruitment" action="action_vhr_job_applicant"
+                  groups="base.group_user"
+                  sequence="3"/>
+        <!--2.3. Post Jobs -->
+        <menuitem id="menu_vhr_post_job_list" name="Post Jobs" sequence="4"
+                  parent="menu_vhr_recruitment" action="action_vhr_post_job"
+                  groups="vhr_recruitment.vhr_recruitment_admin"/>
+        <!-- 3. Candidates -->
+        <menuitem id="menu_vhr_applicant" name="Candidates" 
+        	groups="vhr_recruitment.vhr_recruiter,vhr_recruitment.vhr_collaborator,vhr_master_data.vhr_assistant_to_hrbp,vhr_master_data.vhr_hrbp,vhr_recruitment.vhr_collaborator2,vhr_recruitment.vhr_rr_hrbp"
+            parent="menu_vhr_recruitment_root" sequence="3"/>
+        <!--3.1 Candidates-->
+        <menuitem id="menu_vhr_recruitment_candidate" name="Candidate"
+     		groups="vhr_recruitment.vhr_recruiter,vhr_recruitment.vhr_collaborator,vhr_master_data.vhr_assistant_to_hrbp,vhr_master_data.vhr_hrbp,vhr_recruitment.vhr_collaborator2,vhr_recruitment.vhr_rr_hrbp"
+            parent="menu_vhr_applicant" action="action_vhr_applicant"
+            sequence="4"/>
+        <menuitem id="menu_vhr_vhr_cv_attachment" name="Curriculum Vitae"
+        	groups="vhr_recruitment.vhr_recruiter,vhr_recruitment.vhr_collaborator"
+            parent="menu_vhr_applicant" action="action_vhr_cv_attachment"
+            sequence="5"/>
+        <menuitem id="menu_vhr_program_dnd" name="HRS Programs"
+                  parent="menu_vhr_recruitment_root" sequence="4" groups="vhr_recruitment.vhr_recruiter,vhr_recruitment.vhr_collaborator"/>
+        <!--3.2 CV Online -->
+        <menuitem id="menu_vhr_temp_applicant_cv" name="Online Candidate"
+                  parent="menu_vhr_program_dnd" action="action_vhr_temp_applicant_cv"
+                  sequence="1"/>
+       <!--3.2 Student Program -->
+        <menuitem id="menu_vhr_temp_applicant_student" name="Student Program"
+                  parent="menu_vhr_program_dnd" action="action_vhr_temp_applicant_student"
+                  sequence="2"/>
+                  
+        <menuitem id="menu_vhr_rr_key_student" name="Key Students"
+                  parent="menu_vhr_program_dnd" action="action_vhr_rr_key_student" groups="vhr_recruitment.vhr_recruiter"
+                  sequence="10"/>
+        <menuitem id="menu_vhr_rr_talent" name="Talents"
+                  parent="menu_vhr_program_dnd" action="action_vhr_rr_talent" groups="vhr_recruitment.vhr_recruiter"
+                  sequence="11"/>
+        <!-- Email Notifications -->
+        <menuitem id="menu_vhr_email_news" name="Email Marketing"
+                  parent="menu_vhr_program_dnd" action="action_vhr_email_news" groups="vhr_recruitment.vhr_recruiter"
+                  sequence="12"/>
+        <!--4.3.3 Program  -->
+        <menuitem id="menu_vhr_program_event" name="Program Events"
+                  parent="menu_vhr_program_dnd" groups="vhr_recruitment.vhr_recruiter,vhr_recruitment.vhr_collaborator"
+                  action="vhr_recruitment.action_vhr_program_event"
+                  sequence="21"/>
+                  
+         <menuitem id="menu_vhr_rr_recommender_cv" name="Recommender CV"
+                  parent="menu_vhr_program_dnd" groups="vhr_recruitment.vhr_recruiter,vhr_recruitment.vhr_collaborator"
+                  action="vhr_recruitment.action_vhr_rr_recommend_cv"
+                  sequence="22"/>
+        
+      	<menuitem id="menu_vhr_erp" name="HRS ERP"
+                  parent="menu_vhr_recruitment_root" sequence="6" groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_rr_erp"/>
+        
+        <menuitem id="menu_vhr_erp_bonus_payment" name="Payment Bonus" sequence="1"
+                  parent="vhr_recruitment.menu_vhr_erp" action="act_vhr_erp_bonus_payment"/>
+ 		
+ 		<menuitem id="menu_vhr_erp_bonus_payment_line" name="Payment Line" sequence="2"
+                   parent="vhr_recruitment.menu_vhr_erp" action="act_vhr_erp_bonus_payment_line"/>
+        
+        <menuitem id="menu_vhr_erp_bonus_scheme" name="ERP Setting" sequence="3"
+                  parent="vhr_recruitment.menu_vhr_erp" action="act_vhr_erp_bonus_scheme"/>
+
+        <!--4. Report -->
+        <menuitem id="menu_vhr_recruitment_report" name="Report" groups="vhr_recruitment.vhr_rr_report,vhr_recruitment.vhr_recruitment_admin"
+                  parent="menu_vhr_recruitment_root" sequence="7"/>
+        
+         <!-- Survey -->
+         
+          <menuitem id="menu_vhr_recruitment_survey" name="Survey" groups="vhr_recruitment.vhr_recruitment_admin"
+                  parent="menu_vhr_recruitment_root" sequence="8"/>
+                
+          <menuitem id="menu_vhr_recruitment_survey_confirm" name="Confirm Survey" sequence="1"
+                  parent="vhr_recruitment.menu_vhr_recruitment_survey" action="act_vhr_recruitment_temp_survey"/>
+		<!--5. Config-->
+        <menuitem id="menu_vhr_recruitment_config" name="Configuration" groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"
+                  parent="menu_vhr_recruitment_root" sequence="9"/>
+
+        <!-- SubMenu Job-->
+        <menuitem id="menu_vhr_recruitment_config_job" name="Job" parent="menu_vhr_recruitment_config" sequence="1"
+         groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+
+        <menuitem id="menu_vhr_erp_bonus_config" name="HRS ERP" sequence="30"
+                  parent="menu_vhr_recruitment_config" groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_rr_erp"/>
+            <!--CONFIG HRS ERP-->
+
+            <menuitem id="menu_vhr_erp_payment_time" name="Payment Time" sequence="1"
+                      parent="vhr_recruitment.menu_vhr_erp_bonus_config" action="act_vhr_erp_payment_time"/>
+
+            <menuitem id="menu_vhr_erp_level" name="ERP Level" sequence="2"
+                      parent="vhr_recruitment.menu_vhr_erp_bonus_config"
+                      action="act_vhr_erp_level"/>
+
+            <menuitem id="menu_vhr_erp_bonus_exclusion" name="Bonus Exclusion" sequence="3"
+                      parent="vhr_recruitment.menu_vhr_erp_bonus_config" action="act_vhr_erp_bonus_exclusion"/>
+
+            <menuitem id="menu_vhr_erp_bonus_scheme_match" name="Import ERP Setting" sequence="4"
+                       parent="vhr_recruitment.menu_vhr_erp_bonus_config" action="act_vhr_erp_bonus_scheme_match"/>
+
+        <!--70. Job Type -->
+        <menuitem id="menu_vhr_job_type" name="Job Type" sequence="70"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_job" action="vhr_master_data.act_vhr_job_type"/>
+        <!--71. Job Category -->
+        <menuitem id="menu_vhr_job_category" name="Job Category" sequence="71"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_job"
+                  action="vhr_master_data.act_vhr_job_category"/>
+        <!--72. Job -->
+        <menuitem id="menu_vhr_job" name="Job" sequence="72"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_job" action="vhr_master_data.act_vhr_job"/>
+
+        <!-- SubMenu Education-->
+        <menuitem id="menu_vhr_recruitment_config_education" name="Education" parent="menu_vhr_recruitment_config"
+                  sequence="2" groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+         <!--52. School -->
+        <menuitem id="menu_vhr_school" name="School" sequence="1"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_education"
+                  action="vhr_master_data.act_vhr_school"/>
+        <!--39. Faculty-->
+        <menuitem id="menu_vhr_faculty" name="Faculty" sequence="2"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_education"
+                  action="act_vhr_faculty_is_public"/>
+        <!--57. Speciality-->
+        <menuitem id="menu_vhr_speciality" name="Speciality" sequence="3"
+				  parent="vhr_recruitment.menu_vhr_recruitment_config_education" 
+				  action="act_vhr_speciality_is_public"/>
+        <!--34. Certificate Rating -->
+        <menuitem id="menu_vhr_certificate_rating" name="Certificate Rating" sequence="4"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_education"
+                  action="vhr_master_data.act_vhr_certificate_rating"/>
+        <!--35. Certificate Level -->
+        <menuitem id="menu_vhr_certificate_level" name="Certificate Level" sequence="5"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_education"
+                  action="vhr_master_data.act_vhr_certificate_level"/>
+        <!--45. Degree-->
+        <menuitem id="menu_vhr_recruitment_degree" name="Degree"
+                  sequence="6"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_education"
+                  action="vhr_master_data.action_vhr_recruitment_degree_tree"/>
+        <!--61. Training Form -->
+        <menuitem id="menu_vhr_training_form" name="Training Form" sequence="7"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_education"
+                  action="vhr_master_data.act_vhr_training_form"/>
+        <!--73. Training Type -->
+        <menuitem id="menu_vhr_training_type" name="Training Type" sequence="8"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_education"
+                  action="vhr_master_data.act_vhr_training_type"/>
+        <!--36. Self Development -->
+        <menuitem id="menu_vhr_self_development" name="Self Development" sequence="9"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_education"
+                  action="vhr_master_data.act_vhr_self_development"/>
+        
+        <!-- SubMenu Companies-->
+        <menuitem id="menu_vhr_recruitment_config_company" name="Companies" parent="menu_vhr_recruitment_config"
+                  sequence="3" groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+        <!--75. Department -->
+        <menuitem id="menu_hr_department" name="Department" sequence="75"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_company"
+                  action="vhr_master_data.act_hr_department"/>
+                  
+		<menuitem id="menu_vhr_program_config" name="Program Setting" parent="menu_vhr_recruitment_config" sequence="4"/>      
+        
+        <menuitem id="menu_vhr_face_typical" name="Face Typicals" groups="vhr_recruitment.vhr_recruitment_admin"
+                  parent="menu_vhr_program_config" action="action_vhr_typical_face"
+                  sequence="15"/>
+        <!--4.3.1 Time Of Graduation  -->
+        <menuitem id="menu_time_graduation" name="Time Graduation"
+                  parent="menu_vhr_program_config"
+                  action="vhr_recruitment.act_hrs_time_graduation" groups="vhr_recruitment.vhr_recruitment_admin"
+                  sequence="17"/>
+        <!--4.3.2 HRS program -->
+        <menuitem id="menu_vhr_program" name="RR Programs"
+                  parent="menu_vhr_program_config" groups="vhr_recruitment.vhr_recruitment_admin"
+                  action="vhr_recruitment.action_vhr_program_recruitment_view"
+                  sequence="19"/>         
+        <menuitem id="menu_vhr_program_field" name="Program Fields"
+                  parent="menu_vhr_program_config" groups="vhr_recruitment.vhr_recruitment_admin"
+                  action="vhr_recruitment.action_vhr_program_field"
+                  sequence="22"/>
+       <menuitem id="menu_vhr_program_import_key_student" name="Import Key Student"
+                  parent="menu_vhr_program_config" groups="vhr_recruitment.vhr_recruiter"
+                  action="action_vhr_import_status_key_student"
+                  sequence="23"/> 
+       <menuitem id="menu_vhr_program_import_talent" name="Import Talent"
+                  parent="menu_vhr_program_config" groups="vhr_recruitment.vhr_recruiter"
+                  action="action_vhr_import_status_talent"
+                  sequence="24"/>
+        <menuitem id="menu_vhr_program_import_email_subcribes" name="Import Email Marketing"
+                  parent="menu_vhr_program_config" groups="vhr_recruitment.vhr_recruiter"
+                  action="action_vhr_import_email_subcribes"
+                  sequence="25"/>
+       <menuitem id="menu_vhr_program_import_status" name="Import Status"
+                  parent="menu_vhr_program_config" groups="vhr_recruitment.vhr_recruiter"
+                  action="action_vhr_rr_import_status"
+                  sequence="26"/>
+                  
+                  
+        <!-- SubMenu Recruitment-->
+        <menuitem id="menu_vhr_recruitment_config_recruitment" name="Recruitment" parent="menu_vhr_recruitment_config" sequence="4"
+        	groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+        <!--76. Recruitment Source Type-->
+        <menuitem id="menu_vhr_recruitment_source_type" name="Recruitment Source Type" sequence="1"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_recruitment_source_type"/>
+        <!--77. Recruitment Source -->
+        <menuitem id="menu_hr_recruitment_source" name="Recruitment Source" sequence="2"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_hr_recruitment_source"/>
+		<menuitem id="menu_hr_recruitment_source_online" name="Recruitment Source Online" sequence="3"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="act_vhr_recruitment_source_online"/>
+        <menuitem id="menu_vhr_delegate_by_depart" name="Delegates" sequence="4"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="act_vhr_delegate_by_depart"/>
+        <!--7x. Recruitment cancel offer reason -->
+        <menuitem id="menu_vhr_recruitment_close_reason_type" name="Cancel Offer Reason Type" sequence="5"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_cancel_offer_reason_type"/>
+        <menuitem id="menu_vhr_recruitment_vhr_close_reason" name="Cancel Offer Reason" sequence="7"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_recruitment.act_vhr_close_reason"/>
+        <!-- Job cancel reason -->
+        <menuitem id="menu_vhr_recruitment_vhr_close_request" name="Close Request Reason" sequence="9"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_dimension_close_request"/>
+        <!-- Job cancel reason -->
+        <menuitem id="menu_vhr_recruitment_vhr_industry" name="Industry" sequence="11"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_dimension_industry"/>
+        <!--78. Interview Round -->
+        <!-- <menuitem id="menu_vhr_interview_round" name="Interview Round" sequence="3"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_interview_round"/> -->
+        <!-- Evaluation -->
+        <menuitem id="menu_vhr_evaluation" name="Evaluation" sequence="13"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment" action="action_vhr_evaluation"/>
+        
+        <!--BinhNX: 80. Business Impact replace Difficult Level -->
+        <menuitem id="menu_vhr_difficult_level" name="Urgency Level" sequence="15"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_recruitment.act_vhr_business_impact"/>
+        <!--80. Difficult Level -->
+        <!-- <menuitem id="menu_vhr_difficult_level" name="Difficult Level" sequence="15"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_difficult_level_dms"/> -->
+        <!--81. Priority Level -->
+        <menuitem id="menu_vhr_priority_level" name="Priority Level" sequence="17"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_priority_level"/>
+        
+        
+        <!--82. Equipment -->
+        
+        <menuitem id="menu_vhr_equipment" name="Equipment" sequence="19"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_equipment"/>
+        <!--83. Room -->
+        <menuitem id="menu_vhr_room" name="Room" sequence="21"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_room"/>
+
+        <menuitem id="menu_vhr_post_job" name="Post Location" sequence="23"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment" action="action_vhr_post_location"/>
+
+        <!--85. Decision Status -->
+        <menuitem id="menu_vhr_decision_status" name="Decision Status" sequence="25"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_decision_status"/>
+
+        <!--88. Working Experience -->
+        <menuitem id="menu_vhr_working_experience" name="Working Background" sequence="27"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_working_background_candidate"/>
+        <!--90. Recruitment Reason -->
+        <menuitem id="menu_vhr_recruitment_reason" name="Recruitment Reason" sequence="31"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_recruitment_reason"/>
+
+        <!--79. Task Type -->
+        <menuitem id="menu_vhr_task_type" name="Task Type" sequence="43"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_task_type"/>
+        <!--87. Task Result -->
+        <menuitem id="menu_vhr_task_result" name="Task Result" sequence="49"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_master_data.act_vhr_task_result"/>
+		                  
+        <menuitem id="menu_vhr_applicant_category" name="Skills" sequence="53"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_recruitment.action_vhr_applicant_category"/>
+                  
+		<menuitem id="menu_vhr_dimension_candidate_contact" name="Contact Type" sequence="54"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_recruitment.act_vhr_dimension_candidate_contact"/>
+       	<!-- Transfer Remind -->
+        <menuitem id="vhr_recruitment.menu_vhr_transfer_remind_update" name="Transfer Remind" sequence="56"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_recruitment.vhr_transfer_remind_action"
+                  groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+       
+       <menuitem id="vhr_recruitment.menu_vhr_applicant_job_track_group" name="Job Track Group" sequence="57"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_recruitment.action_vhr_applicant_job_track_group"
+                  groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+       <menuitem id="vhr_recruitment.menu_vhr_applicant_job_track" name="Job Track" sequence="58"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="vhr_recruitment.action_vhr_applicant_job_track"
+                  groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+        
+        <menuitem id="vhr_recruitment.menu_vhr_student_event" name="Student Event" sequence="59"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="action_vhr_student_event"
+                  groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+       <menuitem id="vhr_recruitment.menu_vhr_student_organization_unit" name="Student Org Unit" sequence="60"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_recruitment"
+                  action="action_vhr_student_organization_unit"
+                  groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+                  
+                  
+		<menuitem id="menu_vhr_recruitment_system_config" name="System Setting" 
+			parent="menu_vhr_recruitment_config" 
+			groups="vhr_recruitment.vhr_recruitment_admin" sequence="6"/>
+		
+		<menuitem id="menu_vhr_recruitment_system_group" name="Groups"
+            parent="menu_vhr_recruitment_system_config"
+            groups="vhr_recruitment.vhr_recruitment_admin"
+            action="vhr_recruitment.action_vhr_rr_res_groups"
+            sequence="1"/>
+      <!--   <menuitem id="menu_vhr_recruitment_system_email" name="Email Templates"
+            parent="menu_vhr_recruitment_system_config"
+            groups="vhr_recruitment.vhr_recruitment_admin"
+            action="vhr_recruitment.action_vhr_rr_email_templates"
+            sequence="2"/>
+        <menuitem id="menu_vhr_recruitment_system_ir_config" name="System Parameters"
+            parent="menu_vhr_recruitment_system_config"
+            groups="vhr_recruitment.vhr_recruitment_admin"
+            action="vhr_recruitment.action_vhr_rr_ir_config_parameter"
+            sequence="2"/> -->
+        <!-- HRS SITE-->
+        <!--<menuitem id="menu_vhr_recruitment_config_hrs_site" name="HRS Programs" parent="menu_vhr_recruitment_config"-->
+        <!--groups="vhr_recruitment.vhr_recruitment_manager" sequence="10"/>-->
+
+		<!-- Talent Config -->
+        <menuitem id="menu_vhr_recruitment_config_talent" name="Talent" parent="menu_vhr_recruitment_config" sequence="1"
+         groups="vhr_recruitment.vhr_recruitment_admin,vhr_recruitment.vhr_recruitment_manager"/>
+        <menuitem id="menu_vhr_rr_talent_expertise" name="Expertise" sequence="1"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_talent" action="action_vhr_rr_talent_expertise"/>
+        <menuitem id="menu_vhr_rr_com_channel" name="Channel" sequence="2"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_talent" action="action_vhr_rr_com_channel"/>
+        <menuitem id="menu_vhr_rr_recom_rel_type" name="Rel Type" sequence="3"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_talent" action="action_vhr_rr_recom_rel_type"/>
+        <menuitem id="menu_vhr_dimension_talent_group" name="Talent Group" sequence="4"
+                  parent="vhr_recruitment.menu_vhr_recruitment_config_talent" action="act_vhr_dimension_talent_group"/>
+        
+
+          <!--Human Resource / Transfer Employee-->	
+        <menuitem id="menu_vhr_rr_transfer_employee" name="Transfer Candidate"
+        		groups="vhr_human_resource.vhr_cb"
+                parent="hr.menu_hr_main" sequence="3"
+        		action="vhr_recruitment.act_vhr_rr_transfer_employee"/>         	
+                  	
+                  	
+     </data>
+</openerp>

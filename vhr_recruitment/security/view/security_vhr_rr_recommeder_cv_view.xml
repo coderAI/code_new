@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="vhr_rr_recommend_cv_tree_view" model="ir.ui.view">
+ 			<field name="groups_id" eval="[(6, 0, [ref('vhr_recruitment.vhr_recruitment_admin'),
+             										ref('vhr_recruitment.vhr_collaborator'),
+             										ref('vhr_recruitment.vhr_recruiter')])]"/>
+
+         </record>
+         
+         <record id="vhr_rr_recommend_cv_form_view" model="ir.ui.view">
+ 			<field name="groups_id" eval="[(6, 0, [ref('vhr_recruitment.vhr_recruitment_admin'),
+             										ref('vhr_recruitment.vhr_collaborator'),
+             										ref('vhr_recruitment.vhr_recruiter')])]"/>
+
+         </record>
+         
+           <record id="vhr_rr_recommend_cv_search_view" model="ir.ui.view">
+ 			<field name="groups_id" eval="[(6, 0, [ref('vhr_recruitment.vhr_recruitment_admin'),
+             										ref('vhr_recruitment.vhr_collaborator'),
+             										ref('vhr_recruitment.vhr_recruiter')])]"/>
+
+         </record>
+         
+     
+    </data>
+</openerp>

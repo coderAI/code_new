@@ -1,0 +1,356 @@
+<openerp>
+    <data>
+
+        <template id="loan_form" name="Loan Registration">
+            <t t-set="head">
+                <link href="/vhr_mysite/static/lib/esop/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
+                <link href="/vhr_mysite/static/lib/esop/bootstrap-select2/select2.css" rel="stylesheet" type="text/css"/>
+                <link href="/vhr_mysite/static/src/css/esop/style.css" rel="stylesheet" type="text/css"/>
+                <script src="/vhr_mysite/static/lib/esop/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/lib/esop/bootstrap-select2/select2.min.js" type="text/javascript"/>
+                <!--<script src="/vhr_mysite/static/src/js/views/app_body/leave_request/leave.js" type="text/javascript"/>-->
+                <script src="/vhr_mysite/static/lib/esop/jquery.bpopup.min.js" type="text/javascript"/>
+            </t>
+            <t t-call="website.layout">
+                <div class="loan_form">
+                    <div class="oe_structure">
+                        <div class="title-part">
+                            <div class="col-sm-12">
+                                <div class="grid simple horizontal">
+                                    <!--GRID TITLE-->
+                                    <div class="grid-title">
+                                        <h4 style="font-family: arial">
+                                            <t t-esc="header"/>
+                                        </h4>
+                                        <div t-if="not error" class="row">
+                                            <div class="row-fluid">
+                                                <div t-if="success_msg" class="alert alert-success">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                                                    <span t-esc="success_msg" />
+                                                </div>
+                                                <div t-if="alert_msg" class="alert alert-danger">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                                                    <span t-esc="alert_msg" />
+                                                </div>
+                                            </div>
+                                            <form action="/loan/approve" method="post" role="form">
+                                                <div class="col-sm-9">
+                                                    <a t-if="mode == 'read'" class="btn btn-success" href="/loan/form">Đăng Ký Mới</a>
+                                                    <a t-if="mode == 'read'" class="btn btn-success" t-att-href="'/loan/form?id=%s&amp;mode=edit' % (encrypt_query_value(id))">Sửa</a>
+                                                    <!-- APPROVAL BUTTONS -->
+                                                    <input type="hidden" name="loan_id" id="loan_id" t-att-value="id" class="form-control"/>
+                                                    <input type="hidden" name="action_call" id="action_call" class="form-control"/>
+                                                    <button t-if="mode == 'read' and state == 'clicker_request'" type="submit" class="btn btn-danger btn-lg" id="btn_submit">Nộp</button>
+                                                    <button t-if="mode == 'read' and state == 'depth_approve' and is_dept_head_login_user" type="submit" class="btn btn-danger btn-lg" id="btn_approve">Duyệt</button>
+                                                    <button t-if="mode == 'read' and state == 'depth_approve' and is_dept_head_login_user" type="submit" class="btn btn-default btn-lg" id="btn_cancel">Hủy</button>
+                                                    <!-- EXIT BUTTONS -->
+                                                    <a t-if="mode == 'edit'" class="btn btn-default" t-att-href="'/loan/form?id=%s' % (encrypt_query_value(id))">Hủy</a>
+                                                    <a t-if="mode == 'create'" class="btn btn-default" href="/loan">Hủy</a>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="hidden" id="mode" t-att-value="mode" class="form-control"/>
+                                                    <input type="hidden" name="state" id="state" t-att-value="state" class="form-control"/>
+                                                    <input type="text" id="status" t-att-value="status" class="form-control text-right" readonly="readonly" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!--GRID BODY-->
+                                    <div class="grid-body">
+                                        <div class="row-fluid">
+                                            <div t-if="error" class="form-group col-xs-12">
+                                                <h6><span t-esc="error" /></h6>
+                                            </div>
+                                            <form t-if="not error" t-att-action="action" method="post">
+                                                <div class="row">
+                                                    <h4 class="form-title">Thông Tin Nhân Viên</h4>
+                                                    <div class="col-sm-4 form-group">
+                                                        <label for="employee_name">Họ Tên</label>
+                                                        <input type="hidden" name="employee_id" id="employee_id" class="form-control" t-att-value="employee_id" />
+                                                        <input type="text" id="employee_name" class="form-control" t-att-value="employee_name" readonly="readonly" />
+                                                    </div>
+                                                    <div class="col-sm-4 form-group">
+                                                        <label for="employee_code">Mã Nhân Viên</label>
+                                                        <input type="text" id="employee_code" t-att-value="employee_code" class="form-control" readonly="readonly" />
+                                                    </div>
+                                                    <div class="col-sm-4 form-group has-success">
+                                                        <label for="company_id">Công Ty</label>
+                                                        <select name="company_id" t-if="state == 'clicker_request' and mode in ['create', 'edit']" id="company_id" class="form-control">
+                                                            <t t-foreach="company_datas" t-as="company_data">
+                                                                <option t-att-selected="'selected' if company_data['name'] == company_name else ''" t-att-value="company_data['id']"><span t-esc="company_data['name']"/></option>
+                                                            </t>
+                                                        </select>
+                                                        <input t-if="state != 'clicker_request' or mode == 'read'" type="text" id="company_name" t-att-value="company_name" class="form-control" readonly="readonly" />
+                                                    </div>
+                                                    <div class="col-sm-4 form-group ">
+                                                        <label for="current_contract_type_name">Loại Hợp Đồng</label>
+                                                        <input type="hidden" name="current_contract_type" id="current_contract_type" class="form-control" t-att-value="current_contract_type_id" />
+                                                        <input type="text" id="current_contract_type_name" t-att-value="current_contract_type_name" class="form-control" readonly="readonly" />
+                                                    </div>
+                                                    <div class="col-sm-4 form-group">
+                                                        <label for="joined_date">Ngày Vào Làm Việc</label>
+                                                        <input type="text" name="joined_date" id="joined_date" t-att-value="joined_date" class="form-control" readonly="readonly" />
+                                                    </div>
+                                                    <div class="col-sm-4 form-group">
+                                                        <label for="current_salary">Mức Lương Hiện Tại</label>
+                                                        <input type="text" name="current_salary" id="current_salary" t-att-value="mode == 'read' and '{0:,}'.format(current_salary) or current_salary" class="form-control" readonly="readonly" />
+                                                    </div>
+                                                    <h4 class="form-title">Thông Tin Đăng Ký</h4>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="company_id">Mục Đích</label>
+                                                                </div>
+                                                                <div class="col-sm-7 has-success">
+                                                                    <select t-if="state == 'clicker_request' and mode in ['create', 'edit']" name="loan_cate_id" id="loan_cate_id" required="required" class="form-control">
+                                                                        <option value="none"></option>
+                                                                        <t t-foreach="loan_categ_datas" t-as="loan_categ_data">
+                                                                            <option t-att-selected="'selected' if loan_categ_data['name'] == loan_categ_name else ''" t-att-value="loan_categ_data['id']"><span t-esc="loan_categ_data['name']"/></option>
+                                                                        </t>
+                                                                    </select>
+                                                                    <input t-if="state != 'clicker_request' or mode == 'read'" type="text" id="loan_categ_name" t-att-value="loan_categ_name" class="form-control" readonly="readonly" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div id="loan_categ_warning" t-att-show="'show' if is_visible_warning else 'hide'" class="row alert alert-danger">
+                                                                <div class="col-sm-5">
+                                                                    <label for="loan_type_warning">Cảnh Báo</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input type="hidden" name="is_visible_warning" id="is_visible_warning" class="form-control" t-att-value="is_visible_warning and 'true' or 'false'" />
+                                                                    <textarea style="width: 100%;" name="loan_type_warning" id="loan_type_warning" class="form-control" readonly="readonly" rows="4">
+                                                                        <t t-esc="loan_type_warning" />
+                                                                    </textarea>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div id="loan_categ_note" t-att-show="'show' if is_visible_note else 'hide'" class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="loan_type_note">Ghi Chú</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input type="hidden" name="is_visible_note" id="is_visible_note" class="form-control" t-att-value="is_visible_note and 'true' or 'false'" />
+                                                                    <textarea style="width: 100%;"
+                                                                              name="loan_type_note"
+                                                                              id="loan_type_note"
+                                                                              class="form-control"
+                                                                              readonly="readonly"
+                                                                              rows="7">
+                                                                        <t t-esc="loan_type_note" />
+                                                                    </textarea>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="required_document">Hồ Sơ Cần Nộp</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <textarea style="width: 100%;" name="required_document" id="required_document" class="form-control" readonly="readonly" rows="7">
+                                                                        <t t-esc="required_document" />
+                                                                    </textarea>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div t-if="state != 'clicker_request'" class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="is_document_submitted">Đã Nộp</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input type="hidden" name="is_document_submitted" id="is_document_submitted" class="form-control" t-att-value="is_document_submitted and 'true' or 'false'" />
+                                                                    <input type="checkbox" id="checkbox_is_document_submitted"  disable="disable" t-att-checked="'checked' if is_document_submitted else ''" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div t-if="state != 'clicker_request'" class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="date_of_expected_wire_transfer">Ngày Giao Tiền Dự Kiến</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input t-att-data-provide="'datepicker' if is_cb_user and mode in ['create', 'edit'] else ''"
+                                                                        data-date-format="dd/mm/yyyy"
+                                                                        t-att-value="date_of_expected_wire_transfer"
+                                                                        type="text" name="date_of_expected_wire_transfer"
+                                                                        readonly="readonly"
+                                                                        id="date_of_expected_wire_transfer"
+                                                                        class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="month_paid">Tháng Bắt Đầu Vay</label>
+                                                                </div>
+                                                                <div class="col-sm-7 has-success">
+                                                                    <select t-if="state == 'clicker_request' and mode in ['create', 'edit']and mode in ['create', 'edit']" type="text" name="month_loan" id="month_loan" required="required" class="form-control">
+                                                                        <t t-foreach="month_list" t-as="month">
+                                                                            <option t-att-selected="'selected' if month == month_loan else ''" t-att-value="month"><span t-esc="month"/></option>
+                                                                        </t>
+                                                                    </select>
+                                                                    <input t-if="state != 'clicker_request' or mode == 'read'" type="number" class="form-control" t-att-value="month_loan" readonly="readonly" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="year_loan">Năm Bắt Đầu Vay</label>
+                                                                </div>
+                                                                <div class="col-sm-7 has-success">
+                                                                    <input type="number" class="form-control" t-att-min="year_loan" id="year_loan" name="year_loan" required="required" t-att-value="year_loan" t-att-readonly="'' if state == 'clicker_request' and mode in ['create', 'edit'] else 'readonly'" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="month_paid">Tháng Bắt Đầu Trả</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input type="number" class="form-control" id="month_paid" name="month_paid" t-att-value="month_paid" readonly="readonly" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="year_paid">Năm Bắt Đầu Trả</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input type="number" class="form-control" id="year_paid" name="year_paid" t-att-value="year_paid" readonly="readonly" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="no_month_paid">Số Tháng Trả</label>
+                                                                </div>
+                                                                <div class="col-sm-7 has-success">
+                                                                    <input type="number" min="1" max="10" class="form-control" name="no_month_paid" id="no_month_paid" t-att-value="no_month_paid" t-att-readonly="'' if state == 'clicker_request' and mode in ['create', 'edit'] else 'readonly'" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="is_pay_payroll">Trả Khi Tính Lương</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input type="hidden" name="is_pay_payroll" id="is_pay_payroll" class="form-control" t-att-value="is_pay_payroll and 'true' or 'false'" />
+                                                                    <input type="checkbox" id="checkbox_is_pay_payroll" t-att-disabled="'' if state == 'clicker_request' and mode in ['create', 'edit'] else 'disabled'" t-att-checked="'checked' if is_pay_payroll else ''" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="loan_amount">Số Tiền Vay</label>
+                                                                </div>
+                                                                <div class="col-sm-7 has-success">
+                                                                    <input t-if="state == 'clicker_request' and mode in ['create', 'edit']and mode in ['create', 'edit']" type="number" min="200" id="loan_amount" name="loan_amount" t-att-value="loan_amount" class="form-control" required="required" />
+                                                                    <input t-if="state != 'clicker_request' or mode == 'read'" type="text" readonly="readonly" t-att-value="mode == 'read' and '{0:,}'.format(loan_amount) or loan_amount" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div t-if="state != 'clicker_request'" class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="interest_rate">Lãi Suất (%)</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input t-if="state == 'clicker_request' and mode in ['create', 'edit']and mode in ['create', 'edit']" type="number" min="0" name="interest_rate" id="interest_rate" t-att-value="interest_rate" class="form-control" />
+                                                                    <input t-if="state != 'clicker_request' or mode == 'read'" type="text" readonly="readonly" t-att-value="'{0:,}'.format(interest_rate)" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div t-if="state != 'clicker_request'" class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="support_rate">Công Ty Hỗ Trợ (%)</label>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <input t-if="state == 'clicker_request' and mode in ['create', 'edit']and mode in ['create', 'edit']" type="number" name="support_rate" min="0" id="support_rate" t-att-value="support_rate" class="form-control" />
+                                                                    <input t-if="state != 'clicker_request' or mode == 'read'" type="text" readonly="readonly" t-att-value="'{0:,}'.format(support_rate)" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label for="amount">Tổng Tiền Phải Trả</label>
+                                                                </div>
+                                                                <div class="col-sm-7 has-success">
+                                                                    <input t-if="state == 'clicker_request' and mode in ['create', 'edit']and mode in ['create', 'edit']" type="number" min="0" name="amount" id="amount" readonly="readonly" t-att-value="'{0:,}'.format(amount)" class="form-control" required="required" />
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div t-if="state != 'clicker_request'" class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label>Tổng Tiền Đã Trả:</label>
+                                                                </div>
+                                                                <div class="col-sm-7 text-right">
+                                                                    <span t-esc="'{0:,}'.format(paid)"/>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div t-if="state != 'clicker_request'" class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label>Số Tiền Còn Nợ:</label>
+                                                                </div>
+                                                                <div class="col-sm-7 text-right">
+                                                                    <span t-esc="'{0:,}'.format(balance)"/>
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div t-if="state != 'clicker_request'" class="row">
+                                                                <div class="col-sm-5">
+                                                                    <label>Số Tiền Trả Mỗi Tháng:</label>
+                                                                </div>
+                                                                <div class="col-sm-7 text-right">
+                                                                    <span t-esc="'{0:,}'.format(pay_each_month)"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div t-if="loan_detail_datas and state != 'clicker_request'">
+                                                    <h4 class="form-title">Chi Tiết Thanh Toán Mỗi Tháng</h4>
+                                                    <br/>
+                                                    <table class="table table-condensed profile-tables">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="v-align-top">Tháng</th>
+                                                                <th class="v-align-top">Ngày Thanh Toán</th>
+                                                                <th class="v-align-top">Số Tiền</th>
+                                                                <th class="v-align-top">Kiểu Thanh Toán</th>
+                                                                <th class="v-align-top">Đã Thanh Toán</th>
+                                                                <th class="v-align-top">Ghi Chú</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <t t-foreach="loan_detail_datas" t-as="detail_data">
+                                                                <tr>
+                                                                    <td><span t-esc="detail_data['month_text']"/></td>
+                                                                    <td><span t-esc="detail_data['issue_date']"/></td>
+                                                                    <td><span t-esc="'{0:,}'.format(detail_data['amount'])"/></td>
+                                                                    <td><span t-esc="detail_data['loan_pay_type_name']"/></td>
+                                                                    <td style="text-align: center"><input type="checkbox" disable="disable" t-att-checked="'checked' if detail_data['is_paid'] else ''" /></td>
+                                                                    <td><span t-esc="detail_data['note']"/></td>
+                                                                </tr>
+                                                            </t>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div t-if="mode in ['create', 'edit']" style="text-align: center">
+                                                    <button type="submit" class="btn btn-success" id="btn_confirm">
+                                                        <t t-if="mode == 'create'">Đăng Ký</t>
+                                                        <t t-if="mode == 'edit'">Lưu</t>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>

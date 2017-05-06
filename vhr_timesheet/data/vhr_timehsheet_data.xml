@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate='1'>
+        <!-- Loại ngày nghỉ -->
+        <record id="data_dimension_type_TS_PUBLIC_HOLIDAY_TYPE" model="vhr.dimension.type">
+            <field name="code">TS_PUBLIC_HOLIDAY_TYPE</field>
+            <field name="name">TS_PUBLIC_HOLIDAY_TYPE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_TS_GENERAL_PARAM_TYPE" model="vhr.dimension.type">
+            <field name="code">TS_GENERAL_PARAM_TYPE</field>
+            <field name="name">TS_GENERAL_PARAM_TYPE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="hrs_public_holiday_type_COMPANY_HOLIDAY" model="vhr.dimension">
+            <field name="name">COMPANY HOLIDAY</field>
+            <field name="description">COMPANY HOLIDAY</field>
+            <field name="dimension_type_id" eval="ref('data_dimension_type_TS_PUBLIC_HOLIDAY_TYPE')"/>
+            <field name="code">COMPANY_HOLIDAY</field>
+            <field name="level">0</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="hrs_public_holiday_type_TS_NATIONAL_HOLIDAY" model="vhr.dimension">
+            <field name="name">NATIONAL HOLIDAY</field>
+            <field name="description">NATIONAL HOLIDAY</field>
+            <field name="dimension_type_id" eval="ref('data_dimension_type_TS_PUBLIC_HOLIDAY_TYPE')"/>
+            <field name="code">TS_NATIONAL_HOLIDAY</field>
+            <field name="level">0</field>
+            <field name="active">true</field>
+        </record>
+
+        <!--BEGIN: PARAM TYPE GROUP DATA -->
+        <record id="data_ts_param_type_group_GENERAL" model="vhr.ts.param.type.group">
+            <field name="name">TS GENERAL PARAM</field>
+            <field name="code">TS_GENERAL</field>
+            <field name="name">Tham số chung</field>
+            <field name="name_en">General Parameter</field>
+            <field name="description">Tham số chung</field>
+            <field name="active">true</field>
+        </record>
+        <record id="data_ts_param_type_group_SCHEDULE" model="vhr.ts.param.type.group">
+            <field name="name">TS SCHEDULE PARAM</field>
+            <field name="code">TS_SCHEDULE</field>
+            <field name="name">Tham số theo lịch làm việc</field>
+            <field name="name_en">Schedule Parameter</field>
+            <field name="description">Tham số theo lịch làm việc</field>
+            <field name="active">true</field>
+        </record>
+        <record id="data_ts_param_type_group_JOB_LEVEL" model="vhr.ts.param.type.group">
+            <field name="name">TS JOB LEVEL PARAM</field>
+            <field name="code">TS_JOB_LEVEL</field>
+            <field name="name">Tham số theo cấp bậc</field>
+            <field name="name_en">Job Level Parameter</field>
+            <field name="description">Tham số theo cấp bậc</field>
+            <field name="active">true</field>
+        </record>
+
+        
+
+    </data>
+</openerp>

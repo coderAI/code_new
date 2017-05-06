@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_ts_working_schedule_permission_tree">
+            <field name="name">vhr.ts.working.schedule.permission.tree</field>
+            <field name="model">vhr.ts.working.schedule.permission</field>
+            <field name="arch" type="xml">
+                <tree string="Working Schedule Permission">
+                    <field name="employee_ids"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_working_schedule_permission_form">
+            <field name="name">vhr.ts.working.schedule.permission.form</field>
+            <field name="model">vhr.ts.working.schedule.permission</field>
+            <field name="arch" type="xml">
+                <form string="Working Schedule Permission">
+                    <sheet>
+                    	<group>
+                    		<field name='active'/>
+                    	</group>
+                    	
+                        <group string="Employees">
+                            <field name="employee_ids" nolabel="1" required="1" 
+							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                             context="{'get_employee_for_ws_permission':True,'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"/>
+                            
+                             	
+                        </group>
+                        <group string="Working Schedules">
+                            <field name="ws_ids" nolabel="1" required="1" 
+                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree>
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_working_schedule_permission_search">
+            <field name="name">vhr.ts.working.schedule.permission.search</field>
+            <field name="model">vhr.ts.working.schedule.permission</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="employee_ids"/>
+                    <field name="ws_ids"/>
+                    <field name="active"/>
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="act_vhr_ts_working_schedule_permission" model="ir.actions.act_window">
+            <field name="name">Working Schedule Permission</field>
+            <field name="res_model">vhr.ts.working.schedule.permission</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>

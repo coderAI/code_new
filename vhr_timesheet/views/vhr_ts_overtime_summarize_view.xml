@@ -1,0 +1,234 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_ts_overtime_summarize_tree">
+            <field name="name">vhr.ts.overtime.summarize.tree</field>
+            <field name="model">vhr.ts.overtime.summarize</field>
+            <field name="arch" type="xml">
+                <tree string="Overtime Summary" version="7.0" colors="blue:is_saved==False">
+                    <field name="employee_code"/>
+                    <field name="employee_login"/>
+                    <field name="employee_name"/>
+                    <field name="department_id"/>                    
+                    <field name="month_ot" readonly='1'/>
+                    <field name="year_ot" readonly='1' remove_thousand_seps="1"/>
+                    <field name="month_pay_ot"/>
+                    <field name="year_pay_ot" remove_thousand_seps="1"/>
+                    <field name="company_id" invisible='1'/>
+                    <field name="total_hours_register"/>
+                    <field name="total_hours_approve"/>
+                    <field name="compensation_leave"/>
+                    <field name="total_hours_pay"/>
+                    <field name="total_ot_day_approve"/>
+                    <field name="total_ot_night_approve"/>
+                    <field name="ot_normal_days"/>
+                    <field name="ot_days_off"/>
+                    <field name="ot_holidays"/>
+                    <field name="is_saved"/>
+                    
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_ts_overtime_summarize_form" model="ir.ui.view">
+            <field name="name">vhr.ts.overtime.summarize.form</field>
+            <field name="model">vhr.ts.overtime.summarize</field>
+            <field name="arch" type="xml">
+                <form string="Overtime Summary" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="company_id" invisible='1'/>
+                            <newline/>
+                            <field name="employee_id" readonly='1' options="{'no_open': True, 'no_create': True}"/>
+                            <field name="employee_code" readonly='1'/>
+                            <field name="date_from" readonly='1'/>
+                            <field name="date_to" readonly='1'/>
+                            <field name="total_hours_register" readonly='1' options="{'show_zero': 1}"/>
+                            <field name="total_hours_approve" readonly='1' options="{'show_zero': 1}"/>
+                            <field name="total_ot_day_approve" readonly='1' options="{'show_zero': 1}"/>
+                            <field name="total_ot_night_approve" readonly='1' options="{'show_zero': 1}"/>
+                            <field name="ot_normal_days" readonly='1' options="{'show_zero': 1}"/>
+                            <field name="ot_days_off" readonly='1' options="{'show_zero': 1}"/>
+                            <field name="ot_holidays" readonly='1' options="{'show_zero': 1}"/>
+                            <newline/>
+                            <field name="compensation_leave" readonly='1' options="{'show_zero': 1}"/>
+                            <field name="total_hours_pay" readonly='1' options="{'show_zero': 1}"/>
+                            <field name="month_ot" readonly='1'/>
+                            <field name="year_ot" readonly='1' options="{'remove_thousand_seps': 1}"/>
+                            <field name="month_pay_ot" required='1'/>
+                            <field name="year_pay_ot" required='1' options="{'remove_thousand_seps': 1}"
+                            on_change="onchange_year_pay_ot(year_pay_ot,year_ot)"/>
+                            <field name="is_saved"/>
+                        </group>
+                        <group string="OT Info in Normal days">
+                            <group>
+                                <field name="ot_normal_days_day" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_normal_days_day_result" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_money_normal_days_day" readonly='1' options="{'show_zero': 1}"/>
+                            </group>
+                            <group>
+                                <field name="ot_normal_days_night" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_normal_days_night_result" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_money_normal_days_night" readonly='1' options="{'show_zero': 1}"/>
+                            </group>
+                        </group>
+                        <group string="OT Info in Days off">
+                            <group>
+                                <field name="ot_days_off_day" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_days_off_day_result" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_money_days_off_day" readonly='1' options="{'show_zero': 1}"/>
+                            </group>
+                            <group>
+                                <field name="ot_days_off_night" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_days_off_night_result" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_money_days_off_night" readonly='1' options="{'show_zero': 1}"/>
+                            </group>
+                        </group>
+                        <group string="OT Info in Holidays">
+                            <group>
+                                <field name="ot_holidays_day" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_holidays_day_result" widget="float_time" readonly='1'
+                                       options="{'show_zero': 1}"/>
+                                <field name="ot_money_holidays_day" readonly='1' options="{'show_zero': 1}"/>
+                            </group>
+                            <group>
+                                <field name="ot_holidays_night" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_holidays_night_result" readonly='1' options="{'show_zero': 1}"/>
+                                <field name="ot_money_holidays_night" readonly='1' options="{'show_zero': 1}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Overtime Details">
+                                <field name="overtime_detail_ids">
+                                    <tree version="7.0" create='false' editable='true' delete='false' class='edit_ot_detail_tree'>
+                                        <field name="date_off" readonly='1'/>
+                                        <field name="notes" readonly='1'/>
+                                        <field name="start_time" widget="limit_float_time" readonly='1'/>
+                                        <field name="end_time" widget="limit_float_time" readonly='1'/>
+                                        <field name="break_time" readonly='1'/>
+                                        <field name="total_hours_register" widget="limit_float_time" readonly='1'/>
+                                        <field name="is_compensation_leave" attrs="{'readonly': [('is_compensation_leave_by_default','=',True)]}"/>
+                                        <field name="total_ot_day_approve" widget="limit_float_time"
+                                               on_change="onchange_ot_time(total_ot_day_register, total_ot_night_register, total_ot_day_approve, total_ot_night_approve)"/>
+                                        <field name="total_ot_night_approve" widget="limit_float_time"
+                                               on_change="onchange_ot_time(total_ot_day_register, total_ot_night_register, total_ot_day_approve, total_ot_night_approve)"/>
+                                        <field name="total_hours_approve" widget="limit_float_time" readonly="1" options="{'save_readonly': True}"/>
+                                        <field name="state" readonly='1'/>
+                                        <button name="btn_approve" string="Approve" type="object"
+                                                icon="terp-gtk-go-back-rtl"/>
+                                        <button name="btn_reject" string="Reject" type="object" icon="terp-gtk-stop"/>
+                                        <!--<field name="request_date" readonly="1"/>
+                                        <field name="approve_date" readonly="1"/>
+                                        <field name="approve_user_id" readonly="1"/>-->
+
+                                        <field name="total_ot_day_register" widget="limit_float_time" invisible='1'/>
+                                        <field name="total_ot_night_register" widget="limit_float_time" invisible='1'/>
+                                        <field name="is_compensation_leave_by_default"  invisible='1'  options="{'save_readonly': True}"/>
+                                        <field name="overtime_id" invisible="1"/>
+                                        <field name="employee_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="History" groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_overtime_summarize_search">
+            <field name="name">vhr.ts.overtime.summarize.search</field>
+            <field name="model">vhr.ts.overtime.summarize</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                	<field name="name" string="OT Summarize"
+                           filter_domain="['|','|','|',('name','ilike',self),('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+                  
+                    <field name="month_ot"/>
+                    <field name="year_ot"/>
+                    <field name="month_pay_ot"/>
+                    <field name="year_pay_ot"/>
+                    <field name="department_id"/>
+                    <field name="company_id" invisible='1'/>
+
+                    <group expand="0" string="Group by">                    	
+                        <filter name="group_department" string="Department" icon="terp-personal" domain="[]"
+                                context="{'group_by':'department_id'}"/>
+                        <filter name="group_employee" string="Employee" icon="terp-personal" domain="[]"
+                                context="{'group_by':'employee_id'}"/>
+                        <filter name="group_year_ot" string="Year OT" icon="terp-personal" domain="[]"
+                                context="{'group_by':'year_ot'}"/>
+                        <filter name="group_month_ot" string="Month OT" icon="terp-personal" domain="[]"
+                                context="{'group_by':'month_ot'}"/>
+                    </group>
+                    <group expand="0" string="Filter by Employee">
+                        <filter string="Active Employee" name="active_employee" icon="terp-stage"
+                                domain="[('employee_id.active', '=', True)]"/>
+                        <filter string="Inactive Employee" name="inactive_employee" icon="terp-stage"
+                                domain="[('employee_id.active', '=', False)]"/>
+                    </group>
+                    <group expand="0" string="Filter">
+                        <filter string="Saved" name="is_saved" icon="STOCK_NEW"
+                                domain="[('is_saved', '=', True)]"/>
+                        <filter string="Not Saved" name="is_not_saved" icon="STOCK_NEW"
+                                domain="[('is_saved', '=', False)]"/>
+                    </group>
+                    <group expand="0" string="Filter">
+                        <filter string="Current Month OT" name="current_month"
+                                domain="[('month_ot','=',(context_today()).strftime('%%m')), ('year_ot','=',(context_today()).strftime('%%Y'))]"/>
+                        <filter string="Current Month Pay OT" name="current_month_pay"
+                                domain="[('month_pay_ot','=',(context_today()).strftime('%%m')), ('year_pay_ot','=',(context_today()).strftime('%%Y'))]"/>
+                    </group>                    
+                </search>
+            </field>
+        </record>
+
+        <record id="action_server_save_vhr_ts_overtime_summarize" model="ir.actions.server">
+            <field name="name">Save</field>
+            <field name="model_id" ref="model_vhr_ts_overtime_summarize"/>
+            <field name="state">code</field>
+            <field name="code">action = self.save_ot_summarize(cr, uid, context.get('active_ids', []),
+                context=context)
+            </field>
+        </record>
+
+        <record model="ir.values" id="action_save_vhr_ts_overtime_summarize">
+            <field name="key2">client_action_multi</field>
+            <field name="model">vhr.ts.overtime.summarize</field>
+            <field name="name">Save</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_server_save_vhr_ts_overtime_summarize"/>
+            <field name="object" eval="True"/>
+        </record>
+
+
+        <record id="act_vhr_ts_overtime_summarize" model="ir.actions.act_window">
+            <field name="name">Overtime Summary</field>
+            <field name="res_model">vhr.ts.overtime.summarize</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="context">{'rule_for_tree_form': True,'create':False,'duplicate':False, 'delete':False,
+            	'attachment':False,
+				'search_default_active_employee': 1,            	
+                'search_default_current_month':True,
+            	'filter_by_permission_ot_summarize':1}
+            </field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>

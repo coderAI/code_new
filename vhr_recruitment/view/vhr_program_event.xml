@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+	<data noupdate='0'>
+		<record id="view_vhr_program_event_form" model="ir.ui.view">
+			<field name="name">vhr.program.event.form</field>
+			<field name="model">vhr.program.event</field>
+			<field name="arch" type="xml">
+				<form string="HRS Program Event" version="7.0">
+					<sheet>
+						<group string="Program Event">
+							<group>
+								<field name="code" required='1' />
+								<field name="program_id" required='1'
+									options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"
+									on_change="onchange_program_id(program_id)"
+									context="{'dimension_type': 'DND_PROGRAM'}" />
+									
+								<field name="temp_email_for_rr_id"
+									options="{'no_quick_create' : True, 'no_create':True, 'no_edit': True}"
+									context="{'dimension_type': 'EMAIL_TEMPLATE_FOR_RR'}" />
+									
+							</group>
+							<group>
+								<field name="name" required='1' string="Job title(VN)" />
+								<field name="name_en" string="Job title(EN)" />
+								<field name="temp_email_for_register_id"
+									options="{'no_quick_create' : True, 'no_create':True, 'no_edit': True}"
+									context="{'dimension_type': 'EMAIL_TEMPLATE_FOR_REGISTER'}" />
+							</group>
+						</group>
+						<group col="4" string="Detail information">
+							<field name="date_from" required='1'
+								on_change="onchange_date(date_from)" />
+							<field name="date_to" options="{'save_readonly' : True}" readonly ="1"/>
+							<field name="source_type_id"
+								options="{'no_quick_create' : True, 'no_create':True, 'no_open': True, 'limit': 20}"
+								on_change="onchange_source_type_id(source_type_id)" />
+							<field name="source_id"
+								options="{'no_quick_create' : True, 'no_create':True, 'no_open': True, 'limit': 20}" />
+							<field name="has_job" />
+                            <field name="has_gift" />
+							<field name="invite_bonus" />
+							<field name="reload_page" />
+							<field name="active" />
+						</group>
+						<separator string="Position"
+							attrs="{'invisible': [('has_job','=', False)]}" />
+						<field name="position_ids" attrs="{'invisible': [('has_job','=', False)]}">
+							<tree string="Position" version="7.0" editable="top">
+								<field name="code" required="1" />
+								<field name="name" required="1" />
+								<field name="name_en"/>
+								<field name="active" />
+								<field name="event_id" invisible="1" />
+							</tree>
+						</field>
+
+						<notebook colspan="6">
+							<page string="Description Information">
+								<group>
+									<group col='1'>
+										<field name="description" widget="html" colspan="4" />
+										<field name="popup_success" widget="html" colspan="4" />										
+										<field name="popup_fail" widget="html" colspan="4" />
+									</group>
+									<group col='1'>
+										
+										<field name="description_en" widget="html" colspan="4" />
+										<field name="popup_success_en" widget="html" colspan="4" />										
+										<field name="popup_fail_en" widget="html" colspan="4" />
+									</group>
+								</group>
+							</page>
+							<page string=" Information">
+								<group>
+									<field name="email_cc" />
+								</group>
+								<group name="Source">
+									<field name="recruitment_source_online_ids">
+										<tree string="Recruitment Source Online" version="7.0">
+											<field name="code" />
+											<field name="name" />
+											<field name="name_en" />
+											<field name="description" />
+											<field name="active" invisible="1"/>
+										</tree>
+									</field>
+								</group>
+								<group name="School">
+									<field name="school_ids">
+										<tree string="School" version="7.0" editable="top">
+											<field name="is_group_addmin_rr" invisible="1"/>
+											<field name="code" attrs="{'readonly': [('is_group_addmin_rr','=', False)]}"/>
+											<field name="name" attrs="{'readonly': [('is_group_addmin_rr','=', False)]}"/>
+											<field name="name_en" attrs="{'readonly': [('is_group_addmin_rr','=', False)]}"/>
+											<field name="description" attrs="{'readonly': [('is_group_addmin_rr','=', False)]}"/>
+											<field name="is_university" attrs="{'readonly': [('is_group_addmin_rr','=', False)]}"/>
+											<field name="website_published" attrs="{'readonly': [('is_group_addmin_rr','=', False)]}"/>
+											<field name="active" attrs="{'readonly': [('is_group_addmin_rr','=', False)]}"/>
+										</tree>
+									</field>
+								</group>
+							</page>
+							<page string="Fields">
+							<field name="field_ids">
+								<tree string="Program field">
+									<field name="field_model" />
+									<field name="field_type" />
+									<field name="name" />
+									<field name="placeholder" />
+									<field name="attribute" />
+									<field name="default" />
+									<field name="is_required"/>
+									<field name="is_public"/>
+									<field name="sequence"/>
+								</tree>
+								</field>
+							</page>
+							<page string="Parts">
+								<field name="part_ids"/>
+							</page>
+							<page string="Questions" class="oe_view_nocontent_create">
+								<field name="question_ids" context="{'program_event_id': active_id}">
+								<tree string="HRS Program Question" version="7.0">
+				                	<field name="name"/>
+				                   	<field name="name_en"/>
+				                   	<field name="question_type_id"/>
+				                   	<field name="program_part_id"/>
+				                   	<field name="is_required"/>
+				                   	<field name="active"/>
+				                   	<field name="description"/>
+				                </tree>
+								</field>
+							</page>
+                            <page string="Gifts" attrs="{'invisible': [('has_gift','=', False)]}">
+                                <field name="event_gifts" attrs="{'invisible': [('has_gift','=', False)], 'required': [('has_gift','=', True)]}">
+                                    <tree string="Gifts" version="7.0" editable="top" nolabel="1">
+                                        <field name="name" required="1" />
+                                        <field name="name_en" required="1" />
+                                        <field name="quantity" attrs="{'required': [('unlimited','=', False)]}"/>
+                                        <field name="unlimited"/>
+                                        <field name="is_lucky"/>
+                                        <field name="weight" required="1" />
+                                        <field name="used" readonly="1" />
+                                        <button name="%(action_vhr_temp_applicant_student)d" type="action" string="" class="oe_highlight" icon="gtk-go-forward"
+                                                context="{'default_gift_id': active_id, 'domain_gift_id': active_id}"/>
+                                        <field name="remain" readonly="1" />
+                                        <field name="active" />
+                                        <field name="event_id" invisible="1" />
+                                    </tree>
+                                </field>
+                                <label string="Gift Note" for="gift_note" />
+                                <field name="gift_note" attrs="{'required': [('has_gift','=', True)]}"/>
+                                <group col="4">
+                                    <field name="show_min_gift"  attrs="{'required': [('has_gift','=', True)]}"/>
+                                    <field name="end_get_gifts"/>
+                                    <field name="gift_alert"/>
+                                    <field name="gift_alert_en"/>
+                                </group>
+                            </page>
+							<page string="Logs">
+								<label string="*** Please press F5 to refresh the list of logs !"
+									colspan="4" />
+								<field name="audit_log_ids" mode="tree" widget="one2many_list"
+									readonly="1" nolabel="1" colspan="4">
+									<tree version="7.0">
+										<field name="timestamp" required="1" readonly="1" />
+										<field name="user_id" readonly="1" />
+										<field name="method" readonly="1" />
+										<field name="field_description" />
+										<field name="old_value_text" />
+										<field name="new_value_text" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_vhr_program_event_tree" model="ir.ui.view">
+			<field name="name">vhr.program.event.tree</field>
+			<field name="model">vhr.program.event</field>
+			<field name="arch" type="xml">
+				<tree string="HRS Program Event" version="7.0">
+					<field name="program_id" />
+					<field name="code" />
+					<field name="name" string="Job Title(VN)" />
+					<field name="name_en" string="Job Title(EN)" />
+					<field name="date_from" />
+					<field name="date_to" />
+					<field name="active" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_vhr_program_event_search" model="ir.ui.view">
+			<field name="name">vhr.program.event.search</field>
+			<field name="model">vhr.program.event</field>
+			<field name="arch" type="xml">
+				<search string="HRS Program Event">
+					<field name="name" />
+					<field name="name_en" />
+					<field name="code" />
+					<field name="program_id" />
+					<field name="date_from" />
+					<field name="date_to" />
+					<field name="description"
+						filter_domain="['|', ('description','ilike',self), ('description_en','ilike',self)]"
+						string="Description" />
+					<separator />
+
+					<group expand="0" string="Group By">
+						<filter name="group_by_program_id" string="Program"
+							context="{'group_by':'program_id'}" />
+						<filter name="group_by_date_from" string="Date From"
+							context="{'group_by':'date_from'}" />
+						<filter name="group_by_date_to" string="Date To"
+							context="{'group_by':'date_to'}" />
+					</group>
+
+					<group expand="0" string="Filter">
+						<filter name="filter_candidate" string="CANDIDATE"
+							domain="[('program_id', 'ilike', 'CANDIDATE')]" />
+						<filter name="filter_fresher" string="FRESHER"
+							domain="[('program_id', 'ilike', 'FRESHER')]" />
+						<filter name="filter_internship" string="INTERNSHIP"
+							domain="[('program_id', 'ilike', 'INTERNSHIP')]" />
+						<filter name="filter_tour" string="TOUR"
+							domain="[('program_id', 'ilike', 'TOUR')]" />
+						<filter string="Active = True" name="active_true" icon="terp-stage"
+							domain="[('active', '=', True)]" />
+						<filter string="Active = False" name="active_false" icon="STOCK_NEW"
+							domain="[('active', '=', False)]" />
+						<filter string="Current Events" name="current_events" icon="STOCK_NEW"
+							domain="['|',('date_to','&gt;',(context_today()).strftime('%Y-%m-%d')),('date_to','=',False)]" />
+					</group>
+
+				</search>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_vhr_program_event">
+			<field name="name">HRS Program Event</field>
+			<field name="res_model">vhr.program.event</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="groups_id" eval="" />
+			<field name="context">{'search_default_current_events': 1}</field>
+		</record>
+	</data>
+</openerp>

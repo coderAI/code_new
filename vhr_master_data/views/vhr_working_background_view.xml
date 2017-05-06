@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_vhr_working_background_form" model="ir.ui.view">
+       		<field name="name">vhr.working.background.view.form</field>
+       		<field name="model">vhr.working.background</field>
+       		<field name="arch" type="xml">
+   				<form string="Working Background" version="7.0">
+       				<sheet>
+       					<group col="4">
+       						<field name="company" required='1' colspan="4"/>
+       						<field name="from_date" required='1'
+       						 on_change="onchange_date(from_date, to_date)"/>
+       						<field name="is_current" on_change="onchange_is_current(is_current)"/>
+       						<field name="to_date" attrs="{'required': [('is_current','=',False)]}"
+       						 	on_change="onchange_date(from_date, to_date)"/>
+       						<field name="job_type_id" required="1" context="{'dimension_type': 'JOB_TYPE'}"
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+       						<field name="employee_id" invisible="context.get('hide_field', False)" 
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+       						<field name="applicant_id" invisible="context.get('hide_field', False)"
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+       						<field name="job_title"/>
+       						<field name="current_salary"/>
+       						<field name="industry_id" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True, 'limit': 20}"/>
+       						<field name="oversea" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True, 'limit': 20}"/>
+       						<field name="relevant" string="Relevant Company"/>
+       						<field name="active" invisible="1"/>
+       					</group>
+       					<group>
+       						<group col='1'>
+       							<field name="main_task" widget="html"/>
+       						</group>
+       						<group col='1'>
+       							<field name="move_reason" widget="html"/>     
+       						</group>
+       					</group>						       					
+       					<group string="Reference Information" col="4">
+       						<field name="ref_person"/>
+       						<field name="ref_job_title"/>
+       						<field name="ref_phone" options="{'validate_number': True}"/>
+       					</group>
+       					<group colspan="4">
+       						<field name="note"/>       						
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       					
+       				</sheet>
+       			</form>
+       			
+       		</field>
+       	</record>
+       	
+       	<record id="view_vhr_working_background_tree" model="ir.ui.view">
+       		<field name="name">vhr.working.background.view.tree</field>
+       		<field name="model">vhr.working.background</field>
+       		<field name="arch" type="xml">
+      			<tree string="Working Background" version="7.0">
+      				<field name="employee_id" invisible="context.get('view_from_candidate',0)"/>
+       				<field name="applicant_id" invisible="context.get('view_from_employee',0)"/>
+      				<field name="from_date"/>
+					<field name="to_date"/>
+					<field name="company"/>
+       				<field name="job_title"/>
+					<field name="job_type_id"/>
+					<field name="active" invisible="1"/>
+      			</tree>
+     		</field>
+       	</record>
+       	
+       	<record id="view_vhr_working_background_search" model="ir.ui.view">
+        	<field name="name">vhr.working.background.view.search</field>
+        	<field name="model">vhr.working.background</field>
+        	<field name="arch" type="xml">
+        		<search string="Working Background">
+        			<field name="company" string="Working background"
+                           filter_domain="['|', '|', '|', ('employee_id', 'ilike', self), ('applicant_id','ilike',self),
+                           									   ('company','ilike',self), ('industry_id','ilike',self)]"/>
+					<field name="from_date"/>
+					<field name="to_date"/>
+					<separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="industry_id" string="Industry"
+                                context="{'group_by':'industry_id'}"/>
+                        <filter name="company" string="Company"
+                                context="{'group_by':'company'}"/>
+                    </group>
+                    <group expand="0" string="Filter">
+                    	<filter string="Candidate" name="filer_candidate" icon="terp-stage"
+	                            domain="[('applicant_id', '!=', False)]"/>
+                    	<filter string="Employee" name="filter_employee" icon="terp-stage"
+	                            domain="[('employee_id', '!=', False)]"/>
+						<filter string="Active = True" name="active_true" icon="terp-stage"
+	                            domain="[('active', '=', True)]"/>
+	                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+	                            domain="[('active', '=', False)]"/>
+                    </group>
+        		</search>
+        	</field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_working_background">
+       		<field name="name">Working Background</field> 
+            <field name="res_model">vhr.working.background</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'view_from_employee': True}</field>
+            <field name="view_id" ref="view_vhr_working_background_tree"/>
+            <field name="search_view_id" ref="view_vhr_working_background_search"/>
+       	</record>
+       	<record model="ir.actions.act_window" id="act_vhr_working_background_candidate">
+       		<field name="name">Working Background</field> 
+            <field name="res_model">vhr.working.background</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'view_from_candidate': True, 'search_default_filer_candidate': 1'}</field>
+            <field name="view_id" ref="view_vhr_working_background_tree"/>
+            <field name="search_view_id" ref="view_vhr_working_background_search"/>
+       	</record>
+    </data>
+</openerp>

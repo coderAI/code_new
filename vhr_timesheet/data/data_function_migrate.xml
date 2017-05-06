@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<!--<function model="function.migrate.data" name="migrate_vhr_holidays_status">-->
+        <!--</function>-->
+		
+	</data>
+</openerp>

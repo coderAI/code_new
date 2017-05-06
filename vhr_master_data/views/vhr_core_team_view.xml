@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_core_team_form">
+            <field name="name">vhr.core.team.form</field>
+            <field name="model">vhr.core.team</field>
+            <field name="arch" type="xml">
+                <form string="Core Team" version="7.0">
+                    <sheet>
+                        <group col="4">
+                        	<group>
+                        		<field name="employee_id" required="True" options="{'no_quick_create':True, 'no_create':True}"/>
+                        		<field name="stock_qty"/>
+                        		<field name="active"/>
+                        	</group>
+                            <group>
+                            	<field name="effect_from" required="True"/>
+                            	<field name="effect_to"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                        <notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_core_team_tree" model="ir.ui.view">
+            <field name="name">vhr.core.team.tree</field>
+            <field name="model">vhr.core.team</field>
+            <field name="arch" type="xml">
+                <tree string="Core Team">
+                	<field name="employee_code"/>
+                    <field name="employee_id"/>
+                    <field name="effect_from"/>
+                    <field name="effect_to"/>
+                    <field name="stock_qty"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_core_team_search" model="ir.ui.view">
+            <field name="name">vhr.core.team.search</field>
+            <field name="model">vhr.core.team</field>
+            <field name="arch" type="xml">
+                <search string="Core Team">
+                    <field name="name" string="Employee" 
+	                  		filter_domain="['|','|','|',('name','ilike',self),('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+
+                    <field name="effect_from"/>
+                    <field name="effect_to"/>
+                    <field name="stock_qty"/>
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="act_vhr_core_team" model="ir.actions.act_window">
+            <field name="name">Core Team</field>
+            <field name="res_model">vhr.core.team</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_core_team_tree"/>
+            <field name="search_view_id" ref="view_vhr_core_team_search"/>
+        </record>
+
+    </data>
+</openerp>
+
+

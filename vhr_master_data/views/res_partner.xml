@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_res_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='city']" position="after">
+                    <field name="district_id" placeholder="District" domain="[('city_id', '=', city)]"
+                            options="{'no_open':True, 'no_quick_create':True, 'no_create':True}" style="width: 37%%"
+                           attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="replace">
+                    <field name="city" placeholder="City" style="width: 40%%"  options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
+                           attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="replace">
+                    <field name="email" options="{'validate_email': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='zip']" position="replace">
+                    <field name="zip" placeholder="ZIP" style="width: 20%%"
+                           invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='website']" position="before">
+                    <label for="temp_address" string="Temp Address"/>
+                    <div>
+                        <field name="temp_address" placeholder="Street..."
+                               attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                        <div class="address_format">
+                            <field name="temp_city_id" placeholder="City" style="width: 50%%"
+                                    options="{'no_open':True, 'no_quick_create':True, 'no_create':True}" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                            <field name="temp_district_id" placeholder="District" style="width: 50%%"
+                            	    options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
+                                   domain="[('city_id', '=', temp_city_id)]"
+                                   attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                        </div>
+                    </div>
+                </xpath>
+                <!-- Dont use but must have in form -->
+                <xpath expr="//field[@name='street2']" position="replace">
+                    <field name="street2" attrs="{'readonly': [('use_parent_address','=',True)]}" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="replace">
+                    <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" invisible="1"
+                            options="{'no_open':True, 'no_quick_create':True, 'no_create':True}" on_change="onchange_state(state_id)"
+                           attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="replace">
+                    <page name='internal_notes' string="Internal Notes" invisible="1">
+                        <field name="comment" placeholder="Put an internal note..."/>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                	<attribute name="options">{'validate_number': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                	<attribute name="options">{'validate_number': True}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']" position="replace">
+                    <page name='sales_purchases' string="Sales &amp; Purchases" invisible="1">
+                        <group>
+                            <group>
+                                <field name="user_id"
+                                	    options="{'no_open':True, 'no_quick_create':True, 'no_create':True}"
+                                       context="{'default_groups_ref': ['base.group_partner_manager']}"/>
+                                <field name="company_id" groups="base.group_multi_company" widget="selection"
+                                 options="{'no_quick_create':True, 'no_create':True}"/>
+                            </group>
+                            <group>
+                                <field name="customer"/>
+                                <field name="supplier"/>
+                            </group>
+                            <group>
+                                <field name="ref"/>
+                                <field name="lang"/>
+                                <field name="date"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+   					<page string="Logs">
+                    	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                        <field name="audit_log_ids" mode="tree"
+                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                            <tree version="7.0">
+                                <field name="timestamp" required="1" readonly="1"/>
+                                <field name="user_id" readonly="1"/>
+                                <field name="method" readonly="1"/>
+                                <field name="field_description"/>
+                                <field name="old_value_text"/>
+                                <field name="new_value_text"/>
+                            </tree>
+                        </field>
+                    </page>
+	            </xpath>
+	            
+	            <xpath expr="//notebook" position="before">
+	            	<group>
+	            		<group>
+	            			<label for="day_of_birth" string="Birthday(d/m/Y)"/>
+	                        <div>
+	                            <field name="day_of_birth" style="width: 25%%" 
+	                             on_change = "onchange_birthday(day_of_birth,month_of_birth,year_of_birth)"/>
+	                            <field name="month_of_birth" style="width: 25%%"
+	                             on_change = "onchange_birthday(day_of_birth,month_of_birth,year_of_birth)"/>
+	                            <field name="year_of_birth" style="width: 50%%"
+	                             on_change = "onchange_birthday(day_of_birth,month_of_birth,year_of_birth)"/>
+	                        </div>
+	                        <field name="gender"/>
+	            			<field name="identity_number" options="{'validate_number': True}"/>
+	            			<field name="working_place"/>
+	            		</group>
+	            		<group>
+	            			<field name="age" readonly='1'/>
+		            		<field name="status" required='1'/>
+		            		<field name="career_id" context="{'dimension_type': 'CAREER'}"/>
+		            		
+	                    </group>    
+	            	</group>
+	            	<group col='1'>
+	            		<field name="notes"/>
+	            	</group>
+	            	
+	            </xpath>
+            </field>
+        </record>
+        
+        <record id="view_partner_tree_inherit" model="ir.ui.view">
+            <field name="name">res.partner.tree.inherit</field>
+            <field name="model">res.partner</field>
+            <field eval="18" name="priority"/>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+            	<field name="display_name" position="replace">
+            		<field name="name"/>
+            	</field>
+                <field name="email" position="replace">
+                	<field name="street" string="Address"/>
+                </field>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

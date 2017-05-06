@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+<!--        <record id="vhr_hr_manager" model="res.groups">-->
+<!--            <field name="name">VHR HR Manager</field>-->
+<!--            <field name="category_id" ref="vhr_base.module_vhr_sytem_group_category"/>-->
+<!--            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+<!--        </record>-->
+
+		<record model="ir.module.category" id="module_vhr_cb_group_category">
+            <field name="name">VHR - C&amp;B</field>
+            <field name="description">All VHR module relate to C&amp;B must be inherit on VHR - C&amp;B group and customize specific permission.</field>
+            <field name="sequence">11</field>
+    	</record>
+    	
+        <record id="base.group_hr_user" model="res.groups">
+        	<field name="name">Officer</field>
+            <field name="implied_ids" eval="[(5, ref('base.group_survey_user'))]"/>
+        </record>
+        
+	<!--===Begin. Group belongs to category VHR-C&B===-->
+		<delete model="ir.model.data" search="[('module','=','vhr_master_data'), ('name', 'in',['vhr_cb','vhr_cb_admin','vhr_cb_profile','vhr_cb_contract','vhr_cb_termination','vhr_cb_timesheet','vhr_cb_working_record','vhr_cnb_manager','vhr_ts_approver'])]"/>
+		<delete model="res.groups" search="[('category_id','=',ref('vhr_base.module_vhr_sytem_group_category')), ('name','in',['VHR C&amp;B Admin','VHR C&amp;B','VHR C&amp;B Manager'])]"/>
+	 	
+        <record id="vhr_cb_admin" model="res.groups" > 
+            <field name="name">VHR C&amp;B Admin</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        <!-- Groups C&B -->
+        <record id="vhr_cb" model="res.groups" >
+            <field name="name">VHR C&amp;B</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        <record id="vhr_cb_profile" model="res.groups" >
+            <field name="name">VHR C&amp;B Profile</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]"/>
+        </record>
+        <record id="vhr_cb_contract" model="res.groups" >
+            <field name="name">VHR C&amp;B Contract</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]"/>
+        </record>
+        <record id="vhr_cb_working_record" model="res.groups" >
+            <field name="name">VHR C&amp;B Working Record</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]"/>
+        </record>
+        <record id="vhr_cb_termination" model="res.groups" >
+            <field name="name">VHR C&amp;B Termination</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]"/>
+        </record>
+        <record id="vhr_cnb_manager" model="res.groups" >
+            <field name="name">VHR C&amp;B Manager</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]" />
+        </record>
+        
+        <record id="vhr_cb_working_record_readonly" model="res.groups" >
+            <field name="name">VHR C&amp;B Working Record Readonly</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]"/>
+        </record>
+        
+        
+        <record id="vhr_cb_contract_readonly" model="res.groups" >
+            <field name="name">VHR C&amp;B Contract Readonly</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]"/>
+        </record>
+        
+	<!--===End. Group belongs to category VHR-C&B===-->
+		
+		<record id="vhr_cb_golive" model="res.groups" >
+            <field name="name">VHR C&amp;B Golive</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        
+        <!-- Groups user AF -->        
+        <record id="vhr_af" model="res.groups" >
+            <field name="name">VHR AF</field>
+            <field name="category_id" ref="vhr_master_data.module_vhr_hr_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>   
+        
+         <!-- Groups user C&B Access Employment Confirmation -->   
+        <record id="vhr_cb_employment_confirm" model="res.groups" >
+            <field name="name">VHR C&amp;B Access Employment Confirmation</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]"/>
+        </record>
+        
+        <record id="vhr_cb_insurance" model="res.groups" >
+            <field name="name">VHR C&amp;B Insurance</field>
+            <field name="category_id" ref="vhr_human_resource.module_vhr_cb_group_category"/>
+            <field name="implied_ids" eval="[(4, ref('vhr_human_resource.vhr_cb'))]"/>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<template id="vhr_mysite.year_end_bonus" name="Tổng thưởng cuối năm">
+			<t t-call="website.layout">
+				<!-- Neu active form hoac la cb nhung chua active form -->
+				<t t-if="active_form or (not active_form and is_cb)">
+				
+					<t t-if="employee">
+						<div class="title-info">
+							<h6>Tổng thưởng cuối năm của nhân viên: <span t-esc="employee.name" /> - <span t-esc="employee.code" /></h6>
+						</div>
+					</t>
+					<div class="my_year_end_bonus">
+						<div class="select-year col-xs-6">
+							<label for="select-year">Chọn năm: </label>
+							<select id="select-year" name="select-year">
+								<option value=""></option>
+								<t t-foreach="years" t-as="year">
+									<option t-att-value="year and 'year_end_bonus_' + str(year) or 'year_end_bonus'">
+										<span t-esc="year" />
+									</option>
+								</t>
+							</select>
+						</div>
+						<t t-if="is_cb">
+							<div class="search-bonus col-xs-6">
+								<input data-toggle="tooltip" role="tooltip"
+			              			class="todo-search-field" data-placement="bottom"
+			              			title="Nhập chính xác domain acc hoặc mã nhân viên"
+			              			data-delay='{"show":"500", "hide":"100"}'
+			              			type="search" value="" placeholder="Tìm kiếm ..."
+			              			id="input_bonus_search"/>
+			              		<i class="fa fa-search fa-lg" id="btn_bonus_search"></i>
+							</div>
+						</t>
+						<t t-foreach="total_bonus" t-as="bonus">
+							<t t-call="vhr_mysite.year_end_bonus_detail" />
+						</t>
+					</div>
+					
+				</t>
+				
+				<t t-if="not active_form and not is_cb">
+					<t t-call="vhr_mysite.year_end_bonus_not_avaiable" />
+				</t>
+			</t>
+		</template>
+		
+		<template id="vhr_mysite.year_end_bonus_search" name="Chi tiết thưởng cuối năm">
+			<t t-call="website.layout">
+				<!-- Neu active form hoac la cb nhung chua active form -->
+				<t t-if="active_form or (not active_form and is_cb)">
+					<t t-if="employee">
+						<div class="title-info">
+							<h6>Kết quả tìm kiếm thưởng cuối năm cho nhân viên: <span t-esc="employee.name" /> - <span t-esc="employee.code" /></h6>
+						</div>
+					</t>
+					<t t-if="not employee">
+						<div class="title-info">
+							<h6>Không tìm thấy kết quả cho từ khóa "<span t-esc="query" />"</h6>
+						</div>
+					</t>
+				
+					<div class="my_year_end_bonus">
+						<div class="select-year col-xs-6 text-left">
+							<label for="select-year">Chọn năm: </label>
+							<select id="select-year" name="select-year">
+								<option value=""></option>
+								<t t-foreach="years" t-as="year">
+									<t t-if="year == selected_year">
+										<option t-att-value="year and 'year_end_bonus_' + str(year) or 'year_end_bonus'" selected="selected">
+											<span t-esc="year" />
+										</option>
+									</t>
+									<t t-if="year != selected_year">
+										<option t-att-value="year and 'year_end_bonus_' + str(year) or 'year_end_bonus'">
+											<span t-esc="year" />
+										</option>
+									</t>
+								</t>
+							</select>
+						</div>
+						
+						<t t-if="is_cb">
+							<div class="search-bonus col-xs-6">
+								<input data-toggle="tooltip" role="tooltip"
+			              			class="todo-search-field" data-placement="bottom"
+			              			title="Nhập chính xác domain acc hoặc mã nhân viên"
+			              			data-delay='{"show":"500", "hide":"100"}'
+			              			type="search" value="" placeholder="Tìm kiếm ..."
+			              			id="input_bonus_search"/>
+			              		<i class="fa fa-search fa-lg" id="btn_bonus_search"></i>
+							</div>
+						</t>
+						<t t-if="total_bonus">
+							<t t-foreach="total_bonus" t-as="bonus">
+								<t t-call="vhr_mysite.year_end_bonus_detail" />
+							</t>
+						</t>
+					</div>
+				</t>
+				
+				<t t-if="not active_form and not is_cb">
+					<t t-call="vhr_mysite.year_end_bonus_not_avaiable" />
+				</t>
+			</t>
+		</template>
+		
+		<template id="vhr_mysite.year_end_bonus_not_avaiable" name="Chi tiết tổng thưởng cuối năm chưa được mở">
+			<div class="title-info">
+				<h6>Hiện tại chức năng xem tổng thưởng cuối năm chưa được mở.</h6>
+				<h6>Bạn vui lòng truy cập lại sau.</h6>
+			</div>
+		</template>
+		
+		<template id="vhr_mysite.year_end_bonus_detail" name="Chi tiết tổng thưởng cuối năm">
+			<div t-att-class="bonus and bonus.year and 'year_end_bonus_' + str(bonus.year) +
+								(selected_year and (selected_year == str(bonus.year)) and ' selected' or '') or 'year_end_bonus'">
+				<div class="title-info">
+					<h6>TỔNG THƯỞNG CUỐI NĂM</h6>
+					<span>Năm: <t t-esc="bonus.year or ''" /></span>
+				</div>
+				<table class="table table-striped table-bordered">
+					<tbody>
+						<t t-if="employee">
+							<tr>
+								<td class="text-right col-xs-3">Tên:</td>
+								<td class="col-xs-3"><span t-esc="employee.resource_id.name"/></td>
+								<td class="text-right col-xs-3">Bộ phận:</td>
+								<td class="col-xs-3"><span t-esc="employee.division_id.name"/></td>
+							</tr>
+							<tr>
+								<td class="text-right">Mã nhân viên:</td>
+								<td><span t-esc="employee.resource_id.code"/></td>
+								<td class="text-right">Chức vụ:</td>
+								<td><span t-esc="employee.title_id.name"/></td>
+							</tr>
+							<tr>
+								<td class="text-right">Ngày gia nhập:</td>
+								<td><span t-esc="format_date(employee.join_date)"/></td>
+								<td class="text-right">Phòng:</td>
+								<td><span t-esc="employee.department_id.name"/></td>
+							</tr>
+							<tr>
+								<td class="text-right">Số tài khoản ngân hàng:</td>
+								<td><span t-esc="bank_account_number and bank_account_number or ''"/></td>
+								<td class="text-right">Mã số thuế thu nhập cá nhân:</td>
+								<td><span t-esc="pit_number"/></td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+				<table class="table table-striped table-bordered">
+					<tbody>
+						<tr class="line-emty-half"></tr>
+						<tr>
+							<td class="line-total col-xs-9">I - TỔNG THU NHẬP PHÁT SINH</td>
+							<td class="line-total text-center"><span t-esc="format_money(bonus.total_bonus_income)" /></td>
+						</tr>
+						<tr>
+							<td class="line-subtotal">A. LƯƠNG THÁNG 13</td>
+							<td class="line-subtotal text-center"><span t-esc="format_money(bonus.salary13)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Số tháng làm việc</td>
+							<td class="text-right pright15"><span t-esc="format_number(bonus.number_working_month13)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Lương tháng 13</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.salary13)" /></td>
+						</tr>
+						<tr>
+							<td class="line-subtotal">B. THƯỞNG THEO KẾT QUẢ CÔNG VIỆC</td>
+							<td class="line-subtotal text-center"><span t-esc="format_money(bonus.year_end_bonus)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Số tháng làm việc</td>
+							<td class="text-right pright15"><span t-esc="format_number(bonus.number_working_month_year_end)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Số tháng lương được thưởng</td>
+							<td class="text-right pright15"><span t-esc="format_number(bonus.number_month_year_end_bonus)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Số tiền thưởng</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.bonus_money)" /></td>
+						</tr>
+						<tr>
+							<td class="line-total col-xs-9">II - TỔNG KHẤU TRỪ</td>
+							<td class="line-total text-center"><span t-esc="format_money(bonus.total_sub)" /></td>
+						</tr>
+						<tr>
+							<td class="line-subtotal">A. THUẾ THU NHẬP CÁ NHÂN</td>
+							<td class="line-subtotal text-center"><span t-esc="format_money(bonus.pit)" /></td>
+						</tr>
+						<!-- <tr>
+							<td class="pleft20 col-xs-9">- Tổng thu nhập tính thuế trong năm</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.total_tax_income)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Lương tháng 13</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.salary13)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Thưởng cuối năm</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.year_end_bonus)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Số tháng làm việc trong năm để tính thuế TNCN</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.number_month_cal_tax)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Thu nhập tính thuế bình quân</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.tax_income_avg)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Thuế TNCN bình quân gồm lương tháng 13 &amp; thưởng</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.pit_with_salary13_bonus)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Thuế TNCN BQ chưa bao gồm lương T13 &amp; thưởng</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.pit_not_salary13_bonus)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Thuế TNCN phát sinh</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.pit_income)" /></td>
+						</tr>
+						<tr>
+							<td class="pleft20 col-xs-9">- Tổng số thuế TNCN phát sinh</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.pit)" /></td>
+						</tr> -->
+						<tr class="line-emty-half"></tr>
+						<tr>
+							<td class="line-subtotal">B. CÁC KHOẢN KHẤU TRỪ KHÁC:</td>
+							<td class="line-subtotal text-center"><span t-esc="format_money(bonus.other_sub)" /></td>
+						</tr>
+						<!-- <tr>
+							<td class="pleft20 col-xs-9">- Tổng số thuế TNCN phát sinh</td>
+							<td class="text-right pright15"><span t-esc="format_money(bonus.advance_money)" /></td>
+						</tr> -->
+						<tr class="line-emty-half"></tr>
+						<tr>
+							<td class="line-total col-xs-9">III - THU NHẬP THỰC NHẬN: (I) - (II)</td>
+							<td class="line-total text-center"><span t-esc="format_money(bonus.total_net_take_home)" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</template>
+	</data>
+</openerp>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_vhr_family_deduct_form" model="ir.ui.view">
+            <field name="name">vhr.family.deduct.view.form</field>
+            <field name="model">vhr.family.deduct</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <form string="Dependant Deduction" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" invisible="1"/>
+                                <field name="employee_id" required="1"
+                                	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                       on_change="onchange_employee(employee_id)"/>
+                                <field name='emp_code' readonly='1'/>      
+                            </group>
+                            <group>
+                            <field name="company_id" readonly="1"
+                            		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail">
+                                <field name="line_ids" context="{'default_employee_id':employee_id}" required="1"/>
+                            </page>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_family_deduct_tree" model="ir.ui.view">
+            <field name="name">vhr.family.deduct.view.tree</field>
+            <field name="model">vhr.family.deduct</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Dependant Deduction" version="7.0">
+                    <field name="name" invisible="1"/>
+                    <field name='emp_code'/>  
+                    <field name="employee_id"/>
+                    <field name="company_code"/>
+                </tree>
+            </field>
+        </record>
+        
+		<record id="view_vhr_family_deduct_search" model="ir.ui.view">
+        	<field name="name">vhr.family.deduct.view.search</field>
+        	<field name="model">vhr.family.deduct</field>
+        	<field name="arch" type="xml">
+        		<search string="Dependant Deduction">
+                    <group expand="0" string="Filter by Employee">
+                    	<filter string="Active Employee" name="active_employee" icon="terp-stage"
+                                    domain="[('employee_id.active', '=', True)]"/>
+                        <filter string="Inactive Employee" name="inactive_employee" icon="terp-stage"
+                                domain="[('employee_id.active', '=', False)]"/>
+                    </group>
+                    <field name="name" string="Dependant Deduction Of Employee"
+                               filter_domain="['|','|','|',('name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self),('employee_id.name','ilike',self)]"/>
+        		</search>
+        	</field>
+        </record>
+        
+        <!--Override in Human Resource-->
+        <record model="ir.actions.act_window" id="act_vhr_family_deduct">
+            <field name="name">Dependant Deduction</field>
+            <field name="res_model">vhr.family.deduct</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_family_deduct_tree"/>
+        </record>
+    </data>
+</openerp>

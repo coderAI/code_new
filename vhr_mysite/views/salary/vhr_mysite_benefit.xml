@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<template id="vhr_mysite.vhr_benefit" name="Phúc lợi">
+			<t t-call="website.layout">
+				<!-- Neu active form hoac la cb nhung chua active form -->
+				<t t-if="active_form or (not active_form and is_cb)">
+					
+					<div class="my_benefit">
+						<t t-if="is_cb">
+							<div class="search-benefit col-xs-12 text-right">
+								<input data-toggle="tooltip" role="tooltip"
+			              			class="todo-search-field" data-placement="bottom"
+			              			title="Nhập chính xác domain acc hoặc mã nhân viên"
+			              			data-delay='{"show":"500", "hide":"100"}'
+			              			type="search" value="" placeholder="Tìm kiếm ..."
+			              			id="input_benefit_search"/>
+			              		<i class="fa fa-search fa-lg" id="btn_benefit_search"></i>
+							</div>
+							<div class="col-sm-6"  style="height:30px;width:100%"></div>
+						</t>
+						<!--<t t-if="benefits">-->
+								<t t-call="vhr_mysite.my_benefit_info" />
+						<!--</t>-->
+					</div>
+				</t>
+			</t>
+				
+		</template>
+		
+		<template id="vhr_mysite.vhr_benefit_search" name="Phúc lợi">
+			<t t-call="website.layout">
+				<!-- Neu active form hoac la cb nhung chua active form -->
+				<t t-if="active_form or (not active_form and is_cb)">
+				
+				<t t-if="employee">
+					<div class="title-info">
+						<h6>Kết quả tìm kiếm phúc lợi cho nhân viên: <span t-esc="employee.name" /> - <span t-esc="employee.code" /></h6>
+					</div>
+				</t>
+				<t t-if="not employee">
+					<div class="title-info">
+						<h6>Không tìm thấy kết quả cho từ khóa "<span t-esc="query" />"</h6>
+					</div>
+				</t>
+			
+				<div class="my_benefit">
+					<t t-if="is_cb">
+						<div class="search-benefit col-xs-12 text-right">
+							<input data-toggle="tooltip" role="tooltip"
+		              			class="todo-search-field" data-placement="bottom"
+		              			title="Nhập chính xác domain acc hoặc mã nhân viên"
+		              			data-delay='{"show":"500", "hide":"100"}'
+		              			type="search" value="" placeholder="Tìm kiếm ..."
+		              			id="input_benefit_search"/>
+		              		<i class="fa fa-search fa-lg" id="btn_benefit_search"></i>
+						</div>
+						<div class="col-sm-6"  style="height:40px;width:100%"></div>
+					</t>
+						
+					
+					<t t-if="employee">
+							<t t-call="vhr_mysite.my_benefit_info" />
+					</t>
+				</div>
+				
+				</t>
+				
+			</t>
+		</template>
+		
+		<!-- TEMPLATE FOR BENEFIT PAGE -->
+		<template id="vhr_mysite.my_benefit_info" name="Thông tin phúc lợi ">
+			<div class="my_benefit">
+				<t t-call="vhr_mysite.level_info" />
+				<t t-call="vhr_mysite.allowance_info" />
+			</div>
+		</template>
+		
+		
+		<!--Level Info -->
+		<template id="vhr_mysite.level_info">
+			<div class="info-wrap" t-if="level">
+				<div class="title-info"><h6>Chức danh/ cấp bậc</h6></div>
+				<table class="table" id="my_level_info">
+					<tbody>
+						<tr>
+							<td class="col-xs-3">Chức danh</td>
+							<td>
+								<a href="#"><t t-esc="employee and employee.title_id.name or ''" /></a>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3">Cấp bậc cá nhân</td>
+							<td>
+								<a href="#"><t t-esc="level" /></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</template>
+		
+		
+		<!--Allowance Info -->
+		<template id="vhr_mysite.allowance_info">
+			<div class="info-wrap">
+				<div class="title-info"><h6>Lương Thưởng - Phúc lợi</h6></div>
+				<table class="table" id="my_allowance_info">
+					<tbody>
+						<tr style="font-weight:bold">
+							<td>LƯƠNG THƯỞNG</td>
+							<td>SỐ TIỀN</td>
+							<td>GHI CHÚ</td>
+						</tr>
+						<tr>
+							<td>Tổng lương thỏa thuận</td>
+							<td> <a href="#"><t t-esc="format_money(gross_salary)" /> đồng/tháng </a></td>
+							<td> Thu nhập tháng </td>
+						</tr>
+						<tr t-if='meal_support'>
+							<td> Hỗ trợ tiền ăn trưa </td>
+							<td> <a href="#"><t t-esc="meal_support" /> đồng/tháng</a> </td>
+							<td> Thu nhập tháng </td>
+						</tr>
+						<tr t-if='parking_support'>
+							<td> Hỗ trợ tiền gửi xe </td>
+							<td> <a href="#"><t t-esc="format_money(parking_support)" /> đồng/tháng </a></td>
+							<td> Thu nhập tháng </td>
+						</tr>
+						<t t-if="allowances">
+							<t t-foreach="allowances" t-as="value">
+								<tr>
+									<td> <t t-esc="value.allowance_cate_id.name" /> </td>
+									<td> <a href="#"><t t-esc="format_money(value.amount)" /> đồng/tháng </a> </td>
+									<td> Thu nhập tháng </td>
+								</tr>
+							</t>
+						</t>
+						<tr>
+							<td> Thưởng lễ </td>
+							<td> <a href="#"> 1.500.000 đồng/năm </a></td>
+							<td> Thưởng trong kỳ lương tháng 9.<t t-if="not level"><br/>(Điều kiện hưởng phụ thuộc chính sách quy định) </t></td>
+						</tr>
+						<t t-if="level">
+							<tr>
+								<td> Thưởng lương tháng 13 </td>
+								<td> <a href="#"> 01 tháng Lương thỏa thuận </a></td>
+								<td> Thu nhập năm </td>
+							</tr>
+							<tr>
+								<td> Thưởng KPI </td>
+								<td> <a href="#"> Tùy thuộc kết quả thành tích cá nhân, phòng ban </a></td>
+								<td> Thu nhập năm </td>
+							</tr>
+						</t>
+						
+						<tr style="height:20px;width:100%">
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr style="font-weight:bold">
+							<td>PHÚC LỢI</td>
+							<td>ĐỊNH MỨC</td>
+							<td>GHI CHÚ</td>
+						</tr>
+						<tr t-if='annual_leave'>
+							<td> Phép năm </td>
+							<td> <a href="#"><t t-esc="annual_leave or 0" /> ngày/năm</a></td>
+							<td>  Tham khảo phép thực tế trên <a href='/'>Mysite</a></td>
+						</tr>
+						<t t-if="benefits">
+							<t t-foreach="benefits" t-as="value">
+								<tr>
+									<td> <t t-esc="value.allowance_cate_id.name" /> </td>
+									<td> <a href="#"><t t-esc="format_money(value.amount)" /> đồng/tháng </a> </td>
+									<td> <t t-esc="value.allowance_cate_id.description" /> </td>
+								</tr>
+							</t>
+						</t>
+						
+						<tr>
+							<td> Hỗ trợ Đi Công Tác </td>
+							<td> <a href="#"> Trợ cấp Công tác phí và Chi phí lưu trú theo chính sách </a></td>
+							<td> Tham khảo chi tiết tại <a href='http://portal.com.vn'>Portal</a> </td>
+						</tr>
+						
+						<t t-if='insurance_data'>
+							<tr>
+								<td> Bảo hiểm Sức Khỏe </td>
+								<td> <a href="#"> <t t-esc='insurance_data'></t></a></td>
+								<td> Tham khảo chi tiết tại <a href='http://portal.com.vn'>Portal</a> </td>
+							</tr>
+						</t>
+						<tr>
+							<td> Khám sức khỏe định kỳ </td>
+							<td> <a href="#"> 01 lần khám/ 1 năm</a></td>
+							<td> Tham khảo chi tiết tại <a href='http://portal.com.vn'>Portal</a><t t-if="not level"><br/>(Điều kiện hưởng phụ thuộc chính sách quy định) </t> </td>
+						</tr>
+						<t t-if='is_ESOP_user'>
+							<tr style="height:20px;width:100%">
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td style="font-weight:bold"> CHƯƠNG TRÌNH ESOP </td>
+								<td></td>
+								<td>  Tham khảo chi tiết tại <a href="/esop">ESOP</a></td>
+							</tr>
+						</t>
+						
+					</tbody>
+				</table>
+				<div class="col-sm-6"  style="height:40px;width:100%"></div>
+				<div class="title-info"><h7>Các thu nhập khác hoặc thu nhập đặc thù theo tính chất phòng ban  
+					không bao gồm trong bảng trên sẽ được thông tin chi tiết đến bạn theo từng chương trình cụ thể.</h7></div>
+					
+				<div class="col-sm-6"  style="height:20px;width:100%"></div>
+				<div class="title-info"><h7>Mọi thắc mắc liên quan, bạn vui lòng liên hệ nhân viên HRBP hoặc C&amp;B để được tư vấn.</h7></div>
+			</div>
+		</template>
+		
+		
+	</data>
+</openerp>

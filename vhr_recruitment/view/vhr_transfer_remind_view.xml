@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="vhr_transfer_remind_view" model="ir.ui.view">
+             <field name="name">Transfer Remind</field>
+             <field name="model">vhr.transfer.remind</field>
+             <field name="arch" type="xml">
+                <form string="Transfer Remind">
+                    <field name="content" readonly="1"/>
+                    <footer>
+                        <button one_click_button="True" name="transfer_cb" string="Transfer C&amp;B" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+         
+         <record id="vhr_transfer_remind_view_form1" model="ir.ui.view">
+             <field name="name">Transfer Remind</field>
+             <field name="model">vhr.transfer.remind</field>
+             <field name="arch" type="xml">
+                <form string="Transfer Remind" create="false">
+                	<sheet>
+	                    <group>
+	                        <group>
+	                        	<field name="content"/>
+	                        </group>
+	                    </group>
+	                </sheet>
+                </form>
+             </field>
+         </record>
+
+        <record id="vhr_transfer_remind_action" model="ir.actions.act_window">
+             <field name="name">Transfer Remind</field>
+             <field name="res_model">vhr.transfer.remind</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_id" ref="vhr_recruitment.vhr_transfer_remind_view_form1"/>
+             <field name="res_id" ref="vhr_recruitment.vhr_transfer_remind_message" />
+             <field name="target">current</field>
+       </record>
+
+    </data>
+</openerp>

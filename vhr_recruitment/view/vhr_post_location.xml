@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data noupdate='0'>
+       	<record id="view_vhr_post_location_form" model="ir.ui.view">
+            <field name="name">vhr.post.location.form</field>
+            <field name="model">vhr.post.location</field>
+            <field name="arch" type="xml">
+                <form string="Post Job" version="7.0">
+                    <sheet>
+                    	<group string="Post Location">
+							<group>
+								<field name="name" required='1'/>
+								<field name="code" required="1"/>
+                                <field name="name_en" required='1'/>
+                                <field name="active"/>
+							</group>
+	                        <group>
+	                        	<field name="internal"/>
+								<field name="content"/>
+	                        </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_post_location_tree" model="ir.ui.view">
+            <field name="name">vhr.post.location.tree</field>
+            <field name="model">vhr.post.location</field>
+            <field name="arch" type="xml">
+                <tree string="Post Locations" version="7.0">
+                	<field name="name"/>
+                    <field name="name_en"/>
+                    <field name="code"/>
+                    <field name="content"/>
+                    <field name="internal"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_vhr_post_location">
+            <field name="name">Post Location</field>
+             <field name="res_model">vhr.post.location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="groups_id" eval=""/>
+        </record>
+    </data>
+</openerp>

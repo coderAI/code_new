@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data noupdate='0'>
+        <record id="view_vhr_event_job_form" model="ir.ui.view">
+            <field name="name">vhr.event.job.form</field>
+            <field name="model">vhr.event.job</field>
+            <field name="arch" type="xml">
+                <form string="HRS Program Event" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code" required='1'/>
+                                <field name="name" required='1'/>
+                                <field name="event_id" invisible="1"/>
+                                <field name="email_cc"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_event_job_tree" model="ir.ui.view">
+            <field name="name">vhr.event.job.tree</field>
+            <field name="model">vhr.event.job</field>
+            <field name="arch" type="xml">
+                <tree string="HRS Program Event" version="7.0">
+                    <field name="code" required='1'/>
+                    <field name="name" required='1'/>
+                    <field name="event_id" invisible="1"/>
+                    <field name="email_cc"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>

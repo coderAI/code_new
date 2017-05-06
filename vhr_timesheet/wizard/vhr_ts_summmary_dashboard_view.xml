@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <!-- Public Holidays -->
+        <record model="ir.ui.view" id="view_vhr_ts_summary_dashboard_tree">
+            <field name="name">vhr.ts.summary.dashboard.tree</field>
+            <field name="model">vhr.ts.summary.dashboard</field>
+            <field name="limit">200</field>
+            <field name="arch" type="xml">
+                <tree string="Timesheet Summary Progress" colors="blue:state == 'unfinish'">
+                    <field name="year" remove_thousand_seps="1"/>
+                    <field name="month"/>
+                    <field name="department_id"/>
+                    <field name="number_of_employee" class="hrs_font_weight_bold"/>
+                    <field name="generated"/>
+                    <field name="unsaved"/>
+                    <field name="saved" class="hrs_font_weight_bold"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_summary_dashboard_form">
+            <field name="name">vhr.ts.summary.dashboard.form</field>
+            <field name="model">vhr.ts.summary.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Summary">
+                    <sheet>
+                        <group col="4">
+                            <field name="year" options="{'remove_thousand_seps': 1}"/>
+                            <field name="month"/>
+                            <field name="department_id"/>
+                            <field name="number_of_employee"/>
+                            <field name="generated"/>
+                            <field name="unsaved"/>
+                            <field name="saved"/>
+                            <field name="state"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_summary_dashboard_search">
+            <field name="name">vhr.ts.summary.dashboard.search</field>
+            <field name="model">vhr.ts.summary.dashboard</field>
+            <field name="arch" type="xml">
+                <search string="Timesheet Summary Progress">
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_state" string="State"
+                                context="{'group_by':'state'}"/>
+                    </group>
+                    <group expand="0" string="Filter By">
+                        <filter name="finish" string="Finished"
+                                domain="[('state', '=', 'finish')]"/>
+                        <filter name="unfinish" string="Unfinished"
+                                domain="[('state', '=', 'unfinish')]"
+                                />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_summary_progress" model="ir.actions.act_window">
+        <field name="name">Timesheet Summary Progress</field>
+            <field name="res_model">vhr.ts.summary.dashboard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</openerp>

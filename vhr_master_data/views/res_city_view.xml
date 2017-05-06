@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_res_city_form" model="ir.ui.view">
+            <field name="name">res.city.view.form</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <form string="City" version="7.0">
+                    <sheet>
+                        <group col="4">
+                        	<group>
+								<field name="name" required='1'/>
+								<field name="code" required='1'/>
+								<field name="country_id" required='1' options="{'no_quick_create' : True, 'no_create':True}"/>								
+                        	</group>
+	                        <group>
+	                        	<field name="name_en"/>                            
+	                            <field name="sequence" help="Position in list"/>
+	                            <field name="active"/>
+	                        </group>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_res_city_tree" model="ir.ui.view">
+            <field name="name">res.city.view.tree</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <tree string="City" version="7.0">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="name_en"/>
+                    <field name="country_id"/>
+                    <field name="description"/>
+                    <field name="sequence"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_res_city_search" model="ir.ui.view">
+            <field name="name">res.city.view.search</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <search string="City">
+                    <field name="name" string="City"
+                           filter_domain="['|','|','|',('name','ilike',self),('name_en','ilike',self),('code','ilike',self),('description','ilike',self)]"/>
+
+                    <!--<field name="country_id"/>-->
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_res_city">
+            <field name="name">City</field>
+            <field name="res_model">res.city</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_res_city_tree"/>
+            <field name="search_view_id" ref="view_res_city_search"/>
+        </record>
+
+
+    </data>
+</openerp>

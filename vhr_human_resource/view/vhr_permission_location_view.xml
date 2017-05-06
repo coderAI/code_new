@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_permission_location_form" model="ir.ui.view">
+            <field name="name">vhr.permission.location.view.form</field>
+            <field name="model">vhr.permission.location</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <form string="Permission Location" version="7.0">
+       				<sheet>
+       					<group>
+                            <field name="employee_id" required="1" 
+                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>       		
+       						<field name="company_ids"  widget="many2many_tags" 
+       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       						<field name="office_ids"  widget="many2many_tags"
+       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       						<field name="department_fa_ids"  widget="many2many_tags" 
+       						context="{'default_hierachical_code':'FAORGCHART','organization_class_level':3}"
+       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       						<field name="description"/>
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record id="view_vhr_permission_location_tree" model="ir.ui.view">
+            <field name="name">vhr.permission.location.view.tree</field>
+            <field name="model">vhr.permission.location</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Bank Contract" version="7.0">
+                    <field name="employee_id"/>
+ 					<field name="company_ids"/>
+ 					<field name="office_ids"/>
+ 					<field name="department_fa_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_permission_location_search" model="ir.ui.view">
+            <field name="name">vhr.permission.location.view.search</field>
+            <field name="model">vhr.permission.location</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='employee_id'/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_vhr_permission_location">
+            <field name="name">Permission Location</field>
+            <field name="res_model">vhr.permission.location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_permission_location_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_permission_location_search"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <!-- Public Holidays -->
+        <record model="ir.ui.view" id="view_vhr_ts_ws_detail_tree">
+            <field name="name">vhr.ts.ws.detail.tree</field>
+            <field name="model">vhr.ts.ws.detail</field>
+            <field name="arch" type="xml">
+                <tree string="Details" colors="red:weekday in ('Saturday', 'Sunday')">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="weekday"/>
+                    <field name="ws_id"/>
+                    <field name="shift_id"/>
+                    <field name="type_id"/>
+                    <field name="year" options="{'remove_thousand_seps': 1}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_ws_detail_form">
+            <field name="name">vhr.ts.ws.detail.form</field>
+            <field name="model">vhr.ts.ws.detail</field>
+            <field name="arch" type="xml">
+                <form version="7.0" string="Details">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="date" required="1"/>
+                            <field name="ws_id" required="1" options="{'no_open': True, 'no_create': True}" context="{'filter_by_ws_permission':1}"/>
+                            <field name="shift_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="type_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_ws_detail_search">
+            <field name="name">vhr.ts.ws.detail.search</field>
+            <field name="model">vhr.ts.ws.detail</field>
+            <field name="arch" type="xml">
+                <search string="Details">
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_year" string="Year"
+                                context="{'group_by':'year'}"/>
+                        <filter name="group_by_date" string="Month"
+                                context="{'group_by':'date'}"/>
+                        <filter name="group_by_shift_id" string="Shift"
+                                context="{'group_by':'shift_id'}"/>
+                    </group>
+                    <field name="ws_id"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- calendar view -->
+        <record model="ir.ui.view" id="view_vhr_ts_ws_detail_calendar_extra">
+            <field name="name">view.vhr.ts.ws.detail.line.calendar</field>
+            <field name="model">vhr.ts.ws.detail</field>
+            <field name="type">hrs_calendar</field>
+            <field name="arch" type="xml">
+                <hrs_calendar is_display_sun="true" is_display_sat="true" field_date="date" color="false"
+                              message="" reference="vhr.public.holidays" reference_field="type_id">
+                    <field name="shift_id" required="1" code="1" context='{"active_test":False}'/>
+                    <field name="ws_id" required="1" search="1" context='{"active_test":False,"filter_by_ws_permission":True}'/>
+                    <field name="type_id" color="1" invisible="1"/>
+                </hrs_calendar>
+            </field>
+        </record>
+
+        <record id="action_ws_detail_this_year" model="ir.actions.act_window">
+            <field name="name">Working Schedule Details</field>
+            <field name="res_model">vhr.ts.ws.detail</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">hrs_calendar,tree,form</field>
+            <field name="context">{'search_default_this_year':1,'filter_by_group_for_ws_detail':1,'rule_for_tree_form':1,'create':0,'duplicate':0}</field>
+        </record>
+
+
+        <record model="ir.actions.act_window.view" id="action_open_public_holidays_calendar_extra">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">hrs_calendar</field>
+            <field name="view_id" ref="view_vhr_ts_ws_detail_calendar_extra"/>
+            <field name="act_window_id" ref="action_ws_detail_this_year"/>
+        </record>
+
+    </data>
+</openerp>

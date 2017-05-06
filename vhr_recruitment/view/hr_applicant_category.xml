@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record id="view_vhr_applicant_category" model="ir.ui.view">
+			<field name="name">vhr.applicant.category</field>
+			<field name="model">hr.applicant_category</field>
+			<field name="arch" type="xml">
+				<tree string="Skills" version="7.0" editable="1">
+					<field name="name" required="1"/>
+					<field name="available" readonly="1"/>
+					<field name="count_index" readonly="1"/>
+					<field name="create_uid" readonly="1"/>
+					<field name="create_date" readonly="1"/>					
+				</tree>
+			</field>
+		</record>
+		<record id="view_vhr_applicant_category_form" model="ir.ui.view">
+			<field name="name">vhr.applicant.category.form</field>
+			<field name="model">hr.applicant_category</field>
+			<field name="arch" type="xml">
+				<form string="Skills">
+					<field name="name"/>
+					<field name="count_index" readonly="1"/>
+					<field name="create_uid" readonly="1"/>
+					<field name="create_date" readonly="1"/>
+				</form>
+			</field>
+		</record>
+        <record model="ir.actions.act_window" id="action_vhr_applicant_category">
+			<field name="name">Applicant Skills</field>
+			<field name="res_model">hr.applicant_category</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+		</record>		
+    </data>
+</openerp>

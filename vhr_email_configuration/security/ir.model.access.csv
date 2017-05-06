@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+vhr_email_configuration_hr_employee_1,vhr_email_configuration_vhr_email_group,vhr_email_configuration.model_vhr_email_group,base.group_user,1,0,0,0

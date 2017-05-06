@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		
+    	<!--Employee can access menu Human Resources -->
+    	<!--
+        <menuitem name="Human Resources" id="hr.menu_hr_root"
+                  groups="base.group_user"				  
+                  sequence="1"/>
+        -->
+		<menuitem name="Human Resources" id="hr.menu_hr_root" groups="" sequence="101"/>                  	
+	        <menuitem id="hr.menu_hr_main" parent="hr.menu_hr_root" name="Human Resource" sequence="0"
+	                  groups="vhr_human_resource.vhr_cb_golive"/>	 
+	            <!---->
+		        <menuitem name='Employee' 
+		        	action="hr.open_view_employee_list_my" 
+		        	id="hr.menu_open_view_employee_list_my" 
+		        	sequence="1" 
+		        	parent="hr.menu_hr_main"
+		        	groups="vhr_master_data.vhr_dept_admin,vhr_master_data.vhr_af_admin,vhr_human_resource.vhr_cb,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_dept_head,vhr_master_data.vhr_hr_dept_head,vhr_master_data.vhr_assistant_to_hrbp"/>
+		        
+		        <menuitem
+		        	name="Contract"
+		        	id='menu_hr_contract_wrap'
+		        	parent='hr.menu_hr_main'
+		        	sequence='3'
+		        	groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cb_contract_readonly,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cb_termination,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_dept_head,vhr_master_data.vhr_hr_dept_head,vhr_master_data.vhr_assistant_to_hrbp"
+		        />
+		        
+			        <menuitem 
+			        	action="hr_contract.action_hr_contract" 
+			        	id="hr_contract.hr_menu_contract" 
+			        	parent="menu_hr_contract_wrap"
+	              		name="Contract" sequence="1" 
+			        	/>		
+			        
+			        <menuitem 
+			        	action="action_vhr_import_deliver_hr_contract" 
+			        	id="menu_vhr_import_deliver_hr_contract" 
+			        	parent="menu_hr_contract_wrap"
+	              		name="Import Deliver/Receiver of Contract" sequence="2" 
+	              		groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cnb_manager"
+			        	/>    
+			       <menuitem 
+			        	action="action_vhr_import_deliver_hr_contract_status" 
+			        	id="menu_vhr_import_deliver_hr_contract_status" 
+			        	parent="menu_hr_contract_wrap"
+	              		name="Import Deliver/Receiver of Contract Status" sequence="3" 
+	              		groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cnb_manager"
+			        	/>    
+			        	
+				<menuitem name='Import Tax Code'
+		        	action="action_vhr_import_tax_code"
+		        	id="vhr_menu_import_tax_code"
+		        	sequence="53"
+		        	parent="hr.menu_hr_main"
+		        	groups="vhr_human_resource.vhr_cb_contract"/>
+
+				<menuitem id="menu_vhr_import_tax_code_result_status"
+						  name="Import Tax Code Status"
+						  groups="vhr_human_resource.vhr_cb_contract"
+						  parent="hr.menu_hr_main"
+						  action="action_vhr_import_tax_code_status"
+						  sequence="54"/>
+
+				<!--Import PIT-->
+				<menuitem name='Import PIT'
+		        	action="action_vhr_import_pit"
+		        	id="vhr_menu_import_pit"
+		        	sequence="55"
+		        	parent="hr.menu_hr_main"
+		        	groups="vhr_human_resource.vhr_cb_contract"/>
+
+				<menuitem id="menu_vhr_import_pit_result_status"
+						  name="Import PIT Status"
+						  groups="vhr_human_resource.vhr_cb_contract"
+						  parent="hr.menu_hr_main"
+						  action="action_vhr_import_pit_status"
+						  sequence="56"/>
+				
+				
+				<!--Import Personal Document-->
+				<menuitem name='Import Personal Document'
+		        	id="vhr_menu_import_personal_document_wrap"
+		        	sequence="57"
+		        	parent="hr.menu_hr_main"
+		        	groups="vhr_human_resource.vhr_cb_contract"/>
+		        	
+					<menuitem name='Import Personal Document'
+			        	action="action_vhr_import_personal_document"
+			        	id="vhr_menu_import_personal_document"
+			        	sequence="1"
+			        	parent="vhr_menu_import_personal_document_wrap"/>
+	
+					<menuitem id="menu_vhr_import_personal_document_result_status"
+							  name="Import Personal Document Status"
+							  parent="vhr_menu_import_personal_document_wrap"
+							  action="action_vhr_import_personal_document_status"
+							  sequence="2"/>
+						  
+
+		        	<!--Appendix Contract -->
+		       <menuitem id="menu_vhr_appendix_contract_menu" name="Appendix Contract"
+		       			groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cb_termination,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_assistant_to_hrbp"
+              			parent="hr.menu_hr_main" sequence="4"/>    
+              		
+              		<!-- Appendix Contract  -->
+					<menuitem id="menu_vhr_appendix_contract" name="Appendix Contract"
+		                  action="act_vhr_appendix_contract"
+		                  parent="menu_vhr_appendix_contract_menu" sequence="1"/>   
+					
+		            <!-- Import Appendix Contract -->
+			        <menuitem id="menu_vhr_import_appendix_contract" name="Import Appendix Contract"
+					          groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cnb_manager"
+			                  parent="menu_vhr_appendix_contract_menu" 
+			                  action="action_vhr_import_appendix_contract"
+			                  sequence="2"/>
+			        
+	                <menuitem id="menu_vhr_import_appendix_contract_status" name="Import status"
+			                  groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cnb_manager"
+			                  parent="menu_vhr_appendix_contract_menu" 
+			                  action="action_vhr_import_appendix_contract_status"
+			                  sequence="3"/>	
+			   
+			    	<!--Termination Agreement -->
+		       <menuitem id="menu_vhr_termination_agreement_contract_menu" name="Termination Agreement"
+		       			groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_admin"
+              			parent="hr.menu_hr_main" sequence="5"
+		       			action="vhr_human_resource.act_vhr_termination_agreement_contract"/>    
+		        		
+		        		<!--Temporary only allow group system access menu Renew Contract before done-->
+		        <menuitem id="menu_vhr_multi_renew_contract" name="Renewal Contract"
+              			parent="hr.menu_hr_main" sequence="6"/>        
+              		<!-- <menuitem id="menu_vhr_multi_renew_probation_contract" name="Probation"
+	              			parent="menu_vhr_multi_renew_contract" sequence="1" action="action_multi_renew_probation_contract"/> -->
+              		
+			        <menuitem id="menu_vhr_multi_renew_official_contract" name="Official"
+	              			parent="menu_vhr_multi_renew_contract" sequence="2" action="action_multi_renew_official_contract"/>
+			        <menuitem id="menu_vhr_multi_renew_collaborator_contract" name="Non Official"
+	              			parent="menu_vhr_multi_renew_contract" sequence="3" action="action_multi_renew_collaborator_contract"/>	 
+	              	
+	               <menuitem id="menu_vhr_multi_renew_contract_setting" name="Renew Contract Setting"
+	               			groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_admin"
+	              			parent="menu_vhr_multi_renew_contract" sequence="4" action="act_vhr_multi_renew_contract_setting"/>	 
+	              
+	              <menuitem id="menu_vhr_multi_renew_contract_detail" name="Renew Contract Detail"
+	              			groups="vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_admin"
+	              			parent="menu_vhr_multi_renew_contract" sequence="5" action="act_vhr_multi_renew_contract_detail"/>	 
+	              				       
+			    <!--Working Record-->
+		        <menuitem id="menu_vhr_working_record" name="Working Record"
+		                parent="hr.menu_hr_main" sequence="7"
+		        		groups="vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cb_termination,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_dept_head,vhr_master_data.vhr_dept_admin,vhr_human_resource.vhr_cb_working_record_readonly"/>
+			        <!--Records-->
+			        <menuitem id="menu_vhr_working_record_hr" name="Record"
+			                parent="menu_vhr_working_record" 
+			        		groups="vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cb_termination,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_dept_head,vhr_master_data.vhr_dept_admin,vhr_human_resource.vhr_cb_working_record_readonly" 
+			        		sequence="1" action="vhr_human_resource.act_vhr_working_record_hr"/>
+			        <!--Mass Record-->
+			        <menuitem id="menu_vhr_working_record_mass_hr" name="Mass Record"
+			        		groups="vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager"
+			                parent="menu_vhr_working_record" sequence="2"
+			                action="vhr_human_resource.act_vhr_working_record_mass_hr"/>			
+			        <!--Mass Record Tracking-->
+			        <menuitem id="menu_vhr_working_record_mass_hr_status" name="Mass Record Progress"
+			        		groups="vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager"
+			                parent="menu_vhr_working_record" sequence="3"
+			                action="vhr_human_resource.act_vhr_working_record_mass_hr_status"/>
+			        <!--Waiting for Public-->
+			        <menuitem id="menu_vhr_working_record_waiting_for_public" name="Waiting for Publish"
+			        		groups="vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager"
+			                parent="menu_vhr_working_record" sequence="4"
+			                action="vhr_human_resource.act_vhr_working_record_waiting_for_public"/>
+			        
+			        <!--Import Working Record   vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager-->
+			        <menuitem id="menu_import_vhr_working_record" name="Import Working Record"
+			        		groups="vhr_base.hrs_group_system,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_admin"
+			                parent="menu_vhr_working_record" sequence="5"
+			                action="vhr_human_resource.action_vhr_import_working_record"/>
+			        
+			       <!--Import Status     vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager-->
+			        <menuitem id="menu_import_vhr_working_record_status" name="Import Status"
+			        		groups="vhr_base.hrs_group_system,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_admin"
+			                parent="menu_vhr_working_record" sequence="6"
+			                action="vhr_human_resource.action_vhr_import_working_record_status"/>
+			        	
+		        <!--Staff Movement-->
+		        <menuitem id="menu_vhr_working_record_staff" name="Staff Movement"
+		        		groups="vhr_master_data.vhr_dept_head,vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_dept_head"
+		                parent="hr.menu_hr_main" sequence="8"/>
+			        <menuitem id="menu_vhr_working_record_staff_movement" name="Request"
+		        			groups="vhr_master_data.vhr_dept_head,vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_dept_head"
+			                action="vhr_human_resource.act_vhr_working_record_staff_movement"
+			                parent="menu_vhr_working_record_staff" sequence="1"/>			
+			        <menuitem id="menu_vhr_working_record_mass_movement" name="Multi Request"
+			        		groups="vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager"
+			                parent="menu_vhr_working_record_staff" sequence="2"
+			                action="vhr_human_resource.act_vhr_working_record_mass_movement"/>			
+			        <!--Multi Request Tracking-->
+			        <menuitem id="menu_vhr_working_record_mass_movement_status" name="Multi Request Progress"
+			 				groups="vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager"       
+			                parent="menu_vhr_working_record_staff" sequence="3"
+			                action="vhr_human_resource.act_vhr_working_record_mass_movement_status"/>			
+			        <menuitem id="menu_vhr_mass_movement" name="Mass Request" 
+		        			groups="vhr_master_data.vhr_dept_head,vhr_master_data.vhr_assistant_to_hrbp,vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_contract,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cb_termination,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_dept_head"
+		                    parent="menu_vhr_working_record_staff" sequence="4"
+		                    action="vhr_human_resource.action_vhr_mass_movement"></menuitem>			
+			        <!--Mass Request Tracking-->
+			        <menuitem id="menu_vhr_mass_movement_status" name="Mass Request Progress"
+			        		groups="vhr_master_data.vhr_assistant_to_hrbp,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager"
+			                parent="menu_vhr_working_record_staff" sequence="5"
+			                action="vhr_human_resource.act_vhr_mass_movement_status"/>
+		        <!--Termination Request-->
+				<!--vhr_human_resource.vhr_cb_termination-->		        
+		        <menuitem id="menu_vhr_termination_request" name="Termination Request"
+		          		groups="vhr_human_resource.vhr_cb_termination"      
+		                action="act_vhr_termination_request"
+		                parent="hr.menu_hr_main" sequence="9"/>		        
+				<!--Exit Checklist-->
+				<!--base.group_user-->				
+		        <menuitem id="menu_vhr_exit_checklist_requext" name="Exit Checklist Request" 
+		        		groups="vhr_human_resource.vhr_cb_termination"
+		                parent="hr.menu_hr_main" sequence="10" 
+		        		action="vhr_human_resource.act_vhr_exit_checklist_request"/>		        
+		 		<!--<menuitem id="menu_vhr_get_data_from_itam_status" name="Get Data From ITAM Status" 
+		        		groups="vhr_human_resource.vhr_cb_termination,vhr_base.hrs_group_system"
+		                parent="hr.menu_hr_main" sequence="9" 
+		        		action="vhr_human_resource.act_vhr_get_data_from_itam_status"/>-->		 		       
+		        <!--Family Deduct-->
+		        <menuitem id="menu_vhr_family_deduct" name="Dependant deduction" 
+		        		groups="vhr_human_resource.vhr_cb_profile"
+		                parent="hr.menu_hr_main" sequence="11" 
+		        		action="vhr_master_data.act_vhr_family_deduct"/>			        		
+				<!--Asset Management-->
+		        <menuitem id="menu_vhr_property_management" name="Asset Management"
+		              	parent="hr.menu_hr_main" sequence="12"
+		              	groups="vhr_master_data.vhr_hr_admin,vhr_master_data.vhr_af_admin"/>
+			        <!--IT Asset-->
+			        <menuitem id="menu_vhr_property_management_it" name="IT Asset"
+			                parent="menu_vhr_property_management"
+			        		groups="vhr_base.hrs_group_system" sequence="1"
+			        		action="vhr_master_data.act_vhr_property_management_it"/>
+			        <!--AF Asset-->
+			        <menuitem id="menu_vhr_property_management_af" name="AF Asset"
+			                parent="menu_vhr_property_management"
+			        		groups="vhr_master_data.vhr_hr_admin,vhr_master_data.vhr_af_admin" sequence="2"
+			        		action="vhr_master_data.act_vhr_property_management_af"/>
+			        <!--HR Asset-->
+			        <menuitem id="menu_vhr_property_management_hr" name="HR Asset"
+			                parent="menu_vhr_property_management"
+			        		groups="vhr_master_data.vhr_hr_admin" sequence="3"
+			        		action="vhr_master_data.act_vhr_property_management_hr"/>
+			        
+			<!--Delegate Menu-->
+		        <menuitem id="menu_vhr_delegate_menu_hr" name="Delegate"
+		              	parent="hr.menu_hr_main" sequence="13"
+		              	groups="vhr_master_data.vhr_hr_admin,base.group_system"/>
+		        
+			        <!--Delegate Master-->
+			        <menuitem id="menu_vhr_delegate_master_hr" name="Delegate Master"
+			                parent="menu_vhr_delegate_menu_hr" sequence="1"
+			        		action="vhr_human_resource.act_vhr_delegate_master_hr"/>
+			        <!--Delegate Detail-->
+			        <menuitem id="menu_vhr_delegate_detail_hr" name="Delegate Detail"
+			                parent="menu_vhr_delegate_menu_hr" sequence="2"
+			        		action="vhr_human_resource.act_vhr_delegate_detail_hr"/>
+			        
+					<!--Delegate Model-->
+			        <menuitem id="menu_vhr_delegate_model_hr" name="Delegate Model"
+			                parent="menu_vhr_delegate_menu_hr" sequence="3"
+			        		action="vhr_human_resource.act_vhr_delegate_model_hr"/>			
+			        			
+			        <!--Delegate By Process-->
+			        <menuitem id="menu_vhr_delegate_by_process_hr" name="Delegate By Process"
+			                parent="menu_vhr_delegate_menu_hr" sequence="4"
+			        		action="vhr_human_resource.act_vhr_delegate_by_process_hr"/>			
+		       
+		       <!--Permission Location-->	
+			        <menuitem id="menu_vhr_permission_location" name="Permission Location"
+			        		groups="vhr_master_data.vhr_hr_admin,vhr_human_resource.vhr_cnb_manager"
+			                parent="hr.menu_hr_main" sequence="14"
+			        		action="vhr_human_resource.act_vhr_permission_location"/>      
+			    <!--Privacy Statement-->	   
+			       <menuitem id='menu_vhr_wizard_privacy_statement_parent' name='Privacy Statement'
+			       			groups="vhr_master_data.vhr_hr_admin,vhr_human_resource.vhr_cnb_manager"
+			       			parent="hr.menu_hr_main" sequence="15"
+			       			action='vhr_human_resource.act_vhr_wizard_privacy_statement'/>
+			       
+						<menuitem id='menu_vhr_wizard_privacy_statement' name='Privacy Statement'
+			       			parent="menu_vhr_wizard_privacy_statement_parent" sequence="1"
+			       			action='vhr_human_resource.act_vhr_wizard_privacy_statement'/>
+						
+			       		<menuitem id='menu_vhr_dimension_privacy_statement_report' name='Type of Report'
+			       			parent="menu_vhr_wizard_privacy_statement_parent" sequence="2"
+			       			action='vhr_human_resource.act_vhr_dimension_privacy_statement_report'/>	
+			       		
+			       		<menuitem id='menu_vhr_privacy_statement_report' name='Report'
+			       			parent="menu_vhr_wizard_privacy_statement_parent" sequence="3"
+			       			action='vhr_human_resource.act_wizard_privacy_statement_ir_action_report_xml'/>	
+			       				
+									       	        
+        <menuitem id="menu_vhr_hr_report" parent="hr.menu_hr_root" name="Report" sequence="2"/>
+
+           <!--Human Resource/ Report -->
+		   <menuitem id="menu_vhr_export_hrbp_department"
+		   				groups="vhr_master_data.vhr_hr_admin,vhr_human_resource.vhr_cb"
+		              	name="Export HRBPs List"
+		        		sequence="4"
+		                action="act_vhr_hr_export_hrbp_department"
+		              	parent="vhr_human_resource.menu_vhr_hr_report"/>
+		   
+		   <menuitem id="menu_vhr_print_employment_confirmation"
+		   				groups="vhr_human_resource.vhr_cb_employment_confirm"
+		              	name="Employment Confirmation"
+		        		sequence="5"
+		                action="act_vhr_wizard_employment_confirmation"
+		              	parent="vhr_human_resource.menu_vhr_hr_report"/>
+		   
+		   <menuitem id="menu_vhr_export_low_level_commitment"
+		   				groups="vhr_master_data.vhr_dept_admin,vhr_human_resource.vhr_cb,vhr_master_data.vhr_assistant_to_hrbp,vhr_master_data.vhr_hrbp"
+		              	name="Cam kết thu nhập thấp"
+		        		sequence="6"
+		                action="act_vhr_wizard_print_low_salary_confirmation"
+		              	parent="vhr_human_resource.menu_vhr_hr_report"/>
+		   		           
+	    <!--Begin: Hide some RR menu of core -->    
+        <menuitem name="Recruitment" id="base.menu_crm_case_job_req_main" parent="hr.menu_hr_root"
+                  groups="base.group_system"/>
+        <menuitem parent="base.menu_crm_case_job_req_main" id="hr.menu_hr_job_position"
+                  action="hr_recruitment.action_hr_job" sequence="1" groups="base.group_system"/>
+	        <menuitem
+	                name="Applications"
+	                parent="base.menu_crm_case_job_req_main"
+	                id="hr_recruitment.menu_crm_case_categ0_act_job" action="hr_recruitment.crm_case_categ0_act_job"
+	                sequence="2" groups="base.group_system"/>
+	        <menuitem
+	                name="Resumes and Letters"
+	                parent="base.menu_crm_case_job_req_main"
+	                id="hr_applicant_document.menu_crm_case_categ0_act_job02"
+	                action="hr_applicant_document.hr_applicant_resumes" sequence="3" groups="base.group_system"/>
+        <!--End: Hide some RR menu of core -->
+        
+        <menuitem id="hr.menu_hr_configuration" name="Configuration" parent="hr.menu_hr_root"
+                  groups="vhr_master_data.vhr_hr_admin,vhr_master_data.vhr_fa,vhr_human_resource.vhr_cb_working_record,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_update_fa_hrbp_viewer,vhr_human_resource.vhr_cb_profile"
+        	 sequence="50"/>
+	        <!-- SubMenu Company-->
+	        <menuitem id="menu_hr_configuration_company" name="Company" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin,vhr_master_data.vhr_fa,vhr_master_data.vhr_update_fa_hrbp_viewer" sequence="1"/>
+		        <!--3. Mã khối -->
+		        <menuitem id="menu_vhr_company_group" name="Company Group"
+		                  groups="vhr_master_data.vhr_hr_admin" sequence="1"
+		                  parent="vhr_human_resource.menu_hr_configuration_company"
+		                  action="vhr_master_data.action_vhr_company_group_tree"/>
+		        <!--4. Công ty -->
+		        <menuitem id="menu_vhr_company" name="Company"
+		                  groups="vhr_master_data.vhr_hr_admin" sequence="2"
+		                  parent="vhr_human_resource.menu_hr_configuration_company"
+		                  action="vhr_master_data.action_vhr_company_tree"/>
+		        <!--10. Office -->
+		        <menuitem id="menu_vhr_office" name="Office" 
+		        		  groups="vhr_master_data.vhr_hr_admin" sequence="3"
+		                  parent="vhr_human_resource.menu_hr_configuration_company" 
+		        		  action="vhr_master_data.act_vhr_office"/>
+		        <!--5. Loại cây phân cấp -->
+		        <menuitem id="menu_vhr_hierarchical_chart" name="Hierarchical Chart"
+		                  groups="vhr_master_data.vhr_hr_admin" sequence="4"
+		                  parent="vhr_human_resource.menu_hr_configuration_company"
+		                  action="vhr_master_data.action_vhr_hierarchical_chart_tree"/>
+		        <!--7. Organization Class -->
+		        <menuitem id="menu_vhr_organization_class" name="Organization Class" 
+		        		  groups="vhr_master_data.vhr_hr_admin" sequence="6"
+		                  parent="vhr_human_resource.menu_hr_configuration_company"
+		                  action="vhr_master_data.act_vhr_organization_class"/>
+		        <!--75. Department -HR -->
+		        <menuitem action="hr.open_module_tree_department" id="hr.menu_hr_department_tree" name="Department - HR"
+		                  parent="vhr_human_resource.menu_hr_configuration_company"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  sequence="7"/>
+		        
+		        <!--75. Department -FA -->
+				<menuitem action="vhr_master_data.act_hr_department_fa" id="menu_hr_department_tree_fa" name="Department - FA"
+		                  parent="vhr_human_resource.menu_hr_configuration_company"
+		        		  groups="vhr_master_data.vhr_fa,vhr_master_data.vhr_update_fa_hrbp_viewer"
+		                  sequence="7"/>	
+	        <!-- SubMenu Country-->
+	        <menuitem id="menu_hr_configuration_country" name="Country" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin" sequence="2"/>
+		        <!-- Override menu coutry -->
+		        <menuitem action="base.action_country" id="base.menu_country_partner" name="Country"
+		                  parent="vhr_human_resource.menu_hr_configuration_country" sequence="0"/>
+		        <!--8. City -->
+		        <menuitem id="menu_res_city" name="City" sequence="1"
+		                  parent="vhr_human_resource.menu_hr_configuration_country" action="vhr_master_data.act_res_city"/>
+		        <!--37. District-->
+		        <menuitem id="menu_res_district" name="District" sequence="2"
+		                  parent="vhr_human_resource.menu_hr_configuration_country" action="vhr_master_data.act_res_district"/>
+		        <!--38. Nation ==> Rename to Ethnic-->
+		        <menuitem id="menu_res_nation" name="Ethnic" sequence="3"
+		                  parent="vhr_human_resource.menu_hr_configuration_country" action="vhr_master_data.act_res_nation"/>
+		        <!--50. Religion-->
+		        <menuitem id="menu_vhr_religion" name="Religion" sequence="4"
+		                  parent="vhr_human_resource.menu_hr_configuration_country" action="vhr_master_data.act_vhr_religion"/>
+	
+	        <!-- SubMenu General-->
+	        <menuitem id="menu_hr_configuration_general" name="General" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin" sequence="3"/>
+		        <!--9. Insurance Report Group -->
+		        <menuitem id="menu_vhr_insurance_report_group" name="Insurance Report Group" sequence="1"
+		                  parent="vhr_human_resource.menu_hr_configuration_general"
+		                  action="vhr_master_data.act_vhr_insurance_report_group"/>
+		        <!--31. Email Type -->
+		        <menuitem id="menu_vhr_email_type" name="Email Type" sequence="3"
+		                  parent="vhr_human_resource.menu_hr_configuration_general"
+		                  action="vhr_master_data.act_vhr_email_type"/>
+		        <!--42. Hospital-->
+		        <menuitem id="menu_vhr_hospital" name="Hospital" sequence="4"
+		                  parent="vhr_human_resource.menu_hr_configuration_general"
+		                  action="vhr_master_data.action_vhr_hospital_tree"/>
+		        <!--25. Blood Group -->
+		        <menuitem id="menu_vhr_blo" name="Blood Group"
+		                  sequence="5"
+		                  parent="vhr_human_resource.menu_hr_configuration_general"
+		                  action="vhr_master_data.action_vhr_blood_group_tree"/>
+		        <!--58. Assistance Form -->
+		        <menuitem id="menu_vhr_assistance_form" name="Assistance Form" sequence="7"
+		                  parent="vhr_human_resource.menu_hr_configuration_general"
+		                  action="vhr_master_data.act_vhr_assistance_form"/>
+		        <!--62. Archive File-->
+		        <menuitem id="menu_vhr_archive_file" name="Archive File"
+		                  sequence="8"
+		                  parent="vhr_human_resource.menu_hr_configuration_general"
+		                  action="vhr_master_data.action_vhr_archive_file_tree"/>
+		        <!--66. Cost Center-->
+		        <menuitem id="menu_vhr_cost_center" name="Cost Center"
+		                  sequence="9"
+		                  parent="vhr_human_resource.menu_hr_configuration_general"
+		                  action="vhr_master_data.action_vhr_cost_center_view_tree"/>
+		
+		        <!--92. Dimension-->
+		        <!--		        <menuitem id="menu_vhr_dimension" name="Dimension"-->
+		        <!--		                  sequence="14"-->
+		        <!--		                  parent="vhr_human_resource.menu_hr_configuration_general" action="vhr_master_data.act_vhr_dimension"/>-->
+		        <!--93. Dimension Type-->
+		        <!--		        <menuitem id="menu_vhr_dimension_type" name="Dimension Type"-->
+		        <!--		                  sequence="15"-->
+		        <!--		                  parent="vhr_human_resource.menu_hr_configuration_general" action="vhr_master_data.act_vhr_dimension_type"/>-->
+		                  		        
+		        <!--119. Core Team-->
+		        <menuitem id="menu_vhr_core_team" name="Core Team"
+		                  parent="vhr_human_resource.menu_hr_configuration_general" sequence="21"
+		                  action="vhr_master_data.act_vhr_core_team"/>
+	
+	        <!-- SubMenu Job-->
+	        <menuitem id="menu_hr_configuration_job" name="Job" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin" sequence="4"/>
+		        <!--11. Track == Hide because there are 2 values only. Need hardcode in WR.-->
+		        <menuitem id="menu_vhr_track" name="Track" sequence="1"
+		        		  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_track"/>
+		        <!--12. Job Family -->
+		        <menuitem id="menu_vhr_job_family" name="Job Family" sequence="2"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_job_family"/>
+		        <!--13. Job Group -->
+		        <menuitem id="menu_vhr_job_group" name="Job Group" sequence="2"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_job_group"/>
+		        <!--14. Sub Group -->
+		        <menuitem id="menu_vhr_sub_group" name="Sub Group" sequence="3"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_sub_group"/>
+		        <!--14. SubGroup-JobTitle-->
+		        <menuitem id="menu_vhr_subgroup_jobtitle" name="Sub Group-Job Title" sequence="3"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.act_vhr_subgroup_jobtitle"/>
+		        <!--15. Ranking Level -->
+		        <menuitem id="menu_vhr_ranking_level" name="Ranking Level" sequence="4"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_ranking_level"/>
+		        <!--16. Grade -->
+		        <menuitem id="menu_vhr_grade" name="Grade" sequence="5"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_grade"/>
+				<!--16. Job Type -->
+		        <menuitem id="menu_vhr_job_type" name="Job Type" sequence="6"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_job_type"/>        
+		        <!--17. Title-->
+		        <menuitem id="menu_vhr_job_title" name="Job Title" sequence="7"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_job_title"/>
+		        
+		       <!-- Job Level New-->
+		        <menuitem id="menu_vhr_job_level_new" name="Job Level New" sequence="8"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_job_level_new"/>
+		        <!--17. Title-Level-->
+		        <menuitem id="menu_vhr_jobtitle_joblevel" name="Job Title-Job Level" sequence="9"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.act_vhr_jobtitle_joblevel"/>
+		        <!--18. Job Level Type-->
+		        <menuitem id="menu_vhr_job_level_type" name="Job Level Type" sequence="10"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.act_vhr_job_level_type"/>
+		        <!--20. Job Level-->
+		        <menuitem id="menu_vhr_job_level" name="Job Level" sequence="11"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_job_level"/>
+		        
+		        <!--67. Job Level - Policy-->
+		        <menuitem id="menu_vhr_job_level_allowance_policy" name="Job Level - Policy"
+		                  sequence="12"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.action_vhr_job_level_allowance_policy_tree"/>
+		        <!--69. Job Level - Position Class -->
+		        <menuitem id="menu_vhr_job_level_position_class" name="Job Level - Position Class" sequence="13"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.act_vhr_job_level_position_class"/>
+		        <!--68. Position Class -->
+		        <menuitem id="menu_vhr_position_class" name="Position Class" sequence="14"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.act_vhr_position_class"/>
+		        <!--40. Project-->
+		        <menuitem id="menu_project_project_tree" name="Project" sequence="15"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_project_project"/>
+		        <!--46. Project Role-->
+		        <menuitem id="menu_vhr_project_role" name="Project Role"
+		                  sequence="16"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.action_vhr_project_role_tree"/>
+		        <!--47. Project Type-->
+		        <menuitem id="menu_vhr_project_type" name="Project Type" sequence="17"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_project_type"/>
+		        <!--41. Function-->
+		        <menuitem id="menu_vhr_function" name="Function" sequence="18"
+		                  parent="vhr_human_resource.menu_hr_configuration_job" action="vhr_master_data.act_vhr_function"/>
+		        <!--43. Job Role-->
+		        <menuitem id="menu_vhr_job_role" name="Job Role"
+		                  sequence="19"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.action_vhr_job_role_tree"/>
+		        <!--44. Priority List-->
+		        <menuitem id="menu_vhr_priority_list" name="Priority List"
+		                  sequence="20"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.action_vhr_priority_list_tree"/>
+		        <!--26. Career -->
+		        <menuitem id="menu_vhr_career" name="Career"
+		                  sequence="21"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.action_vhr_career_tree"/>		
+		        <!--32. Performance Rating -->
+		        <menuitem id="menu_vhr_performance_rating" name="Performance Rating" sequence="22"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.act_vhr_performance_rating"/>
+		        <!--33. Collaborator Type -->
+		        <menuitem id="menu_vhr_collaborator_type" name="Collaborator Type" sequence="23"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.act_vhr_collaborator_type"/>
+		        <!--51. General Rating-->
+		        <menuitem id="menu_vhr_general_rating" name="General Rating" sequence="24"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_master_data.act_vhr_general_rating"/>
+		        <!--Career Track -->
+		        <menuitem id="menu_vhr_dimension_career_track" name="Career Track"
+		                  sequence="25"
+		                  parent="vhr_human_resource.menu_hr_configuration_job"
+		                  action="vhr_human_resource.action_vhr_dimension_career_track"/>
+	
+		    <!-- SubMenu Termination-->
+	        <menuitem id="menu_hr_configuration_termination" name="Termination" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin" sequence="5"/>
+	        	<!--59. Termination Type -->
+		        <menuitem id="menu_vhr_resignation_type" name="Termination Type" sequence="1"
+		                  parent="vhr_human_resource.menu_hr_configuration_termination"
+		                  action="vhr_human_resource.act_vhr_resignation_type"/>
+		        <!--Termination Reason Group-->
+		        <menuitem id="menu_vhr_resignation_reason_group" name="Termination Reason Group" sequence="2"
+		                  parent="vhr_human_resource.menu_hr_configuration_termination"
+		                  action="vhr_human_resource.act_vhr_resignation_reason_group"/>    
+		        <!--60. Termination Reason -->
+		        <menuitem id="menu_vhr_resignation_reason" name="Termination Reason" sequence="3"
+		                  parent="vhr_human_resource.menu_hr_configuration_termination"
+		                  action="vhr_human_resource.act_vhr_resignation_reason"/>	
+		              		        
+		        <!--60. Continue Recruiting -->
+		        <menuitem id="menu_vhr_dimension_continue_recruiting" name="Continue Recruiting" sequence="4"
+		                  parent="vhr_human_resource.menu_hr_configuration_termination"
+		                  action="vhr_master_data.act_vhr_dimension_continue_recruiting"/>
+		        
+		         <!-- Link Exit Survey -->
+		        <menuitem id="menu_vhr_resignation_link_exit_survey" name="Link Exit Survey" sequence="5"
+		                  parent="vhr_human_resource.menu_hr_configuration_termination"
+		                  action="vhr_human_resource.act_vhr_resignation_link_exit_survey"/>	
+		    
+		    <!-- SubMenu Exit Checklist-->
+	        <menuitem id="menu_hr_configuration_exit_checklist" name="Exit Checklist" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin" sequence="6"/>        			        
+		        <!--110. Exit Type-->
+		        <menuitem id="menu_vhr_exit_type" name="Exit Type"
+		                  parent="vhr_human_resource.menu_hr_configuration_exit_checklist" sequence="1"
+		                  action="vhr_master_data.act_vhr_exit_type"/>
+		        <!--111. Exit-->
+		        <menuitem id="menu_vhr_exit" name="Exit"
+		                  parent="vhr_human_resource.menu_hr_configuration_exit_checklist" sequence="2"
+		                  action="vhr_master_data.act_vhr_exit"/>
+		        <!-- Exit Approver-->
+		        <menuitem id="menu_vhr_exit_approver" name="Exit Approver"
+		                  parent="vhr_human_resource.menu_hr_configuration_exit_checklist" sequence="3"		                  
+		        	      action="vhr_master_data.act_vhr_exit_approver"/>
+		        
+		        <!-- Exit Checklist Department FA-->
+		        <menuitem id="menu_vhr_exit_checklist_department_FA" name="Exit Checklist Department FA"
+		                  parent="vhr_human_resource.menu_hr_configuration_exit_checklist" sequence="4"		                  
+		        	      action="vhr_human_resource.act_vhr_exit_checklist_department_fa"/>
+		                      	
+	        <!-- SubMenu Education-->
+	        <menuitem id="menu_hr_configuration_education" name="Education" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin" sequence="7"/>
+		        <!--52. School -->
+		        <menuitem id="menu_vhr_school" name="School" sequence="1"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.act_vhr_school"/>
+		        <!--39. Faculty-->
+		        <menuitem id="menu_vhr_faculty" name="Faculty" sequence="2"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.act_vhr_faculty"/>
+		        <!--57. Speciality-->
+		        <menuitem id="menu_vhr_speciality" name="Speciality" sequence="3"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.act_vhr_speciality"/>
+		        <!--34. Certificate Rating -->
+		        <menuitem id="menu_vhr_certificate_rating" name="Certificate Rating" sequence="4"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.act_vhr_certificate_rating"/>
+		        <!--35. Certificate Level -->
+		        <menuitem id="menu_vhr_certificate_level" name="Certificate Level" sequence="5"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.act_vhr_certificate_level"/>
+		        <!--45. Degree-->
+		        <menuitem id="menu_vhr_recruitment_degree" name="Degree/ Certificate"
+		                  sequence="6"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.action_vhr_recruitment_degree_tree"/>
+		        <!--61. Training Form -->
+		        <menuitem id="menu_vhr_training_form" name="Training Form" sequence="7"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.act_vhr_training_form"/>
+		        <!--73. Training Type -->
+		        <menuitem id="menu_vhr_training_type" name="Training Type" sequence="8"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.act_vhr_training_type"/>
+		        <!--36. Self Development -->
+		        <menuitem id="menu_vhr_self_development" name="Self Development" sequence="9"
+		                  parent="vhr_human_resource.menu_hr_configuration_education"
+		                  action="vhr_master_data.act_vhr_self_development"/>
+		
+	        <!-- SubMenu Employee-->
+	        <menuitem id="menu_hr_configuration_employee" name="Employee" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin,vhr_human_resource.vhr_cnb_manager" sequence="8"/>
+		        <!--19. Staff Classification-->
+		        <menuitem id="menu_vhr_staff_classification" name="Staff Classification" sequence="1"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  action="vhr_master_data.act_vhr_staff_classification"/>
+		        <!--21. Award Form-->
+		        <menuitem id="menu_vhr_award_form" name="Award Form" sequence="2"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  action="vhr_master_data.act_vhr_award_form"/>
+		        <!--22. Award Level -->
+		        <menuitem id="menu_vhr_award_level" name="Award Level"
+		                  sequence="3"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  action="vhr_master_data.action_vhr_award_level_tree"/>
+		        <!--27. Change Form Type -->
+		        <menuitem id="menu_vhr_change_form_type" name="Change Form Type" sequence="5"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  action="vhr_master_data.act_vhr_change_form_type"/>
+		        <!--28. Change Form -->
+		        <menuitem id="menu_vhr_change_form" name="Change Form" sequence="6"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  action="vhr_master_data.act_vhr_change_form"/>
+		
+		        <!--94. Relationship Type -->
+		        <menuitem id="menu_vhr_relationship_type" name="Relationship Type" sequence="7"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  action="vhr_master_data.act_vhr_relationship_type"/>
+		        <!--Health Care Record-->
+		        <menuitem id="menu_vhr_health_care_record" name="Health Care Record"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee" sequence="8"
+		                  action="vhr_master_data.act_vhr_health_care_record"/>	        
+		        <!--48. Asset Type-->
+		        <menuitem id="menu_vhr_property_type" name="Asset Type" sequence="10"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  action="vhr_master_data.act_vhr_property_type"/>
+		        <!--49. Asset-->
+		        <menuitem id="menu_vhr_property" name="Asset" sequence="11"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee" action="vhr_master_data.act_vhr_property"/>
+		        <!--Working Background-->
+		        <!--<menuitem id="menu_vhr_working_background" name="Working Background"
+		                parent="vhr_human_resource.menu_hr_configuration_employee" sequence="14" action="vhr_master_data.act_vhr_working_background"/>-->
+		        <!--49. Personal Document Type-->
+		        <menuitem id="menu_vhr_personal_document_type" name="Personal Document Type" sequence="12"
+		         		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  action="vhr_master_data.act_vhr_personal_document_type"/>
+		        
+		        <!--Personal Document Status-->
+		        <menuitem id="menu_vhr_personal_document_status" name="Personal Document Status"
+		        		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee" sequence="13"
+		                  action="vhr_master_data.act_vhr_personal_document_status"/>
+		        
+		        <!--Personal Document-->
+		        <menuitem id="menu_vhr_personal_document" name="Personal Document"
+		         		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee" sequence="14"
+		                  action="vhr_master_data.act_vhr_personal_document"/>
+		        <!--Duty Free-->
+		        <menuitem id="menu_vhr_duty_free" name="Duty Free"
+		         		  groups="vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  sequence="15"
+		                  action="vhr_master_data.act_vhr_duty_free"/>
+		       
+		       <!--Certificates/Degree Info-->
+		        <menuitem id="menu_vhr_certificate_info" name="Certificates/Degree Info"
+		        		  groups="vhr_master_data.vhr_hr_admin"	
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  sequence="16"
+		                  action="vhr_master_data.act_vhr_certificate_info"/>
+		         
+		       <!--Employee Assessment-->       	
+		       	<menuitem id="menu_vhr_employee_assessment" name="Assessment"
+		                  parent="vhr_human_resource.menu_hr_configuration_employee"
+		                  sequence="17"/>
+			       	<!--Assessment Period-->
+			        <menuitem id="menu_vhr_assessment_period" name="Assessment Period"
+			                  parent="vhr_human_resource.menu_vhr_employee_assessment"
+			                  sequence="1"
+			                  action="vhr_master_data.act_vhr_assessment_period"/>
+			        <!--Assessment Calibration-->
+			        <menuitem id="menu_vhr_assessment_calibration" name="Assessment Calibration"
+			                  parent="vhr_human_resource.menu_vhr_employee_assessment"
+			                  sequence="2"
+			                  action="vhr_master_data.act_vhr_assessment_calibration"/>
+			        <!--Assessment Result-->
+			        <menuitem id="menu_vhr_employee_assessment_result" name="Assessment Result"
+			                  groups="vhr_human_resource.vhr_cnb_manager"
+			                  parent="vhr_human_resource.menu_vhr_employee_assessment"
+			                  sequence="3"
+			                  action="vhr_master_data.act_vhr_employee_assessment_result"/>			        
+			        <!-- Import Assessment Result -->
+			        <menuitem id="menu_vhr_import_employee_assessment_result" name="Import Assessment Result"
+					          groups="vhr_human_resource.vhr_cnb_manager"
+			                  parent="vhr_human_resource.menu_vhr_employee_assessment" 
+			                  action="action_vhr_import_employee_assessment_result"
+			                  sequence="4"/>
+	                <menuitem id="menu_vhr_import_employee_assessment_result_status" name="Import status"
+			                  groups="vhr_human_resource.vhr_cnb_manager"
+			                  parent="vhr_human_resource.menu_vhr_employee_assessment" 
+			                  action="action_vhr_hr_import_status"
+			                  sequence="5"/>	  
+                  	 	        	
+	        <!-- SubMenu Contract-->
+	        <menuitem id="hr_contract.next_id_56" name="Contract" parent="hr.menu_hr_configuration" sequence="9"
+	                  groups="vhr_master_data.vhr_hr_admin"/>
+		        <!--29. Contract Type Group -->
+		        <menuitem id="menu_hr_contract_type_group" name="Contract Type Group" sequence="1"
+		                  parent="hr_contract.next_id_56"
+		                  action="vhr_human_resource.act_hr_contract_type_group"/>
+		        <menuitem id="hr_contract.hr_menu_contract_type" name="Contract Type"
+		                  action="hr_contract.action_hr_contract_type"
+		                  parent="hr_contract.next_id_56" sequence="2"/>
+		        
+		         <!--Contract Sub Type  -->
+				<menuitem id="menu_hr_contract_sub_type" name="Contract Sub Type"
+		                  action="act_hr_contract_sub_type"
+		                  parent="hr_contract.next_id_56" sequence="3"/>		
+		       
+		         <!--Appendix Contract Type  -->
+				<menuitem id="menu_vhr_appendix_contract_type" name="Appendix Contract Type"
+		                  action="act_vhr_appendix_contract_type"
+		                  parent="hr_contract.next_id_56" sequence="4"/> 
+		                  	   
+		                  	    
+			<!-- SubMenu Salary-->
+	        <menuitem id="menu_hr_configuration_salary" name="Salary" parent="hr.menu_hr_configuration" sequence="10"
+	                  groups="vhr_master_data.vhr_hr_admin,vhr_human_resource.vhr_cb_working_record"/>
+			        		        
+	        <!-- SubMenu Bank-->
+	        <menuitem id="menu_hr_configuration_bank" name="Bank" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin,vhr_human_resource.vhr_cb_profile" sequence="11"/>
+		        <!--23. Bank -->
+		        <menuitem id="menu_vhr_bank" name="Bank"
+		                  sequence="1"
+		                  parent="vhr_human_resource.menu_hr_configuration_bank" action="vhr_master_data.action_vhr_bank_tree"/>
+		        <!--24. Branch Bank -->
+		        <menuitem id="menu_vhr_branch_bank" name="Bank's Branch"
+		                  sequence="2"
+		                  parent="vhr_human_resource.menu_hr_configuration_bank"
+		                  action="vhr_master_data.action_vhr_branch_bank_tree"/>
+		        
+				<!-- Bank Account -->
+		        <menuitem id="menu_vhr_partner_bank" name="Bank Account"
+		                  sequence="3"
+		                  parent="vhr_human_resource.menu_hr_configuration_bank"
+		                  action="vhr_master_data.act_res_partner_bank"/>
+		        
+		        <!-- Import  Bank Account -->
+		        
+		        
+              	<menuitem id="menu_vhr_import_partner_bank" name="Import Bank Account"
+		          groups="vhr_human_resource.vhr_cb_profile,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_admin"
+                  parent="vhr_human_resource.menu_hr_configuration_bank" 
+                  action="action_vhr_import_partner_bank"
+                  sequence="4"/>
+		        
+                <menuitem id="menu_vhr_import_res_partner_bank_status" name="Import status"
+		                  groups="vhr_human_resource.vhr_cb_profile,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_admin"
+		                  parent="vhr_human_resource.menu_hr_configuration_bank" 
+		                  action="action_vhr_import_partner_bank_status"
+		                  sequence="5"/>	
+		                  
+			                  	           		 		        	
+	        <!-- Submenu Setting -->
+	        <menuitem id="menu_hr_configuration_setting" name="Setting" parent="hr.menu_hr_configuration"
+	                  groups="vhr_master_data.vhr_hr_admin" sequence="12"/>
+		        <!--Sequence -->
+		        <menuitem id="menu_vhr_sequence" name="Sequence"
+		                  sequence="1"
+		                  parent="vhr_human_resource.menu_hr_configuration_setting" action="vhr_master_data.act_vhr_sequence"/>
+		
+		        <menuitem id="vhr_menu_email_templates"
+		                  name="Email Template"
+		                  sequence="2"
+		                  action="vhr_email_configuration.action_email_templates"
+		                  parent="vhr_human_resource.menu_hr_configuration_setting"/>
+		
+		        <menuitem id="menu_vhr_email_group"
+		              	name="Email Group"
+		        		sequence="3"
+		                action="vhr_email_configuration.act_vhr_email_group"
+		              	parent="vhr_human_resource.menu_hr_configuration_setting"/>
+		        
+		        <menuitem id="menu_vhr_log_error_system"
+		              	name="Log Error System"
+		        		sequence="4"
+		                action="act_vhr_log_error_system"
+		              	parent="vhr_human_resource.menu_hr_configuration_setting"/>
+		        
+				<menuitem id="menu_vhr_log_test_system"
+		              	name="Test Sys"
+		        		sequence="5"
+		                action="act_vhr_hr_test_result"
+		              	parent="vhr_human_resource.menu_hr_configuration_setting"/>		        
+		              		
+		              		
+		   
+    </data>
+</openerp>

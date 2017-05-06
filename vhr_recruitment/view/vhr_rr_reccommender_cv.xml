@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="vhr_rr_recommend_cv_tree_view">
+			<field name="name">vhr.rr.recommend.cv.tree</field>
+			<field name="model">vhr.rr.recommend.cv</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Recommender CV">
+					<field name="name"/>
+       				<field name="email"/>
+       				<field name="referee"/>
+       				<field name="ref_email"/>
+       				<field name="identity_number"/>
+       				<field name="post_id"/>
+       				<field name="job_id"/>
+       				<field name="program_event_id"/>
+       				<field name="type"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vhr_rr_recommend_cv_form_view">
+			<field name="name">vhr.rr.recommend.cv.form</field>
+			<field name="model">vhr.rr.recommend.cv</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Recommender CV">
+					<sheet>
+       					<group col="4">
+       						<group>
+       							<field name="name"/>
+       							<field name="email"/>
+       							<field name="post_id"/>
+       							<field name="job_id"/>
+       							<field name="program_event_id"/>
+       							<field name="handle_by_email"/>
+       						</group>
+       						<group>
+	       						<field name="referee"/>
+       							<field name="ref_email"/>
+       							<field name="identity_number"/>
+       							<field name="employee_id"/>
+       							<field name="ref_employee_id"/>
+       							<field name="type"/>
+       						</group>
+       					</group>
+       				</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="vhr_rr_recommend_cv_search_view" model="ir.ui.view">
+			<field name="name">vhr.rr.recommend.cv.form.search</field>
+			<field name="model">vhr.rr.recommend.cv</field>
+			<field name="arch" type="xml">
+				<search string="Search">
+					<field name="name" string="Candidate" filter_domain="['|',('name','ilike',self),('email','ilike',self)]"/>
+					<field name="referee" string="Referee" filter_domain="['|','|',('referee','ilike',self),('identity_number','ilike',self),('ref_email','ilike',self)]"/>
+					<separator />
+					<group expand="0" string="Group By">
+						<filter name="group_by_candidate" string="Candidate" context="{'group_by':'name'}" />
+						<filter name="group_by_referee" string="Referee"
+							context="{'group_by':'referee'}" />
+						<filter name="group_by_type" string="Type"
+							context="{'group_by':'type'}" />
+						<filter name="group_by_program_event_id" string="Program Event"
+							context="{'group_by':'program_event_id'}" />
+						<filter name="group_by_job_id" string="Job"
+							context="{'group_by':'job_id'}" />
+						
+					</group>
+				</search>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_vhr_rr_recommend_cv">
+			<field name="name">Recommender CV</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">vhr.rr.recommend.cv</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="vhr_rr_recommend_cv_tree_view" />
+			<field name="search_view_id" ref="vhr_rr_recommend_cv_search_view"/>
+		</record>
+
+	</data>
+</openerp>

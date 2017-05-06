@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_bank_contract_form" model="ir.ui.view">
+            <field name="name">vhr.bank.contract.view.form</field>
+            <field name="model">vhr.bank.contract</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <form string="Bank Contract" version="7.0">
+       				<sheet>
+       					<group col="4">
+       						<field name="name" />
+                            <field name="bank_id" required="1" context="{'default_employee_id':employee_id}"/>       						
+                            <field name="value_type" required="1"/>
+                            <field name="weight" string="Value" required="1"/>
+       						<field name="contract_id" invisible="1" />
+       						<field name="employee_id" invisible="1"/>
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record id="view_vhr_bank_contract_tree" model="ir.ui.view">
+            <field name="name">vhr.bank.contract.view.tree</field>
+            <field name="model">vhr.bank.contract</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Bank Contract" version="7.0" editable="top">
+                    <field name="bank_id" required="1" context="{'default_employee_id':employee_id}"/>
+ 					<field name="weight" required="1"/>
+                    <field name="value_type" required="1"/>
+ 					<field name="currency" required="1"/>
+ 					<field name="contract_id" invisible="1"/>
+ 					<field name="employee_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_bank_contract_search" model="ir.ui.view">
+            <field name="name">vhr.bank.contract.view.search</field>
+            <field name="model">vhr.bank.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='bank_id'/>
+                    <field name="weight" />
+                    <field name="contract_id" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_vhr_bank_contract">
+            <field name="name">Bank Contract</field>
+            <field name="res_model">vhr.bank.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_bank_contract_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_bank_contract_search"/>
+        </record>
+    </data>
+</openerp>

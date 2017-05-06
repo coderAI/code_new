@@ -1,0 +1,140 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <!-- Public Holidays -->
+        <record model="ir.ui.view" id="view_vhr_public_holiday_tree">
+            <field name="name">vhr.public.holidays.tree</field>
+            <field name="model">vhr.public.holidays</field>
+            <field name="arch" type="xml">
+                <tree string="List Public Holiday" colors="red:weekday in ('Saturday', 'Sunday')">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="weekday"/>
+                    <field name="type_id"/>
+                    <field name="company_id"/>
+                    <field name="country_id"/>
+                    <field name="year" invisible="1" options="{'remove_thousand_seps': 1}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_public_holiday_form">
+            <field name="name">vhr.public.holidays.form</field>
+            <field name="model">vhr.public.holidays</field>
+            <field name="arch" type="xml">
+                <form version="7.0" string="List Public Holiday">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="date" required="1"/>
+                            <field name="company_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="type_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="country_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_public_holiday_calendar">
+            <field name="name">vhr.public.holidays.calendar</field>
+            <field name="model">vhr.public.holidays</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Public Holidays"
+                          quick_add="False" avatar_model="res.company"
+                          date_start="date" color="type_id">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="type_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_public_holiday_search">
+            <field name="name">vhr.public.holidays.search</field>
+            <field name="model">vhr.public.holidays</field>
+            <field name="arch" type="xml">
+                <search string="List Public Holiday">
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_year" string="Year"
+                                context="{'group_by':'year'}"/>
+                        <filter name="group_by_date" string="Month"
+                                context="{'group_by':'date'}"/>
+                        <filter name="group_by_type_id" string="Type"
+                                context="{'group_by':'type_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_public_holiday_tree_template">
+            <field name="name">vhr.public.holidays.tree.template</field>
+            <field name="model">vhr.public.holidays</field>
+            <field name="arch" type="xml">
+                <tree string="List Public Holiday Template">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="type_id"/>
+                    <field name="country_id"/>
+                    <field name="template_holidays"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_public_holiday_form_template">
+            <field name="name">vhr.public.holidays.form.template</field>
+            <field name="model">vhr.public.holidays</field>
+            <field name="arch" type="xml">
+                <form string="List Public Holiday Template">
+                    <field name="name" required="1"/>
+                    <field name="date" required="1"/>
+                    <field name="type_id" required="1"/>
+                    <field name="country_id" required="1"/>
+                    <field name="template_holidays"/>
+                </form>
+            </field>
+        </record>
+
+        <!-- calendar view -->
+        <record model="ir.ui.view" id="view_vhr_public_holiday_calendar_extra">
+            <field name="name">view.vhr.public.holidays.line.calendar</field>
+            <field name="model">vhr.public.holidays</field>
+            <field name="type">hrs_calendar</field>
+            <field name="arch" type="xml">
+                <hrs_calendar is_display_sun="true" is_display_sat="true" field_date="date"
+                              message="Public holidays message">
+                    <field name="type_id" required="1" code="1"/>
+                </hrs_calendar>
+            </field>
+        </record>
+
+        <record id="action_open_public_holidays_this_year" model="ir.actions.act_window">
+            <field name="name">Public Holidays This Year</field>
+            <field name="res_model">vhr.public.holidays</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">hrs_calendar,tree,form</field>
+            <field name="domain">[('template_holidays','=',False),('country_id.code', '=','VN')]</field>
+            <field name="context">{'search_default_this_year':1}</field>
+        </record>
+
+        <record id="action_open_public_holidays_templates" model="ir.actions.act_window">
+            <field name="name">Public Holidays Templates</field>
+            <field name="res_model">vhr.public.holidays</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('template_holidays','=',True),('country_id.code', '=','VN')]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_open_public_holidays_calendar_extra">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">hrs_calendar</field>
+            <field name="view_id" ref="view_vhr_public_holiday_calendar_extra"/>
+            <field name="act_window_id" ref="action_open_public_holidays_this_year"/>
+        </record>
+
+    </data>
+</openerp>

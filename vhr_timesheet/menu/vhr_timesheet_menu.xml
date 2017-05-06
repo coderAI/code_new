@@ -1,0 +1,446 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <delete model="ir.ui.menu" search="[('name','=','Allocation Requests to Approve')]"/>
+        <delete model="ir.ui.menu" search="[('name','=','Allocation Requests')]"/>
+        
+        <menuitem id="menu_vhr_timesheet_root"
+                  name="Timesheets"
+                  sequence="102"
+                  groups="vhr_timesheet.vhr_cb_timesheet,vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_ts_approver,vhr_timesheet.vhr_cb_timesheet_readonly"/>
+		                  	
+        <!--Menu Timesheets/Leaves -->
+        <menuitem name="My Page" parent="menu_vhr_timesheet_root"
+                  id="hr_holidays.menu_open_ask_holidays"
+                  groups="base.group_user"
+                  sequence="1"/>
+	        <menuitem parent="hr_holidays.menu_open_ask_holidays"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  name="Leave Registration"
+	                  id="hr_holidays.menu_open_ask_holidays_new"
+	                  action="open_ask_holidays"
+	                  sequence="1"/>
+	        <menuitem name="Leave For Approval"
+	                  parent="hr_holidays.menu_open_ask_holidays"
+	                  id="hr_holidays.menu_request_approve_holidays"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  action="request_approve_holidays"
+	                  sequence="2"/>
+	        <menuitem name="Overtime Registration"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  parent="hr_holidays.menu_open_ask_holidays"
+	                  id="menu_open_my_request_vhr_ts_overtime"
+	                  action="act_my_request_vhr_ts_overtime"
+	                  sequence="3"/>
+	        <menuitem name="Overtime For Approval"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  parent="hr_holidays.menu_open_ask_holidays"
+	                  id="menu_open_my_task_vhr_ts_overtime"
+	                  action="act_my_task_vhr_ts_overtime"
+	                  sequence="4"/>	        
+        <!--<menuitem name="My Approvals"-->
+        <!--parent="hr_holidays.menu_open_ask_holidays"-->
+        <!--id="menu_request_approved_holidays"-->
+        <!--groups="base.group_user"-->
+        <!--action="request_approved_holidays"-->
+        <!--sequence="3"/>-->
+	        <menuitem name="Update For Leave"
+	                  parent="hr_holidays.menu_open_ask_holidays"
+	                  id="menu_request_updated_holidays"
+	                  groups="vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_cb_timesheet"
+	                  action="action_update_for_leave"
+	                  sequence="6"/>
+	        
+	        <menuitem parent="hr_holidays.menu_open_ask_holidays"
+	                  string="Multi Update For Leave"
+	                  id="hr_holidays.menu_open_vhr_holidays_multi"
+	                  action="act_vhr_holidays_multi"
+	                  groups="vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="7"/>
+	        <menuitem parent="hr_holidays.menu_open_ask_holidays"
+	                  string="Multi Update For Leave Progress"
+	                  id="hr_holidays.menu_open_tracking_vhr_holidays_multi"
+	                  action="act_tracking_vhr_holidays_multi"
+	                  groups="vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="8"/>
+	        <menuitem name="Update For OT"
+	                  parent="hr_holidays.menu_open_ask_holidays"
+	                  id="menu_request_updated_ot"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  action="action_update_for_ot"
+	                  sequence="9"/>
+	        <menuitem name="Multi Overtime Registration"
+	                  parent="hr_holidays.menu_open_ask_holidays"
+	                  id="menu_open_vhr_ts_overtime_multi"
+	                  action="act_vhr_ts_overtime_multi"
+	                  groups="vhr_base.hrs_group_system"
+	                  sequence="14"/>
+	
+	        <menuitem name="Multi Overtime Registration Progress"
+	                  parent="hr_holidays.menu_open_ask_holidays"
+	                  id="menu_open_tracking_vhr_ts_overtime_multi"
+	                  action="act_tracking_vhr_ts_overtime_multi"
+	                  groups="vhr_base.hrs_group_system"
+	                  sequence="15"/>
+
+        <!--     Leave Information               -->
+        <menuitem name="Management" parent="menu_vhr_timesheet_root"
+                  id="menu_vhr_timesheet_management"
+                  groups="base.group_user"
+                  sequence="2"/>
+	        <menuitem name="List of Leave"
+	                  parent="menu_vhr_timesheet_management"
+	                  id="hr_holidays.menu_open_company_allocation"
+	                  action="open_leave_summary"
+	                  groups="base.group_user"
+	                  sequence="1"/>
+	        <menuitem name="List of Overtime"
+	                  parent="menu_vhr_timesheet_management"
+	                  id="menu_open_my_list_vhr_ts_overtime"
+	                  action="act_my_list_vhr_ts_overtime"
+	                  groups="vhr_timesheet.vhr_cb_timesheet,vhr_master_data.vhr_dept_admin"
+	                  sequence="2"/>
+	        <menuitem name="Overtime Summary"
+	                  parent="menu_vhr_timesheet_management"
+	                  id="menu_open_vhr_ts_overtime_summarize"
+	                  action="act_vhr_ts_overtime_summarize"
+	                  groups="vhr_human_resource.vhr_cnb_manager,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="5"/>
+	        <menuitem parent="menu_vhr_timesheet_management"
+	                  name="Annual Leave Balance Generation"
+	                  id="menu_vhr_ts_employee_annual_leave_gen"
+	                  action="act_vhr_ts_employee_annual_leave_gen"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="6"/>
+	        <menuitem parent="menu_vhr_timesheet_management"
+	                  name="Annual Leave Balance"
+	                  id="menu_open_allocation_holidays_readonly"
+	                  action="open_allocation_holidays"
+	                  groups="vhr_timesheet.vhr_cb_timesheet,vhr_timesheet.vhr_cb_timesheet_readonly"
+	                  sequence="7"/>
+	        <menuitem parent="menu_vhr_timesheet_management"
+	                  name="Accumulation Generation"
+	                  id="menu_vhr_ts_incremental_annual_leave"
+	                  action="act_vhr_ts_incremental_annual_leave"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="8"/>
+	        <menuitem parent="menu_vhr_timesheet_management"
+	                  name="Accumulation Generation Progress"
+	                  id="menu_tracking_vhr_ts_incremental_annual_leave"
+	                  action="act_tracking_vhr_ts_incremental_annual_leave"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="9"/>  
+	        <menuitem parent="menu_vhr_timesheet_management"
+	                  name="Leave Accumulation"
+	                  id="menu_vhr_holiday_annual_leave_accumulation"
+	                  action="act_vhr_holiday_annual_leave_accumulation"
+	                  groups="vhr_timesheet.vhr_cb_timesheet,vhr_human_resource.vhr_cnb_manager"
+	                  sequence="10"/>
+			<menuitem parent="menu_vhr_timesheet_management"
+	                  name="Update OT Summary"
+	                  id="menu_vhr_ts_update_ot_summary"
+	                  action="act_vhr_ts_update_ot_summary"
+	                  groups="vhr_base.hrs_group_system"
+	                  sequence="11"/>
+	        <menuitem parent="menu_vhr_timesheet_management"
+	                  name="Update OT Summary Progress"
+	                  id="menu_tracking_vhr_ts_update_ot_summary"
+	                  action="act_tracking_vhr_ts_update_ot_summary"
+	                  groups="vhr_base.hrs_group_system"
+	                  sequence="12"/>
+	        
+	       <menuitem parent="menu_vhr_timesheet_management"
+	                  name="Compensation OT Payment"
+	                  id="menu_vhr_compensation_ot_payment"
+	                  action="act_vhr_compensation_ot_payment"
+	                  groups="vhr_human_resource.vhr_cnb_manager,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="13"/>
+	       
+	       <menuitem parent="menu_vhr_timesheet_management"
+	                  name="Compensation OT Payment Generation"
+	                  id="menu_vhr_compensation_ot_payment_wizard"
+	                  action="act_vhr_compensation_ot_payment_wizard"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="14"/>
+	       
+			<menuitem parent="menu_vhr_timesheet_management"
+	                  name="Compensation OT Payment Generation Progress"
+	                  id="menu_vhr_compensation_ot_payment_wizard_progress"
+	                  action="act_tracking_vhr_compensation_ot_payment_wizard"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="15"/>	        
+		   	
+	        <menuitem id="menu_vhr_ts_lock_timesheet_detail"
+	                  name="Lock Timesheet Detail"
+	                  parent="menu_vhr_timesheet_management"
+	                  action="action_open_vhr_ts_lock_timesheet_detail"
+                      groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="16"/>
+            	
+	        <menuitem id="menu_vhr_ts_lock_timesheet_detail_wizard"
+	                  name="Lock Timesheet Detail Generation"
+	        		  parent="menu_vhr_timesheet_management"
+	                  action="act_vhr_ts_lock_timesheet_detail_wizard"
+	                  groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="17"/>	       
+	                  	
+	        <menuitem id="menu_vhr_ts_lock_timesheet_detail_wizard_generation"
+	                  name="Lock Timesheet Detail Generation Progress"
+	                  parent="menu_vhr_timesheet_management"
+	                  action="act_tracking_vhr_ts_lock_timesheet_detail_wizard"
+                      groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="18"/>
+	        
+			<menuitem id="menu_vhr_timesheet_delegate_menu"
+	                  name="Delegate"
+	                  parent="menu_vhr_timesheet_management"
+                      groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="19"/>		
+	        
+	        <menuitem id="menu_vhr_timesheet_delegate_master"
+	                  name="Delegate Master"
+	                  parent="menu_vhr_timesheet_delegate_menu"
+	        		  action="act_vhr_timesheet_delegate_master"
+                      groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="1"/>
+	       
+	        <menuitem id="menu_vhr_timesheet_delegate_detail"
+	                  name="Delegate Detail"
+	                  parent="menu_vhr_timesheet_delegate_menu"
+	        		  action="act_vhr_timesheet_delegate_detail"
+                      groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="2"/>
+	       
+	        <menuitem id="menu_vhr_timesheet_delegate_model"
+	                  name="Delegate Model"
+	                  parent="menu_vhr_timesheet_delegate_menu"
+	        		  action="act_vhr_timesheet_delegate_model"
+                      groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="3"/> 	        
+	                  	
+        <!--Menu Timesheets/Overtime/ Multi Overtime-->
+
+        <!-- Menu Timesheets/Timesheet-->
+        <menuitem id="menu_vhr_timesheet_timesheet"
+                  name="Timesheet" parent="menu_vhr_timesheet_root"
+                  groups="vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_cb_timesheet,vhr_timesheet.vhr_ts_approver,vhr_timesheet.vhr_cb_timesheet_readonly"
+                  sequence="3"/>	        
+	        <menuitem id="menu_vhr_ts_monthly_gen"
+	                  name="Detail Generation"
+	                  parent="menu_vhr_timesheet_timesheet"
+	                  action="act_vhr_ts_monthly_gen"
+                      groups="vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="1"/>
+	        <menuitem parent="menu_vhr_timesheet_timesheet"
+	                  name="Detail Generation Progress"
+	                  id="hr_holidays.menu_tracking_vhr_ts_monthly_gen"
+	                  action="act_tracking_vhr_ts_monthly_gen"
+	                  groups="vhr_base.hrs_group_system,vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="2"/>
+	        <menuitem id="menu_act_vhr_ts_view_result_detail"
+	                  parent="menu_vhr_timesheet_timesheet"
+	        		  groups="vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_cb_timesheet"
+	                  action="act_vhr_ts_view_result_detail"
+	                  sequence="3"/>
+	        <menuitem id="menu_vhr_ts_monthly"
+	                  name="Detail"
+	                  parent="menu_vhr_timesheet_timesheet"
+	                  action="act_vhr_ts_monthly"
+	                  groups="vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_cb_timesheet,vhr_timesheet.vhr_ts_approver,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_dept_head,vhr_timesheet.vhr_cb_timesheet_readonly"
+	                  sequence="4"/>	                		  
+	        
+	        <menuitem id="menu_vhr_ts_summary_gen"
+	                  name="Summary Generation"
+	                  parent="menu_vhr_timesheet_timesheet"
+	                  action="act_vhr_ts_employee_timesheet_summary_gen"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  sequence="5"/>
+	        <menuitem parent="menu_vhr_timesheet_timesheet"
+	                  name="Summary Generation Progress"
+	                  id="hr_holidays.menu_tracking_vhr_ts_summary_gen"
+	                  action="act_tracking_vhr_ts_summary_gen"
+	                  groups="vhr_base.hrs_group_system"
+	                  sequence="6"/>
+	        <menuitem id="menu_act_vhr_ts_view_result_summary"
+	                  parent="menu_vhr_timesheet_timesheet"
+	                  groups="vhr_timesheet.vhr_cb_timesheet"
+	                  action="act_vhr_ts_view_result_summary"
+	                  sequence="7"/>
+			<menuitem id="menu_vhr_employee_timesheet_summary"
+	                  name="Summary"
+	                  parent="menu_vhr_timesheet_timesheet"
+	                  action="act_vhr_employee_timesheet_summary"
+	                  groups="vhr_timesheet.vhr_cb_timesheet,vhr_human_resource.vhr_cnb_manager" 
+					  sequence="8"/>
+
+		<!--Menu Timesheets/Report-->			  	
+		<menuitem id="menu_vhr_ts_report" parent="menu_vhr_timesheet_root" name="Report" sequence="4"/>
+				
+        <!--Menu Timesheets/Configuration-->
+        <menuitem id="menu_vhr_timesheet_configuration" parent="menu_vhr_timesheet_root" name="Configuration"
+                  groups="vhr_human_resource.vhr_cb_admin,vhr_master_data.vhr_dept_admin,vhr_timesheet.vhr_cb_timesheet"
+                  sequence="100"/>
+        <!--Timesheets/Configuration/General-->
+        <menuitem sequence="1" id="menu_vhr_timesheet_config_general" parent="menu_vhr_timesheet_configuration"
+                  groups="vhr_human_resource.vhr_cb_admin"
+                  name="General"/>
+	        <!--Working Group-->
+	        <menuitem id="menu_vhr_ts_working_group" name="Working Group"
+	                  parent="menu_vhr_timesheet_config_general"
+	                  sequence="5" action="act_vhr_ts_working_group"/>
+	        <!--141. Working Shift-->
+	        <menuitem id="menu_vhr_ts_working_shift" name="Working Shift"
+	                  parent="menu_vhr_timesheet_config_general"
+	                  sequence="6" action="act_vhr_ts_working_shift"/>
+	        <!--Type Of Workday-->
+	        <menuitem id="menu_vhr_ts_type_workday" name="Type Of Workday"
+	                  parent="menu_vhr_timesheet_config_general"
+	                  sequence="7" action="act_vhr_ts_type_workday"/>
+	        <!--Type Of CS Shift-->
+	        <menuitem id="menu_vhr_ts_type_cs_shift" name="Type Of CS Shift"
+	                  parent="menu_vhr_timesheet_config_general"
+	                  sequence="8" action="act_vhr_ts_type_cs_shift"/>
+	        
+	        <!--Expat Employee -->
+	        <menuitem id="menu_vhr_ts_employee_expat" name="Expat Employee"
+	                  parent="menu_vhr_timesheet_config_general"
+	                  sequence="9" action="act_vhr_ts_employee_expat"/>
+	        
+        <!--Timesheets/Configuration/Parameter-->
+        <menuitem sequence="2" id="menu_vhr_timesheet_config_parameter" parent="menu_vhr_timesheet_configuration"
+                  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"
+                  name="Parameter"/>
+	        <!-- Parameter Type-->
+	        <menuitem id="menu_vhr_ts_param_type" name="Parameter Type"
+	                  parent="menu_vhr_timesheet_config_parameter"
+	                  sequence="1" action="act_vhr_ts_param_type"/>
+	        <!-- Parameter Type Group-->
+	        <menuitem id="menu_vhr_ts_param_type_group" name="Parameter Type Group"
+	                  parent="menu_vhr_timesheet_config_parameter"
+	                  sequence="2" action="act_vhr_ts_param_type_group"/>
+	        <menuitem name="General Parameter" action="action_open_vhr_ts_general_param"
+	                  id="menu_open_vhr_ts_general_param"
+	                  parent="menu_vhr_timesheet_config_parameter"
+	                  sequence="3"/>
+	        <!-- Parameter By Job Level-->
+	        <menuitem id="menu_vhr_ts_param_by_job_level" name="Parameter By Job Level"
+	                  parent="menu_vhr_timesheet_config_parameter"
+	                  sequence="4" action="act_vhr_ts_param_job_level"/>
+	        <!--138. Parameter By Working Schedule-->
+	        <menuitem id="menu_vhr_ts_param_working_schedule" name="Parameter By Working Schedule"
+	                  parent="menu_vhr_timesheet_config_parameter"
+	                  sequence="5" action="act_vhr_ts_param_working_schedule"/>
+
+        <!--Timesheets/Configuration/Working Schedule-->
+        <menuitem sequence="3" id="menu_vhr_timesheet_config_working_schedule" parent="menu_vhr_timesheet_configuration"
+                  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"
+                  name="Working Schedule"/>
+                  
+	        <!--Working Schedule-->
+	        <menuitem id="menu_vhr_ts_working_schedule" name="Schedule"
+	                  parent="menu_vhr_timesheet_config_working_schedule"
+	                  sequence="1" action="act_vhr_ts_working_schedule"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>	        
+	        		  	
+	        <menuitem id="menu_vhr_ts_ws_details" name="Schedule Detail"
+	                  parent="menu_vhr_timesheet_config_working_schedule"
+	                  sequence="2" action="action_ws_detail_this_year"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>
+	        
+	        <!--Working Schedule Employee-->
+	        <menuitem id="menu_vhr_ts_ws_employee" name="Schedule Employee"
+	                  parent="menu_vhr_timesheet_config_working_schedule"
+	                  sequence="3" action="act_vhr_ts_ws_employee"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>
+			<!-- Working Schedule Employee Wizard -->
+			<menuitem id="menu_vhr_ts_working_schedule_employee_wizard" name="Schedule Employee Assignment"
+	                  parent="menu_vhr_timesheet_config_working_schedule"
+	                  sequence="4" action="act_vhr_ts_working_schedule_employee_wizard"
+	        		  groups="vhr_timesheet.vhr_cb_timesheet"/>    
+	        
+	        
+	        
+	        		      
+	        <!--Working Schedule -Working Group
+	        <menuitem id="menu_vhr_ts_working_schedule_working_group"
+	                  parent="menu_vhr_timesheet_config_working_schedule"
+	                  sequence="4" action="act_vhr_ts_working_schedule_working_group"
+	        		  groups="vhr_human_resource.vhr_cb_admin"/>	      -->
+	       
+	         <!--Working Schedule Permission-->
+	        <menuitem id="menu_vhr_ts_working_schedule_permission" name="Schedule Permission"
+	                  parent="menu_vhr_timesheet_config_working_schedule"
+	                  sequence="5" action="act_vhr_ts_working_schedule_permission"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>	
+	        
+	        <!--Working Schedule Group-->
+	        <menuitem id="menu_vhr_ts_working_schedule_group" name="Group Schedule"
+	                  parent="menu_vhr_timesheet_config_working_schedule"
+	                  sequence="6" action="act_vhr_ts_working_schedule_group"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>   
+
+        <!--Timesheets/Configuration/Timesheet-->
+        <menuitem sequence="4" id="menu_vhr_timesheet_config_timesheet" parent="menu_vhr_timesheet_configuration"
+        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"
+                  name="Timesheet"/>
+	        <!-- Timesheet-->
+	        <menuitem id="menu_vhr_time_sheet" name="Timesheet"
+	                  parent="menu_vhr_timesheet_config_timesheet"
+	                  sequence="1" action="act_vhr_ts_timesheet"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>	        
+	        <!-- Timesheet Period-->
+			<menuitem id="menu_vhr_time_sheet_period" name="Timesheet Period"
+	                  parent="menu_vhr_timesheet_config_timesheet"
+	                  sequence="2" action="act_vhr_ts_timesheet_period"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>			
+	        <!-- Timesheet Setting-->
+	        <menuitem id="menu_vhr_time_sheet_detail" name="Timesheet Setting"
+	                  parent="menu_vhr_timesheet_config_timesheet"
+	                  sequence="3" action="act_vhr_ts_timesheet_detail"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>
+	        <menuitem id="menu_vhr_ts_change_timesheet_detail"
+	                  name="Change Admin/Approve Timesheet Period"
+	                  parent="menu_vhr_timesheet_config_timesheet"
+	                  sequence="4" action="act_vhr_ts_change_timesheet_detail"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>	
+	        <!-- Timesheet Employee-->
+	        <menuitem id="menu_vhr_ts_emp_timesheet" name="Timesheet Employee"
+	                  parent="menu_vhr_timesheet_config_timesheet"
+	                  action="act_vhr_ts_emp_timesheet" sequence="6"
+	        		  groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"/>
+
+
+        <!--Timesheets/Configuration/Leaves-->
+        <menuitem sequence="5" id="hr.menu_open_view_attendance_reason_config"
+                  parent="menu_vhr_timesheet_configuration" groups="vhr_human_resource.vhr_cb_admin,vhr_timesheet.vhr_cb_timesheet"
+                  name="Leave"/>
+	        <menuitem name="Leaves Type" action="open_view_holiday_status"
+	                  id="hr_holidays.menu_open_view_holiday_status"
+	                  parent="hr.menu_open_view_attendance_reason_config"
+	                  sequence="1"/>
+	        <menuitem name="Leaves Types Group" action="open_view_holiday_status_group_tree"
+	                  id="menu_open_view_holiday_status_group"
+	                  parent="hr.menu_open_view_attendance_reason_config"
+	                  sequence="2"/>
+	        <menuitem name="Public Holiday" parent="hr.menu_open_view_attendance_reason_config"
+	                  id="menu_open_public_holidays"
+	                  action="action_open_public_holidays_this_year"
+	                  sequence="3"/>
+	        <menuitem name="Public Holidays Type" parent="hr.menu_open_view_attendance_reason_config"
+	                  id="menu_open_public_holidays_type"
+	                  action="action_public_holidays_type_tree"
+	                  sequence="4"/>
+	        <menuitem name="Public Holidays Templates"
+	                  groups="base.group_no_one"
+	                  parent="hr.menu_open_view_attendance_reason_config"
+	                  id="menu_open_public_holidays_templates"
+	                  action="action_open_public_holidays_templates"
+	                  sequence="5"/>
+	        <menuitem id="menu_calendar_event_type"
+	                  parent="hr.menu_open_view_attendance_reason_config"
+	                  action="calendar.action_calendar_event_type"
+	                  groups="base.group_no_one" sequence="6"/>
+	        <menuitem id="calendar.menu_calendar_event_type" parent="calendar.menu_calendar_configuration"
+	                  action="calendar.action_calendar_event_type" groups="vhr_base.hrs_group_system"/>
+    </data>
+</openerp>

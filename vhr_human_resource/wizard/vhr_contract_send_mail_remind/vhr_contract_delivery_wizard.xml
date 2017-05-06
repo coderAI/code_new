@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="vhr_contract_delivery_wizard_view" model="ir.ui.view">
+            <field name="name">vhr.contract.delivery.form</field>
+            <field name="model">vhr.contract.delivery.wizard</field>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="arch" type="xml">
+                 <form string="Note" version="7.0">
+                 	<field name="contract_ids">
+                 		<tree editable='true' create='false'>
+                 			<field name="emp_code" readonly='1'/>
+                 			<field name="employee_id" readonly='1'/>
+                 			<field name="type_id" readonly='1'/>
+                 			<field name="date_start" readonly='1'/>
+							<field name="date_end"  readonly='1'/>
+							<field name="holder_id"
+							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+							<field name="delivery_note"/>
+							<field name="is_delivered" readonly='1'/>
+                 		</tree>
+                 	</field>
+                    <footer>
+                        <button name="execute_delivery"
+                                string="Delivery" one_click_button="True"
+                                type="object" icon="gtk-save"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        
+		<act_window id="action_vhr_contract_delivery_wizard"
+            key2="client_action_multi" name="Delivery"
+            res_model="vhr.contract.delivery.wizard" 
+        	src_model="hr.contract"
+            view_mode="form" target="new" view_type="form" />       	  
+        
+    </data>
+</openerp>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_vhr_recruitment_hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">vhr.recruitment.hr.employee.view.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="vhr_human_resource.view_vhr_human_resource_hr_employee_form_inherit"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='is_have_working_record']" position="after">
+                    <field name="is_transfer_from_rr" invisible='1'/>
+                    <field name="is_candidate" invisible='1'/>
+                    <field name="is_hr_candidate" invisible='1'/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_recruitment_hr_employee_search_inherit" model="ir.ui.view">
+            <field name="name">vhr.recruitment.hr.employee.view.search.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="vhr_master_data.view_hr_employee_search"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//group[@string='Filter']" position="after">
+                    <group expand="0" string="Filter Candidate">
+                            <filter string="RR Candidate" name="is_candidate" icon="terp-stage"
+                                    domain="[('is_candidate', '=', True)]"/>
+                            <filter string="HR Candidate" name="is_hr_candidate" icon="terp-stage"
+                                    domain="[('is_hr_candidate', '=', True)]"/>
+                        </group>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_recruitment_hr_employee_tree_inherit" model="ir.ui.view">
+            <field name="name">vhr.recruitment.hr.employee.view.tree.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="vhr_master_data.view_hr_employee_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//tree" position="attributes">
+            		<attribute name="colors">blue:is_candidate == True or is_hr_candidate == True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='is_candidate']" position="after">
+                    <field name="is_hr_candidate" invisible='1'/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_recruitment_minimal_hr_employee_tree_inherit" model="ir.ui.view">
+            <field name="name">vhr.recruitment.hr.minimal.employee.view.tree.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//tree" position="attributes">
+            		<attribute name="colors">blue:is_candidate == True or is_hr_candidate == True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='is_candidate']" position="after">
+                    <field name="is_hr_candidate" invisible='1'/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_delegate_master_view_form">
+            <field name="name">vhr.delegate.master.form</field>
+            <field name="model">vhr.delegate.master</field>
+            <field name="arch" type="xml">
+                <form string="Delegate Master" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="employee_id" required="True" on_change="onchange_employee_id(employee_id)"
+                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                            <field name="module_id" readonly="context.get('default_module')"
+                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                            <field name="employee_code" readonly='1'/>	
+                            <field name="active"/>
+                        </group>
+                        <group col='4'>
+                            <field name="detail_ids" required='1' nolabel='1'  context="{'default_module_id':module_id}">
+                            	<tree string="Delegate Detail" editable='top'>
+				                    <field name="delegate_master_id" invisible='1'/>
+				                    <field name="employee_id" invisible='1'/>
+				                    <field name="delegate_id" required='1'
+				                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+				                    <field name="department_ids" required='1' widget="many2many_tags"
+				                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+				                    <field name="model_ids" required='1' context="{'module_id':module_id}" widget="many2many_tags"
+				                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+				                    <field name="module_id" invisible='1'/>
+				                    <field name="active"/>
+				                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_delegate_master_view_tree" model="ir.ui.view">
+            <field name="name">vhr.delegate.master.tree</field>
+            <field name="model">vhr.delegate.master</field>
+            <field name="arch" type="xml">
+                <tree string="Delegate Master">
+                	<field name="employee_code"/>
+                    <field name="employee_id"/>
+                    <field name="module_id"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_delegate_master_view_search" model="ir.ui.view">
+            <field name="name">vhr.delegate.master.search</field>
+            <field name="model">vhr.delegate.master</field>
+            <field name="arch" type="xml">
+                <search string="Delegate Master">
+                	<group expand="0" string="Group by...">
+        				<filter string="Module" name="module" context="{'group_by':'module_id'}"/>
+        			</group>  
+        			
+                	<field name="name" string="Delegate Master" 
+	                  		filter_domain="['|','|',('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+        			
+                    <field name="module_id"/>
+                    <group expand="0" string="Filter">
+        				<filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    	<filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_vhr_delegate_master_view_tree" model="ir.actions.act_window">
+            <field name="name">Delegate Master</field>
+            <field name="res_model">vhr.delegate.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_delegate_master_view_tree"/>
+            <field name="search_view_id" ref="view_vhr_delegate_master_view_search"/>
+        </record>
+
+    </data>
+</openerp>
+
+

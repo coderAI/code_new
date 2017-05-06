@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<record id="data_vhr_program_content_1" model="vhr.program.content">
+			<field name="code">CAND_BENEFIT</field>
+			<field name="name">PHÚC LỢI</field>
+			<field name="name_en">BENEFITS</field>
+			<field name="program_id" eval="ref('vhr_recruitment.hrs_data_program_candidate')"/>
+			<field name="short_description"/>
+			<field name="short_description_en"/>
+		</record>	
+		<record id="data_vhr_program_content_2" model="vhr.program.content">
+			<field name="code">CAND_ENVIRONMENT</field>
+			<field name="name">MÔI TRƯỜNG</field>
+			<field name="name_en">WORK ENVIRONMENT</field>
+			<field name="program_id" eval="ref('vhr_recruitment.hrs_data_program_candidate')"/>
+			<field name="short_description"/>
+			<field name="short_description_en"/>
+		</record>
+		<record id="data_vhr_program_content_3" model="vhr.program.content">
+			<field name="code">CAND_PREPARE_CV</field>
+			<field name="name">CHUẨN BỊ HỒ SƠ</field>
+			<field name="name_en">PREPARE FOR YOUR CV</field>
+			<field name="program_id" eval="ref('vhr_recruitment.hrs_data_program_candidate')"/>
+			<field name="short_description"/>
+			<field name="short_description_en"/>
+		</record>
+		<record id="data_vhr_program_content_4" model="vhr.program.content">
+			<field name="code">CAND_INTERVIEW</field>
+			<field name="name">KINH NGHIỆM PHỎNG VẤN</field>
+			<field name="name_en">INTERVIEW EXPERIENCE</field>
+			<field name="program_id" eval="ref('vhr_recruitment.hrs_data_program_candidate')"/>
+			<field name="short_description"/>
+			<field name="short_description_en"/>
+		</record>
+		<record id="data_vhr_program_content_5" model="vhr.program.content">
+			<field name="code">CAND_FAQS</field>
+			<field name="name">Candidate FAQS</field>
+			<field name="name_en">Candidate FAQS</field>
+			<field name="program_id" eval="ref('vhr_recruitment.hrs_data_program_candidate')"/>
+			<field name="short_description"/>
+			<field name="short_description_en"/>
+		</record>
+		<record id="data_vhr_program_content_6" model="vhr.program.content">
+			<field name="code">FRESHER_FAQS</field>
+			<field name="name">FAQS</field>
+			<field name="name_en">FAQS</field>
+			<field name="program_id" eval="ref('vhr_recruitment.hrs_data_program_fresher')"/>
+			<field name="short_description"/>
+			<field name="short_description_en"/>
+		</record>
+		<record id="data_vhr_program_content_7" model="vhr.program.content">
+			<field name="code">INTERNSHIP_FAQS</field>
+			<field name="name">FAQS</field>
+			<field name="name_en">FAQS</field>
+			<field name="program_id" eval="ref('vhr_recruitment.hrs_data_program_internship')"/>
+			<field name="short_description"/>
+			<field name="short_description_en"/>
+		</record>
+	</data>
+</openerp>

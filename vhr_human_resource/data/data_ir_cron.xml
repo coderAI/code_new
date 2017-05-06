@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1"> 
+	
+		<record model="ir.cron" id="vhr_working_record_cron">
+            <field name="name">[VHR Human Resource] Cron Working Record</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.working.record'"/>
+            <field name="function" eval="'cron_update_working_record_state'"/>
+            <field name="nextcall">2015-03-28 0:30:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_vhr_multi_renew_official_contract1">
+            <field name="name">[VHR Human Resource] Cron Check Renew Official Contract 1</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.multi.renew.contract'"/>
+            <field name="function" eval="'create_data_for_process_official'"/>
+            <field name="nextcall">2016-08-01 1:00:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_vhr_multi_renew_official_contract2">
+            <field name="name">[VHR Human Resource] Cron Check Renew Official Contract 2</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.multi.renew.contract'"/>
+            <field name="function" eval="'create_data_for_process_official'"/>
+            <field name="nextcall">2016-08-15 1:05:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <!-- <record model="ir.cron" id="cron_vhr_multi_renew_probation_contract">
+            <field name="name">[VHR Human Resource] Cron Check Renew Probation Contract </field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">weeks</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.multi.renew.contract'"/>
+            <field name="function" eval="'create_data_for_process_probation'"/>
+            <field name="nextcall">2016-09-01 1:00:00</field>
+            <field name="args" eval="'()'" />
+        </record> -->
+        
+        <record model="ir.cron" id="cron_vhr_multi_renew_collaborator_contract">
+            <field name="name">[VHR Human Resource] Cron Check Renew Collaborator 01</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.multi.renew.contract'"/>
+            <field name="function" eval="'create_data_for_process_collaborator'"/>
+            <field name="nextcall">2016-07-1 1:08:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_vhr_multi_renew_collaborator_contract_10">
+            <field name="name">[VHR Human Resource] Cron Check Renew Collaborator 10</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.multi.renew.contract'"/>
+            <field name="function" eval="'create_data_for_process_collaborator'"/>
+            <field name="nextcall">2016-07-10 1:08:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_vhr_multi_renew_collaborator_contract_20">
+            <field name="name">[VHR Human Resource] Cron Check Renew Collaborator 20</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.multi.renew.contract'"/>
+            <field name="function" eval="'create_data_for_process_collaborator'"/>
+            <field name="nextcall">2016-07-20 1:08:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_vhr_multi_renew_contract_remind">
+            <field name="name">[VHR Human Resource] Cron Remind Renew Contract</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.multi.renew.contract'"/>
+            <field name="function" eval="'check_remind_renew_contract'"/>
+            <field name="nextcall">2015-03-25 1:10:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_update_main_contract">
+            <field name="name">[VHR Human Resource] Cron Update Main Contract</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.contract'"/>
+            <field name="function" eval="'cron_update_main_contract'"/>
+            <field name="nextcall">2015-05-25 0:10:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_vhr_working_record_push_data_to_employee">
+            <field name="name">[VHR Human Resource] Cron Push Data To Employee From Active Working Record</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.working.record'"/>
+            <field name="function" eval="'cron_push_data_to_employee'"/>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_update_active_appendix_contract">
+            <field name="name">[VHR Human Resource] Cron Update Appendix Contract State </field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.appendix.contract'"/>
+            <field name="function" eval="'cron_appendix_contract_state'"/>
+            <field name="nextcall">2015-09-10 0:10:00</field>
+            <field name="args" eval="'()'" />
+        </record>
+        
+        <record model="ir.cron" id="cron_update_regenerate_exit_checklist_approver">
+            <field name="name">[VHR Human Resource] Cron Regenerate Exit Checklist Approver </field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.exit.checklist.request'"/>
+            <field name="function" eval="'cron_regenerate_exit_approver'"/>
+            <field name="nextcall">2015-09-10 0:10:00</field>
+            <field name="args" eval="('VG-06611',)" />
+            <field name="active" eval="False"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_generate_exit_checklist_approver">
+            <field name="name">[VHR Human Resource] Cron Generate Exit Checklist Approver </field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.exit.checklist.request'"/>
+            <field name="function" eval="'cron_generate_exit_approver'"/>
+            <field name="nextcall">2015-09-10 0:10:00</field>
+            <field name="args" eval="('VG-06611',)" />
+            <field name="active" eval="False"/>
+        </record>
+        <record model="ir.cron" id="cron_update_effect_to_dismiss_wr">
+            <field name="name">[VHR Human Resource] Cron Update Effect To of Dismiss WR </field>
+            <field name="interval_number">7</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.working.record'"/>
+            <field name="function" eval="'cron_update_effect_to_of_dismiss_wr'"/>
+            <field name="nextcall">2015-09-10 0:10:00</field>
+            <field name="args" eval="('VG-06611',)" />
+            <field name="active" eval="False"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_generate_default_history_for_dept">
+            <field name="name">[VHR Human Resource] Cron Generate Department History </field>
+            <field name="interval_number">7</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.department.history'"/>
+            <field name="function" eval="'cron_generate_default_history_for_dept'"/>
+            <field name="nextcall">2019-09-10 0:10:00</field>
+            <field name="args" eval="('MIS','2015-01-01',True)" />
+            <field name="active" eval="False"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_generate_none_job_family_in_employee">
+            <field name="name">[VHR Human Resource] Cron Generate None Job Family in Employee </field>
+            <field name="interval_number">7</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.employee'"/>
+            <field name="function" eval="'generate_none_job_family_in_employee'"/>
+            <field name="nextcall">2019-09-10 0:10:00</field>
+            <field name="args" eval="()" />
+            <field name="active" eval="False"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_remove_inactive_employee_from_mapping_table">
+            <field name="name">[VHR Human Resource] Cron Remove Inactive Employee from Mapping Table </field>
+            <field name="interval_number">7</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.employee'"/>
+            <field name="function" eval="'cron_remove_inactive_employee_from_mapping_table'"/>
+            <field name="nextcall">2016-07-07 0:10:00</field>
+            <field name="args" eval="('',{})" />
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_active_vhr_duty_free">
+            <field name="name">[VHR Human Resource] Cron Active Duty Free </field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.duty.free'"/>
+            <field name="function" eval="'cron_active_record'"/>
+            <field name="nextcall">2016-07-07 0:10:00</field>
+            <field name="args" eval="({},)" />
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_unlink_vhr_contract_delivery_wizard">
+            <field name="name">[VHR Human Resource] Cron Unlink Contract Delivery Wizard </field>
+            <field name="interval_number">2</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.contract.delivery.wizard'"/>
+            <field name="function" eval="'cron_delete'"/>
+            <field name="nextcall">2016-07-07 0:10:00</field>
+            <field name="args" eval="()" />
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_unlink_vhr_contract_send_mail_remind">
+            <field name="name">[VHR Human Resource] Cron Unlink Contract Send Mail Remind </field>
+            <field name="interval_number">2</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.contract.send.mail.remind'"/>
+            <field name="function" eval="'cron_delete'"/>
+            <field name="nextcall">2016-07-07 0:10:00</field>
+            <field name="args" eval="()" />
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_unlink_vhr_contract_receive_hard_copy">
+            <field name="name">[VHR Human Resource] Cron Unlink Contract Receive Hard Copy </field>
+            <field name="interval_number">2</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.contract.receive.hard.copy'"/>
+            <field name="function" eval="'cron_delete'"/>
+            <field name="nextcall">2016-07-07 0:10:00</field>
+            <field name="args" eval="()" />
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_vhr_contract_send_mail_remind">
+            <field name="name">[VHR Human Resource] Cron Send Mail Remind Contract</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.contract.send.mail.remind'"/>
+            <field name="function" eval="'cron_send_mail_remind'"/>
+            <field name="nextcall">2016-07-07 1:10:00</field>
+            <field name="args" eval="({},)" />
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record model="ir.cron" id="cron_vhr_contract_send_mail_remind_input_emp_data">
+            <field name="name">[VHR Human Resource] Cron Send Mail Remind Input Emp Data in Mysite</field>
+            <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.contract'"/>
+            <field name="function" eval="'send_mail_remind_input_emp_data'"/>
+            <field name="nextcall">2016-12-31 1:10:00</field>
+            <field name="args" eval="({},)" />
+            <field name="active" eval="True"/>
+        </record>
+        
+		
+	</data>
+</openerp>

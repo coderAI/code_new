@@ -1,0 +1,137 @@
+<template>
+    <t t-name="MonthlyView.toolbar">
+        <span class="glyphicon glyphicon-filter toolbar-icon-search"></span>
+        <span>Year:</span>
+        <span>
+            <input type="number" class="form-control" id="filter_year"/>
+        </span>
+        <span>Month:</span>
+        <span>
+            <select id="filter_month" class="form-control">
+                <option value="1">Jan</option>
+                <option value="2">Feb</option>
+                <option value="3">Mar</option>
+                <option value="4">Apr</option>
+                <option value="5">May</option>
+                <option value="6">Jun</option>
+                <option value="7">Jul</option>
+                <option value="8">Aug</option>
+                <option value="9">Sep</option>
+                <option value="10">Oct</option>
+                <option value="11">Nov</option>
+                <option value="12">Dec</option>
+            </select>
+        </span>
+        <span name="filter_leave">Leave Request:</span>
+        <span name="filter_leave">
+            <select id="filter_leave" class="form-control">
+            	<option value="all">All</option>
+                <option value="approved">Approved</option>
+            	<option value="waiting_approve">Waiting Approve</option>                
+            </select>
+        </span>
+        <t t-if="filter_state and filter_state.selection">
+            <t t-foreach="filter_state.selection" t-as="state">
+                <span class="radio">
+                    <label>
+                        <input type="radio" name="filter_state" t-att-value="state[0]"/>
+                        <t t-esc="state[1]"/>
+                    </label>
+                </span>
+            </t>
+        </t>
+        <span>
+        	<button type="button" class="oe_monthly_button_send btn_monthly btn-primary">Send</button>
+        </span>
+        <span>
+        	<button type="button" class="oe_monthly_button_approve btn_monthly btn-primary">Approve</button>
+        </span>
+        <span>
+        	<button type="button" class="oe_monthly_button_reject btn_monthly btn-danger">Reject</button>
+        </span>
+        
+    </t>
+
+    <t t-name="MonthlyView.header">
+        <tr>
+            <th>
+                <input class="headcol oe_list_record_selector" name="select_all" type="checkbox"/>
+            </th>
+            <t t-foreach="display_fields" t-as="field">
+                <th t-att-name="field.name" class="headcol">
+                    <t t-esc="field.string"/>
+                </th>
+            </t>
+
+            <t t-foreach="dateRange" t-as="day">
+                <th t-att-class="'date ' + day.name" t-att-id="day.full_name">
+                    <t t-esc="day.day"/>
+                </th>
+            </t>
+        </tr>
+
+    </t>
+
+    <t t-name="MonthlyView.line">
+        <t t-if="data.length == 0">
+            <tr>
+                <td colspan="3">No result here!</td>
+            </tr>
+        </t>
+        <t t-foreach="data" t-as="item">
+            <tr t-att-line-number="data.indexOf(item)">
+                <td class="headcol oe_list_record_selector">
+                    <input t-att-id="item.id" type="checkbox"/>
+                </td>
+                <t t-foreach="display_fields" t-as="field">
+                    <td t-att-name="field.name" class="headcol">
+                        <t t-if="field.type == 'many2one'">
+                            <t t-esc="item[field.name][1]"/>
+                        </t>
+                        <t t-if="field.type != 'many2one' and field.name != 'employee_code'">
+                            <t t-esc="item[field.name]"/>
+                        </t>
+                        <t t-if="field.name == 'employee_code'">
+                            <a t-attf-href="javascript:void(0);" class="link_to_leave_request"><t t-esc="item[field.name]"/></a>
+                        </t>
+
+                    </td>
+                </t>
+                <t t-foreach="dateRange" t-as="day">
+
+                    <td t-att-class="'date ' + day.name" t-att-id="day.full_name">
+                        <div class="editable color" contenteditable="false">
+                            <t t-foreach="item.date_list" t-as="dd">
+                                <t t-if="dd.date === day.full_name">
+                                    <t t-if="dd.leave_type_id and dd.name != dd.shift_name">
+                                        <span t-att-id="dd.id" t-att-class="'leave_color'">
+                                            <t t-esc="dd.name or ''"/>
+                                        </span>
+                                    </t>
+                                    <t t-if="dd.leave_type_id == false || (dd.leave_type_id and dd.name == dd.shift_name)">
+                                        <span t-att-id="dd.id">
+                                            <t t-esc="dd.name or ''"/>
+                                        </span>
+                                    </t>
+                                </t>
+                            </t>
+                        </div>
+                    </td>
+                </t>
+            </tr>
+        </t>
+    </t>
+
+    <t t-name="MonthlyView">
+        <div class="calendar">
+            <div class="toolbar"></div>
+            <table class="table-monthly-calendar table table-bordered">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+</template>

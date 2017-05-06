@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_dimension_friendly_form" model="ir.ui.view">
+            <field name="name">vhr.dimension.friendly.view.form</field>
+            <field name="model">vhr.dimension</field>
+            <field name="groups_id" eval=""/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Dimension" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="name_en" required="1"/>
+                            <field name="code" readonly="1"/>
+                            <field name="active"/>
+                            <field name="dimension_type_id" readonly="1"
+                                   context="{'code': context.get('dimension_type', False)}"/>
+                            <field name="level" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="description" widget="html" string="Description"/>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dimension_friendly_tree" model="ir.ui.view">
+            <field name="name">vhr.dimension.friendly.view.tree</field>
+            <field name="model">vhr.dimension</field>
+            <field name="priority" eval="20"/>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Dimension" version="7.0">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="name_en"/>
+                    <field name="active"/>
+                    <field name="dimension_type_id" invisible="1"/>
+                    <field name="level" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_dimension_search" model="ir.ui.view">
+            <field name="name">vhr.dimension.view.search</field>
+            <field name="model">vhr.dimension</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='name'/>
+                    <field name="name_en"/>
+                    <field name='code'/>
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Menu Time graduation -->
+        <record model="ir.actions.act_window" id="act_hrs_time_graduation">
+            <field name="name">HRS Time Graduation</field>
+            <field name="res_model">vhr.dimension</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('dimension_type_id.code','=','TIME_GRADUATION')]</field>
+            <field name="context">{'dimension_type': 'TIME_GRADUATION'}</field>
+            <field name="view_id" ref="view_dimension_friendly_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_dimension_search"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_tree_hrs_time_graduation">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_dimension_friendly_tree"/>
+            <field name="act_window_id" ref="act_hrs_time_graduation"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_form_hrs_time_graduation">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_dimension_friendly_form"/>
+            <field name="act_window_id" ref="act_hrs_time_graduation"/>
+        </record>
+
+
+        <!--Menu dnd program -->
+        <record model="ir.actions.act_window" id="act_hrs_dnd_program">
+            <field name="name">HRS Program DND</field>
+            <field name="res_model">vhr.dimension</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('dimension_type_id.code','=','DND_PROGRAM')]</field>
+            <field name="context">{'dimension_type': 'DND_PROGRAM'}</field>
+            <field name="view_id" ref="view_dimension_friendly_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_dimension_search"/>
+        </record>
+
+
+        <record model="ir.actions.act_window.view" id="act_view_tree_hrs_dnd_program">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_dimension_friendly_tree"/>
+            <field name="act_window_id" ref="act_hrs_dnd_program"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_form_hrs_dnd_program">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_dimension_friendly_form"/>
+            <field name="act_window_id" ref="act_hrs_dnd_program"/>
+        </record>
+		
+		<!-- View for is public -->
+        <record id="view_dimension_is_public_form" model="ir.ui.view">
+            <field name="name">vhr.dimension.is_public.view.form</field>
+            <field name="model">vhr.dimension</field>
+            <field name="groups_id" eval=""/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Dimension" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="name_en" required="1"/>
+                            <field name="code" readonly="1"/>
+                            <field name="is_published"/>
+                            <field name="active"/>
+                            <field name="dimension_type_id" readonly="1"
+                                   context="{'code': context.get('dimension_type', False)}"/>
+                            <field name="level" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="description" widget="html" string="Description"/>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dimension_is_public_tree" model="ir.ui.view">
+            <field name="name">vhr.dimension.is_public.view.tree</field>
+            <field name="model">vhr.dimension</field>
+            <field name="priority" eval="20"/>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Dimension" version="7.0">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="name_en"/>
+                    <field name="is_published"/>
+                    <field name="active"/>
+                    <field name="dimension_type_id" invisible="1"/>
+                    <field name="level" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+		<!--Menu Faculty -->
+       <record model="ir.actions.act_window" id="act_vhr_faculty_is_public">
+       		<field name="name">Faculty</field> 		
+       		<field name="res_model">vhr.dimension</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('dimension_type_id.code','=','FACULTY')]</field> 
+            <field name="context">{'dimension_type': 'FACULTY'}</field> 
+            <field name="view_id" ref="view_dimension_is_public_tree"/> 
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_dimension_search"/>
+       	</record>
+
+        <record model="ir.actions.act_window.view" id="act_view_tree_vhr_faculty_is_public">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_dimension_is_public_tree"/>
+            <field name="act_window_id" ref="act_vhr_faculty_is_public"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_form_vhr_faculty_is_public">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_dimension_is_public_form"/>
+            <field name="act_window_id" ref="act_vhr_faculty_is_public"/>
+        </record>
+        <!-- menu Speciality -->
+        <record model="ir.actions.act_window" id="act_vhr_speciality_is_public">
+       		<field name="name">Speciality</field> 		
+       		<field name="res_model">vhr.dimension</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('dimension_type_id.code','=','SPECIALITY')]</field> 
+            <field name="context">{'dimension_type': 'SPECIALITY'}</field> 
+            <field name="view_id" ref="view_dimension_is_public_tree"/> 
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_dimension_search"/>
+       	</record>
+
+        <record model="ir.actions.act_window.view" id="act_view_tree_vhr_speciality_is_public">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_dimension_is_public_tree"/>
+            <field name="act_window_id" ref="act_vhr_speciality_is_public"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_form_vhr_speciality_is_public">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_dimension_is_public_form"/>
+            <field name="act_window_id" ref="act_vhr_speciality_is_public"/>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_dimension_talent_group">
+			<field name="name">Talent Group</field> 
+			<field name="res_model">vhr.dimension</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="domain">[('dimension_type_id.code','=','RR_TALENT_GROUP')]</field> 
+		    <field name="context">{'dimension_type': 'RR_TALENT_GROUP'}</field> 
+		    <field name="view_id" ref="vhr_master_data.view_vhr_dimension_tree"/> 
+		    <field name="groups_id" eval=""/>
+		    <field name="search_view_id" ref="vhr_master_data.view_vhr_dimension_search"/>
+		</record>
+		
+		<record model="ir.actions.act_window" id="act_vhr_dimension_candidate_contact">
+			<field name="name">Candidate Contact</field> 
+			<field name="res_model">vhr.dimension</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="domain">[('dimension_type_id.code','=','RR_CANDIDATE_CONTACT')]</field> 
+		    <field name="context">{'dimension_type': 'RR_CANDIDATE_CONTACT'}</field> 
+		    <field name="view_id" ref="vhr_master_data.view_vhr_dimension_tree"/> 
+		    <field name="groups_id" eval=""/>
+		    <field name="search_view_id" ref="vhr_master_data.view_vhr_dimension_search"/>
+		</record>
+    </data>
+
+</openerp>

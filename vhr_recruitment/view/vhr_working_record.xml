@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<!--Remove this view in future -->
+    	<record id="view_vhr_recruitment_working_record_form_inherit" model="ir.ui.view">
+            <field name="name">vhr.recruitment.working.record.form.inherit</field>
+            <field name="model">vhr.working.record</field>
+            <field name="inherit_id" ref="vhr_human_resource.view_vhr_working_record_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='is_change_salary_percentage_by_hand']" position="replace">
+                    <field name="is_change_salary_percentage_by_hand" invisible='1'/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

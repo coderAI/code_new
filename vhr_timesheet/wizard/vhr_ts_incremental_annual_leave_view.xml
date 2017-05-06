@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+        <record id="vhr_ts_incremental_annual_leave_view" model="ir.ui.view">
+            <field name="name">vhr.ts.incremental.annual.leave.form</field>
+            <field name="model">vhr.ts.incremental.annual.leave</field>
+            <field name="arch" type="xml">
+                <form string="Accumulation Generation">
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <button name="gen_annual_leave" one_click_button="True"
+                                    string="Generate" type="object" context="{'type': 'annual_leave_accumulation'}"
+                                    class="oe_stat_button bg_icon_green" icon="fa-mail-forward"/>
+                            <button string="Cancel" class="oe_stat_button bg_icon_red" special="cancel"
+                                    icon="fa-times"/>
+                        </div>
+                        <group string="Accumulation Generation">
+                            <group>
+                                <field name="admin_id" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"
+                                       context="{'admin_timesheet': 1, 'context_year': year}"/>
+                                <field name="employee_id" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"
+                                context="{'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"/>
+                                <field name="timesheet_id" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                <field name="holiday_status_id" required='1' options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                            	<field name="job_level_person_id" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                            	<field name="job_level_type_id" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                <field name="state"/>
+                                <field name="year" required="1" options="{'remove_thousand_seps': 1}"/>
+                                <field name="is_only_update_expiry_date" groups='vhr_base.hrs_group_system'/> 
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_vhr_ts_incremental_annual_leave" model="ir.actions.act_window">
+            <field name="name">Accumulation Generation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vhr.ts.incremental.annual.leave</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="vhr_ts_incremental_annual_leave_view"/>
+            <field name="context">{'holiday_status_config_name': 'leave_type_code_for_accumulation'}</field>
+            <field name="target">new</field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_tracking_vhr_ts_incremental_annual_leave">
+       		<field name="name">Accumulation Generation Progress</field> 
+            <field name="res_model">vhr.mass.status</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('model_id.model','=','hr.holidays'),('type','=','annual_leave_accumulation')]</field>
+            <field name="context">{'attachment':False,'rule_for_tree_form':True}</field>
+            <field name="view_id" ref="vhr_common.view_vhr_mass_status_tree"/>
+            <field name="search_view_id" ref="vhr_common.view_vhr_mass_status_search"/>
+       	</record>
+
+
+    </data>
+</openerp>

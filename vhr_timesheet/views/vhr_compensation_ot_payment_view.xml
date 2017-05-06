@@ -1,0 +1,134 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_compensation_ot_payment_tree">
+            <field name="name">vhr.compensation.ot.payment.tree</field>
+            <field name="model">vhr.compensation.ot.payment</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft'" string="Compensation OT Payment" create='false'>
+                	<field name="request_date"/>
+                    <field name="employee_code"/>
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <field name="compensation_ot_day"/>
+                    <field name="compensation_ot_hour"/>
+                    <field name="calculation_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_compensation_ot_payment_form">
+            <field name="name">vhr.compensation.ot.payment.form</field>
+            <field name="model">vhr.compensation.ot.payment</field>
+            <field name="arch" type="xml">
+                <form version="7.0" string="Compensation OT Payment"  create='false'>
+                	<header>
+       					<field name="state" widget="statusbar" 
+							statusbar_visible="draft,confirm,close"/>
+       				</header>
+                    <sheet>
+                    	<div class="oe_right" name="buttons">
+	                        <div class="oe_button_box" attrs="{'invisible': [('is_person_do_action','=',False)]}">
+	                            <button string="Confirm" name="execute_workflow" type="object"
+	                            	class="oe_stat_button bg_icon_green"
+		                            icon="fa-mail-forward"
+									context="{'state': state,'action':'submit'}" states="draft"/>
+	                            
+	                            <button string="Close" name="execute_workflow" type="object"
+	                            	class="oe_stat_button bg_icon_green"
+		                            icon="fa-mail-forward"
+									context="{'state': state,'action':'close'}" states="confirm"/>
+								
+								<button string="Set to Draft" name="execute_workflow" type="object"
+									class="oe_stat_button bg_icon_red"
+		                            icon="fa-mail-reply"
+									context="{'action':'set_to_draft','state': state}" states="confirm"/>	
+								
+	                        </div>
+                        </div>
+                        <group col='4'>
+                        	<field name="request_date" readonly='1'/>
+                        	<field name='year' readonly='1'/>
+                        </group>
+                        <group col='4'>
+                            <field name="employee_id" readonly='1' options="{'no_open': True}"/>
+                            <field name="employee_code" readonly='1' options="{'no_open': True}"/>
+                            <field name="department_id" readonly="1"  options="{'no_open': True}"/>
+                            <field name="calculation_date" required="1"/>
+                            <field name="compensation_ot_hour" required="1"
+                            	on_change='onchange_compensation_ot_hour(compensation_ot_hour, fcnt_compensation_ot_hour, 
+                            											 initial_compensation_ot_hour, coef_hour_day)'/>
+                            
+                            <field name="compensation_ot_day" readonly="1" options="{'save_readonly':True}"/>
+                            <field name='fcnt_compensation_ot_hour' invisible='1'/>
+                            <field name='initial_compensation_ot_hour' invisible='1'/>
+                            <field name="coef_hour_day" invisible='1'/>
+                            <field name="is_person_do_action" invisible='1'/>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_compensation_ot_payment_search">
+            <field name="name">vhr.compensation.ot.payment.search</field>
+            <field name="model">vhr.compensation.ot.payment</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group expand="0" string="Group by...">
+                        <filter string="Department" name="Department" context="{'group_by':'department_id'}"/>
+                        <filter string="Calculation Date" name="Calculation Date" context="{'group_by':'calculation_date'}"/>
+                    </group>
+                    <group expand="0" string="Filter By State">
+                        <filter string="Draft" name="state_draft" icon="terp-stage"
+                                domain="[('state', '=', 'draft')]"/>
+                        <filter string="Confirm" name="state_confirm" icon="terp-stage"
+                                domain="[('state', '=', 'confirm')]"/>
+                        <filter string="Close" name="state_close" icon="terp-stage"
+                                domain="[('state', '=', 'close')]"/>	
+                    </group>
+                    <group expand="0" string="Filter by Employee">
+                        <filter string="Active Employee" name="active_employee" icon="terp-stage"
+                                domain="[('employee_id.active', '=', True)]"/>
+                        <filter string="Inactive Employee" name="inactive_employee" icon="terp-stage"
+                                domain="[('employee_id.active', '=', False)]"/>
+                    </group>
+
+                    <field name="name" string="Compensation OT Payment"
+                           filter_domain="['|','|',('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+                    <field name="department_id"/>
+                    <field name="calculation_date"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="act_vhr_compensation_ot_payment" model="ir.actions.act_window">
+            <field name="name">Compensation OT Payment</field>
+            <field name="res_model">vhr.compensation.ot.payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="context">{'search_default_active_employee':1,'rule_for_tree_form':True,'attachment':False,'duplicate':False,
+            					   'search_default_state_draft':1,'search_default_state_confirm':1,'filter_by_permission_ot_compensation':True}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>

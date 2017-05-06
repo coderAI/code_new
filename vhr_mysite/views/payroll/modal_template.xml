@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="vhr_mysite.collaborator_modal" name="Collaborator Assessment Modal">
+            <div class="modal fade" id="add_product_line" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                            <h4 class="modal-title">Chấm công theo sản phẩm</h4>
+                        </div>
+                        <div class="modal-body text-left">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="charged_dept_id" class="text-bold">Phòng ban chịu phí*:</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control typeahead department_th" name="department_name" required="required"/>
+                                            <input type="hidden" name="charged_dept_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="employee_id" class="text-bold">Nhân viên*:</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control typeahead employee_th" name="employee_name" required="required"/>
+                                            <input type="hidden" name="employee_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="product" class="text-bold">Sản phẩm*:</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="product" required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="number" class="text-bold">Số lượng*:</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="number" required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="price" class="text-bold">Đơn giá*:</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="price" required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="other_addition" class="text-bold">Cộng thêm:</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="other_addition"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="amount" class="text-bold">Thành tiền:</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="amount" disabled="disabled"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="amount_manager" class="text-bold">Thực trả:</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="amount_manager" disabled="disabled"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="description" class="text-bold">Ghi chú:</label>
+                                        <div class="controls">
+                                            <textarea class="form-control" name="description"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success">Thêm</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="add_month_line" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                            <h4 class="modal-title">Chấm công theo tháng</h4>
+                        </div>
+                        <div class="modal-body text-left">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="charged_dept_id" class="text-bold">Phòng ban chịu phí*:</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control typeahead department_th" name="department_name" required="required"/>
+                                            <input type="hidden" name="charged_dept_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="employee_id" class="text-bold">Nhân viên*:</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control typeahead employee_th" name="employee_name" required="required"/>
+                                            <input type="hidden" name="employee_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="from_date" class="text-bold">Từ ngày*:</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="from_date" required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="to_date" class="text-bold">Đến ngày*:</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="to_date" required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="total_date" class="text-bold">Tổng ngày công:</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="total_date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4 style="padding-left:10px;">Chi tiết giờ OT</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label for="total_ot_normal_days_day" class="text-bold">Ca sáng (ngày thường):</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="total_ot_normal_days_day"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label for="total_ot_normal_days_night" class="text-bold">Ca tối (ngày thường):</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="total_ot_normal_days_night"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label for="total_ot_days_off_day" class="text-bold">Ca sáng (ngày nghỉ):</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="total_ot_days_off_day"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label for="total_ot_days_off_night" class="text-bold">Ca tối (ngày nghỉ):</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="total_ot_days_off_night"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label for="total_ot_holidays_day" class="text-bold">Ca sáng (ngày lễ):</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="total_ot_holidays_day"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label for="total_ot_holidays_night" class="text-bold">Ca tối (ngày lễ):</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="total_ot_holidays_night"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label for="other_addition" class="text-bold">Cộng thêm:</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="total_ot_days_off_night"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label for="amount" class="text-bold">Thành tiền:</label>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" name="amount" disabled="disabled"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="description" class="text-bold">Ghi chú:</label>
+                                        <div class="controls">
+                                            <textarea class="form-control" name="description"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success">Thêm</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </data>
+</openerp>

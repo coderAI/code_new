@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_ts_monthly_form">
+            <field name="name">vhr.ts.monthly.form</field>
+            <field name="model">vhr.ts.monthly</field>
+            <field name="arch" type="xml">
+                <form string="Timesheet Detail" create="false" edit="false">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate"
+                               statusbar_colors='{"draft":"blue","sent":"blue","approve":"blue","reject":"red"}'/>
+                    </header>
+                    <sheet>
+                        <group string="Employee Information">
+                            <group>
+                                <field name="employee_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                                <!--<field name="company_id" invisible="1" options="{'no_open': True}"/>-->
+                            </group>
+                            <group>
+                                <field name="employee_code" readonly="1"/>
+                                <field name="department_id" readonly="1"
+                                       options="{'no_open': True, 'no_create': True}"/>
+                            </group>
+                        </group>
+
+                        <group string="Working Detail">
+                            <group>
+                                <field name="date" required="1"/>
+                                <field name="timesheet_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="admin_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="working_schedule_id" required="1"
+                                       options="{'no_open': True, 'no_create': True}"/>
+                                <field name="coef"/>
+                                <!--<field name="status"/>-->
+                                <!--<field name="number_of_days_temp"/>-->
+                            </group>
+                            <group>
+                                <field name="shift_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="timesheet_detail_id" invisible="1"
+                                       options="{'no_open': True, 'no_create': True}"/>
+                                <field name="ts_ws_employee_id" required="1"
+                                       options="{'no_open': True, 'no_create': True}"/>
+                                <field name="ws_group_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="parking_coef"/>
+                                <field name="meal_coef"/>
+                            </group>
+                        </group>
+
+                        <group string="Leave Information">
+                            <group>
+                                <field name="holiday_line_id" options="{'no_open': True,'no_create': True}"/>
+                                <field name="leave_type_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="type_id" options="{'no_open': True, 'no_create': True}"/>
+                            </group>
+                            <group>
+                                <!--<field name="coefsi"/>-->
+                                <!--<field name="coefsal"/>-->
+                            </group>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_ts_monthly_tree" model="ir.ui.view">
+            <field name="name">vhr_ts_monthly.tree</field>
+            <field name="model">vhr.ts.monthly</field>
+            <field name="arch" type="xml">
+                <tree string="Timesheet Detail" create="false">
+                    <field name="employee_code"/>
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <field name="date"/>
+                    <field name="timesheet_id"/>
+                    <field name="admin_id"/>
+                    <field name="ts_ws_employee_id"/>
+                    <field name="working_schedule_id"/>
+                    <field name="ws_group_id"/>
+                    <field name="shift_id"/>
+                    <field name="holiday_line_id"/>
+                    <field name="leave_type_id"/>
+                    <field name="parking_coef"/>
+                    <field name="meal_coef"/>
+                    <field name="state"/>
+                    <!--<field name="company_id" invisible="1"/>-->
+                    <!--<field name="status"/>-->
+                    <!--<field name="number_of_days_temp"/>-->
+                    <!--<field name="coef" sum="coef"/>-->
+                    <!--<field name="coefsi" sum="Total coefsi"/>-->
+                    <!--<field name="coefsal" sum="Total coefsal"/>-->
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_vhr_ts_monthly_monthly_calendar" model="ir.ui.view">
+            <field name="name">vhr_ts_monthly.monthly.calendar</field>
+            <field name="model">vhr.ts.monthly</field>
+            <field name="arch" type="xml">
+                <monthly_calendar reference="vhr.public.holidays" reference_field="type_id">                	
+                    <field name="department_id" display="1" string="Dept"/>
+                    <field name="timesheet_id" display="1" search="1" string="TS"/>
+                    <field name="employee_code" display="1" string="Code"/>
+                    <field name="employee_id" display="1"/>
+                    <field name="name" mark="1"/>
+                    <field name="date" date="1"/>
+                    <field name="timesheet_detail_id" from_to="1"/>
+                    <field name="leave_type_id" code="1"/>
+                    <field name="state" state="1"/>
+                    <field name="holiday_name"/>
+                    <field name="shift_name"/>
+                </monthly_calendar>
+            </field>
+        </record>
+
+
+        <record id="view_vhr_ts_monthly_search" model="ir.ui.view">
+            <field name="name">vhr.ts.monthly.search</field>
+            <field name="model">vhr.ts.monthly</field>
+            <field name="arch" type="xml">
+                <search string="Timesheet Detail">
+                    <field name="name" string="Employee"
+                           filter_domain="['|','|',('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+                    <field name="timesheet_id"/>
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="admin_id"/>
+                    <field name="department_id"/>
+                    <filter string="Timesheet" name="filter_timesheet" icon="STOCK_NEW"
+                                domain="[]" context="{'filter_timesheet': True}"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="act_vhr_ts_monthly" model="ir.actions.act_window">
+            <field name="name">Timesheet Detail</field>
+            <field name="res_model">vhr.ts.monthly</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">monthly_calendar</field>
+            <field name="view_id" ref="view_vhr_ts_monthly_tree"/>
+            <field name="search_view_id" ref="view_vhr_ts_monthly_search"/>
+        </record>
+
+
+        <record model="ir.actions.act_window.view" id="act_vhr_ts_monthly_monthly_calendar">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">monthly_calendar</field>
+            <field name="view_id" ref="view_vhr_ts_monthly_monthly_calendar"/>
+            <field name="act_window_id" ref="act_vhr_ts_monthly"/>
+        </record>
+
+    </data>
+</openerp>
+
+

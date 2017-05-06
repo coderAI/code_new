@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="sellback" name="SellBack">
+            <t t-set="head">
+                <link href="/vhr_mysite/static/lib/esop/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
+                <link href="/vhr_mysite/static/lib/esop/bootstrap-select2/select2.css" rel="stylesheet" type="text/css"/>
+                <link href="/vhr_mysite/static/src/css/esop/style.css" rel="stylesheet" type="text/css"/>
+                <script src="/vhr_mysite/static/lib/esop/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/lib/esop/bootstrap-select2/select2.min.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/src/js/esop/esop.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/lib/esop/jquery.bpopup.min.js" type="text/javascript"/>
+            </t>
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="title-part">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="grid simple horizontal">
+                                        <div class="grid-title">
+                                            <h4 style="font-family: arial">
+                                                <t t-esc="sb_form"/>
+                                            </h4>
+                                        </div>
+                                        <div class="grid-body">
+                                           <div class="row-fluid" t-if="error">
+                                                <div class="row">
+                                                    <p class="alert alert-danger">
+                                                        <t t-esc="error"/>
+                                                    </p>
+                                                </div>
+                                           </div>
+                                           <div class="row-fluid" t-if="message">
+                                                <div class="row">
+                                                    <p class="alert alert-success">
+                                                        <t t-esc="message"/>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row-fluid" t-if="register_id">
+                                                <form action="/mysite/sellback" method="post">
+                                                    <div class="row">
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_owned"/></label>
+                                                                <div class="controls">
+                                                                    <input type="text" class="form-control" id="stock_qty" t-att-value="'{0:,}'.format(stock_qty)" disabled="disabled"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_qty"/></label>
+                                                                <div class="controls">
+                                                                    <t t-if="not sellback_qty">
+                                                                        <input type="text" class="form-control" id="sellback_qty" name="sellback_qty" t-att-value="'{0:,}'.format(sellback_qty)" pattern="\d+" placeholder="e.g 50"/>
+                                                                    </t>
+                                                                    <t t-if="sellback_qty">
+                                                                        <input type="text" class="form-control" id="sellback_qty" name="sellback_qty" t-att-value="'{0:,}'.format(sellback_qty)" disabled="disabled"/>
+                                                                    </t>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <t t-if="state == 'confirm'">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_sold_out"/></label>
+                                                                <div class="controls">
+                                                                    <input type="text" class="form-control" id="confirm_qty" t-att-value="'{0:,}'.format(confirm_qty)" disabled="disabled"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </t>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_price" /></label>
+                                                                <div class="controls">
+                                                                    <input type="text" class="form-control" id="sellback_price" t-att-value="'{0:,}'.format(sellback_price)" disabled="disabled"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="lbl_total_amt"/></label>
+                                                                <div class="controls">
+                                                                    <input type="text" class="form-control" id="total_amt" t-att-value="'{0:,}'.format(total_amt)" disabled="disabled"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_bank_account"/></label>
+                                                                <div class="controls">
+                                                                    <t t-if="not sellback_qty">
+                                                                    <select name="bank_id" id="bank_id" style="width:100%">
+                                                                        <t t-foreach="banks" t-as="bank">
+                                                                            <t t-if="bank">
+                                                                                <t t-if="bank_id == bank['id']">
+                                                                                   <option t-att-value="bank['id']" selected="True">
+                                                                                       <t t-esc="bank.get('bank', False) and (bank['bank'][1] + ': ') or ''"/>
+                                                                                       <t t-esc="bank.get('acc_number', '')"/>
+                                                                                   </option>
+                                                                                </t>
+                                                                                <t t-if="bank_id != bank['id']">
+                                                                                   <option t-att-value="bank['id']" t-att-selected="bank.get('is_main', False) and 'True' or ''">
+                                                                                       <t t-esc="bank.get('bank', False) and (bank['bank'][1] + ': ') or ''"/>
+                                                                                       <t t-esc="bank.get('acc_number', '')"/>
+                                                                                   </option>
+                                                                                </t>
+                                                                            </t>
+                                                                        </t>
+                                                                    </select>
+                                                                    </t>
+                                                                    <t t-if="sellback_qty">
+                                                                        <input type="text" class="form-control" t-att-value="display_bank" disabled="disabled"/>
+                                                                    </t>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <t t-if="not sellback_qty">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_other_bank"/></label>
+                                                                <div class="controls">
+                                                                    <t t-if="other_bank">
+                                                                        <input type="checkbox" id="other_bank" name="other_bank" checked="checked"/>
+                                                                    </t>
+                                                                    <t t-if="not other_bank">
+                                                                        <input type="checkbox" id="other_bank" name="other_bank"/><t t-esc="sb_other_bank_checked"/>
+                                                                    </t>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </t>
+                                                    </div>
+                                                    <div class="grid-title" id="other_bank_title">
+                                                        <h4 class="form-title">
+                                                            <t t-esc="sb_other_bank_header"/>
+                                                        </h4>
+                                                    </div>
+
+                                                    <div class="row" id="other_bank_info">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_other_bank_name"/>*</label>
+                                                                <div class="controls">
+                                                                    <t t-if="not sellback_qty">
+                                                                    <input type="text" class="form-control" name="other_bank_name" t-att-value="other_bank_name"/>
+                                                                    </t>
+                                                                    <t t-if="sellback_qty">
+                                                                        <input type="text" class="form-control" disabled="disabled" t-att-value="other_bank_name" />
+                                                                    </t>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_other_bank_branch"/>*</label>
+                                                                <div class="controls">
+                                                                    <t t-if="not sellback_qty">
+                                                                    <input type="text" class="form-control" name="other_bank_branch" t-att-value="other_bank_branch"/>
+                                                                    </t>
+                                                                    <t t-if="sellback_qty">
+                                                                    <input type="text" class="form-control" disabled="disabled" t-att-value="other_bank_branch"/>
+                                                                    </t>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_other_acc_number"/>*</label>
+                                                                <div class="controls">
+                                                                    <t t-if="not sellback_qty">
+                                                                    <input type="text" class="form-control" name="other_account_number" t-att-value="other_account_number"/>
+                                                                    </t>
+                                                                    <t t-if="sellback_qty">
+                                                                    <input type="text" class="form-control" disabled="disabled" t-att-value="other_account_number"/>
+                                                                    </t>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label"><t t-esc="sb_other_acc_name"/></label>
+                                                                <div class="controls">
+                                                                    <input type="text" class="form-control" t-att-value="other_account_name" disabled="disabled"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="hidden" name="register_id" t-att-value="register_id"/>
+
+                                                    <t t-if="not sellback_qty">
+                                                        <div class="form-group">
+                                                            <div class="row" style="text-align:center;">
+                                                                <button class="btn btn-primary"><t t-esc="btn_confirm"/></button>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>

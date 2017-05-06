@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<record id="view_vhr_update_employee_info_tree" model="ir.ui.view">
+            <field name="name">vhr.update.employee.info.tree</field>
+            <field name="model">vhr.update.employee.info</field>
+            <field name="arch" type="xml">
+                <tree string="Update Employee Info" version="7.0">
+                	<field name="employee_id" />
+                    <field name="employee_code"/>
+                    <field name="new_id_number"/>
+                    <field name="new_date_of_issued"/>
+                    <field name="new_place_of_issued"/>
+                    <field name="new_phone"/>
+                    <field name="new_email"/>
+                    <field name="is_view"/>
+                    <field name="is_submit"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_vhr_update_employee_info_form" model="ir.ui.view">
+            <field name="name">vhr.update.employee.info.form</field>
+            <field name="model">vhr.update.employee.info</field>
+            <field name="arch" type="xml">
+                <form string="Update Employee Info" version="7.0">
+					<sheet>
+						<div>
+                            <div class="oe_edit_only">
+                                <label for="name" string="Name"/>
+                            </div>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+							<group name="General Left">
+								<field name="employee_id" readonly="1"
+									options="{'save_readonly' : True, 'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+									<field name="is_view" readonly="1"/>
+							</group>
+							<group name="General Right">
+								<field name="employee_code" readonly="1"/>
+								<field name="is_submit" readonly="1"/>
+							</group>
+						</group>
+                        <group name="General">
+                        	<group name="General Left">
+								<field name="current_id_number"/>
+								<field name="current_date_of_issued"/>
+								<field name="current_place_of_issued"/>
+								<field name="current_phone"/>
+								<field name="current_email"/>
+							</group>
+							<group name="General Right">
+								<field name="new_id_number"/>
+								<field name="new_date_of_issued"/>
+								<field name="new_place_of_issued"/>
+								<field name="new_phone"/>
+								<field name="new_email"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+            </field>
+        </record>
+    	
+    	<record model="ir.actions.act_window" id="act_vhr_update_employee_info">
+            <field name="name">Update Employee Info</field>
+            <field name="res_model">vhr.update.employee.info</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_update_employee_info_tree"/>
+        </record>
+    
+    </data>
+</openerp>

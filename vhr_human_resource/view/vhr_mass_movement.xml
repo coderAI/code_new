@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="act_ir_attachment_2_vhr_mass_movement" model="ir.actions.act_window">
+            <field name="res_model">ir.attachment</field>
+            <field name="view_type">form</field>
+            <field name="name">Attachment</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">[('res_model','=','vhr.mass.movement'),('res_id','=', active_id)]</field>
+            <field name="context">{'search_default_res_id': [active_id], 'default_res_id': active_id,
+            	                   'rule_for_tree_form':True,'attachment':False,'create':False,'edit':False}</field>
+        	<field name="view_id" ref="document.view_document_file_tree"/>
+            <field name="search_view_id" ref="base.view_attachment_search"/>
+        </record>
+        
+    	<record id="view_vhr_mass_movement_submit_form" model="ir.ui.view">
+        	<field name="name">vhr.mass.movement.submit.form</field>
+            <field name="model">vhr.mass.movement</field>
+            <field name="type">form</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Note" version="7.0">
+                	<separator string="You have to attach file before submit !"  class="vhr_human_resource_warning_message"  invisible="not context.get('is_require_data_for_submit')"/>
+                	<group invisible="not context.get('is_require_data_for_submit')">
+                		<field name="attachment_ids" required="context.get('is_require_data_for_submit')" nolabel='1' 
+                			on_change="onchange_attachment_ids(attachment_ids)"
+                			context="{'default_res_id':context.get('active_id'),'default_res_model':context.get('active_model'),
+                			          'do_not_validate_read_attachment':'True'}">
+                			<tree string="Attachment" version="7.0" editable="bottom">
+                				<field name="datas" filename="datas_fname" trigger_on_change='True' string="File"/>
+			                    <field name="datas_fname" options='{"file_download": 1, "field_data": "datas"}' invisible="1"/>
+			                    <field name="create_date" invisible="1"/>
+			                    <field name="write_uid" string="Updated by" invisible="1"/>
+			                    <field name="res_id" invisible='1' options="{'save_readonly': True}"/>
+			                    <field name="res_model" invisible='1' options="{'save_readonly': True}"/>
+			                </tree>
+                		</field>
+                		<field name="attachment_count" invisible='1' widget="statinfo"/>
+                		<field name="is_required_attachment" invisible='1'/>
+                	</group>
+                	
+                    <separator string="Comment" colspan="4" required="context.get('required_comment',False)"/>
+                    <footer>
+                    	<!--For submit-approve -->
+                    	<div invisible="0 if context.get('action') in ['submit','approve'] else 1">
+                    		<div attrs="{'invisible': [('attachment_count','=',0),('is_required_attachment','=',True)]}">
+	                    		<button name="execute_workflow"
+	                                string="Submit"  one_click_button="True"
+	                                type="object" icon="gtk-save"
+	                                class="oe_highlight" context="{'ACTION_COMMENT': action_comment}"/>
+		                        or
+		                        <button string="Cancel" class="oe_link" special="cancel"/>
+	                    	</div>
+                    	
+                    	</div>
+                    	<div invisible="0 if context.get('action') in ['return','reject'] else 1">
+                    		<button name="execute_workflow"
+	                                string="Submit"  one_click_button="True"
+	                                type="object" icon="gtk-save"
+	                                class="oe_highlight" context="{'ACTION_COMMENT': action_comment}"/>
+	                        or
+	                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    	</div>
+                        
+                    </footer>
+                </form>
+            </field>
+        </record>
+    	
+		<record id="view_vhr_mass_movement_form" model="ir.ui.view">
+	        <field name="name">vhr.mass.movement.view.form</field>
+            <field name="model">vhr.mass.movement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Mass Request" version="7.0" duplicate='false'>
+                	<header>
+       					<field name="state" widget="statusbar" 
+       						options="{'save_readonly': True}"
+							statusbar_visible="draft,new_hrbp,dept_hr,cb,finish"/>
+       				</header>
+                    <sheet>
+                    	<div class="oe_right" name="buttons">
+	                        <div class="oe_button_box" attrs="{'invisible': [('is_person_do_action','=',False)]}">
+	                            <button string="Submit" name="open_window" type="object"
+	                            	class="oe_stat_button bg_icon_green"
+		                            icon="fa-mail-forward"
+									context="{'state': state,'action':'submit'}" states="draft"/>
+								
+								<button string="Approve" name="open_window" type="object"
+									class="oe_stat_button bg_icon_green"
+		                            icon="fa-mail-forward"
+									context="{'action':'submit','state': state,'department_id_old':department_id_old,'department_id_new':department_id_new}" 
+								    states="new_hrbp,dept_hr"/>
+								
+								<button string="Execute" name="open_window" type="object"
+									class="oe_stat_button bg_icon_green"
+		                            icon="fa-mail-forward"
+									context="{'action':'submit','state': state,'department_id_old':department_id_old,'department_id_new':department_id_new}" 
+								    states="cb"/>
+										
+								<button string="Return" name="open_window" type="object"
+									class="oe_stat_button bg_icon_red"
+		                            icon="fa-mail-reply"
+									context="{'action':'return','state': state, 'required_comment':True}"
+								    states="new_hrbp,dept_hr"/>	
+										
+								    	<!-- attrs="{'invisible': [('is_able_to_do_action_reject','=',False)]}" -->
+								<button string="Reject" name="open_window" type="object"
+									class="oe_stat_button bg_icon_red"
+		                            icon="fa-times"
+								    states="new_hrbp,dept_hr,cb"
+									context="{'action':'reject','state': state, 'required_comment':True}"/>
+								
+	                        </div>
+	                        <newline/>
+	                        <div class="oe_right" name="buttons">
+	                        	<button name="%(act_ir_attachment_2_vhr_mass_movement)d" 
+		                            class="oe_stat_button" 
+		                            icon="fa-paperclip" 
+		                            type="action" attrs="{'invisible': [('attachment_count','=', 0)]}">
+		                         	<field name="attachment_count" widget="statinfo" string="Attachments"/>
+			                    </button>
+	                        </div>
+                        </div>
+                    	<group col="4" string="General Information">
+                    		<field name="requester_id" readonly="1" 
+                    		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    		<newline/>
+                    		<field name="company_id" required='1' 
+                    		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}" string="Entity"
+	       						 on_change="onchange_company_id(department_id_old,company_id,effect_from,context)"/>
+                    		<field name="effect_from" required='1' string="Effective Date"
+                    		  options="{'save_readonly': True}" 
+                    		  attrs="{'readonly': [('employee_ids','!=',	[[6,False,[]]])]}"
+                    		  on_change="onchange_effect_from(department_id_old,company_id,effect_from)"/>
+       						<!--<field name="change_form_id" required='1'
+       						  on_change="onchange_change_form_id(change_form_id)"/>
+       						<field name="change_form_type_id" required='1' readonly="1" options="{'save_readonly': True}"/>-->
+       						
+	       					<field name="change_form_ids" colspan='4' required='1' widget="many2many_tags" context="{'active_test' : True}"
+	       					 options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+	       					 on_change="onchange_change_form_ids(change_form_ids,fields_affect_by_change_form,division_id_old,department_group_id_old,department_id_old)"/>
+	       					<newline/>
+	       					<field name="fields_affect_by_change_form" invisible='1'/>
+       						<field name="decision_no" invisible="1"/>
+       						<field name="signer_id" invisible="1"
+       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       						<field name="sign_date" invisible="1"/>
+       						<field name="signer_job_title_id" invisible="1"/>
+       						<field name="is_public"/>
+       						<newline/>
+       						<field name="is_person_do_action" invisible="1"/>
+       						<!--<field name="is_able_to_do_action_reject" invisible="1"/>-->
+       						<field name="is_able_to_create" invisible="1"/>
+       						<field name="is_change_form_adjust_salary" invisible='1'/>
+       						<field name='invisible_change_salary' invisible='1'/>
+       						<field name="is_change_basic_salary_by_hand" invisible='1'/>
+   							<field name="is_change_salary_percentage_by_hand" invisible='1'/>
+       						<field name="manager_id_old" invisible='1' options="{'save_readonly': True}"/>
+                    	</group>
+                    	<group colspan="4">
+                    		<field name="note"/>
+                    	</group>
+                    	<group col="4" string="Old">
+		   							<field name="division_id_old" required="1" on_change="onchange_division_id_old(division_id_old,division_id_new)"
+		   							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+		   							
+		   							<field name="department_group_id_old" on_change="onchange_department_group_id_old(department_group_id_old,department_group_id_new)"
+		   							context="{'dept_from_division' : division_id_old}"
+		   							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+		   							
+		   							<field name="department_id_old" required="1" 
+		   							on_change="onchange_department_id_old(department_id_old,division_id_old,division_id_new,context)" 
+		   							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+		   							context="{'dept_from_department_group' : department_group_id_old,'dept_from_division_bypass_group':division_id_old}"/>
+						</group>
+                    	<group col="4" string="New">
+                    		<field name="work_for_company_id_new" invisible='1'
+                    		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    		<newline/>
+                			<field name="office_id_new" on_change="onchange_office_id_new()"
+                			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                			<field name="division_id_new" required='1' on_change="onchange_division_id_new()"
+                			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                			
+                		    <field name="department_group_id_new" on_change="onchange_department_group_id_new()"
+							context="{'dept_from_division' : division_id_new}"
+							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                		    
+                			<field name="department_id_new" required='1' on_change="onchange_department_id_new(department_id_new)" 
+                			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+							context="{'dept_from_department_group' : department_group_id_new,'dept_from_division_bypass_group':division_id_new}"/>
+                			<field name="team_id_new" on_change="onchange_team_id_new(team_id_new)" 
+                			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+							context="{'dept_from_department' : department_id_new}"/>
+                			
+                			<field name="job_title_id_new"
+                			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                				on_change="onchange_job_title_id_new(job_title_id_new,False,pro_sub_group_id_new)"/>
+                			
+                			<!--New job level -->
+   							<field name="job_level_person_id_new"
+   							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+		       							
+						</group>	
+						<group col='4'>
+                        		<field name="pro_job_family_id_new" 
+                        		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                        	 	on_change="onchange_pro_job_family_id_new(pro_job_family_id_new,pro_job_group_id_new,context)"/>
+                            	<field name="pro_job_group_id_new" 
+                            	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}" 
+                            	 context="{'filter_by_job_family_id' : pro_job_family_id_new}"/>
+                            	<!-- on_change="onchange_pro_job_group_id_new(pro_job_group_id_new,pro_sub_group_id_new,context)" -->	
+                            	<field name="pro_sub_group_id_new" 
+                            	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}" />
+                            	<!-- context="{'filter_by_job_group_id' : pro_job_group_id_new}"-->
+   						</group>
+			       		<newline/>
+						<group col='4'>
+							<field name="report_to_new" 
+							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                			<!--<field name="approver_id_new"/>
+                			<field name="mentor_id_new"/>-->
+                			<field name="manager_id_new" readonly='1' 
+                			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+						</group>
+						<newline/>
+						<group col="4">
+                    		<!--Write in vhr_timesheet <field name="work_group_id_new"/>
+                    		<field name="timesheet_id_new"/>-->
+                    		<field name="salary_setting_id_new" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    	</group>
+                    	<group col="4">
+                    		<field name="seat_new"/>
+                    		<field name="ext_new"  options="{'save_readonly': True,'validate_number': True}"/>
+                    		<!--<field name="work_email_new" options="{'save_readonly': True, 'validate_email': True}"/>
+                    		<field name="mobile_phone_new" options="{'save_readonly': True,'validate_number': True}"/>
+                    		<field name="work_phone_new" options="{'save_readonly': True,'validate_number': True}"/>-->
+                    	</group>
+                    	<newline/>
+                    	<group col='4' attrs="{'invisible': [('invisible_change_salary','=',True)]}" name='change_salary'>
+   							<field name="gross_salary_new" options="{'save_readonly': True}" 
+   								on_change="onchange_gross_salary(gross_salary_new, basic_salary_new, kpi_amount_new, salary_percentage_new, is_change_salary_percentage_by_hand,context)"/>
+   							<field name="salary_percentage_new" options="{'save_readonly':True}"
+								on_change="onchange_salary_percentage(gross_salary_new, basic_salary_new, kpi_amount_new, salary_percentage_new,is_change_salary_percentage_by_hand,context)"/>
+   							<field name="basic_salary_new" options="{'save_readonly': True}"  
+   								on_change="onchange_basic_salary(gross_salary_new, basic_salary_new, kpi_amount_new,salary_percentage_new, is_change_basic_salary_by_hand,context)"/>
+   							<field name="kpi_amount_new" options="{'save_readonly': True}"
+   								 on_change="onchange_kpi_amount(gross_salary_new,basic_salary_new,kpi_amount_new,context)"/>
+   							<field name="v_bonus_salary_new" options="{'save_readonly': True}"
+   								 on_change="onchange_v_bonus_salary(gross_salary_new, basic_salary_new, kpi_amount_new, v_bonus_salary_new,context)"/>
+   							<field name="general_allowance_new" options="{'save_readonly': True}"/>
+   							<!--on_change="onchange_general_allowance(gross_salary_new, basic_salary_new, kpi_amount_new, general_allowance_new,context)"-->
+   							<!--<field name="collaboration_salary_new" options="{'save_readonly': True}"/>-->
+   						</group>
+                    	<notebook>
+                    		<page string="Employees">
+                    			<p class="vhr_human_resource_important_message">
+		                            <i class="fa fa-exclamation-triangle"></i>
+		                            You have to choose all required fields before choosing list of employees !
+		                        </p>
+                    			<field name="employee_ids" nolabel="1" required="1"
+                    			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                    			context="{'active_test':False,'filter_by_working_record':True,'force_search_hr_employee':False,
+                    			          'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree',	
+                    			          'department_id':department_id_old,'company_id':company_id,'effect_date':effect_from}"/>
+                    		</page>
+                    		<page string="Logs" groups="vhr_base.hrs_group_system,vhr_human_resource.vhr_cb_working_record">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+	                        <page string="Log state changes" attrs="{'invisible': [('state','=',False)]}">
+                                    <field name="state_log_ids" readonly="1"/>
+                            </page>
+                    	</notebook>
+                    	
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_vhr_mass_movement_tree" model="ir.ui.view">
+       		<field name="name">vhr.mass.movement.view.tree</field>
+       		<field name="model">vhr.mass.movement</field>
+       		<field name="arch" type="xml">
+      			<tree string="Mass Request" version="7.0"
+					colors="blue:state not in ('finish','cancel')">
+      				<field name="company_id" string="Entity"/>
+      				<field name="division_id_new"/>
+      				<field name="department_id_new"/>
+      				<field name="change_form_name"/>
+					<field name="effect_from"/>
+					<field name="state" string="Status"/>
+					<field name="waiting_for"/>
+					<field name="create_user"/>
+					<field name="create_date"/>	
+					<field name="write_user"/>
+					<field name="write_date"/>
+					<field name="is_waiting_for_action" invisible='1'/>
+      			</tree>
+     		</field>
+       	</record>
+       	
+       	<record id="view_vhr_mass_movement_search" model="ir.ui.view">
+        	<field name="name">vhr.mass.movement.view.search</field>
+        	<field name="model">vhr.mass.movement</field>
+        	<field name="arch" type="xml">
+        		<search string="Mass Request">
+        			<group expand="0" string="Group by...">
+        				<filter string="Company" name="company" context="{'group_by':'company_id'}"/>
+        			</group>
+        			<group expand="0" string="Filter Waiting For">
+        				<filter string="Waiting For Approval" name="waiting_for_action" icon="terp-stage"
+                            domain="[('is_waiting_for_action', '=', True)]"/>
+                    </group>
+                    <group expand="0" string="Status">
+                    	<filter string="Draft" name="state_draft" icon="STOCK_NEW"
+                            domain="[('state', '=', 'draft')]"/>
+                    	<filter string="Waiting New HRBP" name="state_new_hrbp" icon="STOCK_NEW"
+                            domain="[('state', '=', 'new_hrbp')]"/>
+                    	<filter string="Waiting HRD" name="state_dept_hr" icon="STOCK_NEW"
+                            domain="[('state', '=', 'dept_hr')]"/>
+                    	<filter string="Waiting C&amp;B" name="state_cb" icon="STOCK_NEW"
+                            domain="[('state', '=', 'cb')]"/>
+                    	<filter string="Finish" name="state_finish" icon="STOCK_NEW"
+                            domain="[('state', '=', 'finish')]"/>
+                    	<filter string="Cancel" name="state_cancel" icon="STOCK_NEW"
+                            domain="[('state', '=', 'cancel')]"/>
+        			</group>
+        			
+        			<field name="division_id_new"/>
+					<field name="department_id_new"/>
+                     
+        		</search>
+        	</field>
+        </record>
+        
+        <record id="action_vhr_mass_movement" model="ir.actions.act_window">
+            <field name="name">Mass Requests</field>
+            <field name="res_model">vhr.mass.movement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_mass_movement_tree"/>
+            <field name="context">{'record_type': 'request','default_state':'draft',
+            						'search_default_waiting_for_action':1,'get_office_name_by_code':True,'get_department_name_by_code':True}</field>
+            <field name="search_view_id" ref="view_vhr_mass_movement_search"/>
+       </record>
+       
+       <record model="ir.actions.act_window" id="act_vhr_mass_movement_status">
+       		<field name="name">Mass Requests Progress</field> 
+            <field name="res_model">vhr.mass.status</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('model_id.model','=','vhr.mass.movement')]</field>
+            <field name="view_id" ref="vhr_common.view_vhr_mass_status_tree"/>
+            <field name="search_view_id" ref="vhr_common.view_vhr_mass_status_search"/>
+       	</record>
+       
+       
+       
+        
+    </data>
+</openerp>

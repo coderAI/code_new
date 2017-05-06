@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	
+    	<record id="view_vhr_master_data_ir_sequence_view_form_inherit" model="ir.ui.view">
+            <field name="name">vhr.master.data.ir.sequence.view.form.inherit</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="company_group_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_master_data_ir_sequence_view_tree_inherit" model="ir.ui.view">
+            <field name="name">vhr.master.data.ir.sequence.view.tree.inherit</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="company_group_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+     </data>
+</openerp>

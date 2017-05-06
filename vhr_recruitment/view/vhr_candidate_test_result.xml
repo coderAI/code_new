@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data noupdate='0'>
+        <record id="view_vhr_candidate_test_result_form" model="ir.ui.view">
+            <field name="name">vhr.candidate.test.result.form</field>
+            <field name="model">vhr.candidate.test.result</field>
+            <field name="arch" type="xml">
+                <form string="HRS Candidate Test Result" version="7.0">
+                    <sheet>
+                    	<group cols="4">
+                    		<field name="program_event_id" required='1'
+	                    		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+	                    	<field name="program_question_id"  required='1'
+	                    		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>	                    	
+	                    	<field name="answer"/>
+	                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_candidate_test_result_tree" model="ir.ui.view">
+            <field name="name">vhr.candidate.test.result.tree</field>
+            <field name="model">vhr.candidate.test.result</field>
+            <field name="arch" type="xml">
+                <tree string="HRS Candidate Test Result" version="7.0">
+                	<field name="program_event_id"/>
+                	<field name="program_question_id"/>                   	
+                   	<field name="answer"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

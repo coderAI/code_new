@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_working_record_form_inherit" model="ir.ui.view">
+            <field name="name">vhr.working.record.form.inherit</field>
+            <field name="model">vhr.working.record</field>
+            <field eval="18" name="priority"/>
+            <field name="inherit_id" ref="vhr_human_resource.view_vhr_working_record_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='salary_setting_id_old']" position="before">
+                	<!--<field name="ts_working_schedule_id_old" readonly="1" 
+                	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>-->
+                	<field name="ts_working_group_id_old" readonly="1" 
+                	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    <field name="timesheet_id_old" readonly="1" 
+                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='salary_setting_id_new']" position="before">
+                	<!--<field name="ts_working_schedule_id_new" attrs="{'required': ['|',('state','=','cb'),('state','=',False)]}"
+                	colors="blue:ts_working_schedule_id_new !=ts_working_schedule_id_old"
+                	 options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                		 on_change="onchange_working_schedule_id(ts_working_schedule_id_new,ts_working_group_id_new)"/>-->
+                	<field name="ts_working_group_id_new"  attrs="{'required': ['|',('state','=','cb'),('state','=',False)]}"
+                	colors="blue:ts_working_group_id_new !=ts_working_group_id_old"
+                		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    <field name="timesheet_id_new" attrs="{'required': ['|',('state','=','cb'),('state','=',False)]}"
+                    colors="blue:timesheet_id_new !=timesheet_id_old"
+                     options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_working_record_tree_inherit" model="ir.ui.view">
+            <field name="name">vhr.working.record.view.tree.inherit</field>
+            <field name="model">vhr.working.record</field>
+            <field eval="18" name="priority"/>
+            <field name="inherit_id" ref="vhr_human_resource.view_vhr_working_record_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='salary_setting_id_new']" position="after">
+                    <field name="timesheet_id_new"/>
+                    <!--<field name="ts_working_schedule_id_new"/>-->
+                    <field name="ts_working_group_id_new"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_working_record_waiting_for_public_tree_inherit" model="ir.ui.view">
+            <field name="name">vhr.working.record.view.waiting.for.public.tree.inherit</field>
+            <field name="model">vhr.working.record</field>
+            <field eval="18" name="priority"/>
+            <field name="inherit_id" ref="vhr_human_resource.view_vhr_working_record_waiting_for_public_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='salary_setting_id_new']" position="after">
+                    <field name="timesheet_id_new"/>
+                    <!--<field name="ts_working_schedule_id_new"/>-->
+                    <field name="ts_working_group_id_new"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_working_record_staff_movement_tree_inherit" model="ir.ui.view">
+            <field name="name">vhr.working.record.staff.movement.view.tree.inherit</field>
+            <field name="model">vhr.working.record</field>
+            <field eval="18" name="priority"/>
+            <field name="inherit_id" ref="vhr_human_resource.view_vhr_working_record_staff_movement_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='salary_setting_id_new']" position="after">
+                    <field name="timesheet_id_new"/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+        
+    </data>
+</openerp>

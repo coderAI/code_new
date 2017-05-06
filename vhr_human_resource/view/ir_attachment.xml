@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_human_resource_attachment_inherit_form" model="ir.ui.view">
+        <field name="name">vhr.human.resource.attachment.view.inherit.form</field>
+            <field name="model">ir.attachment</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="attach_note" readonly='1'/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

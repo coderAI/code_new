@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate='1'>
+		<record id="vhr_program_field_1" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Last name</field>
+			<field name="name_en">Last name</field>
+			<field name="field_model">last_name</field>
+			<field name="field_type">char</field>
+			<field name="placeholder">Nguyen</field>
+			<field name="placeholder_en">Nguyen</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">1</field>
+		</record>
+		<record id="vhr_program_field_2" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">First name</field>
+			<field name="name_en">First name</field>
+			<field name="field_model">first_name</field>
+			<field name="field_type">char</field>
+			<field name="placeholder">Ten</field>
+			<field name="placeholder_en">Ten</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">2</field>
+		</record>
+		<record id="vhr_program_field_3" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Email</field>
+			<field name="name_en">Email</field>
+			<field name="field_model">email</field>
+			<field name="field_type">char</field>
+			<field name="placeholder">ten@hrs</field>
+			<field name="placeholder_en">ten@hrs</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="attribute">email</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">3</field>
+		</record>
+		<record id="vhr_program_field_4" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Mobile phone</field>
+			<field name="name_en">Mobile phone</field>
+			<field name="field_model">mobile_phone</field>
+			<field name="field_type">char</field>
+			<field name="placeholder">0987654321</field>
+			<field name="placeholder_en">0987654321</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="attribute">phone</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">4</field>
+		</record>
+		<record id="vhr_program_field_5" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Date of birth</field>
+			<field name="name_en">Date of birth</field>
+			<field name="field_model">birthday</field>
+			<field name="field_type">datetime</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">5</field>
+		</record>
+		<record id="vhr_program_field_6" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Gender</field>
+			<field name="name_en">Gender</field>
+			<field name="field_model">gender</field>
+			<field name="field_type">selection</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="default">male:Nam:Male-female:Nữ:Female</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">6</field>
+		</record>
+		<record id="vhr_program_field_7" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Permanent Address</field>
+			<field name="name_en">Permanent Address</field>
+			<field name="field_model">permanent_address</field>
+			<field name="field_type">text</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">7</field>
+		</record>
+		<record id="vhr_program_field_8" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">CMND</field>
+			<field name="name_en">Identification no</field>
+			<field name="field_model">identification_no</field>
+			<field name="field_type">char</field>
+			<field name="is_required">False</field>
+			<field name="is_public">True</field>
+			<field name="sequence">8</field>
+		</record>
+		<record id="vhr_program_field_9" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">MSSV</field>
+			<field name="name_en">Student ID</field>
+			<field name="field_model">student_code</field>
+			<field name="field_type">char</field>
+			<field name="is_required">False</field>
+			<field name="is_public">True</field>
+			<field name="sequence">9</field>
+		</record>
+		<record id="vhr_program_field_10" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">University</field>
+			<field name="name_en">University</field>
+			<field name="field_model">school_id</field>
+			<field name="field_type">many2one</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">10</field>
+		</record>
+		<record id="vhr_program_field_11" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Degree</field>
+			<field name="name_en">Degree</field>
+			<field name="field_model">recruitment_degree_id</field>
+			<field name="field_type">many2one</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">11</field>
+		</record>
+		<record id="vhr_program_field_12" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Cumulative GPA</field>
+			<field name="name_en">Cumulative GPA</field>
+			<field name="field_model">cumulative_gpa</field>
+			<field name="field_type">float</field>
+			<field name="error">Vui lòng điền</field>
+			<field name="error_en">Please input</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">12</field>
+		</record>
+		<record id="vhr_program_field_13" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Recruitment source</field>
+			<field name="name_en">Recruitment source</field>
+			<field name="field_model">recruitment_source_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">False</field>
+			<field name="is_public">False</field>
+			<field name="sequence">13</field>
+		</record>
+		<!-- Load theo event -->
+		<record id="vhr_program_field_14" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Event Job</field>
+			<field name="name_en">Event Job</field>
+			<field name="field_model">job_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">False</field>
+			<field name="is_public">False</field>
+			<field name="sequence">14</field>
+		</record>
+		<record id="vhr_program_field_15" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Thời gian tốt nghiệp</field>
+			<field name="name_en">Time Graduation</field>
+			<field name="field_model">time_graduation_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">15</field>
+		</record>		
+		<record id="vhr_program_field_16" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Job Apply</field>
+			<field name="name_en">Job Apply</field>
+			<field name="field_model">post_job_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">False</field>
+			<field name="is_public">False</field>
+			<field name="sequence">16</field>
+		</record>
+		<record id="vhr_program_field_17" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Country</field>
+			<field name="name_en">Country</field>
+			<field name="field_model">country_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">17</field>
+		</record>
+		<record id="vhr_program_field_18" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Candidate</field>
+			<field name="name_en">Candidate</field>
+			<field name="field_model">applicant_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">False</field>
+			<field name="is_public">False</field>
+			<field name="sequence">18</field>
+		</record>
+		<record id="vhr_program_field_19" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Note</field>
+			<field name="name_en">Note</field>
+			<field name="field_model">note</field>
+			<field name="field_type">text</field>
+			<field name="is_required">False</field>
+			<field name="is_public">False</field>
+			<field name="sequence">19</field>
+		</record>
+		<record id="vhr_program_field_20" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Program Event</field>
+			<field name="name_en">Program Event</field>
+			<field name="field_model">program_event_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">True</field>
+			<field name="is_public">False</field>
+			<field name="sequence">20</field>
+		</record>
+		<record id="vhr_program_field_21" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Index content</field>
+			<field name="name_en">Index content</field>
+			<field name="field_model">index_content</field>
+			<field name="field_type">text</field>
+			<field name="is_required">False</field>
+			<field name="is_public">False</field>
+			<field name="sequence">21</field>
+		</record>
+
+		<record id="vhr_program_field_22" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Facebook</field>
+			<field name="name_en">Facebook</field>
+			<field name="field_model">facebook_link</field>
+			<field name="field_type">char</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">22</field>
+		</record>
+		<record id="vhr_program_field_23" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Chuyên ngành</field>
+			<field name="name_en">Speciality</field>
+			<field name="field_model">speciality_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">23</field>
+		</record>
+		<record id="vhr_program_field_24" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Student staff</field>
+			<field name="name_en">Student staff</field>
+			<field name="field_model">student_staff_ids</field>
+			<field name="field_type">many2many</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">24</field>
+		</record>		
+		<record id="vhr_program_field_25" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Source online</field>
+			<field name="name_en">Source Online</field>
+			<field name="field_model">recruitment_source_online_id</field>
+			<field name="field_type">many2one</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">25</field>
+		</record>
+		<record id="vhr_program_field_26" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">File CV</field>
+			<field name="name_en">File CV</field>
+			<field name="field_model">resume</field>
+			<field name="field_type">binary</field>
+			<field name="placeholder"/>
+			<field name="placeholder_en"/>
+			<field name="description">Format file: doc, docx, xls, xlsx, ppt, pptx, pdf, jpg Size: less than 3MB</field>
+			<field name="description_en">Format file: doc, docx, xls, xlsx, ppt, pptx, pdf, jpg Size: less than 3MB</field>
+			<field name="error">Vui lòng chọn file</field>
+			<field name="error_en">Please input</field>
+			<field name="filter">doc,docx,xls,xlsx,ppt,pptx,pdf,jpg</field>
+			<field name="limit_size">3</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">26</field>
+		</record>
+		<record id="vhr_program_field_27" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Other documents</field>
+			<field name="name_en">Other documents</field>
+			<field name="field_model">compress</field>
+			<field name="field_type">binary</field>
+			<field name="description">Format file: doc, docx, xls, xlsx, ppt, pptx, pdf, jpg, rar, zip, 7z size: less than 3MB</field>
+			<field name="description_en">Format file: doc, docx, xls, xlsx, ppt, pptx, pdf, jpg, rar, zip, 7z size: less than 3MB</field>
+			<field name="error">Vui lòng chọn file</field>
+			<field name="error_en">Please input</field>
+			<field name="filter">doc,docx,xls,xlsx,ppt,pptx,pdf,jpg,rar,zip,7z</field>
+			<field name="limit_size">3</field>
+			<field name="is_required">False</field>
+			<field name="is_public">True</field>
+			<field name="sequence">27</field>
+		</record>
+		<record id="vhr_program_field_28" model="vhr.program.field">
+			<field name="model">vhr.temp.applicant</field>
+			<field name="name">Porfolio</field>
+			<field name="name_en">Porfolio</field>
+			<field name="field_model">porfolio_link</field>
+			<field name="field_type">char</field>
+			<field name="is_required">True</field>
+			<field name="is_public">True</field>
+			<field name="sequence">22</field>
+		</record>
+    </data>
+</openerp>

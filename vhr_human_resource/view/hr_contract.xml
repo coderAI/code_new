@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="act_ir_attachment_2_hr_contract" model="ir.actions.act_window">
+            <field name="res_model">ir.attachment</field>
+            <field name="view_type">form</field>
+            <field name="name">Attachment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">[('res_model','=','hr.contract'),('res_id','=', active_id)]</field>
+            <field name="context">{'search_default_res_id': [active_id], 'default_res_id': active_id}</field>
+        </record>
+        
+        <!--Có override phần context trong recruitment-->
+        <record id="hr_contract.action_hr_contract" model="ir.actions.act_window">
+            <field name="name">Contract</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree_search_report_quickadd,form</field>
+            <field name="limit">40</field>
+            <field name="domain">[]</field>
+            <field name="context">{
+            	'search_default_waiting_active':1,
+                'template_quickadd': 'ContractQuickAdd',
+                'template_position': '.oe_contract_select_status',
+                'template_fields': {'date_end': 'from_to_date'},
+            	'template_domain': "[('state','=','signed'),('renew_status', 'not in', ['renew', 'reject'])],
+                'search_default_current':1, 'search_default_active_contract': 1,'filter_by_group': 1,
+            	'create_directly_from_contract':1,'get_office_name_by_code':True,
+            	'search_default_group_state': 1,'get_department_name_by_code':True
+            	
+                }
+            </field>
+            <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+        </record>
+
+        <record id="vhr_contract_submit_comment_form" model="ir.ui.view">
+            <field name="name">vhr.contract.submit.comment</field>
+            <field name="model">hr.contract</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Note" version="7.0">
+                    <separator string="Comment" colspan="4" required="context.get('required_comment',False)"/>
+                    <footer>
+                        <button one_click_button="True" name="context.get('ACTION_NAME',False)"
+                                string="Submit" is_save_button="True"
+                                type="object" icon="gtk-save"
+                                class="oe_highlight" context="{'ACTION_COMMENT': action_comment}"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="view_hr_contract_form" model="ir.ui.view">
+            <field name="name">hr.contract.view.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <form position="replace">
+                    <form duplicate='false'>
+                        <header>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,waiting,signed,cancel"
+                                   readonly="1"/>
+                        </header>
+                        <sheet>
+                            <div class="oe_title">
+                                <div class="oe_edit_only">
+                                    <label for="name"/>
+                                </div>
+                                <h1>
+                                    <field name="name" placeholder="Contract number" readonly="1"
+                                           options="{'save_readonly': True}"/>
+                                </h1>
+                            </div>
+                            <div class="oe_right" name="button_box">
+                                <!-- Put here related buttons -->
+                                <button class="oe_stat_button bg_icon_orange" style="width:40px !important"
+                                        attrs="{'invisible': ['|',('is_readonly', '=', True),('state', 'not in', ['waiting','signed'])]}"
+                                        name="action_print_contract"
+							   		    save_no_required='True' icon="fa-print" type="object"/>
+                                    <!--groups="vhr_human_resource.vhr_cb,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_dept_head"-->
+                                <button name="action_open_window_ex"
+                                        attrs="{'invisible': ['|','|',('is_readonly', '=', True), ('state', 'not in', ['draft']),('is_created','=',False)]}"
+                                        context="{'ACTION': 'draft_waiting', 'ACTION_NAME': 'button_set_to_waiting'}"
+                                        string="Confirm" type="object"
+                                        class="oe_stat_button bg_icon_green" icon="fa-mail-forward"/>
+                                    <!--groups="vhr_master_data.vhr_hrbp,vhr_master_data.vhr_assistant_to_hrbp,-->
+                                    <!--vhr_human_resource.vhr_cb,vhr_human_resource.vhr_cnb_manager,vhr_master_data.vhr_hr_dept_head"-->
+                                <button name="action_open_window_ex"
+                                        attrs="{'invisible': ['|',('is_readonly', '=', True),('state', 'not in', ['waiting'])]}"
+                                        context="{'ACTION': 'waiting_signed', 'ACTION_NAME': 'button_set_to_signed'}"
+                                        string="Sign" type="object"
+                                        class="oe_stat_button bg_icon_green" icon="fa-mail-forward"/>
+
+                                <button name="action_open_window_ex"
+                                        attrs="{'invisible': ['|',('is_readonly', '=', True), ('state', 'not in', ['waiting'])]}"
+                                        string="Return" type="object"
+                                		save_no_required='True'
+                                        context="{'ACTION': 'waiting_draft', 'ACTION_NAME': 'button_set_to_return', 'required_comment': True}"
+                                        class="oe_stat_button bg_icon_orange" icon="fa-arrow-left"/>
+
+                                <button name="%(act_ir_attachment_2_hr_contract)d"
+                                        class="oe_stat_button"
+                                        icon="fa-paperclip"
+                                        type="action" attrs="{'invisible': [('attachment_count','=', 0)]}">
+                                    <field name="attachment_count" widget="statinfo" string="Attachments"/>
+                                </button>
+
+                                <button name="%(vhr_human_resource.act_hr_contract_2_working_record)d"
+                                        attrs="{'invisible': ['|',('total_wkr', '&lt;', 1), ('total_wkr', '=', False)]}"
+                                        class="oe_stat_button"
+                                        icon="fa-book"
+                                        type="action"
+                                        invisible="1"
+                                        string="Working Record">
+                                </button>
+
+                                <button name="action_open_window_ex"
+						    			attrs="{'invisible': ['|','|',('state', 'in', ['signed', 'cancel']),
+						    			                              ('total_wkr', '>', 1), ('is_readonly', '=', True)]}"
+                                        context="{'ACTION':'waiting_cancel','ACTION_NAME': 'button_set_to_cancel_waiting', 'required_comment': True}"
+                                        string="Cancel" type="object"
+                                		save_no_required='True'
+                                        class="oe_stat_button bg_icon_red" icon="fa-times"/>
+
+                                 <button name="action_open_window_ex"
+						    			attrs="{'invisible': ['|','|',('state', 'in', ['draft', 'cancel','waiting']),
+						    			                              ('total_wkr', '>', 1), ('is_readonly', '=', True)]}"
+                                        context="{'ACTION': 'signed_cancel', 'ACTION_NAME': 'button_set_to_cancel_signed', 'required_comment': True}"
+                                        string="Cancel" type="object"
+                                 		save_no_required='True'
+                                        class="oe_stat_button bg_icon_red" icon="fa-times"/>
+                            </div>
+                            <group>
+                                <group>
+                                    <field name="employee_id" 
+                                    attrs="{'readonly': ['|','|', ('is_edit_emp_comp','=', False), ('is_readonly', '=', True),('state','!=','draft')]}"
+                                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                    context="{'is_main' : is_main,'date_start_temp':date_start_temp,'filter_by_group':True,
+                                              'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"
+                                           on_change="onchange_employee_id(employee_id,type_id,company_id,date_start,division_id,True,include_probation,context)"/>
+                                    <field name="company_id" required="1"
+                                           attrs="{'readonly': ['|', ('is_edit_emp_comp','=', False), ('is_readonly', '=', True)]}"
+                                    	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                           on_change="onchange_company_id(company_id,employee_id,type_id, date_start,division_id,include_probation,context)"/>
+                                    <field name="type_id" domain="[('id', 'in', list_contract_type_id)]"
+                                    	   context="{'mission_ids': mission_ids,'result_ids':result_ids,'date_start_temp':date_start_temp,
+                                    				 'onchange_type_id':True,'is_main' : is_main}"
+                                    	   options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                           attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                           on_change="onchange_employee_id(employee_id,type_id,company_id,date_start,division_id,False,include_probation,context)"/>
+                                    
+                                    <field name="sub_type_id" 
+                                    	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"	
+                                    	domain="['|',('contract_type_group_id','=',contract_type_group_id),('contract_type_id','=',type_id)]"
+                                    	attrs="{'readonly':[('is_readonly','=',True)],'invisible': [('is_show_sub_type','=',False)]}" />
+                                    
+                                    <field name="job_type_id" attrs="{'readonly': [('is_readonly', '=', True)]}" required="1"
+                                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                    <field name="list_contract_type_id" invisible="1"/>
+                                    <field name="contract_type_code" invisible="1" readonly="1" />
+                                    <field name="contract_duration" readonly="1" options="{'save_readonly': True}"
+                                           invisible="1"/>
+                                    <field name="change_form_id" string="Add To Working Record"
+                                    	   options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                           domain="[('show_in_contract', '=', True)]"  context="{'active_test' : True}"
+                                           attrs="{'required': [('is_existing_contract', '=', False)],
+                                    			   'invisible': [('change_form_id','=',False),('is_created','=',True),('is_existing_contract', '=', True)],
+                                                   'readonly': ['|',('is_readonly', '=', True),('is_existing_contract', '=', True)]}"/>
+                                    <field name="is_main" attrs="{'readonly': [('is_readonly', '=', True)]}"/>
+                                    <field name="is_created_from_renewal_contract"              
+                                    	attrs="{'invisible': [('is_created_from_renewal_contract', '=', False)]}"/>  
+                                    <field name="is_existing_contract" invisible="1"/>
+                                    <field name="total_wkr" invisible="1"/>
+                                    <field name="is_readonly" invisible="1"/>
+                                    <field name="can_renew" invisible="1"/>
+                                    <field name="renew_status" invisible="1"/>
+                                    <field name="is_able_to_create_contract" invisible='1'/>
+									<field name="is_created" invisible='1'/>
+									<field name="is_show_sub_type" invisible='1'/>
+									<field name="is_hrbp_editable" invisible='1'/>
+									<field name="contract_type_group_id" invisible='1'/>
+									<field name='is_official' invisible='1'/>
+                                </group>
+                                <group>
+                                    <field name="emp_code" readonly="1"/>
+                                    <field name="division_id" required="1"
+                                    	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                           attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                           on_change="onchange_division(division_id,department_group_id,department_id, context)"/>
+                                    
+                                    <field name="department_group_id" 
+                                    	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                           attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                           context="{'dept_from_division' : division_id}"
+                                           on_change="onchange_department_group(division_id, department_group_id,department_id,context)"/>
+                                    
+                                    <field name="department_id" required="1"
+                                    	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                           attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                           context="{'dept_from_department_group' : department_group_id,'dept_from_division_bypass_group':division_id}"
+                                           on_change="onchange_department(department_id,is_change_data_from_duplicate,context)"/>
+                                    <field name="team_id"
+                                    	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                           attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                           context="{'dept_from_department' : department_id}"/>
+                                    <field name="manager_id" required="1" readonly="1"
+                                           options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                    <field name="report_to" required="1" 
+                                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                    attrs="{'readonly': [('is_readonly', '=', True)]}"/>
+                                    
+                                    <field name="first_working_record_id" invisible="1"/>
+                                    <field name="is_change_data_from_duplicate" invisible="1"/>
+                                    <field name="is_edit_emp_comp" invisible="1"/>
+                                    <field name='is_require_job_family' invisible='1'/>
+                                    <field name='create_date' invisible='1'/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Information" name="information">
+                                    <group>
+                                        <group name="duration_group" string="Duration">
+                                            <field name="include_probation"
+                                                   attrs="{'invisible': [('is_on_probation','=', False)],
+                                                           'readonly': ['|',('is_readonly', '=', True),('date_end_temp','!=',False)]}"
+                                                   on_change="onchange_include_probation(include_probation, employee_id, company_id, type_id, context)"/>
+                                            <field name="is_on_probation" invisible="1"/>
+                                            <label for="date_start" string="Duration"/>
+                                            <div>
+                                                <field name="date_start" class="oe_inline" options="{'save_readonly': True}"
+                                                       attrs="{'readonly': ['|','|',('include_probation','=', True), ('is_readonly', '=', True),('date_end_temp','!=',False)]}"
+                                                       on_change="onchange_date(date_start,date_end,liquidation_date,contract_duration,employee_id,type_id,company_id,date_start_temp,context)"/>
+                                                -
+                                                <field name="date_end" class="oe_inline"
+                                                       attrs="{'readonly': ['|',('contract_type_code','=', '7'), ('is_readonly', '=', True)],
+                                                			   'invisible':[('date_end_temp','!=',False)]}"
+                                                       options="{'save_readonly': True}"
+                                                       on_change="onchange_liquidation(date_start,date_end,liquidation_date,context)"/>
+                                                
+                                                <field name="date_end_temp" class="oe_inline"
+                                                       attrs="{'readonly': ['|','|',('contract_type_code','=', '7'), ('is_readonly', '=', True),('date_end_temp','!=',False)],
+                                                				'invisible':[('date_end_temp','=',False)]}"
+                                                       options="{'save_readonly': True}"/>
+                                            </div>
+                                            <!--Because if show 2 date_end in same form will cause error when onchange, show date_end in here by field function -->
+                                            <field name="date_end_func" string="Appendix Contract To Date"
+                                            	readonly='1'
+                                            	attrs="{'invisible': [('date_end_temp', '=', False)]}" />
+                                            
+                                            <field name="liquidation_date" options="{'save_readonly': True}"
+                                            	attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                                   on_change="onchange_liquidation(date_start,date_end,liquidation_date,context)"/>
+
+                                            <field name="liquidation_reason" readonly="1" options="{'save_readonly': True}"/>
+                                            <field name="date_start_temp" invisible='1' options="{'save_readonly': True}"/>
+                                        </group>
+                                        <group string="Sign Information">
+                                            <field name="sign_date" attrs="{'readonly': [('is_readonly', '=', True)]}"/>
+                                            <field name="info_signer" required="1" attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                            <field name="title_signer" attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                            <field name="country_signer" attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                        </group>
+                                    </group>
+                                    <group string="Position">
+                                    	<group>
+                                    		<field name="job_id" string="Job Apply"
+                                               attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                               options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                        	 invisible="1"/>
+                                            <field name="title_id" required="1" attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                            <field name="job_level_id" readonly="1" string="Person Level"
+                                            attrs="{'invisible': ['|',('job_level_id','=',False),('date_start','&gt;=','2016-04-01')]}"
+                                            context="{'job_title_id':title_id}" 
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                            
+                                            <field name="career_track_id"
+                                            attrs="{'invisible': [('change_form_id', '=', False)],
+                                            	    'readonly': [('is_require_job_family','=',False)],
+                                                    'required': [('is_require_job_family','=',True),('change_form_id', '!=', False)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True,'save_no_required':True}"/>
+                                             <field name="job_family_id"
+                                            on_change="onchange_job_family_id(job_family_id,job_group_id,context)"
+                                            attrs="{'invisible': [('change_form_id', '=', False)],'required': [('is_require_job_family','=',True),('change_form_id', '!=', False)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                             
+                                            <field name="job_group_id" 
+                                            context="{'filter_by_job_family_id' : job_family_id}"
+                                            on_change="onchange_job_group_id(job_group_id,sub_group_id)"
+                                            attrs="{'invisible': [('change_form_id', '=', False)],'required': [('is_require_job_family','=',True),('change_form_id', '!=', False)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                            
+                                            <field name="sub_group_id" 
+                                            context="{'filter_by_job_group_id' : job_group_id}"
+                                            attrs="{'invisible': [('change_form_id', '=', False)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                            
+                                    	</group>
+                                        <group>
+                                        	<field name="office_id" required="1" attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                            <field name="seat_no" attrs="{'readonly': [('is_readonly', '=', True)]}"/>
+                                            
+                                            <!--Require job level person if contract is official-->
+                                            <field name="job_level_person_id" 
+                                            attrs="{'readonly': ['|',('is_readonly', '=', True),('is_require_job_family','=',False)],
+                                                    'required': [('is_require_job_family','=',True)],
+                                            		'invisible': [('date_start','&lt;','2016-04-01')]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True,'save_no_required':True}"/>
+                                        </group>
+                                        
+                                    </group>
+                                    <group string="Working Record" col='4' attrs="{'invisible':[('change_form_id','=',False)]}">
+                                    	
+                                    	<field name="salary_setting_id"
+                                    		attrs="{'readonly': [('is_readonly', '=', True)],'invisible':[('change_form_id','=',False)],'required':[('change_form_id','!=',False)]}"
+                                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True,'save_no_required': True}"/>
+                                    </group>
+
+                                    
+                                    <group string="Collaborator Info">
+                                    	<field name="mission_ids" nolabel="1" attrs="{'readonly': [('is_readonly', '=', True)]}"/>
+                                    	<field name="result_ids" nolabel="1" attrs="{'readonly': [('is_readonly', '=', True)]}"/>
+                                    </group>
+                                    <group string="Banks" colspan='8'>
+                                        <field name="bank_account_ids"
+                                               attrs="{'readonly': [('is_readonly', '=', True)]}"
+                                               required="1" nolabel="1" colspan='4'
+                                               context="{'default_employee_id':employee_id, 'active_test':False}">
+                                        	<tree string="Bank Contract" version="7.0" editable="top">
+							                    <field name="bank_id" required="1" context="{'default_employee_id':employee_id,'active_test':False}"/>
+							 					<field name="weight" required="1"/>
+							                    <field name="value_type" required="1"/>
+							 					<field name="currency" required="1"/>
+							 					<field name="contract_id" invisible="1"/>
+							 					<field name="employee_id" invisible="1"/>
+							                </tree>
+                                        </field>
+                                    </group>
+                                    <!--<group colspan='8'>-->
+                                    <!--<separator string="Salaries"/>-->
+                                    <!--<field name="salaries" nolabel="1" colspan='4'-->
+                                    <!--context="{'list_ids': domain_salary}"-->
+                                    <!--on_change="check_on_change_one2many('vhr.salary.contract', 'salary_id', salaries, 'domain_salary',context)"/>-->
+                                    <!--<field name="domain_salary" invisible="1"/>-->
+                                    <!--</group>-->
+                                    <!--<group>-->
+                                    <!--<group string="Allowances">-->
+                                    <!--<field name="allowances" nolabel="1"-->
+                                    <!--context="{'list_ids': domain_allowance, 'default_from_date': date_start, 'default_to_date': date_end}"-->
+                                    <!--on_change="check_on_change_one2many('vhr.allowances.contract', 'allowance_id', allowances, 'domain_allowance',context)"/>-->
+                                    <!--<field name="domain_allowance" invisible="1"/>-->
+                                    <!--</group>-->
+                                    <!--<group string="Mission Collaborator">-->
+                                    <!--<field name="missions" nolabel="1" context="{'list_ids': domain_mission}"-->
+                                    <!--on_change="check_on_change_one2many('vhr.mission.collaborator.contract', 'mission_id', missions, 'domain_mission',context)"/>-->
+                                    <!--<field name="domain_mission" invisible="1"/>-->
+                                    <!--</group>-->
+                                    <!--</group>-->
+									<separator string="Working Time"/>
+                                    <field name="working_time" attrs="{'readonly': [('is_readonly', '=', True)]}"/>
+                                    <separator string="Working Address"/>
+                                    <field name="working_address" attrs="{'readonly': [('is_readonly', '=', True)]}" string="Working Address"/>
+                                    <separator string="Working Salary" attrs="{'invisible': [('is_show_working_salary', '=', False)]}"/>
+                                    <field name="working_salary" attrs="{'readonly': [('is_readonly', '=', True)], 'invisible': [('is_show_working_salary', '=', False)]}"/>
+                                    <separator string="Job Description"/>
+                                    <field name="job_description" attrs="{'readonly': [('is_hrbp_editable', '=', False)]}"/>
+                                    
+                                    <separator string="Note"/>
+                                    <field name="contract_terms" attrs="{'readonly': [('is_readonly', '=', True)]}"/>
+									
+                                    <field name="is_show_working_salary" invisible='1'/>                                    
+                                </page>
+                                
+                                <page string="Appendix Contract">
+                                    <field name="appendix_ids" 
+                                    	context="{'contract_sub_type_id':sub_type_id,'contract_date_end':date_end,'default_contract_id':context.get('active_id')}" 
+                                    	attrs="{'readonly': [('is_readonly', '=', True)]}">
+                                    	<tree>
+                                            <field name="appendix_type_id"/>
+                                            <field name="date_start"/>
+                                            <field name="date_end"/>
+                                            <field name="active"/>
+                                        </tree>
+                                        <form version="7.0" string="Appendix Contract">
+                                            <sheet>
+                                            	<div class="oe_title">
+						                            <h1>
+						                                <field name="name" placeholder="Appendix number" readonly="1"
+						                                       options="{'save_readonly': True}"/>
+						                            </h1>
+						                        </div>
+						                        <div class="oe_right" name="button_box">
+						                        	<button class="oe_stat_button bg_icon_orange" style="width:40px !important"
+						                        			attrs="{'invisible':[('is_created','=',False)]}"
+						                                    name="print_appendix_contract"
+												   		    icon="fa-print" type="object"/>
+						                        </div>
+                                                <group>
+                                                    <group>
+                                                        <field name="appendix_type_id" required="1"  
+                                                        on_change="onchange_appendix_type_id(appendix_type_id, contract_id, context)"	
+                                                        context="{'contract_sub_type_id': context.get('contract_sub_type_id'), 'contract_date_end':context.get('contract_date_end')}"
+                                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                                        <field name="is_extension_appendix" readonly='1' options="{'save_readonly': True}"
+                                                          on_change="onchange_is_extension_appendix(is_extension_appendix)"/>
+                                                        <label for="is_create_code" string="Is Create Appendix Name" class="vhr_human_resource_important_message"/>
+                                                        <field name="is_create_code" on_change="onchange_is_create_code(is_create_code, sign_date)" nolabel='1'
+                                                           options="{'save_readonly': True}"
+                                                          attrs="{'readonly':[('is_created','=',True),('is_create_code','=',True)]}"/>
+                                                        <field name="active" readonly='1'/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="date_start" required="1" options="{'save_readonly': True}"
+                                                            context="{'contract_id': contract_id}"
+                                                        	on_change="on_change_date_start(date_start, context)"
+                                                            attrs="{'readonly':[('is_extension_appendix','=',True)]}"/>
+                                                        <field name="date_end"  attrs="{'required': [('is_extension_appendix','=', True)]}"/>
+                                                        <!--<field name="next_number_of_mission" invisible='1'/>-->
+                                                        <field name="contract_id" invisible='1'
+                                                         on_change="onchange_contract_id(contract_id, appendix_type_id)"/>
+                                                        <field name="is_created" invisible='1'/>
+                                                        <field name="is_change_mission" invisible='1'/>
+						       							<field name="is_change_salary" invisible='1'/>
+						       							<field name="is_change_allowance" invisible='1'/>
+                                                    </group>
+                                                </group>
+                                                <group string="Sign Information" col='4'>
+						                            <field name="sign_date" required='1' 
+						                            on_change="onchange_sign_date(sign_date, is_create_code)"
+						                            attrs="{'readonly':[('is_created','=',True),('name','!=',False)]}"/>
+						                            <field name="info_signer" required="1"
+						                            options="{'save_readonly': True}"/>
+						                            <field name="title_signer" 
+						                            options="{'save_readonly': True}"/>
+						                            <field name="country_signer"
+						                            options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+						                        </group>
+                                                <group string="Collaborator Info" attrs="{'invisible':[('is_change_mission','=',False)]}">
+														<field name="mission_ids" nolabel="1">
+															<!-- context="{'default_name':next_number_of_mission}" on_change="onchange_mission_ids(mission_ids)"-->
+															<tree version="7.0" editable="bottom">
+																<field name="appendix_id" invisible='1'/>
+																<field name="name" readonly='1'/>
+																<field name="value" required='1'/>
+																<field name="salary" sum="Total"/>
+															</tree>
+														</field>
+													</group>
+							       					<group>
+							       						<field name="description"/>
+							       					</group>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="Sign Information">
+                                	<group string="Invite" col='4'>
+                               			<field name="mail_to_remind"/>
+                               			<field name="is_invited"/>
+                               			<field name="number_of_invited"/>
+                               			<field name="last_date_invited"/>
+                               			<field string='Time' name="time_meet_user_sign_contract" 
+                               				attrs="{'required':[('last_date_invited','>=','2016-12-29')]}"/>
+                               			<field string='Day' name="day_meet_user_sign_contract" 
+                               				attrs="{'required':[('last_date_invited','>=','2016-12-29')]}"/>
+                               			<field name='date_change_state_to_signed' groups="base.group_no_one"/>	
+                                	</group>
+                                	<group string="Delivery" col='4'>
+                               			<field name="is_delivered"/>
+                               			<field name="delivery_id" 
+                               			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                               			<field name="holder_id" 
+                               			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                               			<field name='delivery_date'/>
+                               			<field name="delivery_note" colspan='4'/>
+                                	</group>
+                                	<group string="Receive" col='4'>
+                               			<field name="receiver_id" 
+                               			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                               			<field name="is_received"/>
+                               			<field name="received_date"/>
+                               			<field name="is_signed_by_emp"/>
+                                	</group>
+                                </page>
+                                <page string="Logs State Change">
+                                    <field name="state_log_ids" mode="tree" widget="one2many_list" readonly="1"/>
+                                </page>
+                                <page string="History"  groups="vhr_base.hrs_group_system,vhr_human_resource.vhr_cb_contract">
+                                    <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                    <field name="audit_log_ids" mode="tree"
+                                           widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                        <tree version="7.0">
+                                            <field name="timestamp" required="1" readonly="1"/>
+                                            <field name="user_id" readonly="1"/>
+                                            <field name="method" readonly="1"/>
+                                            <field name="field_description"/>
+                                            <field name="old_value_text"/>
+                                            <field name="new_value_text"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Work Permit" invisible="1">
+                                    <!-- Dont use but must have in form -->
+                                    <field name="partner_id"/>
+                                    <group col="4">
+                                        <field name="visa_no"/>
+                                        <field name="permit_no"/>
+                                        <field name="visa_expire"/>
+                                    </group>
+                                    <group name="salary_and_advantages" string="Salary and Advantages">
+                                        <field name="wage"/>
+                                        <field name="advantages" nolabel="1" placeholder="Advantages..." colspan="2"/>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </sheet>
+                    </form>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_contract_tree" model="ir.ui.view">
+            <field name="name">view.hr.contract.tree</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Contract" colors="blue:state =='waiting';grey: state=='cancel';green: state=='signed'">
+                        <field name="company_code" string="Entity"/>
+                        <field name="office_code"/>
+                        <field name="emp_code"/>
+                        <field name="employee_id"/>
+                        <field name="complete_code"/>
+                        <field name="type_id"/>
+                        <field name="name" string="Contract"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="liquidation_date"/>          
+                        <field name="is_have_extension_appendix"/>
+                        <field name="number_of_appendix"/>             
+                        <field name="report_to"/>
+                        <field name="state"/>
+                        <field name="create_user"/>
+                        <field name="create_date"/>
+                        
+                        <field name="manager_id" invisible="1"/>
+                        <field name="wage" invisible="1"/>
+                        <field name="is_latest" invisible='1'/>
+<!--                        <field name="write_user"/-->
+<!--                        <field name="write_date"/-->
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_human_resource_mimimal_contract_tree" model="ir.ui.view">
+            <field name="name">view.vhr.human.resource.hr.contract.minimal.tree</field>
+            <field name="model">hr.contract</field>
+            <field name="priority" eval="28"/>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="arch" type="xml">
+                <tree string="Contract" colors="blue:state =='waiting';grey: state=='cancel';green: state=='signed'">
+                    <field name="company_code" string="Entity"/>
+                    <field name="office_code"/>
+                    <field name="emp_code"/>
+                    <field name="employee_id"/>
+                    <field name="complete_code"/>
+                    <field name="type_id"/>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="liquidation_date"/>                        
+                    <field name="report_to" invisible='1'/>
+                    <field name="state"/>
+                    <field name="create_user" invisible='1'/>
+                    <field name="create_date" invisible='1'/>
+                    
+                    <field name="manager_id" invisible="1"/>
+                    <field name="wage" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+
+        <record id="view_hr_contract_search" model="ir.ui.view">
+            <field name="name">view.hr.contract.search</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="replace">
+                    <search string="Search Contract">
+                        <group expand="0" string="Group By">
+                        	<filter string="Company" icon="terp-go-home" domain="[]"
+                                    context="{'group_by':'company_id'}"/>
+                            <filter string="Department" icon="terp-stock_symbol-selection" domain="[]"
+                                    context="{'group_by':'department_id'}"/>
+                            <filter string="Contract Type" icon="terp-stock_symbol-selection" domain="[]"
+                                    context="{'group_by':'type_id'}"/>
+                            <filter string="Expired Date" icon="terp-stock_symbol-selection" domain="[]"
+                                    context="{'group_by':'date_end'}"/>
+                            <filter string="Status" icon="terp-go-home" domain="[]"
+                                    name="group_state" context="{'group_by':'state'}"/>
+                        </group>
+                        <group expand="0" string="Filter">                            
+                            <filter string="Inactive" name="inactive_contract" icon="terp-stage" 
+                            		domain="['&amp;',		   ('state', '=', 'signed'),       
+									'|','|',				   ('date_end', '&lt;', (context_today()).strftime('%Y-%m-%d')),
+															   ('liquidation_date','&lt;',(context_today()).strftime('%Y-%m-%d')),
+                            								   ('employee_id.active', '=', False),
+                              		        ]"/>
+                            <filter string="Active" name="active_contract" icon="terp-stage" 
+                            		domain="['&amp;', '&amp;', ('state', '=', 'signed'), ('employee_id.active', '=', True), 
+                            				'|','|',                                              
+                            				'&amp;', '&amp;', ('date_end', '=', False), ('liquidation_date', '=', False),   
+                            								  ('date_start','&lt;=',(context_today()).strftime('%Y-%m-%d')),
+                            	 			'&amp;', '&amp;', ('liquidation_date','=', False),
+                            	   							  ('date_start','&lt;=',(context_today()).strftime('%Y-%m-%d')),
+                            	   							  ('date_end','&gt;=',(context_today()).strftime('%Y-%m-%d')),
+                            	  			'&amp;', '&amp;', ('liquidation_date','!=', False),
+                            	  							  ('date_start','&lt;=',(context_today()).strftime('%Y-%m-%d')),
+                            	     						  ('liquidation_date','&gt;=',(context_today()).strftime('%Y-%m-%d')),
+                            	  ]"/>
+                            <filter string="Waiting Active" name="waiting_active" icon="terp-stage"
+                                    domain="['&amp;', '&amp;', ('state', 'in', ['waiting','signed']),
+                                                               ('date_start','&gt;',(context_today()).strftime('%Y-%m-%d')),
+                            								   ('employee_id.active', '=', True),
+                                             ]"/>
+                            
+                            <filter string="Is Main" name="is_main" icon="terp-stage"
+                                    domain="[('is_main','=',True)]"/>
+                            <filter string="Is Latest" name="is_latest" icon="terp-stage"
+                                    domain="[('is_latest','=',True)]"/>
+                        </group>
+                        <group expand="0" string="Filter by Employee">
+	                    	<filter string="Active Employee" name="active_employee" icon="terp-stage"
+	                                    domain="[('employee_id.active', '=', True)]"/>
+	                        <filter string="Inactive Employee" name="inactive_employee" icon="terp-stage"
+	                                domain="[('employee_id.active', '=', False)]"/>
+	                    </group>
+	                    <group expand="0" string="Filter by Sign Info">
+	                    	<filter string="Invited" name="invited" icon="terp-stage"
+	                                    domain="[('is_invited', '=', True)]"/>
+	                        <filter string="Not Invite" name="not_invite" icon="terp-stage"
+	                                domain="[('is_invited', '=', False)]"/>
+	                        <filter string="Delivered" name="delivered" icon="terp-stage"
+	                                    domain="[('is_delivered', '=', True)]"/>
+	                        <filter string="Not Delivery" name="not_deliver" icon="terp-stage"
+	                                domain="[('is_delivered', '=', False),('is_invited', '=', True)]"/>  
+	                        <filter string="Received" name="received" icon="terp-stage"
+	                                    domain="[('is_received', '=', True)]"/>
+	                        <filter string="Not Receive" name="not_receive" icon="terp-stage"
+	                                domain="[('is_received', '=', False),('is_delivered', '=', True)]"/>  
+	                    </group>
+                        <group expand="0" string="Expires">
+                        	<filter string="Expired" name="expire"
+                                    context="{'filter_expires': True}"
+                                    domain="['&amp;', '&amp;', '&amp;', ('state', '=', 'signed'), ('employee_id.active', '=', True), ('renew_status', 'not in', ['renew', 'reject']),
+                                             '|',
+                                             '&amp;', 		   ('liquidation_date', '=', False),
+                                                               ('date_end','&lt;=', time.strftime('%Y-%m-%d')),
+                        	
+                                                       ('liquidation_date','&lt;=', time.strftime('%Y-%m-%d')),
+                                             ]"/>
+                            <filter string="7 days" name="seven_days"
+                                    context="{'filter_expires': True}"
+                                    domain="['&amp;', '&amp;', '&amp;', ('state', '=', 'signed'), ('employee_id.active', '=', True), ('renew_status', 'not in', ['renew', 'reject']),
+                                             '|',
+                                             '&amp;', '&amp;', ('liquidation_date', '=', False),
+                                                               ('date_end','&gt;=', time.strftime('%Y-%m-%d')),
+                                                               ('date_end','&lt;=', ((context_today() + datetime.timedelta(days=7)).strftime('%Y-%m-%d'))),
+                                             '&amp;', '&amp;', ('liquidation_date', '!=', False),
+                                                               ('liquidation_date','&gt;=', time.strftime('%Y-%m-%d')),
+                                                               ('liquidation_date','&lt;=', ((context_today() + datetime.timedelta(days=7)).strftime('%Y-%m-%d'))),
+                                             ]"/>
+
+                            <filter string="15 days" name="fifteen_days"
+                                    context="{'filter_expires': True}"
+                                    domain="['&amp;', '&amp;', '&amp;', ('state', '=', 'signed'), ('employee_id.active', '=', True), ('renew_status', 'not in', ['renew', 'reject']),
+                                             '|',
+                                             '&amp;', '&amp;', ('liquidation_date', '=', False),
+                                                               ('date_end','&gt;=', (context_today()).strftime('%Y-%m-%d')),
+                                                               ('date_end','&lt;=', ((context_today() + datetime.timedelta(days=15)).strftime('%Y-%m-%d'))),
+                                             '&amp;', '&amp;', ('liquidation_date', '!=', False),
+                                                               ('liquidation_date','&gt;=', (context_today()).strftime('%Y-%m-%d')),
+                                                               ('liquidation_date','&lt;=', ((context_today() + datetime.timedelta(days=15)).strftime('%Y-%m-%d'))),
+                                             ]"/>
+                            <filter string="1 month" name="one_month"
+                                    context="{'filter_expires': True}"
+                                    domain="['&amp;', '&amp;', '&amp;', ('state', '=', 'signed'), ('employee_id.active', '=', True), ('renew_status', 'not in', ['renew', 'reject']),
+                                             '|',
+                                             '&amp;', '&amp;', ('liquidation_date', '=', False),
+                                                               ('date_end','&gt;=', (context_today()).strftime('%Y-%m-%d')),
+                                                               ('date_end','&lt;=', ((context_today() + relativedelta(months=1)).strftime('%Y-%m-%d'))),
+                                             '&amp;', '&amp;', ('liquidation_date', '!=', False),
+                                                               ('liquidation_date','&gt;=', (context_today()).strftime('%Y-%m-%d')),
+                                                               ('liquidation_date','&lt;=', ((context_today() + relativedelta(months=1)).strftime('%Y-%m-%d'))),
+                                             ]"/>
+                        </group>
+                        <field name="name" string="Contract"
+                               filter_domain="['|','|','|',('name','ilike',self),('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+                        <field name="employee_id" invisible="1"/>
+                        <field name="department_id"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="state"/>
+                        <field name="delivery_id"/>
+                        <field name="receiver_id"/>
+                    </search>
+                </xpath>
+            </field>
+        </record>
+
+        <act_window
+                view_mode="tree,form"
+                domain="[('contract_id', '=', active_id)]"
+                id="act_working_record_hr_contract" name="Working Records"
+                view_id="view_vhr_working_record_waiting_for_public_tree"
+                res_model="vhr.working.record"
+                src_model="hr.contract"
+                context="{'search_default_contract_id': [active_id],
+                'rule_for_tree_form': True, 'publish': False,'create': False,
+                'approve':False,'return':False,'reject':False,'get_department_name_by_code':True,
+                'default_is_new': False, 'default_is_latest': True,'get_office_name_by_code':True,
+                'record_type': 'record','get_working_record_in_flow': True}"
+        />
+        
+
+        <record id="hr_contract.act_hr_employee_2_hr_contract" model="ir.actions.act_window">
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="name">Contracts</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id,
+            					   'rule_for_tree_form':1,'create':0}</field>
+        </record>
+        
+        <record id="action_hr_contract_print_liquidation_contract" model="ir.actions.server">
+            <field name="name">Print Liquidation Contract</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="state">code</field>
+            <field name="code">action = self.action_print_contract(cr, uid, context.get('active_ids', []), context={'report_name':'liquidation_contract'})</field>
+        </record>
+        
+        <record model="ir.values" id="action_hr_contract_print_liquidation_contract_act">
+            <field name="key2">client_print_multi</field>
+            <field name="model">hr.contract</field>
+            <field name="name">Print Liquidation Contract</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_hr_contract_print_liquidation_contract"/>
+            <field name="object" eval="True"/>
+        </record>
+        
+        <record id="action_hr_contract_print_privacy_statement" model="ir.actions.server">
+            <field name="name">Print Non-disclosure Agreement</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="state">code</field>
+            <field name="code">action = self.action_print_contract(cr, uid, context.get('active_ids', []), context={'report_name':'privacy_statement_contract'})</field>
+        </record>
+        
+        <record model="ir.values" id="action_hr_contract_print_privacy_statement_act">
+            <field name="key2">client_print_multi</field>
+            <field name="model">hr.contract</field>
+            <field name="name">Print Non-disclosure Agreement</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_hr_contract_print_privacy_statement"/>
+            <field name="object" eval="True"/>
+        </record>
+        
+        <record id="action_hr_contract_print_appendix_contract" model="ir.actions.server">
+            <field name="name">Print Appendix Contract</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="state">code</field>
+            <field name="code">action = self.action_print_appendix_contract(cr, uid, context.get('active_ids', []), context={'report_name':'liquidation_contract'})</field>
+        </record>
+        
+        <record model="ir.values" id="action_hr_contract_print_appendix_contract_act">
+            <field name="key2">client_print_multi</field>
+            <field name="model">hr.contract</field>
+            <field name="name">Print Appendix Contract</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_hr_contract_print_appendix_contract"/>
+            <field name="object" eval="True"/>
+        </record>
+        
+        <record id="action_hr_contract_print_multi_merge_contract" model="ir.actions.server">
+            <field name="name">Print Multi Contract</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="state">code</field>
+            <field name="code">action = self.action_print_multi_merge_contract(cr, uid, context.get('active_ids', []))</field>
+        </record>
+        
+        <record model="ir.values" id="action_hr_contract_print_multi_merge_contract_act">
+            <field name="key2">client_print_multi</field>
+            <field name="model">hr.contract</field>
+            <field name="name">Print Multi Contract</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_hr_contract_print_multi_merge_contract"/>
+            <field name="object" eval="True"/>
+        </record>
+        
+    </data>
+</openerp>

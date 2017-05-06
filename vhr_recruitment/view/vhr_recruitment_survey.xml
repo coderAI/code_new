@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_vhr_rr_survey" model="ir.ui.view">
+			<field name="name">vhr.recruitment.survey.form</field>
+			<field name="model">vhr.recruitment.survey</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Send survey" version="7.0">
+                    <newline />
+					<field name="job_id" colspan="3" required="1" invisible="1"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" 
+						on_change="onchange_job_id(job_id)" 
+						context="{'tree_view_ref': 'vhr_recruitment.view_vhr_resource_request_tree'}"/>
+						
+					<label for="emp_to_survey" string="Send To :"/>
+					<field name="emp_to_survey" colspan="3" widget="many2many_tags" required="1"
+					options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" />
+					
+					<label for="emp_cc_survey" string="CC To :"/>
+					<field name="emp_cc_survey" colspan="3" widget="many2many_tags" required="1"
+					options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" />
+					
+					<label for="comment" string="Comment :"/>
+					<field name="comment" colspan="3"/>
+                    <footer>
+                        <button one_click_button="True" name="func_send_rr_survey"
+                                string="Send survey"
+                                type="object" icon="gtk-save"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+            	</form>
+			</field>
+		</record>
+		<record id="view_vhr_recruitment_survey_tree" model="ir.ui.view">
+            <field name="name">vhr.recruitment.survey.tree</field>
+            <field name="model">vhr.recruitment.survey</field>
+            <field name="arch" type="xml">
+                <tree string="RR Survey" version="7.0" delete="0">
+                	<field name="job_id"/>
+                    <field name="emp_to_survey"/>
+                    <field name="emp_cc_survey"/>
+                </tree>
+            </field>
+        </record>
+		
+		 <record model="ir.actions.act_window" id="action_vhr_rr_survey">
+            <field name="name">Survey</field>
+            <field name="res_model">vhr.recruitment.survey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_recruitment_survey_tree"/>
+        </record>
+
+	</data>
+</openerp>
+

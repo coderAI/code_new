@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="act_vhr_timesheet_delegate_master" model="ir.actions.act_window">
+            <field name="name">Delegate Master</field>
+            <field name="res_model">vhr.delegate.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="vhr_master_data.view_vhr_delegate_master_view_tree"/>
+            <field name="search_view_id" ref="vhr_master_data.view_vhr_delegate_master_view_search"/>
+            <field name="context">{'default_module':'vhr_timesheet',
+            						'rule_for_tree_form': True,'attachment':False,'duplicate':False,
+            						'search_default_active_true':True}</field>
+        </record>
+        
+        <record id="act_vhr_timesheet_delegate_detail" model="ir.actions.act_window">
+            <field name="name">Delegate Detail</field>
+            <field name="res_model">vhr.delegate.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="vhr_master_data.view_vhr_delegate_detail_view_tree"/>
+            <field name="search_view_id" ref="vhr_master_data.view_vhr_delegate_detail_view_search"/>
+            <field name="context">{'rule_for_tree_form': True,'create': False,'attachment':False,'duplicate':False,
+            						'default_module':'vhr_timesheet','search_default_active_true':True}</field>
+        </record>
+        
+        <record id="act_vhr_timesheet_delegate_model" model="ir.actions.act_window">
+            <field name="name">Delegate Model</field>
+            <field name="res_model">vhr.delegate.model</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="vhr_master_data.view_vhr_delegate_model_view_tree"/>
+            <field name="search_view_id" ref="vhr_master_data.view_vhr_delegate_model_view_search"/>
+            <field name="context">{'default_module':'vhr_timesheet','rule_for_tree_form':True,'attachment':False,'duplicate':False
+            						,'search_default_active_true':True}</field>
+        </record>
+    </data>
+</openerp>

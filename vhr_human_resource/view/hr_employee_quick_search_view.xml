@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    
+	<t t-name="EmployeeQuickSearch">
+        <div class="oe_quickadd ui-toolbar" style="margin-bottom:0px;">
+            <div class="oe_employee_quick_search">
+            	<div class="oe_form_dropdown_section">
+	                <h4>Join From:</h4>
+	                <input class="oe_quickadd_from_join_date">
+	                </input>
+	            </div>
+	            <div class="oe_form_dropdown_section">
+	                <h4>Join To:</h4>
+	                <input class="oe_quickadd_to_join_date">
+	                </input>
+	            </div>
+	            <div class="oe_form_dropdown_section">
+	                <button class="oe_button oe_field_button oe_quickadd_button" type="button">
+                       	<img t-att-src='_s + "/web/static/src/img/icons/STOCK_DIRECTORY.png"'/>
+                       	<span>Search</span>
+                   	</button>
+	            </div>
+            </div>
+        </div>
+    </t>
+    
+</templates>

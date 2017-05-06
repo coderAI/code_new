@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="vhr_mysite.notify_employee_liabilities" model="email.template">
+			<field name="name">notify_employee_liabilities</field>
+			<field name="model_id" ref="model_vhr_liability"/>
+			<field name="email_from"></field>
+			<field name="email_to"></field>
+			<field name="reply_to"></field>
+			<field name="email_cc"></field>
+			<field name="subject">Thông báo công nợ</field>
+			<field name="body_html"><![CDATA[
+	        <body>
+	            <p>
+	                Chào,
+	             </p>
+	             <p><b>User vui lòng xem chi tiết ngày hoàn ứng, nếu ngày hoàn ứng quá hạn user không có phản hồi gì đến FA, thì khoản tạm ứng này sẽ được tạm cấn trừ vào lương cuối tháng, sau khi user submit eform/gửi chứng từ đầy đủ đến FA thì sẽ được thanh toán lại theo eform được duyệt.</b></p>
+	        </body>
+			]]></field>
+		</record>
+
+	</data>
+</openerp>

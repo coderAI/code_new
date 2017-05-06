@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_vhr_exit_approver_form" model="ir.ui.view">
+       		<field name="name">vhr.exit.approver.view.form</field>
+       		<field name="model">vhr.exit.approver</field>
+       		<field name="arch" type="xml">
+       			<form string="Exit Approver" version="7.0">
+       				<sheet>
+       					<group col="4">
+       						<group>
+       							<field name="exit_type_id" required='1' options="{'no_quick_create':True, 'no_create':True,'no_open':True}"/>
+       							<field name="city_id" required='1' options="{'no_quick_create':True, 'no_create':True,'no_open':True}"/>
+       							<field name="approver_id" required='1' options="{'no_quick_create':True, 'no_create':True,'no_open':True}"/>
+       						</group>
+       						<group>
+	       						<field name="is_fix_asset"/>	     
+	       						<field name="is_default"/>	  						
+	       						<field name="active"/>	
+       						</group>       						
+       					</group>
+       					<group>
+       						<field name="description"/>
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+       		</field>
+       	</record>
+       	
+       	<record id="view_vhr_exit_approver_tree" model="ir.ui.view">
+       		<field name="name">vhr.exit.approver.view.tree</field>
+       		<field name="model">vhr.exit.approver</field>
+       		<field name="arch" type="xml">
+      			<tree string="Exit Approver" version="7.0">
+					<field name="exit_type_id"/>
+					<field name="city_id"/>
+					<field name="approver_id"/>
+<!--					<field name="description"/-->
+					<field name="is_fix_asset"/>
+       				<field name="is_default"/>
+      			</tree>
+     		</field>
+       	</record>
+       	
+       	<record id="view_vhr_exit_approver_search" model="ir.ui.view">
+        	<field name="name">vhr.exit.approver.view.search</field>
+        	<field name="model">vhr.exit.approver</field>
+        	<field name="arch" type="xml">
+        		<search string="Exit Approver">
+        			<field name="exit_type_id"/>
+					<field name="approver_id"/>
+					<field name="city_id"/>
+					<group expand="0" string="Group By">
+                        <filter name="exit_type_id" string="Exit Type"
+                                context="{'group_by':'exit_type_id'}"/>
+                    </group>
+					<group expand="0" string="Filter">
+						<filter string="Active = True" name="active_true" icon="terp-stage"
+	                            domain="[('active', '=', True)]"/>
+	                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+	                            domain="[('active', '=', False)]"/>
+	                            
+	                    <filter string="Is Fix Asset = True" name="is_fix_asset_true" icon="terp-stage"
+	                            domain="[('is_fix_asset', '=', True)]"/>
+	                    <filter string="Is Fix Asset = False" name="is_fix_asset_false" icon="STOCK_NEW"
+	                            domain="[('is_fix_asset', '=', False)]"/>
+	                            
+	                    <filter string="Is Default = True" name="is_default_true" icon="terp-stage"
+	                            domain="[('is_default', '=', True)]"/>
+	                    <filter string="Is Default = False" name="is_default_false" icon="STOCK_NEW"
+	                            domain="[('is_default', '=', False)]"/>
+					</group>                    
+        		</search>
+        	</field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_exit_approver">
+       		<field name="name">Exit Approver</field> 
+            <field name="res_model">vhr.exit.approver</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_exit_approver_tree"/>
+            <field name="search_view_id" ref="view_vhr_exit_approver_search"/>
+       	</record>
+       	
+       	
+    </data>
+</openerp>

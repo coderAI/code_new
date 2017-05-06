@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="esop" name="eSOP">
+            <t t-set="head">
+                <link href="/vhr_mysite/static/lib/esop/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
+                <link href="/vhr_mysite/static/lib/esop/bootstrap-select2/select2.css" rel="stylesheet" type="text/css"/>
+                <link href="/vhr_mysite/static/src/css/esop/style.css" rel="stylesheet" type="text/css"/>
+                <script src="/vhr_mysite/static/lib/esop/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/lib/esop/bootstrap-select2/select2.min.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/src/js/esop/esop.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/src/js/esop/tabs_accordian.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/lib/esop/jquery.bpopup.min.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/lib/bootstrap_tooltip/tooltip.js" type="text/javascript"/>
+            </t>
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="title-part">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="grid simple horizontal">
+                                        <t t-if="sell_temp">
+                                        <div class="grid-title">
+                                            <h4 style="font-family: arial">
+                                                <t t-esc="home_sellback_header"/>
+                                            </h4>
+                                        </div>
+                                        <div class="grid-body">
+                                            <div class="row-fluid">
+                                                <div class="row">
+                                                    <table class="table table-condensed profile-tables" id="table_document">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="vertical-align: top;"><t t-esc="sb_owned"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="sb_qty"/></th>
+                                                                <t t-if="sell_temp['state'] == 'confirm'">
+                                                                    <th style="vertical-align: top;"><t t-esc="sb_sold_out"/></th>
+                                                                </t>
+                                                                <th style="vertical-align: top;"><t t-esc="sb_price"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="sb_bank"/></th>
+                                                                <th/>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <t t-esc="'{0:,}'.format(sell_temp['stock_qty'])"/>
+                                                                </td>
+                                                                <td>
+                                                                    <t t-esc="'{0:,}'.format(sell_temp['sellback_qty'])"/>
+                                                                </td>
+                                                                <t t-if="sell_temp['state'] == 'confirm'">
+                                                                    <td>
+                                                                        <t t-esc="'{0:,}'.format(sell_temp['confirm_qty'])"/>
+                                                                    </td>
+                                                                </t>
+                                                                <td>
+                                                                    <t t-esc="'{0:,}'.format(sell_temp['sellback_price'])"/>
+                                                                </td>
+                                                                <td>
+                                                                    <t t-esc="sell_temp['display_bank']"/>
+                                                                </td>
+
+                                                                <td class="col-state" style="width:100px">
+                                                                    <form action="/mysite/sellback" method="post">
+                                                                        <input type="hidden" name="register_id" t-att-value="sell_temp['register_id']"/>
+                                                                        <div class="form-group">
+                                                                            <div>
+                                                                                <button class="btn btn-primary">
+                                                                                    <t t-if="sell_temp['state'] == 'draft'">
+                                                                                        <t t-esc="btn_confirm"/>
+                                                                                    </t>
+                                                                                    <t t-if="sell_temp['state'] == 'confirm'">
+                                                                                        <t t-esc="btn_view"/>
+                                                                                    </t>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </t>
+
+                                        <t t-if="vesting_lines">
+                                        <div class="grid-title">
+                                            <h4 style="font-family: arial">
+                                                <t t-esc="home_vt_header"/>
+                                            </h4>
+                                        </div>
+                                        <div class="grid-body">
+                                            <div class="row-fluid" t-if="message">
+                                                <div class="row">
+                                                    <p class="alert alert-danger">
+                                                        <t t-esc="message"/>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row-fluid">
+                                                <div class="row">
+                                                    <table class="table table-condensed profile-tables" id="table_document">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="vertical-align: top;"><t t-esc="vt_all"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="vt_price"/></th>
+                                                                <th style="vertical-align: top;padding-left: 20px;"><t t-esc="vt_qty"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="lbl_total_amt"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="lbl_status"/></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <t t-foreach="vesting_lines" t-as="vesting_line">
+                                                                <t t-if="vesting_line">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <t t-esc="'{0:,}'.format(vesting_line['stock_qty'])"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <t t-esc="'{0:,}'.format(vesting_line['grant_price'])"/>
+                                                                        </td>
+                                                                        <td style="padding-left: 20px;">
+                                                                            <t t-esc="'{0:,}'.format(vesting_line['vested_qty'])"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <t t-esc="'{0:,}'.format(vesting_line['vested_amt'])"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <t t-if="vesting_line['status'] == 'draft'">
+                                                                                <t t-esc="lbl_status_draft"/>
+                                                                            </t>
+                                                                            <t t-if="vesting_line['status'] in ['confirm', 'done']">
+                                                                               <t t-esc="lbl_status_confirm"/>
+                                                                            </t>
+                                                                        </td>
+                                                                        <!--<td class="col-state" style="width:100px">
+                                                                            <form action="/mysite/vesting_info" method="post">
+                                                                                <input type="hidden" name="line_ids" t-att-value="vesting_line['line_ids']"/>
+                                                                                <div class="form-group">
+                                                                                    <div>
+                                                                                        <t t-if="vesting_line['status'] == 'draft'">
+                                                                                            <button class="btn btn-primary"><t t-esc="btn_edit"/></button>
+                                                                                        </t>
+                                                                                        <t t-if="vesting_line['status'] in ['confirm', 'done']">
+                                                                                            <button class="btn btn-primary"><t t-esc="btn_view"/></button>
+                                                                                        </t>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </td>-->
+                                                                    </tr>
+                                                                </t>
+                                                            </t>
+                                                            <t t-if="stock_qty > 0">
+                                                                <form action="/mysite/vesting_info" method="post" id="form-vesting">
+                                                                <td style="vertical-align: middle">
+                                                                    <b>
+                                                                        <span id="total_stock"><t t-esc="'{0:,}'.format(stock_qty)"/></span>
+                                                                    </b>
+                                                                </td>
+                                                                <td style="vertical-align: middle">
+
+                                                                </td>
+                                                                <td style="vertical-align: middle">
+                                                                    <input type="text" class="form-control text-left" name="vested"
+                                                                           t-att-value="vested_qty > 0 and vested_qty or stock_qty" id="reg_vested_qty"/>
+                                                                </td>
+                                                                <td style="vertical-align: middle">
+                                                                    <span class="total_amount"><t t-esc="'{0:,}'.format(vested_amt)"/></span>
+                                                                </td>
+                                                                <td style="vertical-align: middle">
+                                                                    <button id="btn_confirm_vesting" class="btn btn-primary"><t t-esc="btn_confirm"/></button>
+                                                                    <input type="hidden" name="line_ids" t-att-value="line_ids"/>
+                                                                    <input type="hidden" name="direct" value="True"/>
+                                                                </td>
+                                                                </form>
+                                                            </t>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </t>
+                                        <t t-if="summary or is_esop_manager">
+                                        <div class="grid-title">
+                                            <h4 style="font-family: arial; padding-top: 5px; width: 70%">
+                                                <t t-esc="summary_header"/>
+                                            </h4>
+                                        </div>
+                                        <div class="grid-body">
+                                            <div class="row-fluid">
+                                                <t t-if="is_esop_manager">
+                                                <div class="row">
+                                                    <form action="/esop/summary" method="post">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <input type="text" name="search_input" class="form-control" style="max-width: 30%"/>
+                                                                <button class="btn btn-primary" style="margin-left: 10px;"><t t-esc="btn_search"/></button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                </t>
+                                                <div class="row">
+                                                    <!--START: Summary Temp-->
+                                                    <t t-if="summary and summary.get('summary_line', False)">
+                                                    <table class="table table-condensed profile-tables esop-summary"
+                                                           t-att-title="esop_summary_tooltip"
+                                                           data-toggle="tooltip"
+                                                           id="table_document">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="vertical-align: top;"><t t-esc="summary_year"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="summary_grant"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="summary_vesting"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="summary_vested"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="summary_sellback"/></th>
+                                                                <th style="vertical-align: top;"><t t-esc="summary_owned"/></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <t t-set="flag" t-value="True"/>
+                                                        <tbody>
+                                                            <t t-foreach="summary['summary_line']" t-as="line">
+                                                                <t t-if="line">
+                                                                    <tr class="text-right" t-att-style="line['summary_line'] &lt;= curr_year and 'background-color: #efeff8;' or ''">
+                                                                        <td style="text-align: center;">
+                                                                            <t t-esc="line['summary_line']"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a data-toggle="collapse" t-att-data-target="'#stock'+line['summary_line']" class="accordion-toggle"
+                                                                                onclick="$('.collapse.in').removeClass('in');">
+                                                                                <t t-esc="line['stock_qty']"/>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a data-toggle="collapse" t-att-data-target="'#vesting'+line['summary_line']" class="accordion-toggle"
+                                                                               onclick="$('.collapse.in').removeClass('in');">
+                                                                                <t t-esc="line['vesting_qty']"/>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a data-toggle="collapse" t-att-data-target="'#vested'+line['summary_line']" class="accordion-toggle"
+                                                                               onclick="$('.collapse.in').removeClass('in');">
+                                                                                <t t-esc="line['vested_qty']"/>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a data-toggle="collapse" t-att-data-target="'#sellback'+line['summary_line']" class="accordion-toggle"
+                                                                               onclick="$('.collapse.in').removeClass('in');">
+                                                                                <t t-esc="line['sellback_qty']"/>
+                                                                            </a>
+                                                                        </td>
+                                                                        <t t-if="flag">
+                                                                            <td t-att-rowspan="len(summary['summary_line'])" style="background-color: white;"></td>
+                                                                            <t t-set="flag" t-value="False"/>
+                                                                        </t>
+                                                                    </tr>
+                                                                    <tr t-att-id="'stock'+line['summary_line']" class="accordian-body collapse stock"
+                                                                        t-if="summary.get('stock', []) and summary['stock'].get(line['summary_line'], [])">
+                                                                        <td colspan="6" style="padding: 0">
+                                                                            <table class="table table-condensed">
+                                                                                <thead>
+                                                                                   <tr>
+                                                                                        <th style="vertical-align: top;"><t t-esc="grant_date"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="granted_shared"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="esop1"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="esop2"/>
+                                                                                            <div class="pull-right" t-att-onclick="'$(\'#stock'+line['summary_line']+'\').removeClass(\'in\')'">
+                                                                                                <a><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <t t-foreach="summary['stock'][line['summary_line']]" t-as="item">
+                                                                                    <tr>
+                                                                                        <td><t t-esc="item['date']"/></td>
+                                                                                        <td><t t-esc="item['granted_shared']"/></td>
+                                                                                        <td><t t-esc="item['esop1']"/></td>
+                                                                                        <td><t t-esc="item['esop2']"/></td>
+                                                                                    </tr>
+                                                                                    </t>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr t-att-id="'vesting'+line['summary_line']" class="accordian-body collapse vesting"
+                                                                        t-if="summary.get('vesting', []) and summary['vesting'].get(line['summary_line'], [])">
+                                                                        <td colspan="6" style="padding: 0">
+                                                                            <table class="table table-condensed">
+                                                                                <thead>
+                                                                                   <tr>
+                                                                                        <th style="vertical-align: top;"><t t-esc="vesting_date"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="granted_shared"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="esop1"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="esop2"/>
+                                                                                            <div class="pull-right" t-att-onclick="'$(\'#vesting'+line['summary_line']+'\').removeClass(\'in\')'">
+                                                                                                <a><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <t t-foreach="summary['vesting'][line['summary_line']]" t-as="item">
+                                                                                    <tr>
+                                                                                        <td><t t-esc="item['date']"/></td>
+                                                                                        <td><t t-esc="item['granted_shared']"/></td>
+                                                                                        <td><t t-esc="item['esop1']"/></td>
+                                                                                        <td><t t-esc="item['esop2']"/></td>
+                                                                                    </tr>
+                                                                                    </t>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr t-att-id="'vested'+line['summary_line']" class="accordian-body collapse vested"
+                                                                        t-if="summary.get('vested', []) and summary['vested'].get(line['summary_line'], [])">
+                                                                        <td colspan="6" style="padding: 0">
+                                                                            <table class="table table-condensed">
+                                                                                <thead>
+                                                                                   <tr>
+                                                                                        <th style="vertical-align: top;"><t t-esc="vested_date"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="granted_shared"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="esop1"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="esop2"/>
+                                                                                            <div class="pull-right" t-att-onclick="'$(\'#vested'+line['summary_line']+'\').removeClass(\'in\')'">
+                                                                                                <a><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <t t-foreach="summary['vested'][line['summary_line']]" t-as="item">
+                                                                                    <tr>
+                                                                                        <td><t t-esc="item['date']"/></td>
+                                                                                        <td><t t-esc="item['granted_shared']"/></td>
+                                                                                        <td><t t-esc="item['esop1']"/></td>
+                                                                                        <td><t t-esc="item['esop2']"/></td>
+                                                                                    </tr>
+                                                                                    </t>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr t-att-id="'sellback'+line['summary_line']" class="accordian-body collapse sellback"
+                                                                        t-if="summary.get('sellback', []) and summary['sellback'].get(line['summary_line'], [])">
+                                                                        <td colspan="6" style="padding: 0">
+                                                                            <table class="table table-condensed">
+                                                                                <thead>
+                                                                                   <tr>
+                                                                                        <th style="vertical-align: top;"><t t-esc="sellback_date"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="granted_shared"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="esop1"/></th>
+                                                                                        <th style="vertical-align: top;"><t t-esc="esop2"/>
+                                                                                            <div class="pull-right" t-att-onclick="'$(\'#sellback'+line['summary_line']+'\').removeClass(\'in\')'">
+                                                                                                <a><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <t t-foreach="summary['sellback'][line['summary_line']]" t-as="item">
+                                                                                    <tr>
+                                                                                        <td><t t-esc="item['date']"/></td>
+                                                                                        <td><t t-esc="item['granted_shared']"/></td>
+                                                                                        <td><t t-esc="item['esop1']"/></td>
+                                                                                        <td><t t-esc="item['esop2']"/></td>
+                                                                                    </tr>
+                                                                                    </t>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </t>
+                                                            </t>
+                                                            <tr style="text-align: right; font-weight: bold;">
+                                                                <td style="text-align: center;"><t t-esc="lbl_total"/></td>
+                                                                <td>
+                                                                    <t t-esc="summary.get('total_stock', 0)"/>
+                                                                </td>
+                                                                <td>
+                                                                    <t t-esc="summary.get('total_vesting', 0)"/>
+                                                                </td>
+                                                                <td>
+                                                                    <t t-esc="summary.get('total_vested', 0)"/>
+                                                                </td>
+                                                                <td>
+                                                                    <t t-esc="summary.get('total_sellback', 0)"/>
+                                                                </td>
+                                                                <td>
+                                                                    <t t-esc="summary.get('owned_qty', 0)"/>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

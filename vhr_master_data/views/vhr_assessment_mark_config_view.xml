@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_assessment_mark_config_form" model="ir.ui.view">
+            <field name="name">vhr.assessment.mark.config.view.form</field>
+            <field name="model">vhr.assessment.mark.config</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <form string="Assessment Mark Config" version="7.0">
+       				<sheet>
+       					<group col="4">
+       						<field name="name" required="1"/>
+                            <newline/>
+                            <field name="from_rating_percent"/>
+                            <field name="to_rating_percent"/>
+                            <field name="from_rating_score"/>
+                            <field name="to_rating_score"/>
+                            <field name="a_value"/>
+                            <field name="b_value"/>
+       					</group>
+                        <separator colspan="4" string="a = (to_score-from_score)/(to_percent-from_percent)"/>
+						<separator colspan="4" string="b = from_score-a*from_percent"/>
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record id="view_vhr_assessment_mark_config_tree" model="ir.ui.view">
+            <field name="name">vhr.assessment.mark.config.view.tree</field>
+            <field name="model">vhr.assessment.mark.config</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Assessment Mark Config" version="7.0">
+                    <field name="name"/>
+                    <field name="from_rating_percent"/>
+                    <field name="to_rating_percent"/>
+                    <field name="from_rating_score"/>
+                    <field name="to_rating_score"/>
+                    <field name="a_value"/>
+                    <field name="b_value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_assessment_mark_config_search" model="ir.ui.view">
+            <field name="name">vhr.assessment.mark.config.view.search</field>
+            <field name="model">vhr.assessment.mark.config</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='name'/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_vhr_assessment_mark_config">
+            <field name="name">Mark Config</field>
+            <field name="res_model">vhr.assessment.mark.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_assessment_mark_config_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_assessment_mark_config_search"/>
+        </record>
+    </data>
+</openerp>

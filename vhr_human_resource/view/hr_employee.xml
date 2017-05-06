@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	
+    	<record id="view_vhr_human_resource_hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">vhr.human.resource.hr.employee.view.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="vhr_master_data.view_hr_employee_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='ext_no']" position="after">
+                    <separator string="Status" colspan='4' attrs="{'invisible': [('birthday','=',False)]}"/>
+                    <field name="gender_fcnt" readonly='1' attrs="{'invisible': [('birthday','=',False)]}"/>
+                    <field name="birthday_fcnt"  readonly='1' attrs="{'invisible': [('birthday','=',False)]}"/>
+                </xpath>
+            	<xpath expr="//field[@name='is_able_to_see_other_tabs']" position="after">
+                    <field name="is_able_to_edit_info" invisible='1'/>
+                    <field name="is_have_working_record" invisible='1'/>
+                </xpath>
+                <xpath expr="//field[@name='is_reject']" position="after">
+                    <field name="keep_authority" attrs="{'readonly': [('user_id','!=', False)]}"/>
+                    <field name="active" invisible='1'/>
+                </xpath>
+                
+                <xpath expr="//field[@name='job_level_person_id']" position="before">
+                    <field name="job_level_id" required='0' attrs="{'invisible':[('active','=',True)]}"
+                         options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='job_level_person_id']" position="after">
+                	<field name="career_track_id" readonly='1'
+                    attrs="{'invisible':[('career_track_id','=',False)]}"
+                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    <field name="job_family_id" readonly='1'
+                    attrs="{'invisible':[('job_family_id','=',False)]}"
+                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    <field name="job_group_id" readonly='1'
+                    attrs="{'invisible':[('job_group_id','=',False)]}"
+                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    <field name="sub_group_id" readonly='1'
+                    attrs="{'invisible':[('sub_group_id','=',False)]}"
+                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                </xpath>
+                
+                <xpath expr="//page[@string='Assessment Result']" position="replace">
+                    <page string="Assessment Result" groups="vhr_human_resource.vhr_cnb_manager">
+                    	<field name="assessment_result_ids" groups="vhr_human_resource.vhr_cnb_manager">
+                    		<tree string="Assessment Result">
+			                    <field name="from_date"/>
+			                    <field name="to_date"/>
+			                    <field name="calibration_id"/> 
+			                    <field name="kpi_score"/>	
+                    		</tree>
+                    		<form string="Assessment Result" version="7.0">
+			       				<sheet>
+			       					<group col="4">
+			       						<field name="period_id" required='1'
+			       						on_change="onchange_period_id(period_id)"
+			       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>	
+			       						<field name="calibration_id" required='1'
+			       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>	
+			                            <field name="from_date" readonly="1"/>
+			       						<field name="to_date" readonly="1"/>
+			       						<field name="kpi_score"/>	
+			       					</group>
+			       				</sheet>
+			       			</form>
+                    	</field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_human_resource_hr_employee_tree_inherit" model="ir.ui.view">
+            <field name="name">vhr.human.resource.hr.employee.view.tree.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="vhr_master_data.view_hr_employee_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='join_date']" position="after">
+                    <field name="current_contract_type_id"/>
+                </xpath>
+                <xpath expr="//field[@name='job_level_person_id']" position="after">
+                	<field name="career_track_id"/>
+                    <field name="job_family_id"/>
+                    <field name="job_group_id"/>
+                    <field name="sub_group_id"/>
+                </xpath>
+            </field>
+        </record>
+            
+        <record id="view_hr_employee_form_of_hr_contract" model="ir.ui.view">
+            <field name="name">hr.employee.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@class='oe_stat_button']" position="replace">
+                    <button name="%(hr_contract.act_hr_employee_2_hr_contract)d"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            type="action" attrs="{'invisible': [('contracts_count','=', 0)]}">
+                        <field name="contracts_count" widget="statinfo" string="Contracts"/>
+                    </button>
+                </xpath>
+                <xpath expr="//group[@string='Contract']" position="replace">
+                    <group string="Contract" invisible="1">
+                        <field name="medic_exam" string="Medical Exam"/>
+                        <field name="vehicle"/>
+                        <field name="vehicle_distance"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_vhr_human_resource_mimimal_employee_tree" model="ir.ui.view">
+            <field name="name">vhr.human.resource.minimal.hr.employee.view.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="priority" eval="28"/>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="arch" type="xml">
+            	<tree string="Employees" colors="blue:is_candidate == True">
+                    <field name="code"/>
+                    <field name="user_id" string='Account'/>    
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="join_date"/>
+                    <field name="mobile_phone" invisible='1'/>
+                    <field name="title_id"/>
+                    <field name="office_id"/>	
+                    <field name="report_to"/>
+                    <field name="is_candidate" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+            <field name="name">Employee</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree_search_report_quickadd,kanban,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'default_unknown_bank': True,'filter_by_group': 1,'get_office_name_by_code':True,
+            						'template_quickadd': 'EmployeeQuickSearch',
+					                'template_position': '.oe_employee_quick_search',
+					                'template_fields': {'join_date': 'from_to_date'},'rule_for_tree_form':True,'export':False}</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="hr.view_employee_filter"/>
+            <field name="limit">40</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new employee.
+                </p>
+                <p>
+                    With just a quick glance on the OpenERP employee screen, you
+                    can easily find all the information you need for each person;
+                    contact data, job position, availability, etc.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

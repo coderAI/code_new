@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_public_holidays_type_tree">
+            <field name="name">vhr.public.holidays.type.tree</field>
+            <field name="model">vhr.public.holidays.type</field>
+            <field name="arch" type="xml">
+                <tree string="Public Holiday Type">
+                    <field name="name"/>
+                    <field name="name_en"/>
+                    <field name="code"/>
+                    <field name="color_name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_public_holidays_type_form">
+            <field name="name">vhr.public.holidays.type.form</field>
+            <field name="model">vhr.public.holidays.type</field>
+            <field name="arch" type="xml">
+                <form string="Public Holiday Type">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="name_en" required="1"/>
+                            <field name="code" required="1"/>
+                            <field name="color_name" required="1"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                        <notebook>
+                            <page string="Logs" groups="vhr_base.hrs_group_system">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_public_holidays_type_filter" model="ir.ui.view">
+            <field name="name">vhr.public.holidays.type.filter</field>
+            <field name="model">vhr.public.holidays.type</field>
+            <field name="arch" type="xml">
+                <search string="Search Public Holidays Type">
+                    <field name="color_name"/>
+                    <field name="name" string="Name"
+                           filter_domain="['|',('name','ilike',self),('code','ilike',self)]"/>
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_public_holidays_type_tree">
+            <field name="name">Public Holidays Type</field>
+            <field name="res_model">vhr.public.holidays.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_public_holidays_type_tree"/>
+            <field name="search_view_id" ref="view_vhr_public_holidays_type_filter"/>
+        </record>
+
+    </data>
+</openerp>

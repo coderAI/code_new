@@ -1,0 +1,27 @@
+.openerp .bg_icon_red .stat_button_icon{
+    color:red;
+}
+.openerp .bg_icon_green .stat_button_icon{
+    color:green;
+}
+.openerp .bg_icon_orange .stat_button_icon{
+    color:orange;
+}
+.openerp .bg_icon_blue .stat_button_icon{
+    color:blue;
+}
+.hrs_color_warning_lb{
+    color:blue;
+}
+.hrs_color_warning_lb_big{
+    color:blue;
+    font-size: 17px;
+}
+.openerp .hrs_table_header .oe_list_header_many2one{
+	width: 150px;
+}
+
+.openerp .oe_form .oe_notebook_page .textarea_small textarea{
+	min-height:20px !important;
+	height: 30px;
+}

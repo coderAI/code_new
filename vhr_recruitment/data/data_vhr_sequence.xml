@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<record id="vhr_sequence_recruitment_1" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_event_job</field>
+			<field name="model_id" eval="ref('vhr_recruitment.model_vhr_event_job')"/>
+			<field name="field_id" eval="ref('vhr_recruitment.field_vhr_event_job_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">EV</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_recruitment_2" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_post_location</field>
+			<field name="model_id" eval="ref('vhr_recruitment.model_vhr_post_location')"/>
+			<field name="field_id" eval="ref('vhr_recruitment.field_vhr_post_location_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_recruitment_3" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_program_event</field>
+			<field name="model_id" eval="ref('vhr_recruitment.model_vhr_program_event')"/>
+			<field name="field_id" eval="ref('vhr_recruitment.field_vhr_program_event_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PE</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_recruitment_4" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_recruitment_source_online</field>
+			<field name="model_id" eval="ref('vhr_recruitment.model_vhr_recruitment_source_online')"/>
+			<field name="field_id" eval="ref('vhr_recruitment.field_vhr_recruitment_source_online_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">RSO</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_recruitment_5" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_rr_talent_expertise</field>
+			<field name="model_id" eval="ref('vhr_recruitment.model_vhr_rr_talent_expertise')"/>
+			<field name="field_id" eval="ref('vhr_recruitment.field_vhr_rr_talent_expertise_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">TEXP</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_recruitment_6" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_rr_com_channel</field>
+			<field name="model_id" eval="ref('vhr_recruitment.model_vhr_rr_com_channel')"/>
+			<field name="field_id" eval="ref('vhr_recruitment.field_vhr_rr_com_channel_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">CCHA</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_recruitment_7" model="vhr.sequence">
+			<field name="name">vhr_rr_recom_rel_type</field>
+			<field name="model_id" eval="ref('vhr_recruitment.model_vhr_rr_recom_rel_type')"/>
+			<field name="field_id" eval="ref('vhr_recruitment.field_vhr_rr_recom_rel_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">RTYP</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		
+		<record id="vhr_sequence_recruitment_8" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('data_dimension_type_RR_TALENT_GROUP')"/>
+			<field name="prefix">RRTG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_recruitment_9" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('data_dimension_type_RR_CANDIDATE_CONTACT')"/>
+			<field name="prefix">RRCC</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+	</data>
+</openerp>

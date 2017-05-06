@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="account_vhr_working_record_execute_workflow_view" model="ir.ui.view">
+            <field name="name">vhr.working.record.execute.workflow.form</field>
+            <field name="model">vhr.working.record.execute.workflow</field>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="arch" type="xml">
+                 <form string="Note" version="7.0">
+                    <separator string="Comment" colspan="4"/>
+                    <field name="comment" colspan="4" required="context.get('required_comment',False)"/>
+                    <footer>
+                        <button name="execute_workflow"
+                                string="Submit"
+                                type="object" icon="gtk-save"
+                                class="oe_highlight" context="{'ACTION_COMMENT': comment}"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+
+        <act_window id="action_vhr_working_record_execute_approve"
+        	domain="[('state', '!=', False)]"
+            key2="client_action_multi" name="Approve"
+            res_model="vhr.working.record.execute.workflow" 
+        	src_model="vhr.working.record"
+        	context="{'action': 'submit','multi_record':True}"
+            view_mode="form" target="new" view_type="form" />
+        
+		<act_window id="action_vhr_working_record_execute_return"
+			domain="[('state', '!=', False)]"
+            key2="client_action_multi" name="Return"
+            res_model="vhr.working.record.execute.workflow" 
+        	src_model="vhr.working.record"
+        	context="{'action': 'return', 'required_comment': True,'multi_record':True}"
+            view_mode="form" target="new" view_type="form" />     
+        
+		<act_window id="action_vhr_working_record_execute_reject"
+			domain="[('state', '!=', False)]"
+            key2="client_action_multi" name="Reject"
+            res_model="vhr.working.record.execute.workflow" 
+        	src_model="vhr.working.record"
+        	context="{'action': 'reject', 'required_comment': True,'multi_record':True}"
+            view_mode="form" target="new" view_type="form" />       	  
+        
+    </data>
+</openerp>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+			<record id="vhr_sequence_1" model="vhr.sequence">
+				<field name="name">vhr_sequence_hr_contract_type_group</field>
+				<field name="model_id" eval="ref('model_hr_contract_type_group')"/>
+				<field name="field_id" eval="ref('vhr_human_resource.field_hr_contract_type_group_code')"/>
+				<field name="dimension_type_id"></field>
+				<field name="prefix">CTG</field>
+				<field name="suffix"></field>
+				<field name="padding">3</field>
+			</record>
+				
+		<record id="vhr_sequence_hr_1" model="vhr.sequence">
+			<field name="name">vhr_sequence_hr_contract_type</field>
+			<field name="model_id" eval="ref('hr_contract.model_hr_contract_type')"/>
+			<field name="field_id" eval="ref('vhr_human_resource.field_hr_contract_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">CT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+	
+		<record id="vhr_sequence_vhr_human_resource_02" model="vhr.sequence">
+			<field name="name">vhr_sequence_hr_contract_sub_type</field>
+			<field name="model_id" eval="ref('model_hr_contract_sub_type')"/>
+			<field name="field_id" eval="ref('vhr_human_resource.field_hr_contract_sub_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">CST</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		
+		<record id="vhr_sequence_vhr_human_resource_03" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_appendix_contract_type</field>
+			<field name="model_id" eval="ref('model_vhr_appendix_contract_type')"/>
+			<field name="field_id" eval="ref('vhr_human_resource.field_vhr_appendix_contract_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">ACT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		
+		<record id="vhr_sequence_vhr_human_resource_04" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_resignation_reason_group</field>
+			<field name="model_id" eval="ref('model_vhr_resignation_reason_group')"/>
+			<field name="field_id" eval="ref('vhr_human_resource.field_vhr_resignation_reason_group_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">RRG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>				
+		
+<!--		<record id="vhr_sequence_hr_3" model="vhr.sequence">-->
+<!--			<field name="name">vhr_sequence_vhr_dimension</field>-->
+<!--			<field name="model_id" eval="ref('model_vhr_dimension')"/>-->
+<!--			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>-->
+<!--			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTRACT_SPECIAL_ALLOWANCE')"/>-->
+<!--			<field name="prefix">CSA</field>-->
+<!--			<field name="suffix"></field>-->
+<!--			<field name="padding">3</field>-->
+<!--		</record>		-->
+<!--		<record id="vhr_sequence_hr_4" model="vhr.sequence">-->
+<!--			<field name="name">vhr_sequence_vhr_dimension</field>-->
+<!--			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>-->
+<!--			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>-->
+<!--			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTRACT_COLLABORATOR_MISSION')"/>-->
+<!--			<field name="prefix">CCM</field>-->
+<!--			<field name="suffix"></field>-->
+<!--			<field name="padding">3</field>-->
+<!--		</record>-->
+		<!--
+		<record id="vhr_sequence_38" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_resignation_reason</field>
+			<field name="model_id" eval="ref('vhr_human_resource.model_vhr_resignation_reason')"/>
+			<field name="field_id" eval="ref('vhr_human_resource.field_vhr_resignation_reason_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">RR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		-->
+		<!--	
+		<record id="vhr_sequence_39" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_resignation_type</field>
+			<field name="model_id" eval="ref('vhr_human_resource.model_vhr_resignation_type')"/>
+			<field name="field_id" eval="ref('vhr_human_resource.field_vhr_resignation_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">RT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		-->	
+	</data>
+</openerp>

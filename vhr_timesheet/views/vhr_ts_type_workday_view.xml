@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_ts_type_workday_tree">
+            <field name="name">vhr.ts.type.workday.tree</field>
+            <field name="model">vhr.ts.type.workday</field>
+            <field name="arch" type="xml">
+                <tree string="Type Of Workday">
+                    <field name="code" required="1"/>
+                    <field name="name" required="1"/>
+                    <field name="coef" required="1" options="{'show_zero': 1}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_type_workday_form">
+            <field name="name">vhr.ts.type.workday.form</field>
+            <field name="model">vhr.ts.type.workday</field>
+            <field name="arch" type="xml">
+                <form string="Type Of Workday">
+                    <sheet>
+                        <group col='4'>
+                            <field name="code" required="1"/>
+                            <field name="name" required="1"/>
+                            <field name="coef" required="1" options="{'show_zero': 1}"/>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_type_workday_search">
+            <field name="name">vhr.ts.type.workday.search</field>
+            <field name="model">vhr.ts.type.workday</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="coef"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="act_vhr_ts_type_workday" model="ir.actions.act_window">
+            <field name="name">Type Of Workday</field>
+            <field name="res_model">vhr.ts.type.workday</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>

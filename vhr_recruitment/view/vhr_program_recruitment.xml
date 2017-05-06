@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+	
+		<record model="ir.ui.view" id="vhr_program_recruitment_tree_view">
+			<field name="name">vhr.program.recruitment.tree</field>
+			<field name="model">vhr.program.recruitment</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Recruitment Program">
+					<field name="sequence" />
+					<field name="code" />
+					<field name="name" />
+					<field name="name_en" />
+					<field name="active" />
+					<field name="dimension_type_id" invisible="1" />
+					<field name="level" invisible="1" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vhr_program_recruitment_form_view">
+			<field name="name">vhr.program.recruitment.form</field>
+			<field name="model">vhr.program.recruitment</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Program recruitment" version="7.0">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1" />
+								<field name="name_en" required="1" />
+								<field name="website_name" required="1" />
+								<field name="website_name_en" required="1" />
+								<field name="code"/>
+								<field name="dimension_type_id" readonly="1"
+									context="{'code': context.get('dimension_type', False)}" />
+								<field name="level" invisible="1" />
+								<field name="sequence" />
+							</group>
+							<group>
+								<field name="image" widget='image' height="110px" />
+								<field name="active" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Description Information">
+								<group>
+									<group col='1'>
+										<field name="menu_event" string="Menu event" required="1"/>
+										<field name="short_description" string="Mô tả ngắn"
+											required="1" widget="html" />
+										<field name="description" string="Mô tả" widget="html" required="1"/>
+									</group>
+									<group col='1'>
+										<field name="menu_event_en" />
+										<field name="short_description_en" widget="html"/>
+										<field name="description_en" widget="html" />
+									</group>
+								</group>
+							</page>
+							<page string="Program Contents">
+								<field name="program_content_ids"/>
+							</page>
+							<page string="Face typical">
+								<group>
+									<group col="1">
+										<field name="menu_face"/>
+									</group>
+									<group col="1">
+										<field name="menu_face_en"/>
+									</group>
+								</group>
+								<field name="face_typical_ids"/>
+							</page>
+							<!-- <page string="Program Events">
+								<field name="program_event_ids"/>
+							</page> -->
+							<page string="Logs">
+								<label string="*** Please press F5 to refresh the list of logs !"
+									colspan="4" />
+								<field name="audit_log_ids" mode="tree" widget="one2many_list"
+									readonly="1">
+									<tree version="7.0">
+										<field name="timestamp" required="1" readonly="1" />
+										<field name="user_id" readonly="1" />
+										<field name="method" readonly="1" />
+										<field name="field_description" />
+										<field name="old_value_text" />
+										<field name="new_value_text" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="vhr_program_recruitment_search_view" model="ir.ui.view">
+			<field name="name">vhr.program.recruitment.search</field>
+			<field name="model">vhr.program.recruitment</field>
+			<field name="arch" type="xml">
+				<search string="Search">
+					<field name='name' />
+					<field name="name_en" />
+					<field name='code' />
+					<filter string="Active = True" name="active_true" icon="terp-stage"
+						domain="[('active', '=', True)]" />
+					<filter string="Active = False" name="active_false" icon="STOCK_NEW"
+						domain="[('active', '=', False)]" />
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_vhr_program_recruitment_view">
+			<field name="name">VHR Program</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">vhr.program.recruitment</field>
+			<field name="domain">[('dimension_type_id.code','=','DND_PROGRAM')]
+			</field>
+			<field name="context">{'dimension_type': 'DND_PROGRAM'}</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="vhr_program_recruitment_tree_view" />
+		</record>
+	</data>
+</openerp>

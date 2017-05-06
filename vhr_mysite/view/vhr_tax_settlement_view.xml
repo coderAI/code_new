@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<record id="view_vhr_tax_settlement_tree" model="ir.ui.view">
+            <field name="name">vhr.tax.settlement.auth.tree</field>
+            <field name="model">vhr.tax.settlement.auth</field>
+            <field name="arch" type="xml">
+                <tree string="Tax Settlement Auth" version="7.0">
+                	<field name="year"/>
+                	<field name="employee_id" />
+                    <field name="selection"/>
+                    <field name="id_number"/>
+                    <field name="pit_number"/>
+                    <field name="nation"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_vhr_tax_settlement_form" model="ir.ui.view">
+            <field name="name">vhr.tax.settlement.auth.form</field>
+            <field name="model">vhr.tax.settlement.auth</field>
+            <field name="arch" type="xml">
+                <form string="Tax Settlement Auth" version="7.0">
+					<sheet>
+						<div>
+                            <div class="oe_edit_only">
+                                <label for="name" string="Name"/>
+                            </div>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+							<group name="General Left">
+								<field name="employee_id"
+									options="{'save_readonly' : True, 'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+							</group>
+							<group name="General Right">
+								<field name="employee_code"/>
+							</group>
+						</group>
+                        <group colspan="2">
+							<field name="year"/>
+						</group>
+                        <group name="General">
+                        	<separator colspan="4" string="Total Bonus Income"/>
+                        	<group name="General Left">
+								<field name="nation"/>
+								<field name="id_number"/>
+							</group>
+							<group name="General Right">
+								<field name="selection"/>
+								<field name="pit_number"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+            </field>
+        </record>
+    	
+    	<record model="ir.actions.act_window" id="act_vhr_tax_settlement">
+            <field name="name">Tax Settlement Auth</field>
+            <field name="res_model">vhr.tax.settlement.auth</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_tax_settlement_tree"/>
+        </record>
+        
+        <!-- KET QUA QUYET TOAN THUE -->
+        <record id="view_vhr_tax_settlement_result_tree" model="ir.ui.view">
+            <field name="name">vhr.tax.settlement.result.tree</field>
+            <field name="model">vhr.tax.settlement</field>
+            <field name="arch" type="xml">
+                <tree string="Tax Settlement Result" version="7.0">
+                	<field name="year"/>
+                	<field name="employee_id" />
+                	<field name="is_settlement_by_company" />
+                	<field name="tax_avg" />
+                	<field name="tax_avg_linear" />
+                	<field name="year_tax" />
+                	<field name="total_money_pay" />
+                	<field name="total_money_return" />
+                </tree>
+            </field>
+            <!--<field name="groups_id" eval="[(6, 0, [ref('vhr_payroll.vhr_cnb_payroll'),])]" />-->
+        </record>
+        
+        <record id="view_vhr_tax_settlement_result_form" model="ir.ui.view">
+            <field name="name">vhr.tax.settlement.result.form</field>
+            <field name="model">vhr.tax.settlement</field>
+            <field name="arch" type="xml">
+                <form string="Tax Settlement Result" version="7.0">
+					<sheet>
+						<div>
+                            <div class="oe_edit_only">
+                                <label for="name" string="Name"/>
+                            </div>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+							<group name="General Left">
+								<field name="employee_id"
+									options="{'save_readonly' : True, 'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+							</group>
+							<group name="General Right">
+								<field name="employee_code"/>
+							</group>
+						</group>
+                        <group colspan="2">
+							<field name="year"/>
+							<field name="is_settlement_by_company" />
+						</group>
+						<group>
+							<group name="General Left">
+								<field name="year_total_income" />
+								<field name="year_total_income_sub_tax" />
+								<field name="year_temp_tax" />
+							</group>
+							<group name="General Right">
+								<field name="no_month_family_sub"/>
+								<field name="period_01"/>
+								<field name="period_02"/>
+							</group>
+						</group>
+						<group>
+							<group name="General Left">
+								<field name="year_self_total_sub" />
+								<field name="year_total_tax_income" />
+							</group>
+							<group name="General Right">
+								<field name="tax_avg"/>
+								<field name="tax_avg_linear"/>
+							</group>
+						</group>
+						<group>
+							<group name="General Left">
+								<field name="year_tax" />
+								<field name="total_money_pay" />
+							</group>
+							<group name="General Right">
+								<field name="total_money_return"/>
+								<field name="total_deduction_tax"/>
+							</group>
+						</group>
+						<group>
+							<group name="General Left">
+								<field name="cb_info" />
+								<field name="dealine_update" />
+							</group>
+							<group name="General Right">
+								<field name="month_update"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+            </field>
+            <!--<field name="groups_id" eval="[(6, 0, [ref('vhr_payroll.vhr_cnb_payroll'),])]" />-->
+        </record>
+    	
+    	<record model="ir.actions.act_window" id="act_vhr_tax_settlement_result">
+            <field name="name">Tax Settlement Result</field>
+            <field name="res_model">vhr.tax.settlement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_tax_settlement_result_tree"/>
+        </record>
+    
+    </data>
+</openerp>

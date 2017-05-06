@@ -1,0 +1,112 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_ts_overtime_detail_tree">
+            <field name="name">vhr.ts.overtime.detail.tree</field>
+            <field name="model">vhr.ts.overtime.detail</field>
+            <field name="arch" type="xml">
+                <tree string="Overtime Detail" version="7.0" editable='bottom' class='edit_ot_detail_tree_expand edit_ot_detail_tree'>
+                	<field name="date_off" required='1' attrs="{'readonly': [('state','not in',['draft',False])]}"
+                	on_change="onchange_date(employee_id, date_off)"/>
+					<field name="notes" attrs="{'readonly': [('state','not in',['draft',False])]}" required='1' />
+                    <field name="start_time" required='1'  widget="limit_float_time"   attrs="{'readonly': [('state','not in',['draft',False])]}"
+                    on_change="onchange_start_end_time(start_time, end_time, break_time)"  options="{'default_show_zero': 1}"/>
+                    <field name="end_time" required='1'  widget="limit_float_time"   attrs="{'readonly': [('state','not in',['draft',False])]}"
+                    on_change="onchange_start_end_time(start_time, end_time, break_time)"/>
+                    <field name="break_time" attrs="{'readonly': [('state','not in',['draft',False])]}"
+                    context="{'is_change_break_time':True}"
+                    on_change="onchange_start_end_time(start_time, end_time, break_time, context)"/>
+                    <field name="total_hours_register"  widget="limit_float_time" readonly='1'  options="{'save_readonly': True}"/>
+                    <field name="is_compensation_leave" options="{'save_readonly': True}"
+                    attrs="{'readonly': [('is_compensation_leave_by_default','=',True),('is_cb_timesheet','=',False)]}"/>
+                    <field name="total_ot_day_approve"  attrs="{'readonly': [('state','in',['draft',False])]}"  
+                    widget="limit_float_time" on_change="onchange_ot_time(total_ot_day_register, total_ot_night_register, total_ot_day_approve, total_ot_night_approve)"/>
+                    <field name="total_ot_night_approve" attrs="{'readonly': [('state','in',['draft',False])]}"  
+                    widget="limit_float_time"  on_change="onchange_ot_time(total_ot_day_register, total_ot_night_register, total_ot_day_approve, total_ot_night_approve)"/>
+                    <field name="total_hours_approve"  widget="limit_float_time" readonly='1'  options="{'save_readonly': True}"/>
+                    <field name="state" readonly="1"  options="{'save_readonly': True}"/>
+                    <field name="overtime_id" invisible="1"/>
+                    <field name="employee_id" invisible="1" on_change="onchange_emp_comp(employee_id)"  options="{'save_readonly': True}"/>
+                    <!--<field name="company_id" invisible="1" on_change="onchange_emp_comp(employee_id)"  options="{'save_readonly': True}"/>-->
+                    <field name="request_date" invisible="1"  options="{'save_readonly': True}"/>
+                    <field name="total_ot_day_register" widget="limit_float_time" invisible='1'  options="{'save_readonly': True}"/>
+                    <field name="total_ot_night_register" widget="limit_float_time" invisible='1'  options="{'save_readonly': True}"/>
+                    <field name="is_compensation_leave_by_default"  invisible='1'  options="{'save_readonly': True}"/>
+                    <field name="is_cb_timesheet" invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_ts_overtime_detail_form" model="ir.ui.view">
+            <field name="name">vhr.ts.overtime.detail.form</field>
+            <field name="model">vhr.ts.overtime.detail</field>
+            <field name="arch" type="xml">
+                <form string="Overtime Detail" version="7.0">
+       				<sheet>
+       					
+       					<group>
+		                    <group>
+		                    	<field name="date_off" required='1' attrs="{'readonly': [('state','not in',['draft',False])]}"
+		                		on_change="onchange_date(employee_id, date_off)"/>
+		                    </group>
+		                    <newline/>
+		                    <group>
+		                    	<field name="start_time" required='1'  widget="limit_float_time"   attrs="{'readonly': [('state','not in',['draft',False])]}"
+		                    		on_change="onchange_start_end_time(start_time, end_time, break_time)"/>
+		                    	<field name="end_time" required='1'  widget="limit_float_time"   attrs="{'readonly': [('state','not in',['draft',False])]}"
+		                    		on_change="onchange_start_end_time(start_time, end_time, break_time)"/>
+		                    	<field name="break_time" attrs="{'readonly': [('state','not in',['draft',False])]}"
+		                    		on_change="onchange_start_end_time(start_time, end_time, break_time)"/>
+		                    	<field name="is_compensation_leave" options="{'save_readonly': True}"  
+		                    	attrs="{'readonly': [('is_compensation_leave_by_default','=',True),('is_cb_timesheet','=',False)]}"/>
+		                    	 
+			                    <field name="overtime_id" invisible="1"/>
+			                    <field name="employee_id" invisible="1" on_change="onchange_emp_comp(employee_id)"  options="{'save_readonly': True}"/>
+			                    <!--<field name="company_id" invisible="1" on_change="onchange_emp_comp(employee_id)"  options="{'save_readonly': True}"/>-->
+			                    <field name="request_date" invisible="1"  options="{'save_readonly': True}"/>
+			                    <field name="total_ot_day_register" widget="limit_float_time" invisible='1'  options="{'save_readonly': True}"/>
+			                    <field name="total_ot_night_register" widget="limit_float_time" invisible='1'  options="{'save_readonly': True}"/>	
+			                    <field name="state" invisible="1"   options="{'save_readonly': True}"/>	
+			                    <field name="is_compensation_leave_by_default"  invisible='1'  options="{'save_readonly': True}"/>
+			                    <field name="is_cb_timesheet" invisible='1'/>
+		                    </group>
+		                    
+		                    <group>
+		                    	<field name="total_hours_register"  widget="limit_float_time" readonly='1'  options="{'save_readonly': True}"/>
+		                    	<field name="total_ot_night_approve" attrs="{'readonly': [('state','in',['draft',False])]}"  
+		                    		widget="limit_float_time"  on_change="onchange_ot_time(total_ot_day_register, total_ot_night_register, total_ot_day_approve, total_ot_night_approve)"/>
+		                    	<field name="total_ot_day_approve"  attrs="{'readonly': [('state','in',['draft',False])]}"  
+		                    	widget="limit_float_time" on_change="onchange_ot_time(total_ot_day_register, total_ot_night_register, total_ot_day_approve, total_ot_night_approve)"/>
+		                 		 <field name="total_hours_approve"  widget="limit_float_time" readonly='1'  options="{'save_readonly': True}"/>
+		                    </group>
+		                    	                    
+       					</group>
+       					<group>
+       						<field name="notes" attrs="{'readonly': [('state','not in',['draft',False])]}" required='1'/>
+       					</group>
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_overtime_detail_search">
+            <field name="name">vhr.ts.overtime.detail.search</field>
+            <field name="model">vhr.ts.overtime.detail</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                	
+                </search>
+            </field>
+        </record>
+
+		<record id="act_vhr_ts_overtime_detail" model="ir.actions.act_window">
+            <field name="name">Overtime Detail</field>
+            <field name="res_model">vhr.ts.overtime.detail</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+</openerp>

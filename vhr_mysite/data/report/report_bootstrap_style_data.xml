@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		
+		<template id="vhr_mysite.report_bootstrap_style" name="Bootsrap Style">
+			.col-xs-12 {
+			  width: 100%;
+			}
+			.col-xs-11 {
+			  width: 91.66666667%;
+			}
+			.col-xs-10 {
+			  width: 83.33333333%;
+			}
+			.col-xs-9 {
+			  width: 75%;
+			}
+			.col-xs-8 {
+			  width: 66.66666667%;
+			}
+			.col-xs-7 {
+			  width: 58.33333333%;
+			}
+			.col-xs-6 {
+			  width: 50%;
+			}
+			.col-xs-5 {
+			  width: 41.66666667%;
+			}
+			.col-xs-4 {
+			  width: 33.33333333%;
+			}
+			.col-xs-3 {
+			  width: 25%;
+			}
+			.col-xs-2 {
+			  width: 16.66666667%;
+			}
+			.col-xs-1 {
+			  width: 8.33333333%;
+			}
+			.text-left {
+			  text-align: left;
+			}
+			.text-right {
+			  text-align: right;
+			}
+			.text-center {
+			  text-align: center;
+			}
+			.text-justify {
+			  text-align: justify;
+			}
+			.text-nowrap {
+			  white-space: nowrap;
+			}
+			.text-lowercase {
+			  text-transform: lowercase;
+			}
+			.text-uppercase {
+			  text-transform: uppercase;
+			}
+			.text-capitalize {
+			  text-transform: capitalize;
+			}
+			.table {
+			    margin-bottom: 0;
+		        width: 100%;
+		        max-width: 100%;
+    			background-color: transparent;
+    			border-spacing: 0;
+    			border-collapse: collapse;
+    			page-break-inside: avoid;
+			}
+			.table-bordered {
+			    border: 1px solid #000 !important;
+			}
+			
+			.line-emty {
+				height: 30px;
+			}
+			
+			.line-emty-half {
+				height: 10px;
+			}
+			<t t-raw="0"/>
+		</template>
+	
+	</data>
+</openerp>

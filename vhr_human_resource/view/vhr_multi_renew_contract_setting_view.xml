@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_vhr_multi_renew_contract_setting_form" model="ir.ui.view">
+       		<field name="name">vhr.multi.renew.contract.setting.view.form</field>
+       		<field name="model">vhr.multi.renew.contract.setting</field>
+       		<field name="arch" type="xml">
+       			<form string="Termination Reason Group" version="7.0">
+       				<sheet>
+       					<group col="4">
+       							<field name="division_id" required='1'
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       							
+       							<field name="department_group_id" 
+       							context="{'dept_from_division':division_id}"
+       							attrs="{'invisible':[('is_bu','=',True)],
+       									'required': [('is_department_group','=',True)]}"
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       							
+       							<field name="department_id" 
+								attrs="{'invisible':['|',('is_bu','=',True),('is_department_group','=',True)],
+										'required': [('is_bu','=',False),('is_department_group','=',False)]}"
+								context="{'dept_from_department_group' : department_group_id,'dept_from_division_bypass_group':division_id}"		
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       							
+       							<field name="team_id" 
+       							attrs="{'invisible':[('is_team','=',False)],
+										'required': [('is_team','=',True)]}"
+								context="{'dept_from_department' : department_id}"		
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       							<field name="is_bu" on_change="onchange_is_bu(is_bu)"/>
+       							<field name="is_department" on_change="onchange_is_department(is_department)"
+       							options="{'save_readonly': True}"/>
+       							<field name="is_department_group" on_change="onchange_is_department_group(is_department_group)"
+       							options="{'save_readonly': True}"/>
+       							<field name="is_team" on_change="onchange_is_team(is_team)"/>
+       							<field name="is_sub_type_configure" on_change="onchange_is_sub_type_configure(is_sub_type_configure)"/>
+	       						<field name="active"/>
+       					</group>
+       					<group string="Official"> 
+       							<separator string="TO" colspan="2"/>
+	       						<field name="official_to_type_person_id" nolabel='1'
+	       						on_change="onchange_official_to_type_person_id(official_to_type_person_id)"
+	       						domain="[('code','not in',['hrbp','ass_hrbp']),('dimension_type_id.code','=', 'PERSON_MULTI_RENEW_CONTRACT')]"
+	       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+	       						context="{'active_test' : True,'rule_for_tree_form': True,'create':False,
+	       						          'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"/>
+	       						<newline/>
+	       						<field name="official_to_person_id" nolabel='1'
+	       						on_change="onchange_official_to_person_id(official_to_person_id)"	
+	       						context="{'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"	
+	       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"	/>
+       							<separator string="CC" colspan="2"/>
+	       						<field name="official_cc_type_person_ids"  widget="many2many_tags" nolabel='1'
+	       						
+	       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+	       						context="{'active_test' : True,'rule_for_tree_form': True,'create':False,
+	       						          'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"/>
+	       						<newline/>
+	       						<field name="official_cc_person_ids" nolabel='1'
+	       							context="{'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"	
+	       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}">
+	       							<tree string="Employees">
+				                        <field name="code"/>
+				                        <field name="name"/>
+				                        <field name="login" string='Account'/>			                        
+				                        <field name="title_id"/>
+				                        <field name="department_id"/>
+				                        <field name="company_id"/>
+				                    </tree>
+	       						</field>	
+       						
+       					</group>
+       					<group string="Non Official"> 
+       							<separator string="TO" colspan="2"/>
+	       						<field name="non_official_to_type_person_id"  nolabel='1'
+	       						domain="[('code','not in',['hrbp','ass_hrbp']),('dimension_type_id.code','=', 'PERSON_MULTI_RENEW_CONTRACT')]"
+	       						on_change="onchange_non_official_to_type_person_id(non_official_to_type_person_id)"
+	       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+	       						context="{'active_test' : True,'rule_for_tree_form': True,'create':False,
+	       						          'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"/>
+	       						<newline/>	
+	       						<field name="non_official_to_person_id" nolabel='1' 
+	       							on_change="onchange_non_official_to_person_id(non_official_to_person_id)"
+	       							context="{'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"	
+	       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       							<separator string="CC" colspan="2"/>
+	       						<field name="non_official_cc_type_person_ids"  widget="many2many_tags" nolabel='1'
+	       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+	       						context="{'active_test' : True,'rule_for_tree_form': True,'create':False,
+	       						          'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"/>
+	       						<newline/>
+	       						<field name="non_official_cc_person_ids" nolabel='1' 
+	       							context="{'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"	
+	       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}">
+	       							<tree string="Employees">
+				                        <field name="code"/>
+				                        <field name="name"/>
+				                        <field name="login" string='Account'/>			                        
+				                        <field name="title_id"/>
+				                        <field name="department_id"/>
+				                        <field name="company_id"/>
+				                    </tree>
+	       						</field>	
+       						
+       					</group>
+       					<group string="Sub Type Non Official" attrs="{'invisible':[('is_sub_type_configure','=',False)]}"> 
+       							<separator string="TO" colspan="2"/>
+	       						<field name="subtype_non_official_to_type_person_id"  nolabel='1'
+	       						domain="[('code','not in',['hrbp','ass_hrbp']),('dimension_type_id.code','=', 'PERSON_MULTI_RENEW_CONTRACT')]"
+	       						on_change="onchange_subtype_non_official_to_type_person_id(subtype_non_official_to_type_person_id)"
+	       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+	       						context="{'active_test' : True,'rule_for_tree_form': True,'create':False,
+	       						          'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"/>
+	       						<newline/>	
+	       						<field name="subtype_non_official_to_person_id" nolabel='1' 
+	       							on_change="onchange_subtype_non_official_to_person_id(subtype_non_official_to_person_id)"
+	       							context="{'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"	
+	       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       							<separator string="CC" colspan="2"/>
+	       						<field name="subtype_non_official_cc_type_person_ids"  widget="many2many_tags" nolabel='1'
+	       						options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+	       						context="{'active_test' : True,'rule_for_tree_form': True,'create':False,
+	       						          'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"/>
+	       						<newline/>
+	       						<field name="subtype_non_official_cc_person_ids" nolabel='1' 
+	       							context="{'tree_view_ref':'vhr_human_resource.view_vhr_human_resource_mimimal_employee_tree'}"	
+	       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}">
+	       							<tree string="Employees">
+				                        <field name="code"/>
+				                        <field name="name"/>
+				                        <field name="login" string='Account'/>			                        
+				                        <field name="title_id"/>
+				                        <field name="department_id"/>
+				                        <field name="company_id"/>
+				                    </tree>
+	       						</field>	
+       						
+       					</group>
+       					<group>
+       						<field name="description"/>
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+       		</field>
+       	</record>
+       	
+       	<record id="view_vhr_multi_renew_contract_setting_tree" model="ir.ui.view">
+       		<field name="name">vhr.multi.renew.contract.setting.view.tree</field>
+       		<field name="model">vhr.multi.renew.contract.setting</field>
+       		<field name="arch" type="xml">
+      			<tree string="Setting" version="7.0">
+      				<field name="division_id"/>
+      				<field name="department_group_id"/>
+      				<field name="department_id"/>	
+      				<field name="team_id"/>
+					
+					<field name="official_to_person_fnct"/>
+					<field name="official_cc_person_fnct"/>
+					<field name="non_official_to_person_fnct"/>
+					<field name="non_official_cc_person_fnct"/>
+					<field name="subtype_non_official_to_person_fnct"/>
+					<field name="subtype_non_official_cc_person_fnct"/>
+      			</tree>
+     		</field>
+       	</record>
+       	
+       	<record id="view_vhr_multi_renew_contract_setting_search" model="ir.ui.view">
+        	<field name="name">vhr.multi.renew.contract.setting.view.search</field>
+        	<field name="model">vhr.multi.renew.contract.setting</field>
+        	<field name="arch" type="xml">
+        		<search string="Setting">
+        			<group expand="0" string="Group by...">
+        				<filter string="Team" name="group_team" context="{'group_by':'team_id'}"/>
+        				<filter string="Department" name="group_department" context="{'group_by':'department_id'}"/>
+        				<filter string="Department Group" name="group_department_group" context="{'group_by':'department_group_id'}"/>
+        				<filter string="BU" name="group_bu" context="{'group_by':'division_id'}"/>
+        			</group>
+        			<group expand="0" string="Filter">
+        				<filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+	                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+	                            domain="[('active', '=', False)]"/>
+        			</group>
+        			<field name="team_id"/>
+        			<field name="department_id"/>
+        			<field name="department_group_id"/>
+        			<field name="division_id"/>
+        		</search>
+        	</field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_multi_renew_contract_setting">
+       		<field name="name">Renew Contract Setting</field> 
+            <field name="res_model">vhr.multi.renew.contract.setting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_multi_renew_contract_setting_tree"/>
+            <field name="search_view_id" ref="view_vhr_multi_renew_contract_setting_search"/>
+       	</record>
+       	
+       	
+    </data>
+</openerp>

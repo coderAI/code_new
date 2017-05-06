@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>    
+	<data noupdate='1'>
+		<!-- RR - Program -->
+    	<record id="hrs_data_program_candidate" model="vhr.program.recruitment">
+			<field name="name">Candidate</field>
+			<field name="description">CV Online program</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_DND_PROGRAM')"/>
+			<field name="code">CANDIDATE</field>
+			<field name="level">0</field>
+			<field name="active">true</field>
+		</record>
+		<record id="hrs_data_program_fresher" model="vhr.program.recruitment">
+			<field name="name">Fresher</field>
+			<field name="description">Fresher program</field>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_DND_PROGRAM')"/>
+			<field name="code">FRESHER</field>
+			<field name="level">0</field>
+			<field name="active">true</field>
+		</record>
+        <record id="hrs_data_program_internship" model="vhr.program.recruitment">
+            <field name="name">Internship</field>
+            <field name="description">Internship program</field>
+            <field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_DND_PROGRAM')"/>
+            <field name="code">INTERNSHIP</field>
+            <field name="level">0</field>
+			<field name="active">true</field>
+		</record>
+
+		<record id="hrs_data_program_event_recruitment" model="vhr.program.event">
+			<field name="name">Recruitment</field>
+            <field name="name_en">Recruitment</field>
+            <field name="description">Recruitment</field>
+			<field name="program_id" eval="ref('vhr_recruitment.hrs_data_program_candidate')"/>
+			<field name="code">RECRUITMENT</field>
+			<field name="date_from">1/1/2014</field>
+			<field name="level">0</field>
+			<field name="active">true</field>
+		</record>
+	</data>
+</openerp>

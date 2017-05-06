@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--<record id="form_updating_employee" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_human_resource.vhr_cb'),-->
+           										 <!--ref('vhr_human_resource.vhr_cb_admin'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="filter_updating_employee" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_human_resource.vhr_cb'),-->
+           										 <!--ref('vhr_human_resource.vhr_cb_admin'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="vhr_employee_temp_quick_edit_view" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_human_resource.vhr_cb'),-->
+           										 <!--ref('vhr_human_resource.vhr_cb_admin'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="view_vhr_employee_temp_submit_form" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_human_resource.vhr_cb'),-->
+           										 <!--ref('vhr_human_resource.vhr_cb_admin'),])]"/>-->
+         <!--</record>-->
+
+         <!--<record id="view_vhr_total_income_tree" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_payroll.vhr_cnb_payroll'),])]"/>-->
+         <!--</record>-->
+          <!--<record id="view_vhr_total_income_form" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_payroll.vhr_cnb_payroll'),])]"/>-->
+         <!--</record>-->
+
+         <!--<record id="view_vhr_update_employee_info_tree" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_human_resource.vhr_cb'),-->
+           										 <!--ref('vhr_human_resource.vhr_cb_admin'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="view_vhr_update_employee_info_form" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_human_resource.vhr_cb'),-->
+           										 <!--ref('vhr_human_resource.vhr_cb_admin'),])]"/>-->
+         <!--</record>-->
+
+         <!--<record id="view_vhr_payslip_tree" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_payroll.vhr_cnb_payroll'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="view_vhr_payslip_form" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_payroll.vhr_cnb_payroll'),])]"/>-->
+         <!--</record>-->
+
+         <!--<record id="view_vhr_year_end_bonus_tree" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_payroll.vhr_cnb_payroll'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="view_vhr_year_end_bonus_form" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_payroll.vhr_cnb_payroll'),])]"/>-->
+         <!--</record>-->
+
+         <!--<record id="view_vhr_liability_tree" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_mysite.group_liability_manager'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="view_vhr_liability_form" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_mysite.group_liability_manager'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="view_vhr_liability_search" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_mysite.group_liability_manager'),])]"/>-->
+         <!--</record>-->
+         <!--<record id="view_vhr_send_email_liability_confirmation" model="ir.ui.view">-->
+           	<!--<field name="groups_id" eval="[(6,0,[ref('vhr_mysite.group_liability_manager'),])]"/>-->
+         <!--</record>-->
+
+
+    </data>
+</openerp>

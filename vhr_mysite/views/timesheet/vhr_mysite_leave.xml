@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="leave" name="Leave">
+            <t t-set="head">
+                <link href="/vhr_mysite/static/lib/esop/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
+                <link href="/vhr_mysite/static/lib/esop/bootstrap-select2/select2.css" rel="stylesheet" type="text/css"/>
+                <link href="/vhr_mysite/static/src/css/esop/style.css" rel="stylesheet" type="text/css"/>
+                <script src="/vhr_mysite/static/lib/esop/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/lib/esop/bootstrap-select2/select2.min.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/src/js/esop/tabs_accordian.js" type="text/javascript"/>
+                <script src="/vhr_mysite/static/lib/esop/jquery.bpopup.min.js" type="text/javascript"/>
+            </t>
+            <t t-call="website.layout">
+                <div id="wrap" class="leave_registration">
+                    <div class="oe_structure">
+                        <div class="title-part">
+                            <div class="col-sm-1"/>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="grid simple horizontal">
+                                        <t t-if="header">
+                                        <div class="grid-title">
+                                            <h4 style="font-family: arial">
+                                                <t t-esc="header"/>
+                                            </h4>
+                                        </div>
+                                        <div class="grid-body">
+                                            <div class="row-fluid">
+                                                <div class="row">
+                                                    <table class="table table-condensed profile-tables" id="table_document">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="v-align-top">Mã Nhân Viên</th>
+                                                                <th class="v-align-top">Tên Nhân Viên</th>
+                                                                <th class="v-align-top">Phòng Ban</th>
+                                                                <th class="v-align-top">Loại Nghỉ</th>
+                                                                <th class="v-align-top">Ngày Bắt Đầu</th>
+                                                                <th class="v-align-top">Ngày Kết Thúc</th>
+                                                                <th class="v-align-top">Số Phép</th>
+                                                                <th class="v-align-top">Trạng Thái</th>
+                                                                <th/>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <t t-foreach="leave_lines" t-as="line">
+                                                                <t t-if="line">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <t t-esc="line['employee_code']"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <t t-esc="line['employee_name']"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <t t-esc="line['department']"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <t t-esc="line['holiday_status_name']"/>
+                                                                        </td>
+                                                                        <td>
+                                                                           <t t-esc="format_date(line['date_from'])"/>
+                                                                        </td>
+                                                                        <td>
+                                                                           <t t-esc="format_date(line['date_to'])"/>
+                                                                        </td>
+                                                                        <td>
+                                                                           <t t-esc="line['number_of_days_temp']"/>
+                                                                        </td>
+                                                                        <td>
+                                                                           <t t-esc="state_label(line['state'])"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <form action="/leave/registration" method="post">
+                                                                                <input type="hidden" name="leave_id" t-att-value="line['id']"/>
+                                                                                <div class="form-group">
+                                                                                    <div>
+                                                                                        <button class="btn btn-primary btn-lg">Xem Chi Tiết</button>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </form>
+                                                                        </td>
+                                                                    </tr>
+                                                                </t>
+                                                            </t>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

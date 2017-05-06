@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_erp_bonus_scheme_match_form" model="ir.ui.view">
+            <field name="name">vhr.erp.bonus.scheme.match.form</field>
+            <field name="model">vhr.erp.bonus.scheme.match</field>
+            <field name="arch" type="xml">
+                <form string="Import ERP Setting" version="7.0">
+	                <header>
+<!-- 	                 	<button name="set_active_data_old" states="draft" string="Set Data Old" type="object" class="oe_highlight"/> -->
+	                	 <button name="action_load" states="draft" string="Load Transfer" type="object" class="oe_highlight"/>
+	                     <button name="action_match" states="transfer" string="Tranfer ERP Setting" type="object" class="oe_highlight"/>
+	                     <button name="action_cancel" states="draft" type="object" string="Cancel" class="oe_highlight"/>
+		                <field name="state" widget="statusbar" statusbar_visible="draft,transfer,done,cancel" nolabel="1"/>
+		            </header>
+       				<sheet>
+       					<div class="oe_right" name="buttons">
+       					</div>
+       					 <group string="Transfer ERP Setting" col="4">
+      						<field name="job_family_id" required="1" on_change="on_change_group_family_id(job_family_id)" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" attrs="{'readonly':[('state','in',('transfer','done','cancel'))]}"/> 
+       					</group>
+       					<notebook>
+	       					<page string="Lines">
+			                        <field name="line_ids" mode="tree"
+			                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+			                            <tree version="7.0">
+			                                <field name="job_level_position_id" readonly="1"/>
+			                                <field name="erp_level_id" readonly="1"/>
+			                                <field name="total_bonus" readonly="1"/>
+			                            </tree>
+			                        </field>
+		                        </page>
+		            	</notebook>
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record id="view_vhr_erp_bonus_scheme_match_tree" model="ir.ui.view">
+            <field name="name">vhr.erp.bonus.scheme.match.tree</field>
+            <field name="model">vhr.erp.bonus.scheme.match</field>
+            <field name="arch" type="xml">
+                <tree string="Import ERP Setting" version="7.0">
+                   	<field name="job_family_id"/>
+                   	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_erp_bonus_scheme_match">
+            <field name="name">Import ERP Setting</field>
+            <field name="res_model">vhr.erp.bonus.scheme.match</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_erp_bonus_scheme_match_tree"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data noupdate='0'>
+        <record id="view_typical_face_form" model="ir.ui.view">
+            <field name="name">vhr.typical.face.form</field>
+            <field name="model">vhr.typical.face</field>
+            <field name="arch" type="xml">
+                <form string="Typical Face" version="7.0">
+                    <sheet>
+                        <group string="Information">
+                            <group>
+                                <field name="name" required='1'  string="Name*"/>
+                                <field name="name_en" required='1'  string="English Name*"/>
+                                <field name="face_type_id" required='1'  string="Face Type*"
+                                	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>                                
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="image" widget='image' height="100px"/>
+                            </group>
+                        </group>
+                        <div>
+                            <separator string="Vietnamese Content"/>
+                            <field name="content" required="1"/>
+                            <separator string="English Content"/>
+                            <field name="content_en" required="1"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_typical_face_tree" model="ir.ui.view">
+            <field name="name">vhr.typical.face.tree</field>
+            <field name="model">vhr.typical.face</field>
+            <field name="arch" type="xml">
+                <tree string="Typical Faces" version="7.0">
+                	<field name="name"/>
+                    <field name="name_en"/>
+                    <field name="active"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                    <field name="content_en" invisible="1"/>
+                    <field name="content" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_typical_face_search" model="ir.ui.view">
+            <field name="name">vhr.typical.face.search</field>
+            <field name="model">vhr.typical.face</field>
+            <field name="arch" type="xml">
+                <search string="Search Typical Faces">
+                    <field name="name"/>
+                    <field name="name_en"/>
+                    <field name="content" filter_domain="['|', ('content','ilike',self), ('content_en','ilike',self)]"
+                           string="Content"/>
+
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_vhr_typical_face">
+            <field name="name">Typical Face</field>
+            <field name="res_model">vhr.typical.face</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="groups_id" eval=""/>
+        </record>
+    </data>
+</openerp>

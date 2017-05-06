@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="data_res_bank_unknown" model="res.bank">
+            <field name="name">Unknown</field>
+            <field name="name_en">Unknown</field>
+            <field name="code">UNKNOWN</field>
+            <field name="active">1</field>
+        </record>
+    </data>
+</openerp>

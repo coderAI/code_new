@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="action_subscribe_audittrail" model="ir.actions.server">
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="audittrail.model_audittrail_rule"/>
+            <field name="code">action =self.subscribe_list(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Subscribe</field>
+        </record>
+
+        <record model="ir.values" id="subscribe_audittrail_action">
+            <field name="key2">client_action_multi</field>
+            <field name="model">audittrail.rule</field>
+            <field name="name">Subscribe</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_subscribe_audittrail"/>
+            <field name="object" eval="True"/>
+        </record>
+
+        <record id="action_unsubscribe_audittrail" model="ir.actions.server">
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="audittrail.model_audittrail_rule"/>
+            <field name="code">action =self.unsubscribe_list(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">UnSubscribe</field>
+        </record>
+
+        <record model="ir.values" id="unsubscribe_audittrail_action">
+            <field name="key2">client_action_multi</field>
+            <field name="model">audittrail.rule</field>
+            <field name="name">UnSubscribe</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_unsubscribe_audittrail"/>
+            <field name="object" eval="True"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data  noupdate="1">
+
+        <record model="ir.cron" id="vhr_ts_param_by_job_level_cron">
+            <field name="name">[VHR Timesheet] Update State of vhr_ts_param_job_level</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.ts.param.job.level'"/>
+            <field name="nextcall">2015-04-24 0:05:00</field>
+            <field name="function" eval="'cron_update_param_by_job_level_state'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+        <record model="ir.cron" id="vhr_ts_param_by_working_record_cron">
+            <field name="name">[VHR Timesheet] Update State of vhr_ts_param_by_working_record</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.ts.param.working.schedule'"/>
+            <field name="nextcall">2015-04-24 0:07:00</field>
+            <field name="function" eval="'cron_update_param_working_schedule_state'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+        <record model="ir.cron" id="vhr_ts_general_param_cron">
+            <field name="name">[VHR Timesheet] Update State of vhr_ts_general_param</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.ts.general.param'"/>
+            <field name="nextcall">2015-04-24 0:09:00</field>
+            <field name="function" eval="'cron_update_param_state'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+        <!--Remove it<record model="ir.cron" id="vhr_ts_auto_expire_leave_request_cron">
+            <field name="name">Auto Expire Leave Request</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="nextcall">2015-04-24 0:11:00</field>
+            <field name="function" eval="'cron_auto_expire_leave_request'"/>
+            <field name="args" eval="'()'"/>
+        </record>-->
+
+        <record model="ir.cron" id="vhr_ts_emp_timesheet_cron">
+            <field name="name">[VHR Timesheet] Update VHR TS Employee Timesheet</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.ts.emp.timesheet'"/>
+            <field name="nextcall">2015-04-24 0:13:00</field>
+            <field name="function" eval="'cron_update_ts_emp_timesheet_state'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+        <record model="ir.cron" id="vhr_ts_ws_employee_cron">
+            <field name="name">[VHR Timesheet] Update VHR TS Working Schedule</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.ts.ws.employee'"/>
+            <field name="nextcall">2015-04-24 0:13:00</field>
+            <field name="function" eval="'cron_update_ts_ws_employee_state'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+        <record model="ir.cron" id="vhr_ts_timesheet_auto_active_cron">
+            <field name="name">[VHR Timesheet] Auto Active Timesheet</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.ts.timesheet'"/>
+            <field name="nextcall">2015-04-24 0:15:00</field>
+            <field name="function" eval="'cron_active_record'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+        <record model="ir.cron" id="vhr_ts_update_seniority_leave_cron">
+            <field name="name">[VHR Timesheet] Update Seniority In Annual Leave</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="nextcall">2015-04-24 0:17:00</field>
+            <field name="function" eval="'cron_check_seniority'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+        <record model="ir.cron" id="vhr_ts_generate_annual_leave_balance_cron">
+            <field name="name">[VHR Timesheet] Generate Annual Leave Balance</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall">2015-12-01 20:00:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_generate_annual_leave_balance'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+        
+        <record model="ir.cron" id="vhr_ts_generate_annual_leave_acumulation_cron">
+            <field name="name">[VHR Timesheet] Generate Annual Leave Accumulation</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall">2015-12-31 10:00:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_generate_annual_leave_accumulation'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+        
+        
+        <record model="ir.cron" id="vhr_holidays_check_expire_day_in_annual_leave">
+            <field name="name">[VHR Timesheet] Check Expire Date in Annual Leave Balance</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall">2015-04-24 0:10:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_update_totay_days'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+        
+        <record model="ir.cron" id="vhr_holidays_compute_total_days_in_annual_leave">
+            <field name="name">[VHR Timesheet] Generate Data Total of Days in Annual Leave Balance</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall">2015-1-30 3:00:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_update_all_none_total_holidays_data'"/>
+            <field name="args" eval="'()'"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record model="ir.cron" id="vhr_holidays_update_missing_holiday_line">
+            <field name="name">[VHR Timesheet] Update Missing Holiday Line for Leave Request To Next Year</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall">2015-12-29 3:00:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_update_leave_request_to_next_year'"/>
+            <field name="args" eval="'()'"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record model="ir.cron" id="vhr_holidays_update_data_annual_leave_balance">
+            <field name="name">[VHR Timesheet] Update Correct Data Annual Leave Balance</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_update_data_annual_leave_balance'"/>
+            <field name="args" eval="'()'"/> <!-- ([2016],{"division_id":[13123]}) -->
+            <field name="active" eval="False"/>
+        </record>
+        
+        <record model="ir.cron" id="vhr_holidays_update_data_annual_leave_balance_for_emp_update_leave_in_day">
+            <field name="name">[VHR Timesheet] Update Annual Leave For Employee Update Leave In Day</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_update_data_annual_leave_balance_for_update_leave_in_day'"/>
+            <field name="args" eval="'()'"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        
+        <record model="ir.cron" id="vhr_timesheet_update_group_dept_admin_ts_approver">
+            <field name="name">[VHR Timesheet] Update Group Dept Admin - TS Approver</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'vhr.ts.timesheet.detail'"/>
+            <field name="function" eval="'update_group'"/>
+            <field name="args" eval="'()'"/>
+            <field name="active" eval="False"/>
+        </record>
+        
+        <record model="ir.cron" id="vhr_ts_generate_annual_leave_balance_for_colla_emp_cron">
+            <field name="name">[VHR Timesheet] Generate Annual Leave Balance For Colla Employee Satisfy Condition</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall">2015-12-01 20:00:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_generate_annual_leave_for_colla_emp_satisfy_condition'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+        
+        <record model="ir.cron" id="vhr_ts_recalculate_wrong_annual_leave">
+            <field name="name">[VHR Timesheet] Recalculate Wrong Annual Leave</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">hours</field>
+            <field name="nextcall">2016-07-01 20:00:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_recalculate_annual_leave'"/>
+            <field name="args" eval="'()'"/>
+            <field name="description">Tính lại các annual leave trong năm bị sai về mặt tính toán (Các tham số cộng lại không bằng nhau)</field>
+        </record>
+        
+        <record model="ir.cron" id="vhr_ts_cron_recalculate_annual_leave_when_wrong_taken_day">
+            <field name="name">[VHR Timesheet] Recalculate Annual Leave Have Wrong Taken Day</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall">2036-07-01 20:00:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_recalculate_annual_leave_when_wrong_taken_day'"/>
+            <field name="args" eval="'()'"/>
+            <field name="description">Tính lại các annual leave trong năm bị sai về taken day</field>
+        </record>
+        
+        <record model="ir.cron" id="vhr_ts_cron_recalculate_annual_leave_by_id">
+            <field name="name">[VHR Timesheet] Recalculate Annual Leave By ID</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall">2036-07-01 20:00:00</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'hr.holidays'"/>
+            <field name="function" eval="'cron_recalculate_annual_leave_by_id'"/>
+            <field name="args" eval="'()'"/>
+            <field name="description">Tính lại các annual leave bằng cách trigger gọi write state=validate</field>
+        </record>
+
+    </data>
+</openerp>

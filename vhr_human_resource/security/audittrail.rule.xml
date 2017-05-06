@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate='0'>
+    	
+		<record model="audittrail.rule" id="vhr_human_resource_vhr_resignation_reason">
+	    	<field name="name">VHR Human Resouce - Termination Reason</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_resignation_reason"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+	    
+	    <record model="audittrail.rule" id="vhr_human_resource_vhr_resignation_type">
+	    	<field name="name">VHR Human Resouce - Termination Type</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_resignation_type"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+            	
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_termination_request">
+	    	<field name="name">VHR Human Resouce - VHR Termination Request</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_termination_request"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+		<record model="audittrail.rule" id="vhr_human_resource_vhr_working_record">
+	    	<field name="name">VHR Human Resouce - Vhr Working Record</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_working_record"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+		<record model="audittrail.rule" id="vhr_human_resource_vhr_mass_movement">
+	    	<field name="name">VHR Human Resouce - Vhr Mass Movement</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_mass_movement"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+                
+		<record model="audittrail.rule" id="vhr_human_resource_hr_contract">
+	    	<field name="name">VHR Human Resouce - Contract</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_hr_contract"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>        
+        
+		<record model="audittrail.rule" id="vhr_human_resource_hr_contract_type">
+	    	<field name="name">VHR Human Resouce - Contract Type</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_hr_contract_type"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_human_resource_hr_contract_sub_type">
+	    	<field name="name">VHR Human Resouce - Contract Sub Type</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_hr_contract_sub_type"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+	    
+	    <record model="audittrail.rule" id="vhr_human_resource_hr_contract_type_group">
+	    	<field name="name">VHR Human Resouce - Contract Type Group</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_hr_contract_type_group"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record> 
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_appendix_contract_type">
+	    	<field name="name">VHR Human Resouce - Appendix Contract Type</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_appendix_contract_type"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_appendix_contract">
+	    	<field name="name">VHR Human Resouce - Appendix Contract</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_appendix_contract"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+		<record model="audittrail.rule" id="vhr_mission_collaborator_contract">
+	    	<field name="name">VHR Human Resouce - Mission Collaborator Contract</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_mission_collaborator_contract"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">draft</field>
+        </record>
+         
+        <record model="audittrail.rule" id="vhr_salary_contract">
+	    	<field name="name">VHR Human Resouce - Salary Contract</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_salary_contract"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>      
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_multi_renew_contract">
+	    	<field name="name">VHR Human Resouce - Renewal Contract</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_multi_renew_contract"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="False"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_permission_location">
+	    	<field name="name">VHR Human Resouce - Permission Location</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_permission_location"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="False"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_termination_agreement">
+	    	<field name="name">VHR Human Resouce - Termination Agreement Contract</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_termination_agreement_contract"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_exit_checklist_request">
+	    	<field name="name">VHR Human Resouce - Exit Checklist Request</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_exit_checklist_request"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_resignation_link_exit_survey">
+	    	<field name="name">VHR Human Resouce - Exit Survey Link</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_resignation_link_exit_survey"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_resignation_reason_group">
+	    	<field name="name">VHR Human Resouce - Resignation Reason Group</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_resignation_reason_group"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        <record model="audittrail.rule" id="vhr_human_resource_vhr_multi_renew_contract_setting">
+	    	<field name="name">VHR Human Resouce - Renew Contract Setting</field>
+	    	<field name="object_id" ref="vhr_human_resource.model_vhr_multi_renew_contract_setting"/>
+			<!--<field name="user_id" search="[]"/>-->
+			<field name="log_read" eval="False"/>
+			<field name="log_create" eval="True"/>
+			<field name="log_write" eval="True"/>
+			<field name="log_unlink" eval="True"/>
+			<field name="log_action" eval="False"/>
+			<field name="log_workflow" eval="False"/>
+            <field name="state">subscribed</field>
+        </record>
+        
+        
+        
+    </data>
+</openerp>
+

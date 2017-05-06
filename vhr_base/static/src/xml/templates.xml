@@ -1,0 +1,202 @@
+<templates id="template" xml:space="preserve">
+  <t t-name="Popup.ViewCV">
+    <table cellspacing="0" cellpadding="0" border="0" class="oe_dialog_warning">
+    <tr>
+        <td>
+            <p>
+            <div class='oe_form_text_content oe_cv_context_search_highlight'></div>
+            </p>
+        </td>
+    </tr>
+    </table>
+  </t>
+  <t t-extend="WebClient">
+    <t t-jquery="td.announcement_bar" t-operation="replace">
+    </t>
+  </t>
+  <t t-extend="UserMenu">
+    <t t-jquery="ul.dropdown-menu" t-operation="replace">
+    	<ul class="dropdown-menu">
+    		<li t-if="widget.session.uid === 1"><a href="#" data-menu="settings">Preferences</a></li>
+            <li t-if="widget.session.uid === 1"><a href="#" data-menu="account">My Odoo.com account</a></li>
+            <li t-if="widget.session.uid === 1"><a href="#" data-menu="about">About Odoo</a></li>
+            <li t-if="widget.session.uid === 1"><a href="#" data-menu="help">Help</a></li>
+            <li><a href="#" data-menu="logout">Log out</a></li>
+    	</ul>
+    </t>
+  </t>
+   <t t-extend="ViewManagerAction">
+       <t t-jquery="select.oe_debug_view" t-operation="replace">
+           <select t-if="widget.session.uid === 1 and widget.session.debug" class="oe_debug_view"/>
+       </t>
+   </t>
+   
+   <!-- Override the listview template
+   	-NX-
+   		- Add new class (tree) for table to clarify the tree view and sub tree view in form view
+   		- Since we add new attribute for the template so we cannot use the jquery selector to inherit, so I re-declare the template
+   		- Let me know if you know the new way to inherit, thanks.
+   -->
+   
+   <table t-name="ListView" t-att-class="options and options.action and 'oe_list_content tree' or 'oe_list_content'">
+	    <t t-set="columns_count" t-value="visible_columns.length + (options.selectable ? 1 : 0) + (options.deletable ? 1 : 0)"/>
+	    <thead>
+	        <tr t-if="(!!options.action_buttons and !options.$buttons) or (!!options.pager and !options.$pager)">
+	            <th t-att-colspan="columns_count">
+	                <div class="oe_list_buttons"/>
+	                <div class="oe_list_sidebar"/>
+	                <div class="oe_list_pager"/>
+	            </th>
+	        </tr>
+	        <tr t-if="options.header" class="oe_list_header_columns">
+	            <t t-foreach="columns" t-as="column">
+	                <th t-if="column.meta">
+	                    <t t-esc="column.string"/>
+	                </th>
+	            </t>
+	            <th t-if="options.selectable" width="1"  >
+	                <input type="checkbox" class="oe_list_record_selector"/>
+	            </th>
+	            <t t-foreach="columns" t-as="column">
+	                <th t-if="!column.meta and column.invisible !== '1'" t-att-data-id="column.id"
+	                    t-attf-class="oe_list_header_#{column.widget or column.type} #{((options.sortable and column.tag !== 'button') ? 'oe_sortable' : null)} #{column.colclass or ''}"><div>
+	                    <t t-if="column.tag !== 'button'"><t t-esc="column.string"/></t>
+	                </div></th>
+	            </t>
+	            <th t-if="options.deletable" class="oe_list_record_delete" width="13px"/>
+	        </tr>
+	    </thead>
+	    <tfoot>
+	        <tr>
+	            <td t-if="options.selectable"/>
+	            <td t-foreach="aggregate_columns" t-as="column" class="oe_list_footer oe_number"
+	                t-att-data-field="column.id" t-att-title="column.label">
+	            </td>
+	            <td t-if="options.deletable" class="oe_list_record_delete"/>
+	        </tr>
+	    </tfoot>
+	</table>
+   
+  <t t-extend="ListView">
+	<t t-jquery="tr.oe_list_header_columns > th:first" t-operation="after">
+  		<th t-if="options and options.pop_up_select" width="1">
+        </th>
+  	</t>
+  	<t t-jquery="td.oe_list_footer" t-operation="before">
+  		<td t-if="options and options.pop_up_select" width="1">
+        </td>
+  	</t>
+  </t>
+  <t t-extend="ListView.row">
+	<t t-jquery="th.oe_list_record_selector" t-operation="after">
+  		<th t-if="options and options.pop_up_select" width="1" class="oe_view_cv">
+  			<i class="fa fa-search-plus"/>
+        </th>
+  	</t>
+  </t>
+  
+  <!--Add template to appear buton Save or Discard when edit on tree view disable create -->
+  <t t-extend="ListView.buttons">
+  	<div t-jquery="div.oe_list_buttons" t-operation="prepend">
+  		<t t-if="!widget.no_leaf and widget.options.action_buttons !== false and widget.options.addable and widget.is_action_enabled('edit') and !widget.is_action_enabled('create')">
+	  		<button class="oe_button oe_list_save oe_highlight"
+	                type="button">Save</button>
+	        <span class="oe_alternative">
+	            <span class="oe_fade oe_list_discard">or</span>
+	            <a href="#" class="oe_bold oe_list_discard">Discard</a>
+	        </span>
+        </t>
+  	</div>
+</t>
+
+<t t-extend="FieldChar">
+	<span t-jquery="span" t-operation="inner">
+		<t t-if="!widget.get('effective_readonly')">
+            <input t-att-type="widget.password ? 'password' : 'text'"
+                t-att-id="widget.id_for_label"
+                t-att-tabindex="widget.node.attrs.tabindex"
+                t-att-autofocus="widget.node.attrs.autofocus"
+                t-att-placeholder="widget.node.attrs.placeholder"
+                t-att-maxlength="widget.field.size"
+            /><img class="oe_field_translate oe_input_icon" t-if="widget.field.translate" t-att-src='_s + "/web/static/src/img/icons/terp-translate.png"' width="16" height="16" border="0"/>
+        </t>
+        <t t-if="widget.get('effective_readonly')">
+            <span id="color_field" class="oe_form_char_content"  t-att-style="widget.style_for(widget.field_manager.datarecord)"></span>
+        </t>
+	</span>
+    
+</t>
+
+<t t-extend="FieldMany2One">
+    <span t-jquery="span" t-operation="inner">
+        <t t-if="widget.get('effective_readonly')">
+            <a t-if="! widget.options.no_open" href="#" class="oe_form_uri"/>
+            <span id="color_field" t-if="widget.options.no_open" href="#" class="oe_form_uri" t-att-style="widget.style_for(widget.field_manager.datarecord)"/>
+            <span class="oe_form_m2o_follow" />
+        </t>
+        <t t-if="!widget.get('effective_readonly')">
+            <a t-if="! widget.options.no_open" href="#" tabindex="-1"
+                class="oe_m2o_cm_button oe_e" draggable="false">/</a>
+            <div>
+                <input type="text"
+                    t-att-id="widget.id_for_label"
+                    t-att-tabindex="widget.node.attrs.tabindex"
+                    t-att-autofocus="widget.node.attrs.autofocus"
+                    t-att-placeholder="widget.node.attrs.placeholder"
+                />
+                <span class="oe_m2o_drop_down_button">
+                    <img t-att-src='_s + "/web/static/src/img/down-arrow.png"' draggable="false"/>
+                </span>
+            </div>
+        </t>
+    </span>
+</t>
+
+<t t-extend="FieldDate">
+    <span t-jquery="span" t-operation="replace">
+    	<span  id="color_field" class="oe_form_field oe_datepicker_root oe_form_field_date"   t-att-style="widget.style_for(widget.field_manager.datarecord)">
+    	</span>
+    </span>	
+</t>
+
+<t t-extend="FieldSelection">
+	<span t-jquery="span" t-operation="replace">
+    	<span  id="color_field" class="oe_form_field oe_form_field_selection"  t-att-style="widget.style_for(widget.field_manager.datarecord)">
+    	</span>
+    </span>	
+</t>
+
+<t t-extend="FieldRadio">
+	<span t-jquery=".oe_radio_readonly" t-operation="replace">
+		<span id="color_field" t-if="widget.get('effective_readonly')" class="oe_radio_readonly"  t-att-style="widget.style_for(widget.field_manager.datarecord)">
+			<t t-esc="widget.get('value')[1]"/>
+		</span>
+	</span>
+	
+</t>
+
+<tr t-extend="ListView.row">
+	<t t-jquery='t td.oe_list_field_cell' t-operation="replace">
+		<td t-if="!column.meta and column.invisible !== '1'" t-att-title="column.help" t-att-style="style_for and style_for(record, column)"
+            t-attf-class="oe_list_field_cell oe_list_field_#{column.widget or column.type} #{number ? 'oe_number' : ''} #{column.tag === 'button' ? 'oe-button' : ''} #{column.colclass or ''}"
+            t-att-data-field="column.id"
+            ><t t-raw="render_cell(record, column)"/></td>
+	</t>
+</tr>
+
+
+<t t-name="One2Many.listview" t-extend="ListView">
+    <t t-jquery="thead.ui-widget-header > tr:first">
+        this.removeAttr('t-if');
+    </t>
+
+    <t t-jquery="td.oe-actions">
+        this.removeAttr('t-if');
+    </t>
+    <t t-jquery="td.oe-actions" t-operation="prepend">
+        <h3 class="oe_view_title"><t t-esc="fields_view.arch.attrs.string"/></h3>
+    </t>
+</t>
+            
+            
+</templates>

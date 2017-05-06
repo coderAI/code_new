@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	  	<!-- SIDEBAR -->
+		<template id="vhr_mysite.sidebar" name="Mysite sidebar">
+			<div class="todo-my-search" id="my_search">
+              	<input data-toggle="tooltip" role="tooltip"
+              			class="todo-search-field" data-placement="top"
+              			title="Tìm kiếm theo họ tên, domain acc hay mã nhân viên"
+              			data-delay='{"show":"500", "hide":"100"}'
+              			type="search" value="" placeholder="Tìm kiếm Users ..."
+              			id="my_input_search"/>
+              	<i class="fa fa-search fa-lg" id="btn_my_search"></i>
+            </div>
+			<div class="panel-group" id="accordion">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  <a data-toggle="collapse" data-parent="#accordion"
+						  	href="#collapsePersonal" class="collapsed">
+						  	<i class="fa fa-user fa-lg text-info"></i>
+						  	<span>Cá nhân</span>
+						  	<i class="fa fa-angle-down down-icon"></i>
+						  	<i class="fa fa-angle-up up-icon"></i>
+						  </a>
+						</h4>
+					</div>
+					<!-- <div id="collapsePersonal" class="panel-collapse collapse in"> -->
+					<div id="collapsePersonal" class="panel-collapse collapse">
+						<ul class="list-group">
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-pencil text-primary"></span>
+								<a href="/">Thông tin cá nhân</a>
+							</li>
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-flash text-success"></span>
+								<a href="/mysite/request">Thông tin thay đổi</a>
+							</li>
+							<t t-if="'vhr_cnb_payroll' in user_groups">	
+								<li class="list-group-item">
+									<span class="glyphicon glyphicon-usd text-success"></span>
+									<a href="/mysite/benefit">Phúc lợi</a>
+								</li>
+							</t>
+							<t t-if="'vhr_cb' in user_groups">
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-map-marker text-success"></span>
+								<a href="/map">Thông tin địa điểm</a>
+							</li>
+							</t>
+							<t t-if="'vhr_cb' in user_groups">
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-asterisk text-success"></span>
+								<a href="/map/summary">Tổng hợp địa điểm</a>
+							</li>
+							</t>
+							
+                            <li class="list-group-item">
+								<span class="glyphicon glyphicon-file text-success"></span>
+								<a href="/liability">Thông tin công nợ</a>
+							</li>
+							<!-- <li class="list-group-item">
+								<span class="glyphicon glyphicon-file text-info"></span>
+								<a href="/mysite/working">Quá trình làm việc</a>
+							</li>
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-file text-info"></span>
+								<a href="/mysite/contract">Quá trình hợp đồng</a>
+							</li>
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-file text-info"></span>
+								<a href="/mysite/salary">Quá trình lương</a>
+							</li> -->
+							<!-- <li class="list-group-item">
+								<i class="fa fa-tachometer text-danger"></i>
+								<a href="/mysite/kpi">Kết quả KPI</a>
+							</li> -->
+							<!-- <li class="list-group-item">
+								<span class="glyphicon glyphicon-comment text-success"></span>
+								<a href="#">Lộ trình đào tạo</a>
+							</li> -->
+						</ul>
+					</div>
+				</div>
+
+	        	<!-- PAYSLIP PART -->
+		       	<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  	<a data-toggle="collapse" data-parent="#accordion" href="#collapsePayslip" class="collapsed">
+							  	<i class="fa fa-money fa-lg text-primary"></i>
+							  	<span>Lương thưởng</span>
+							  	<i class="fa fa-angle-down down-icon"></i>
+						  		<i class="fa fa-angle-up up-icon"></i>
+						  	</a>
+						</h4>
+					</div>
+					<div id="collapsePayslip" class="panel-collapse collapse">
+						<ul class="list-group">
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-pencil text-primary"></span>
+								<a href="/mysite/payslip">Phiếu lương</a>
+							</li>
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-file text-info"></span>
+								<a href="/mysite/year_end_bonus">Thưởng cuối năm</a>
+							</li>
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-file text-success"></span>
+								<a href="/mysite/total_income">Tổng thu nhập trong năm</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- TAX PART -->
+		       	<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  	<a data-toggle="collapse" data-parent="#accordion" href="#collapseTax" class="collapsed">
+							  	<i class="fa fa-gavel fa-lg text-primary"></i>
+							  	<span>Thuế TNCN</span>
+							  	<i class="fa fa-angle-down down-icon"></i>
+						  		<i class="fa fa-angle-up up-icon"></i>
+						  	</a>
+						</h4>
+					</div>
+					<div id="collapseTax" class="panel-collapse collapse">
+						<ul class="list-group">
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-comment text-success"></span>
+								<a href="/mysite/tax_settlement_auth">Ủy quyền quyết toán thuế</a>
+							</li>
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-flash text-success"></span>
+								<a href="/mysite/tax_settlement">Quyết toán thuế</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Hide the HR system menu -->
+				<!-- <t t-if="allow_backend">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  	<a href="/web">
+						  		<i class="fa fa-sign-in fa-lg text-primary"></i>
+						  		<span>Hệ thống HR</span>
+						  	</a>
+						</h4>
+					</div>
+				</div>
+				</t> -->
+                <div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  <a data-toggle="collapse" data-parent="#accordion"
+						  	href="#collapseTimeSheet" class="collapsed">
+						  	<i class="fa fa-ticket fa-lg text-info"></i>
+						  	<span>Yêu Cầu Nhân Sự</span>
+						  	<i class="fa fa-angle-down down-icon"></i>
+						  	<i class="fa fa-angle-up up-icon"></i>
+						  </a>
+						</h4>
+					</div>
+                    <div id="collapseTimeSheet" class="panel-collapse collapse">
+						<ul class="list-group">
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-edit text-primary"></span>
+								<a href="/web#view_type=form&amp;model=vhr.pr.collaborator.assessment&amp;action=1319">Phiếu đánh giá CTV</a>
+							</li>
+
+                            <li class="list-group-item">
+								<span class="glyphicon glyphicon-edit text-primary"></span>
+								<a href="/leave/registration">Đăng ký nghỉ phép</a>
+							</li>
+
+                            <li class="list-group-item">
+								<span class="glyphicon glyphicon-time text-primary"></span>
+								<a href="/leave">Quá trình nghỉ</a>
+							</li>
+
+                            <li class="list-group-item">
+								<span class="glyphicon glyphicon-edit text-primary"></span>
+								<a href="/overtime/registration">Đăng ký ngoài giờ</a>
+							</li>
+
+                			<li class="list-group-item">
+								<span class="glyphicon glyphicon-edit text-primary"></span>
+								<a href="/web?#page=0&amp;limit=80&amp;view_type=list&amp;model=vhr.termination.request&amp;action=922">
+									Đơn xin thôi việc
+								</a>
+							</li>
+							<!--<li class="list-group-item">
+								<span class="glyphicon glyphicon-edit text-primary"></span>
+								<a href="/terminations">
+									Thông tin nghỉ việc
+								</a>
+							</li>-->
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-edit text-primary"></span>
+								<a href="/web?#page=0&amp;limit=80&amp;view_type=list&amp;model=vhr.exit.checklist.request&amp;menu_id=683&amp;action=1076">
+									Biên bản bàn giao thôi việc
+								</a>
+							</li>
+
+							<!-- PAYROLL ALLOWANCES REQUEST giang-->
+							<!--<li class="list-group-item">-->
+								<!--<span class="glyphicon glyphicon-edit text-primary"></span>-->
+								<!--<a href="/allowance/request">Yêu cầu trợ cấp</a>-->
+							<!--</li>-->
+
+							<!--&lt;!&ndash;LOAN REQUEST&ndash;&gt;-->
+							<!--<li class="list-group-item">-->
+								<!--<span class="glyphicon glyphicon-time text-primary"></span>-->
+								<!--<a href="/loan">Quá trình vay nợ</a>-->
+							<!--</li>-->
+							<!--<li class="list-group-item">-->
+								<!--<span class="glyphicon glyphicon-edit text-primary"></span>-->
+								<!--<a href="/loan/form">Đăng ký vay nợ</a>-->
+							<!--</li>-->
+							<!--<li class="list-group-item">-->
+								<!--<span class="glyphicon glyphicon-check text-primary"></span>-->
+								<!--<a href="/loan/approval">Đăng ký vay nợ chờ duyệt</a>-->
+                                <!--<div class="badge pull-right todo-notice"><t t-esc="loan_approval_count"/></div>-->
+							<!--</li>-->
+
+                            <li class="list-group-item">
+								<span class="glyphicon glyphicon-pencil text-primary"></span>
+								<a href="/mysite/insurance_registration">Đăng ký BHSK</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				
+				<!-- PENDING REQUIRED --> 				
+				<div class="panel panel-default"  t-if="request_approval_count">
+					<div class="panel-heading">
+						<h4 class="panel-title">						
+						<a data-toggle="collapse" href="#collapsePendingRequest" class="collapsed" data-parent="#accordion">					  
+						  	<i class="fa fa-check fa-lg text-info"></i>
+						  	<span>Yêu Cầu Chờ Duyệt</span>
+						  	<i class="fa fa-angle-down down-icon"></i>
+						  	<i class="fa fa-angle-up up-icon"></i>	
+						  	<div class="badge pull-right todo-notice"><t t-esc="request_approval_count"/></div>							  	
+						</a>										 
+						</h4>
+					</div>
+					<div id="collapsePendingRequest" class="panel-collapse collapse">
+						<ul class="list-group">
+                            <li t-if="ca_approval_count" class="list-group-item">
+								<span class="glyphicon glyphicon-check text-primary"></span>
+								<a href="web#page=0&amp;limit=80&amp;view_type=list&amp;model=vhr.pr.collaborator.assessment&amp;action=1319">Phiếu đánh giá CTV</a>
+                                <div class="badge pull-right todo-notice"><t t-esc="ca_approval_count"/></div>
+							</li>
+                            <li t-if="leave_approval_count" class="list-group-item">
+								<span class="glyphicon glyphicon-check text-primary"></span>
+								<a href="/leave/approval">ĐK nghỉ phép</a>
+                                <div class="badge pull-right todo-notice"><t t-esc="leave_approval_count"/></div>
+							</li>							
+                            <li t-if="ot_approval_count" class="list-group-item">
+								<span class="glyphicon glyphicon-check text-primary"></span>
+								<a href="/overtime/approval">ĐK ngoài giờ</a>
+                                <div class="badge pull-right todo-notice"><t t-esc="ot_approval_count"/></div>
+							</li>							
+						</ul>
+					</div>
+				</div>	
+				
+				<!-- RECRUITMENT PART -->
+		       	<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a href="/mysite/recruitment_request">
+						  		<i class="fa fa-users fa-lg text-primary"></i>
+						  		<span>Tạo yêu cầu tuyển dụng</span>
+						  	</a>
+						</h4>
+					</div>
+					<!-- <div id="collapseRecruitment" class="panel-collapse collapse">
+						<ul class="list-group">
+							<li class="list-group-item">
+								<span class="glyphicon glyphicon-comment text-success"></span>
+								<a href="/mysite/recruitment_request">Tạo yêu cầu</a>
+							</li>
+						</ul>
+					</div> -->
+				</div>
+				<t t-if="'vhr_cb' in user_groups or 'vhr_dept_admin' in user_groups or 'vhr_ts_approver' in user_groups">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a href="/web#view_type=form&amp;model=hr.holidays&amp;menu_id=693&amp;action=1081">
+						  		<i class="fa fa-tasks fa-lg text-primary"></i>
+						  		<span>Chấm công</span>
+						  	</a>
+						</h4>
+					</div>
+				</div>
+				</t>
+                <t t-if="is_esop_user">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  	<a href="/esop">
+						  		<i class="fa fa-archive fa-lg text-warning"></i>
+						  		<span>eSOP</span>
+						  	</a>
+						</h4>
+					</div>
+				</div>
+                <div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  	<a href="/esop/policy">
+						  		<i class="fa fa-file fa-lg text-success"></i>
+						  		<span>eSOP Policy</span>
+						  	</a>
+						</h4>
+					</div>
+				</div>
+                </t>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  	<a href="/web/session/logout">
+						  		<i class="fa fa-sign-out fa-lg text-danger"></i>
+						  		<span>Thoát</span>
+						  	</a>
+						</h4>
+					</div>
+				</div>
+	        </div>
+
+		</template>
+
+    </data>
+</openerp>

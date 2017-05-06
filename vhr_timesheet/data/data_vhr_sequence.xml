@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+        <!--<record id="vhr_sequence_ts_1" model="vhr.sequence">-->
+        <!--<field name="name">vhr_sequence_vhr_ts_timesheet</field>-->
+        <!--<field name="model_id" eval="ref('vhr_timesheet.model_vhr_ts_timesheet')"/>-->
+        <!--<field name="field_id" eval="ref('vhr_timesheet.field_vhr_ts_timesheet_code')"/>-->
+        <!--<field name="dimension_type_id"></field>-->
+        <!--<field name="prefix">TS</field>-->
+        <!--<field name="suffix"></field>-->
+        <!--<field name="padding">3</field>-->
+        <!--</record>-->
+        <record id="vhr_sequence_ts_2" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_ts_param_type_group</field>
+			<field name="model_id" eval="ref('vhr_timesheet.model_vhr_ts_param_type_group')"/>
+			<field name="field_id" eval="ref('vhr_timesheet.field_vhr_ts_param_type_group_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PTG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_ts_3" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_ts_param_type</field>
+			<field name="model_id" eval="ref('vhr_timesheet.model_vhr_ts_param_type')"/>
+			<field name="field_id" eval="ref('vhr_timesheet.field_vhr_ts_param_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_ts_4" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_holidays_status_group</field>
+			<field name="model_id" eval="ref('vhr_timesheet.model_vhr_holidays_status_group')"/>
+			<field name="field_id" eval="ref('vhr_timesheet.field_vhr_holidays_status_group_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">LT</field>
+			<field name="suffix"></field>
+			<field name="padding">4</field>
+		</record>
+			
+	</data>
+</openerp>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_exit_checklist_detail_form" model="ir.ui.view">
+            <field name="name">vhr.exit.checklist.detail.view.form</field>
+            <field name="model">vhr.exit.checklist.detail</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <form string="Exit Checklist Detail" version="7.0">
+       				<sheet>
+       					<group col='4'>
+   							<field name="exit_id" />
+   							<field name="property_management_id" />
+   							<field name="money_included_in_the_settlement" required="1" />
+   							<field name="allocation_date"/>
+   							<field name="withdraw_date"/>
+   							<field name="note"/>
+       					</group>
+       					
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record id="view_vhr_exit_checklist_detail_tree" model="ir.ui.view">
+            <field name="name">vhr.exit.checklist.detail.view.tree</field>
+            <field name="model">vhr.exit.checklist.detail</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Exit Checklist Detail" version="7.0">
+                	
+                    <field name="exit_id" on_change="onchange_exit_id(exit_id)"
+                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    <field name="property_management_id" />
+ 					<field name="money_included_in_the_settlement"/>
+ 					<field name="allocation_date"/>
+ 					<field name="withdraw_date"/>
+ 					<field name="note"/>
+ 					<field name="type_exit" />
+                </tree>
+            </field>
+        </record>
+        
+
+        <record model="ir.actions.act_window" id="act_vhr_exit_checklist_detail">
+            <field name="name">Exit Checklist Detail</field>
+            <field name="res_model">vhr.exit.checklist.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_exit_checklist_detail_tree"/>
+            <field name="groups_id" eval=""/>
+        </record>
+    </data>
+</openerp>

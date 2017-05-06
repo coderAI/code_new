@@ -1,0 +1,87 @@
+#common class
+import hr_job
+import hr_contract
+import hr_department
+import ir_attachment
+import vhr_recruitment_abstract
+import vhr_job_applicant
+import vhr_test_result
+import vhr_applicant
+import vhr_evaluation
+import vhr_interview_round_evaluation
+import vhr_email_news
+import vhr_event_job
+import vhr_program_event
+import vhr_typical_face
+import vhr_post_location
+import vhr_post_job
+import vhr_dimension
+import vhr_recruitment_email
+import vhr_send_multi_cvs
+import vhr_close_reason
+import vhr_recruitment_source_online
+import vhr_delegate_by_depart
+#erp
+import vhr_erp_payment_time
+import vhr_erp_bonus_exclusion
+import vhr_erp_bonus_scheme
+import vhr_erp_bonus_rate_by_dept
+import vhr_erp_bonus_payment
+import vhr_erp_bonus_payment_line
+import vhr_erp_bonus_scheme_match
+import vhr_erp_level
+import vhr_erp_bonus_payment_reruitment_mail
+import vhr_erp_bonus_payment_line_reruitment_mail
+import vhr_erp_setting_special
+import vhr_bonus_for_recruiter
+import vhr_erp_exclusion_department_line
+# program
+import vhr_program_part
+import vhr_program_recruitment
+import vhr_program_content
+import vhr_program_field
+import vhr_program_answer
+import vhr_program_question
+import vhr_candidate_test_result
+import vhr_program_event_gift
+
+#talent pool
+import vhr_rr_com_channel
+import vhr_rr_recom_rel_type
+import vhr_rr_talent_award
+import vhr_rr_talent_communi
+import vhr_rr_talent_expertise
+import vhr_rr_talent_recom
+
+import vhr_rr_temp_applicant
+import vhr_rr_key_student
+import vhr_rr_talent
+import vhr_temp_applicant
+import vhr_note
+import hr_applicant_category
+
+import ir_ui_view
+import vhr_recruitment_wizard
+
+import hr_employee
+import vhr_candidate_contact
+import vhr_change_form
+import vhr_termination_request
+
+# Transfer remind
+import vhr_transfer_remind
+
+# Business Impact
+import vhr_business_impact
+
+# Job Track
+import vhr_applicant_job_track
+
+import vhr_rr_transfer_employee
+import vhr_rr_recommend_cv
+
+import mail_thread
+import vhr_recruitment_survey_email
+import vhr_recruitment_survey
+import vhr_recruitment_temp_survey
+import  vhr_school

@@ -1,0 +1,101 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="website.SearchResult">
+            <t t-foreach="employee"
+               t-as="member">
+                <tr>
+                    <!--<td>1</td>-->
+                    <td>
+                        <span class="span-img-result">
+                            <img class="img-thumbnail img-responsive img-result"
+                                 t-att-src="'/website/image?model=hr.employee&amp;field=image_medium&amp;id='+member.id"
+                                    />
+                        </span>
+                    </td>
+                    <td>
+                        <t t-esc="member.name"/>
+                    </td>
+                    <td>
+                        <t t-if="member.user_id">
+                           <t t-esc="users[member.user_id[0]] and users[member.user_id[0]]['login'] or ''"/>
+                        </t>
+                    </td>
+                    <td>
+                        <t t-if="member.title_id">
+                            <t t-esc="member.title_id[1]"/>
+                        </t>
+                    </td>
+                    <td>
+                        <t t-if="member.department_id">
+                            <t t-esc="member.department_id[1]"/>
+                        </t>
+                    </td>
+                    <!--<td>-->
+                    <!--<t t-esc="member.name"/>-->
+                    <!--</td>-->
+                    <td>
+                        <t t-if="member.gender == 'male'">
+                            <i class="icon ion-male"></i>
+                        </t>
+                        <t t-if="member.gender != 'male'">
+                            <i class="icon ion-female"></i>
+                        </t>
+                    </td>
+                    <td>
+                        <t t-if="member.birthday">
+                           <t t-esc="member.birthday"/>
+                        </t>
+                    </td>
+                    <td>
+                        <t t-if="member.ext_no">
+                           <t t-esc="member.ext_no"/>
+                        </t>
+                    </td>
+                    <td>
+                        <t t-if="member.mobile_phone">
+                           <t t-esc="member.mobile_phone"/>
+                        </t>
+                    </td>
+                    <td>
+                        <t t-if="member.office_id">
+                            <t t-esc="member.office_id[1]"/>
+                        </t>
+                    </td>
+                    <!--<td>-->
+                    <!--<t t-esc="member.name"/>-->
+                    <!--</td>-->
+                </tr>
+            </t>
+    </t>
+    <t t-name="website.SearchPaging">
+    <ul class="pagination">
+        <t t-if="current_page.has_prev">
+               <li><a href="javascript:void(0)" onclick="changePagination(this)" class="prev">«</a></li>
+            </t>
+        <t t-foreach="current_page.pages"
+               t-as="page">
+            <t t-if="page==current_page.page">
+               <li>
+                    <a class="current" href="javascript:void(0)" onclick="changePagination(this)"><t t-esc="page"/></a>
+                </li>
+            </t>
+            <t t-if="page and page!=current_page.page">
+               <li>
+                    <a href="javascript:void(0)" onclick="changePagination(this)"><t t-esc="page"/></a>
+                </li>
+            </t>
+
+            <t t-if="!page">
+               <li>
+                    <span class="ellipsis">…</span>
+                </li>
+            </t>
+        </t>
+        <t t-if="current_page.has_next">
+            <li><a href="javascript:void(0)"  onclick="changePagination(this)" class="next">»</a></li>
+
+        </t>
+    </ul>
+    </t>
+</templates>
+
+

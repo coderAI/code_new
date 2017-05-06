@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<record id="view_vhr_year_end_bonus_tree" model="ir.ui.view">
+            <field name="name">vhr.year.end.bonus.tree</field>
+            <field name="model">vhr.year.end.bonus</field>
+            <field name="arch" type="xml">
+                <tree string="Year End Bonus" version="7.0">
+                	<field name="year"/>
+                	<field name="employee_id" />
+                    <field name="gross_salary"/>
+                    <field name="total_bonus_income"/>
+                    <field name="salary13"/>
+                    <field name="year_end_bonus"/>
+                    <field name="total_sub"/>
+                    <field name="pit"/>
+                    <field name="other_sub"/>
+                    <field name="total_net_take_home"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_vhr_year_end_bonus_form" model="ir.ui.view">
+            <field name="name">vhr.year.end.bonus.form</field>
+            <field name="model">vhr.year.end.bonus</field>
+            <field name="arch" type="xml">
+                <form string="Year End Bonus" version="7.0">
+					<sheet>
+						<div>
+                            <div class="oe_edit_only">
+                                <label for="name" string="Name"/>
+                            </div>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+							<group name="General Left">
+								<field name="employee_id"
+									options="{'save_readonly' : True, 'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+								<field name="department_id"/>
+							</group>
+							<group name="General Right">
+								<field name="employee_code"/>
+							</group>
+						</group>
+                        <group colspan="2">
+							<field name="year"/>
+						</group>
+                        <group name="General">
+                        	<separator colspan="4" string="Total Bonus Income"/>
+                        	<group name="General Left">
+								<field name="gross_salary" widget="monetary"/>
+								<field name="salary13" widget="monetary"/>
+								<field name="number_working_month13"/>
+							</group>
+							<group name="General Right">
+								<field name="year_end_bonus" widget="monetary"/>
+								<field name="number_working_month_year_end"/>
+								<field name="number_month_year_end_bonus"/>
+								<field name="year_end_bonus2011" widget="monetary"/>
+							</group>
+							<group colspan="4">
+								<field name="total_bonus_income" widget="monetary"/>
+							</group>
+						</group>
+						<group name="General">
+                        	<separator colspan="4" string="Total Sub"/>
+                        	<group name="General Left">
+								<field name="pit" widget="monetary"/>
+								<field name="total_tax_income" widget="monetary"/>
+								<field name="number_month_cal_tax"/>
+							</group>
+							<group name="General Right">
+								<field name="pit_with_salary13_bonus" widget="monetary"/>
+								<field name="pit_not_salary13_bonus" widget="monetary"/>
+								<field name="pit_income" widget="monetary"/>
+								<field name="tax_income_avg" widget="monetary"/>
+							</group>
+							<group colspan="4">
+								<field name="total_sub" widget="monetary"/>
+							</group>
+						</group>
+						<group name="General">
+                        	<separator colspan="4" string="Other Sub"/>
+                        	<group name="General Left">
+								<field name="other_sub" widget="monetary"/>
+							</group>
+							<group name="General Right">
+								<field name="advance_money" widget="monetary"/>
+							</group>
+						</group>
+						<group name="General">
+                        	<separator colspan="4" string="Total NET Take Home"/>
+							<group colspan="4">
+								<field name="total_net_take_home" widget="monetary"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+            </field>
+        </record>
+    	
+    	<record model="ir.actions.act_window" id="act_vhr_year_end_bonus">
+            <field name="name">Year End Bonus</field>
+            <field name="res_model">vhr.year.end.bonus</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_year_end_bonus_tree"/>
+        </record>
+    
+    </data>
+</openerp>

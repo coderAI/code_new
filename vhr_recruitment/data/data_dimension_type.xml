@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>    
+	<data noupdate='1'>
+		<record id="data_dimension_type_EMAIL_TEMPLATE_FOR_RR" model="vhr.dimension.type">
+            <field name="code">EMAIL_TEMPLATE_FOR_RR</field>
+            <field name="name">EMAIL_TEMPLATE_FOR_RR</field>
+            <field name="active">true</field>
+        </record>
+        <record id="data_dimension_type_EMAIL_TEMPLATE_FOR_REGISTER" model="vhr.dimension.type">
+            <field name="code">EMAIL_TEMPLATE_FOR_REGISTER</field>
+            <field name="name">EMAIL_TEMPLATE_FOR_REGISTER</field>
+            <field name="active">true</field>
+        </record>
+        <!-- DATA TESST -->
+		<record id="data_dimension_type_RR_TEST_TYPE" model="vhr.dimension.type">
+            <field name="code">RR_TEST_TYPE</field>
+            <field name="name">RR_TEST_TYPE</field>
+            <field name="active">true</field>
+        </record>
+                
+        <record id="data_dimension_type_RR_TALENT_GROUP" model="vhr.dimension.type">
+            <field name="code">RR_TALENT_GROUP</field>
+            <field name="name">RR_TALENT_GROUP</field>
+            <field name="active">true</field>
+        </record>
+        
+        <record id="data_dimension_type_RR_CANDIDATE_CONTACT" model="vhr.dimension.type">
+            <field name="code">RR_CANDIDATE_CONTACT</field>
+            <field name="name">RR_CANDIDATE_CONTACT</field>
+            <field name="active">true</field>
+        </record>
+        
+	</data>
+</openerp>

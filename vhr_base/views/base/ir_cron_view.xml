@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_ir_cron_form_inherit" model="ir.ui.view">
+            <field name="name">ir.cron.form.inherit</field>
+            <field name="model">ir.cron</field>
+            <field name="inherit_id" ref="base.ir_cron_view"/>
+            <field name="arch" type="xml">
+                <group string="Action to Trigger" position="replace">
+                    <group string="Action to Trigger">
+                        <field name="model"/>
+                        <field name="function"/>
+                    </group>
+                    <group>
+                        <button name="btn_run_schedule" string="Run Scheduler" type="object" groups="base.group_system"
+                                icon="terp-gtk-go-back-rtl"/>
+                    </group>
+                </group>
+                <field name="priority" position="after">
+                    <field name='description' colspan='4' nolabel='1'/>
+                </field>
+            </field>
+        </record>
+        <record id="view_ir_cron_tree_inherit" model="ir.ui.view">
+            <field name="name">ir.cron.tree.inherit</field>
+            <field name="model">ir.cron</field>
+            <field name="inherit_id" ref="base.ir_cron_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                    <button name="btn_run_schedule" string="Run Scheduler" type="object" icon="terp-gtk-go-back-rtl"
+                            groups="base.group_system"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

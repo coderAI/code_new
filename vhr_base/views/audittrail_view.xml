@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record id="view_audittrail_rule_form_inherit" model="ir.ui.view">
+            <field name="name">audittrail.rule.form.inherit</field>
+            <field name="model">audittrail.rule</field>
+            <field name="inherit_id" ref="audittrail.view_audittrail_rule_form"/>
+            <field name="arch" type="xml">
+                <field name="log_workflow" position="after">
+                    <field name="execute_obj_id"/>
+                    <field name="execute_function"/>
+                    <field name="execute_parameter"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

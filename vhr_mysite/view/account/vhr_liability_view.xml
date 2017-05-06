@@ -1,0 +1,109 @@
+<openerp>
+    <data>
+
+        <record id="view_vhr_liability_tree" model="ir.ui.view">
+            <field name="name">vhr.liability.tree</field>
+            <field name="model">vhr.liability</field>
+            <field name="arch" type="xml">
+                <tree string="Liabilities">
+                    <field name="supplier_code"/>
+                    <field name="document_no"/>
+                    <field name="name"/>
+                    <field name="reimbursement_day"/>
+                    <field name="employee_id"/>
+                    <field name="employee_code"/>
+                    <field name="div_name"/>
+                    <field name="department_name"/>
+                    <field name="is_send_mail"/>
+					<field name="close_day"/>
+					<field name="document_day"/>
+                    <field name="advance_payment"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_liability_search" model="ir.ui.view">
+            <field name="name">vhr.liability.search</field>
+            <field name="model">vhr.liability</field>
+            <field name="arch" type="xml">
+                <search string="Liabilities">
+                    <field name="supplier_code"/>
+                    <field name="document_no"/>
+                    <field name="name"/>
+                    <field name="reimbursement_day"/>
+                    <field name="employee_id"/>
+                    <field name="employee_code"/>
+					<field name="department_name"/>
+                    <field name="is_send_mail"/>
+                    <field name="div_name"/>
+					<field name="close_day"/>
+					<field name="advance_payment"/>
+					<field name="document_day"/>
+                    <group expand="0" string="Filter">
+                        <filter name="filter_active" string="Acive" domain="[('active', '=', True)]"/>
+                        <filter name="filter_mail_sent" string="Mail Sent" domain="[('is_send_mail', '=', True)]"/>
+                        <filter name="filter_not_mail_sent" string="Not Mail Sent" domain="[('is_send_mail', '=', False)]"/>
+                        <filter name="filter_active_and_not_mail_sent" string="Active and Not Mail Sent" domain="[('active', '=', True), ('is_send_mail', '=', False)]"/>
+                    </group>
+                    <group expand="0" string="Group By">
+                        <filter name="group_employee" string="Employee" icon="terp-personal" domain="[]"
+                                context="{'group_by':'employee_id'}"/>
+                        <filter name="group_department" string="Department" icon="terp-personal" domain="[]"
+                                context="{'group_by':'department_name'}"/>
+                        <filter name="group_div" string="Business Unit" icon="terp-personal" domain="[]"
+                                context="{'group_by':'div_name'}"/>
+                        <filter name="group_supplier_code" string="Supplier Code" icon="terp-personal" domain="[]"
+                                context="{'group_by':'supplier_code'}"/>
+                        <filter name="group_document_day" string="Document Day" icon="terp-personal" domain="[]"
+                                context="{'group_by':'document_day:month'}"/>
+                        <filter name="group_reimbursement_day" string="Reimbursement Day" icon="terp-personal" domain="[]"
+                                context="{'group_by':'reimbursement_day:month'}"/>
+                        <filter name="group_close_day" string="Close Day" icon="terp-personal" domain="[]"
+                                context="{'group_by':'close_day:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_vhr_liability_form" model="ir.ui.view">
+            <field name="name">vhr.liability.form</field>
+            <field name="model">vhr.liability</field>
+            <field name="arch" type="xml">
+                <form string="Liability">
+                    <group>
+                        <group>
+                            <field name="employee_id"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"
+                                on_change="onchange_employee_id(employee_id)"/>
+                            <field name="employee_code"/>
+                            <field name="div_name"/>
+        					<field name="department_name"/>
+                            <field name="advance_payment"/>
+                            <field name="name"/>
+                            <field name="is_send_mail"/>
+                        </group>
+                        <group>
+                            <field name="supplier_code"/>
+                            <field name="document_no"/>
+                            <field name="document_day"/>
+                            <field name="reimbursement_day"/>
+                            <field name="close_day"/>
+        					<field name="active"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_vhr_liability" model="ir.actions.act_window">
+            <field name="name">Liability</field>
+            <field name="res_model">vhr.liability</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_filter_active_and_not_mail_sent':1}</field>
+            <field name="view_id" ref="view_vhr_liability_tree"/>
+            <field name="search_view_id" ref="view_vhr_liability_search"/>
+        </record>
+
+    </data>
+</openerp>

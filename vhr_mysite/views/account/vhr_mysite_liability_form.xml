@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="liability_form" name="Liability">
+            <t t-call="website.layout">
+                <div class="liability_form">
+                    <div t-if="error" class="title-info">
+                        <h6><span t-esc="error" /></h6>
+                    </div>
+                    <div t-if="not error">
+                        <div class="title-info">
+    						<h5>Chi Tiết Công Nợ</h5>
+    					</div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <a class="btn btn-default" href="/liability">Thoát</a>
+                            </div>
+                        </div>
+                        <form role="form">
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Tên Nhân Viên</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="employee_name" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Mã Nhân Viên</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="employee_code" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Bộ Phận</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="div_name" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Phòng</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="department_name" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Tạm Ứng</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="'{0:,}'.format(int(advance_payment))" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Diễn Giải</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control" readonly="readonly"><t t-esc="name"/></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Mã Nhà Cung Cấp</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="supplier_code" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Số Chứng Từ</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="document_no" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Ngày Lập Chứng Từ</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="document_day" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Ngày Hoàn Ứng</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="reimbursement_day" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Ngày Kết Sổ</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" t-att-value="close_day" class="form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>

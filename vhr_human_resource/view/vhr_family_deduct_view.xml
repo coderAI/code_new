@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="view_vhr_human_resource_vhr_family_deduct_form_inherit" model="ir.ui.view">
+            <field name="name">vhr.human.resource.vhr.family.deduct.view.form.inherit</field>
+            <field name="model">vhr.family.deduct</field>
+            <field name="inherit_id" ref="vhr_master_data.view_vhr_family_deduct_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='company_id']" position="after">
+                    <field name="is_able_to_edit_info" invisible='1'/>
+                    <field name="is_able_to_view_info" invisible='1'/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_family_deduct">
+            <field name="name">Dependant Deduction</field>
+            <field name="res_model">vhr.family.deduct</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="vhr_master_data.view_vhr_family_deduct_tree"/>
+            <field name="context">{'filter_by_permission_family_deduct':1,
+            					   'rule_for_tree_form':1,'attachment':0}</field>
+        </record>
+        
+        
+	</data>
+</openerp>

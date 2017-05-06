@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:
+-->
+<openerp>
+    <data noupdate='0'>
+         <record id="view_vhr_interview_round_evaluation_form" model="ir.ui.view">
+            <field name="name">vhr.interview.round.evaluation.view.form</field>
+            <field name="model">vhr.interview.round.evaluation</field>
+            <field name="arch" type="xml">
+                <form string="Interview result" version="7.0">
+                      <sheet>
+                      	<div class="oe_right oe_button_box">
+		                </div>
+                        <group name="General Information">
+                            <group>
+                                <field name="job_applicant_id"/>
+                                <field name="evaluation_id"/>
+                                <field name="point"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_interview_round_evaluation_tree" model="ir.ui.view">
+            <field name="name">vhr.interview.round.evaluation.view.tree</field>
+            <field name="model">vhr.interview.round.evaluation</field>
+            <field name="arch" type="xml">
+                <tree string="Interview results" version="7.0" editable='True'>
+                    <field name="evaluation_id"/>
+                    <field name="point"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_vhr_interview_round_evaluation">
+            <field name="name">Evaluation</field>
+            <field name="res_model">vhr.interview.round.evaluation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="groups_id" eval=""/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<template id="vhr_mysite.total_income" name="Tổng thu nhập trong năm">
+			<t t-call="website.layout">
+				<!-- Neu active form hoac la cb nhung chua active form -->
+				<t t-if="active_form or (not active_form and is_cb)">
+				
+				<t t-if="employee">
+					<div class="title-info">
+						<h6>Tổng thu nhập của nhân viên: <span t-esc="employee.name" /> - <span t-esc="employee.code" /></h6>
+					</div>
+				</t>
+				<div class="my_total_income">
+					<div class="select-year col-xs-6">
+						<label for="select-year">Chọn năm: </label>
+						<select id="select-year" name="select-year">
+							<option value=""></option>
+							<t t-if="total_incomes">
+								<t t-foreach="total_incomes" t-as="total_income">
+									<option t-att-value="total_income.period and 'total_income_' + str(total_income.period) or 'total_income'">
+										<span t-esc="total_income.period" />
+									</option>
+								</t>
+							</t>
+						</select>
+					</div>
+					<t t-if="is_cb">
+						<div class="search-income col-xs-6">
+							<input data-toggle="tooltip" role="tooltip"
+		              			class="todo-search-field" data-placement="bottom"
+		              			title="Nhập chính xác domain acc hoặc mã nhân viên"
+		              			data-delay='{"show":"500", "hide":"100"}'
+		              			type="search" value="" placeholder="Tìm kiếm ..."
+		              			id="input_income_search"/>
+		              		<i class="fa fa-search fa-lg" id="btn_income_search"></i>
+						</div>
+					</t>
+					<t t-if="total_incomes">
+						<t t-foreach="total_incomes" t-as="total_income">
+							<t t-call="vhr_mysite.total_income_detail" />
+						</t>
+					</t>
+				</div>
+				
+				</t>
+				
+				<t t-if="not active_form and not is_cb">
+					<t t-call="vhr_mysite.total_income_not_avaiable" />
+				</t>
+			</t>
+		</template>
+		
+		<template id="vhr_mysite.total_income_search" name="Tìm kiếm Tổng thu nhập trong năm">
+			<t t-call="website.layout">
+			
+				<!-- Neu active form hoac la cb nhung chua active form -->
+				<t t-if="active_form or (not active_form and is_cb)">
+				
+				<t t-if="employee">
+					<div class="title-info">
+						<h6>Kết quả tìm kiếm tổng thu nhập cho nhân viên: <span t-esc="employee.name" /> - <span t-esc="employee.code" /></h6>
+					</div>
+				</t>
+				<t t-if="not employee">
+					<div class="title-info">
+						<h6>Không tìm thấy kết quả cho từ khóa "<span t-esc="query" />"</h6>
+					</div>
+				</t>
+				<div class="my_total_income">
+					<div class="select-year col-xs-6">
+						<label for="select-year">Chọn năm: </label>
+						<t t-if="total_incomes">
+							<select id="select-year" name="select-year">
+								<option value=""></option>
+								<t t-foreach="total_incomes" t-as="total_income">
+									<!-- <option t-att-value="total_income.period and 'total_income_' + str(total_income.period) or 'total_income'">
+										<span t-esc="total_income.period" />
+									</option> -->
+									
+									<t t-if="total_income.period and total_income.period == selected_period">
+										<option t-att-value="total_income.period and 'total_income_' + str(total_income.period) or 'total_income'" selected="selected">
+											<span t-esc="total_income.period" />
+										</option>
+									</t>
+									<t t-if="total_income.period and total_income.period != selected_period">
+										<option t-att-value="total_income.period and 'total_income_' + str(total_income.period) or 'total_income'">
+											<span t-esc="total_income.period" />
+										</option>
+									</t>
+								</t>
+							</select>
+						</t>
+						<t t-if="not total_incomes">
+							<select id="select-year" name="select-year">
+								<option value=""></option>
+							</select>
+						</t>
+					</div>
+					<div class="search-income col-xs-6">
+						<input data-toggle="tooltip" role="tooltip"
+	              			class="todo-search-field" data-placement="bottom"
+	              			title="Nhập chính xác domain acc hoặc mã nhân viên"
+	              			data-delay='{"show":"500", "hide":"100"}'
+	              			type="search" value="" placeholder="Tìm kiếm ..."
+	              			id="input_income_search"/>
+	              		<i class="fa fa-search fa-lg" id="btn_income_search"></i>
+					</div>
+					<t t-if="total_incomes">
+						<t t-foreach="total_incomes" t-as="total_income">
+							<t t-call="vhr_mysite.total_income_detail" />
+						</t>
+					</t>
+				</div>
+				
+				</t>
+				
+				<t t-if="not active_form and not is_cb">
+					<t t-call="vhr_mysite.total_income_not_avaiable" />
+				</t>
+			</t>
+		</template>
+		
+		<template id="vhr_mysite.total_income_not_avaiable" name="Chi tiết tổng thu nhập trong năm chưa được mở">
+			<div class="title-info">
+				<h6>Hiện tại chức năng xem tổng thu nhập trong năm chưa được mở.</h6>
+				<h6>Bạn vui lòng truy cập lại sau.</h6>
+			</div>
+		</template>
+		
+		<template id="vhr_mysite.total_income_detail" name="Tổng thu nhập trong năm">
+			<div t-att-class="total_income.period and 
+								'total_income_' + str(total_income.period) + 
+								(selected_period and (selected_period == str(total_income.period)) and ' selected' or '') or 'total_income'">
+				<table class="table table-striped table-bordered">
+					<tbody>
+						<tr>
+							<td colspan="4" class="title-info"><h6>Tổng thu nhập trong năm <span t-esc="total_income.period" /></h6></td>
+						</tr>
+						<tr>
+							<td class="col-xs-2">Tên:</td>
+							<td><span t-esc="employee.resource_id.name"/></td>
+							<td class="col-xs-2">Bộ phận:</td>
+							<td><span t-esc="employee.division_id.name"/></td>
+						</tr>
+						<tr>
+							<td class="col-xs-2">Mã nhân viên:</td>
+							<td><span t-esc="employee.resource_id.code"/></td>
+							<td class="col-xs-2">Chức vụ:</td>
+							<td><span t-esc="employee.title_id.name"/></td>
+						</tr>
+						<tr>
+							<td class="col-xs-2">Ngày gia nhập:</td>
+							<td><span t-esc="format_date(employee.join_date)"/></td>
+							<td class="col-xs-2">Phòng:</td>
+							<td><span t-esc="employee.department_id.name"/></td>
+						</tr>
+						<tr>
+							<td colspan="4"><i>Để giúp bạn hiểu rõ về tổng thu nhập của mình tại CTy,
+							phòng Nhân sự xin trân trọng gửi đến bạn bảng tóm tắt thu nhập với nội dung chi tiết như sau:</i></td>
+						</tr>
+					</tbody>
+				</table>
+				<br />
+				<table class="table table-striped table-bordered">
+					<tbody>
+						<tr>
+							<td colspan="3" class="col-xs-8"></td>
+							<td colspan="1" class="text-center"><b>Thu nhập thực tế năm</b></td>
+							<!-- <td colspan="1" class="text-center"><b>Thu nhập tròn năm</b></td> -->
+						</tr>
+						<tr>
+							<td colspan="3" class="line-total col-xs-8">I - Tổng thu nhập</td>
+							<td colspan="1" class="line-total text-center"><span t-esc="format_money(total_income.total_actual)" /></td>
+							<!-- <td colspan="1" class="line-total text-center"><span t-esc="format_money(total_income.total)" /></td> -->
+						</tr>
+						<tr class="line-emty-half">
+						</tr>
+						<tr>
+							<td colspan="3" class="line-subtotal">1.1. Lương Gross</td>
+							<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.gross_salary_actual)" /></td>
+							<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.gross_salary)" /></td> -->
+						</tr>
+						<tr class="line-emty-half">
+						</tr>
+						<tr>
+							<td colspan="3" class="line-subtotal">1.2. Lương tháng 13</td>
+							<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.bonus_13_actual)" /></td>
+							<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.bonus_13)" /></td> -->
+						</tr>
+						<tr class="line-emty-half">
+						</tr>
+						<tr data-toggle="collapse" t-att-data-target="'#sub_allowance' + str(total_income.id)" class="accordion-toggle">
+							<td colspan="3" class="line-subtotal">
+								<div class="subtotal-title text-left">
+									<span>1.3. Các khoản phụ cấp/trợ cấp</span>
+								</div>
+								<div class="subtotal-icon text-right">
+									<i class="fa fa-angle-down down-icon"></i>
+								</div>
+							</td>
+							<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_allowance_actual)" /></td>
+							<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_allowance)" /></td> -->
+						</tr>
+						
+						
+						<tr>
+							<td colspan="4" class="collapse_row">
+								<div class="accordion-body collapse" t-att-id="'sub_allowance' + str(total_income.id)">
+									<table class="table table-striped">
+										<t t-if="total_income.bonus_tet_actual and total_income.bonus_tet_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20 col-xs-8">- Thưởng Lễ Tết</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.bonus_tet_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.bonus_tet)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_lunch_actual and total_income.allowance_lunch_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Trợ cấp ăn trưa</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_lunch_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_lunch)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_packing_actual and total_income.allowance_packing_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Trợ cấp gửi xe</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_packing_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_packing)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_petrol_actual and total_income.allowance_petrol_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Trợ cấp xăng xe</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_petrol_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_petrol)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_duty_actual and total_income.allowance_duty_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Trợ cấp trách nhiệm</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_duty_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_duty)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_house_rent_actual and total_income.allowance_house_rent_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Trợ cấp thuê nhà</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_house_rent_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_house_rent)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_other_actual and total_income.allowance_other_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Trợ cấp khác</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_other_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_other)" /></td> -->
+											</tr>
+										</t>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr class="line-emty-half"></tr>
+						<tr data-toggle="collapse" t-att-data-target="'#sub_working' + str(total_income.id)" class="accordion-toggle">
+								<td colspan="3" class="line-subtotal">
+									<div class="subtotal-title text-left">
+										<span>1.4. Các khoản lương theo kết quả công việc</span>
+									</div>
+									<div class="subtotal-icon text-right">
+										<i class="fa fa-angle-down down-icon"></i>
+									</div>
+								</td>
+								<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_salary_by_work_actual)" /></td>
+								<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_salary_by_work)" /></td> -->
+						</tr>
+						<tr>
+							<td colspan="4" class="collapse_row">
+								<div class="accordion-body collapse" t-att-id="'sub_working' + str(total_income.id)">
+									<table class="table table-striped">
+										<t t-if="total_income.incentive_actual and total_income.incentive_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20 col-xs-8">- Lương commission/incentives/project</td>
+												<td colspan="1" class="text-right"><span t-esc="format_money(total_income.incentive_actual)" /></td>
+												<!-- <td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.incentive)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.bonus_kpi_actual and total_income.bonus_kpi_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20 col-xs-8">- Lương theo thành tích năm <span t-esc="total_income.period" /></td>
+												<td colspan="1" class="text-right"><span t-esc="format_money(total_income.bonus_kpi_actual)" /></td>
+												<!-- <td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.bonus_kpi)" /></td> -->
+											</tr>
+										</t>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr class="line-emty-half"></tr>
+						<t t-if="total_income.total_from_esop_actual">
+						<tr data-toggle="collapse" t-att-data-target="'#sub_esop' + str(total_income.id)" class="accordion-toggle">
+							<td colspan="3" class="line-subtotal">
+								<div class="subtotal-title text-left">
+									<span>1.5. Thu nhập từ cổ phần (ESOP)</span>
+								</div>
+								<div class="subtotal-icon text-right">
+									<i class="fa fa-angle-down down-icon"></i>
+								</div>
+							</td>
+							<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_from_esop_actual)" /></td>
+							<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_from_esop)" /></td> -->
+						</tr>
+						<tr>
+							<td colspan="4" class="collapse_row">
+								<div class="accordion-body collapse" t-att-id="'sub_esop' + str(total_income.id)">
+									<table class="table table-striped">
+										<t t-if="total_income.total_from_esop_actual and total_income.total_from_esop_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20 col-xs-8">Giá trị cổ phần được thực hiện trong năm: số cổ phần <span t-esc="format_money(total_income.total_esop_executable_actual)" /> (giá cổ phần 383.000/CP)</td>
+												<td colspan="1" class="text-right"><span t-esc="format_money(total_income.total_from_esop_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.total_from_esop)" /></td>	 -->
+											</tr>
+										</t>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr class="line-emty-half"></tr>
+						</t>
+						<tr>
+							<td colspan="3" class="line-total">II - Các khoản phúc lợi (*)</td>
+							<td colspan="1" class="line-total text-center"><span t-esc="format_money(total_income.total_benefit_actual)" /></td>
+							<!-- <td colspan="1" class="line-total text-center"><span t-esc="format_money(total_income.total_benefit)" /></td> -->
+						</tr>
+						<tr class="line-emty-half"></tr>
+						<tr data-toggle="collapse" t-att-data-target="'#sub_support' + str(total_income.id)" class="accordion-toggle">
+							<td colspan="3" class="line-subtotal">
+								<div class="subtotal-title text-left">
+									<span>2.1. Các khoản phúc lợi hỗ trợ</span>
+								</div>
+								<div class="subtotal-icon text-right">
+									<i class="fa fa-angle-down down-icon"></i>
+								</div>
+							</td>
+							<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_support_benefit_actual)" /></td>
+							<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_support_benefit)" /></td> -->
+						</tr>
+						<tr>
+							<td colspan="4" class="collapse_row">
+								<div class="accordion-body collapse" t-att-id="'sub_support' + str(total_income.id)">
+									<table class="table table-striped">
+										<t t-if="total_income.allowance_tel_actual and total_income.allowance_tel_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20 col-xs-8">- Trợ cấp điện thoại</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_tel_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_tel)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_taxi_actual and total_income.allowance_taxi_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Trợ cấp Taxi</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_taxi_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_taxi)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_team_building_actual and total_income.allowance_team_building_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Chi phí sinh hoạt đội nhóm</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_team_building_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_team_building)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.allowance_party_actual and total_income.allowance_party_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Chi phí tiệc tất niên và các dịp lễ tết khác</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.allowance_party_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.allowance_party)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.insurance_compulsory_actual and total_income.insurance_compulsory_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Chi phí đóng bảo hiểm bắt buộc (nghĩa vụ công ty)</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.insurance_compulsory_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.insurance_compulsory)" /></td> -->
+											</tr>
+										</t>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr class="line-emty-half">
+						</tr>
+						<tr data-toggle="collapse" t-att-data-target="'#sub_health' + str(total_income.id)" class="accordion-toggle">
+							<td colspan="3" class="line-subtotal">
+								<div class="subtotal-title text-left">
+									<span>2.2. Phúc lợi chăm sóc sức khỏe</span>
+								</div>
+								<div class="subtotal-icon text-right">
+									<i class="fa fa-angle-down down-icon"></i>
+								</div>
+							</td>
+							<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_health_benefit_actual)" /></td>
+							<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_health_benefit)" /></td> -->
+						</tr>
+						<tr>
+							<td colspan="4" class="collapse_row">
+								<div class="accordion-body collapse" t-att-id="'sub_health' + str(total_income.id)">
+									<table class="table table-striped">
+										<t t-if="total_income.insurance_24h_actual and total_income.insurance_24h_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20 col-xs-8">- Chi phí mua bảo hiểm 24/24</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.insurance_24h_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.insurance_24h)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.insurance_health_actual and total_income.insurance_health_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Chi phí mua bảo hiểm sức khỏe</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.insurance_health_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.insurance_health)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.yearly_health_check_actual and total_income.yearly_health_check_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Chi phí khám sức khỏe định kỳ (trung bình/người)</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.yearly_health_check_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.yearly_health_check)" /></td> -->
+											</tr>
+										</t>
+										<t t-if="total_income.gym_cost_actual and total_income.gym_cost_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20">- Cung cấp phòng tập GYM</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.gym_cost_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.gym_cost)" /></td> -->
+											</tr>
+										</t>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr class="line-emty-half">
+						</tr>
+						
+						<tr data-toggle="collapse" t-att-data-target="'#sub_training' + str(total_income.id)" class="accordion-toggle">
+							<td colspan="3" class="line-subtotal">
+								<div class="subtotal-title text-left">
+									<span>2.3. Phúc lợi về đào tạo</span>
+								</div>
+								<t t-if="total_income.benefit_training_actual and total_income.benefit_training_actual > 0">
+								<div class="subtotal-icon text-right">
+									<i class="fa fa-angle-down down-icon"></i>
+								</div>
+								</t>
+							</td>
+							<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_training_benefit_actual)" /></td>
+							<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_training_benefit)" /></td> -->
+						</tr>
+						<tr>
+							<td colspan="4" class="collapse_row">
+								<div class="accordion-body collapse" t-att-id="'sub_training' + str(total_income.id)">
+									<table class="table table-striped">
+										<t t-if="total_income.benefit_training_actual and total_income.benefit_training_actual > 0">
+											<tr>
+												<td colspan="3" class="pleft20 col-xs-8">- Tạo cơ hội học tập phát triển tất cả về các kỹ năng mềm và kỹ năng chuyên ngành</td>
+												<td colspan="1" class="text-right pright15"><span t-esc="format_money(total_income.benefit_training_actual)" /></td>
+												<!-- <td colspan="1" class="text-right"><span t-esc="format_money(total_income.benefit_training)" /></td> -->
+											</tr>
+										</t>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr class="line-emty-half">
+						</tr>
+						<tr data-toggle="collapse" t-att-data-target="'#sub_leave' + str(total_income.id)" class="accordion-toggle">
+							<td colspan="3" class="line-subtotal">
+								<div class="subtotal-title text-left">
+									<span>2.4. Các ngày nghỉ trong năm</span>
+								</div>
+								<div class="subtotal-icon text-right">
+									<i class="fa fa-angle-down down-icon"></i>
+								</div>
+							</td>
+							<td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_leave_money_actual)" /></td>
+							<!-- <td colspan="1" class="line-subtotal text-center"><span t-esc="format_money(total_income.total_leave_money)" /></td> -->
+						</tr>
+						<tr>
+							<td colspan="4" class="collapse_row">
+								<div class="accordion-body collapse" t-att-id="'sub_leave' + str(total_income.id)">
+									<table class="table table-striped">
+										<tr>
+											<td colspan="3" class="pleft20 col-xs-8">- Số ngày nghỉ phép (theo luật quy định là 12 ngày phép/năm): <span t-esc="total_income.entitled_leave_actual" /> ngày</td>
+											<td colspan="1" class="text-right"><span t-esc="format_money(total_income.entitled_leave_money_actual)" /></td>
+											<!-- <td colspan="1" class="text-right col-xs-2"><span t-esc="format_money(total_income.entitled_leave_money)" /></td> -->
+										</tr>
+										<tr>
+											<td colspan="3" class="pleft20">- Số ngày nghỉ lễ tết: <span t-esc="total_income.entitled_leave_holiday_actual" /> ngày</td>
+											<td colspan="1" class="text-right"><span t-esc="format_money(total_income.entitled_leave_holiday_money_actual)" /></td>
+											<!-- <td colspan="1" class="text-right col-xs-2"><span t-esc="format_money(total_income.entitled_leave_holiday_money)" /></td> -->
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<i>- Tất cả thông tin trên là thông tin cá nhân, cần phải TUYỆT ĐỐI GIỮ BẢO MẬT.</i><br />
+								<i>- Khoản II(*) là khoản thực chi cho nhân viên dành cho các chương trình phúc lợi, các hoạt động giải trí...</i><br />
+								<t t-if="total_income.total_from_esop_actual">
+									<i>- Thu nhập từ cổ phần (ước tính trên mức giá Công ty mua lại 383.000đ/CP).</i><br />
+								</t>
+								<i>- Thông tin trên là thông tin thu thập thực tế của Anh/Chị trong năm <span t-esc="total_income.period" />. Lương theo thành tích <span t-esc="total_income.period" />
+								được thanh toán vào ngày 22/01/<span t-esc="int(total_income.period) + 1" /> nên được tính và thu nhập thuế năm <span t-esc="int(total_income.period) + 1" />.</i><br />
+								<i>- Xin vui lòng liên hệ hoaitt (ext: 1182) nếu Anh/Chị có thắc mắc về thông tin trên.</i><br />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</template>
+    </data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_school_tree_inherit" model="ir.ui.view">
+            <field name="name">vhr.school.view.tree.inherit</field>
+            <field name="model">vhr.school</field>
+             <field name="inherit_id" ref="vhr_master_data.view_vhr_school_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name_en']" position="after">
+                    <field name="speciality_ids" widget="many2many_tags" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

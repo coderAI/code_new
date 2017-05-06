@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- MAIL MAIL - FORM -->
+     	<record id="vhr_base_email_template_form_base_view" model="ir.ui.view">
+     		<field name="name">vhr.base.mail.mail.form.base.view</field> 
+            <field name="model">mail.mail</field> 
+            <field name="type">form</field>
+            <field name="priority">100</field> 
+            <field name="inherit_id" ref="mail.view_mail_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='email_cc']" position="after">
+            		<field name="email_bcc" />
+            	</xpath>       
+            </field>
+     	</record> 
+    </data>
+</openerp>

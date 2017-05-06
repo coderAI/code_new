@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_hr_test_result_form" model="ir.ui.view">
+            <field name="name">vhr.hr.test.result.view.form</field>
+            <field name="model">vhr.hr.test.result</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <form string="Test Result" version="7.0">
+       				<sheet>
+       					<button name="run_test"
+	                                string="Run Test"
+	                                type="object" icon="gtk-save"
+	                                class="oe_highlight"/>
+       					<group col="4">
+       						<field name="name" />
+                            <field name="date_run"/>
+       					</group>
+       					<field name='description' colspan='4'/>
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record id="view_vhr_hr_test_result_tree" model="ir.ui.view">
+            <field name="name">vhr.hr.test.result.view.tree</field>
+            <field name="model">vhr.hr.test.result</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="Test Result" version="7.0">
+ 					<field name="name" required="1"/>
+ 					<field name="date_run" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_hr_test_result_search" model="ir.ui.view">
+            <field name="name">vhr.hr.test.result.view.search</field>
+            <field name="model">vhr.hr.test.result</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='name'/>
+                    <field name="date_run" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_vhr_hr_test_result">
+            <field name="name">Test Result</field>
+            <field name="res_model">vhr.hr.test.result</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_hr_test_result_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_hr_test_result_search"/>
+        </record>
+    </data>
+</openerp>

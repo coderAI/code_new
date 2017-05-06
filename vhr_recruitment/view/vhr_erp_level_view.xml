@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_erp_level_form" model="ir.ui.view">
+            <field name="name">vhr.erp.level.view.form</field>
+            <field name="model">vhr.erp.level</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <form string="ERP Level" version="7.0">
+       				<sheet>
+       				<group>
+       					<group>
+       						<field name="name" required="1"/>
+       						<field name="job_family_id" required="1" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+       					    <field name="job_level_position_id" required="1" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+       						<field name="active"/>
+       						<field name="check_import" string="Imported" invisible="1" readonly="0"/>
+       					</group>
+       					<group>
+       						<field name="code" required="1"/>
+                            <field name="total_bonus" required="1"/>
+       						<field name="description" required="0"/>
+       					</group>
+       					</group>
+       					<group  string="Payment time">
+       						<group>
+	       						<field name="paymenttime1_id" class="oe_inline" attrs="{'required':  [('total_bonus','>', 0)]}" 
+	       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+	                          	<field name="payment1rate" class="oe_inline" attrs="{'required':  [('total_bonus','>', 0)]}"/>
+                         		<field name="paymenttime2_id" class="oe_inline"  
+	                          		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+	                         	<field name="payment2rate" class="oe_inline"
+	                         		attrs="{'required':  [('paymenttime2_id','!=', False)]}"/>
+                          	</group>
+                          	<group>
+	                          	<field name="paymenttime3_id" class="oe_inline"  
+	                          		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+	     						<field name="payment3rate"
+	     							attrs="{'required':  [('paymenttime3_id','!=', False)]}"/>
+     						</group>
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+            </field>
+        </record>
+
+        <record id="view_vhr_erp_level_tree" model="ir.ui.view">
+            <field name="name">vhr.erp.level.view.tree</field>
+            <field name="model">vhr.erp.level</field>
+            <field name="groups_id" eval=""/>
+            <field name="arch" type="xml">
+                <tree string="ERP Level New" version="7.0">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="job_family_id"/>
+                    <field name="job_level_position_id"/>
+                    <field name="total_bonus"/>
+                    <field name="active"/>
+                    
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_erp_level_search" model="ir.ui.view">
+            <field name="name">vhr.erp.level.view.search</field>
+            <field name="model">vhr.erp.level</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                	<field name="name" string="ERP Level New" 
+        			 filter_domain="['|',('name','ilike',self),('code','ilike',self)]"/>
+        			
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_vhr_erp_level">
+            <field name="name">ERP Level</field>
+            <field name="res_model">vhr.erp.level</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_erp_level_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_erp_level_search"/>
+        </record>
+    </data>
+</openerp>

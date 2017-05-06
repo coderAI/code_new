@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+		<record id="view_vhr_rr_key_student_tree" model="ir.ui.view">
+			<field name="name">vhr.rr.key.student.tree</field>
+			<field name="model">vhr.rr.key.student</field>
+			<field name="arch" type="xml">
+				<tree string="Key student" version="7.0" editable="top">
+					<field name="applicant_suggest_id" string="Candidate"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+					<field name="last_name" required="1" />
+					<field name="first_name" required="1" />
+					<field name="birthday" string="DOB" required="1"
+						on_change="onchange_date(birthday)" />
+					<field name="email" required="1" />
+					<field name="mobile_phone" required="1"/>
+					<field name="facebook_link" />
+					<field name="student_code" />
+					<field name="school_id"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+					<field name="speciality_id"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+					<field name="cumulative_gpa" />
+					<field name="school_year_from"
+						on_change="onchange_school_year(school_year_from,school_year_to)" />
+					<field name="school_year_to"
+						on_change="onchange_school_year(school_year_from,school_year_to)" />
+					<field name="school_year_end" />
+<!-- 					<field name="recruitment_source_type_id"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+					<field name="recruitment_source_id"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" /> -->
+					<field name="student_organization_unit_id"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+					<field name="student_event_id"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+
+					<field name="pic"
+						options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+					<field name="write_date" />
+					<field name="note" />
+					<field name="create_date" />
+					<field name="create_uid" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_vhr_rr_key_student_form" model="ir.ui.view">
+			<field name="name">vhr.rr.key.student.form</field>
+			<field name="model">vhr.rr.key.student</field>
+			<field name="arch" type="xml">
+				<form string="Key student" version="7.0">
+					<sheet>
+						<group string="General Information">
+							<group>
+								<field name="last_name" required='1' string="Last  &amp; mid Name*" />
+								<field name="first_name" required='1' string=" First Name*" />
+								<field name="birthday" required='1' on_change="onchange_date(birthday)"
+									string="Date of birth*" />
+								<field name="gender"/>
+								<field name="pic"
+									options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+							</group>
+							<group>
+								<field name="email" required='1' widget="email"
+									options="{'validate_email': True}" string="Email*" />
+								<field name="mobile_phone" required='1'
+									options="{'validate_number': True}" string="Mobile Phone*" />
+								<field name="facebook_link" />
+								<field name="permanent_address" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Education Information">
+								<group>
+									<group>
+										<field name="school_id" string="University"
+											options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" />
+										<field name="speciality_id" string="Speciality"
+											options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" />
+										<field name="student_code" />
+										<field name="cumulative_gpa" string="Cumulative GPA" />
+										<field name="school_year_from" on_change="onchange_school_year(school_year_from,school_year_to)" />
+										<field name="school_year_to" on_change="onchange_school_year(school_year_from,school_year_to)" />
+										<field name="school_year_end"/>
+									</group>
+									<group>
+										<field name="student_organization_unit_id"
+											options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+										<field name="student_event_id"
+											options="{'no_quick_create' : True, 'no_create':True, 'no_open':True}" />
+										<field name="recruitment_source_online_id"
+											options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" />
+										<field name="note" />
+									</group>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_vhr_rr_key_student_search" model="ir.ui.view">
+			<field name="name">vhr.rr.key.student.search</field>
+			<field name="model">vhr.rr.key.student</field>
+			<field name="arch" type="xml">
+				<search string="Search Key Student">
+					<field name="name" string="Student Info"
+						filter_domain="['|', '|', '|', '|', ('name', 'ilike', self), ('first_name','ilike',self), ('last_name','ilike',self), ('email','ilike',self), ('mobile_phone','ilike',self)]" />
+					<field name="school_id" />
+					<separator />
+					<group expand="0" string="Group By">
+						<filter name="group_by_school_id" string="School"
+							context="{'group_by':'school_id'}" />
+						<filter name="group_by_recruitment_source_id" string="Source"
+							context="{'group_by':'recruitment_source_id'}" />
+						<filter name="group_by_cumulative_gpa" string="Cumulative GPA"
+							context="{'group_by':'cumulative_gpa'}" />
+						<filter name="group_by_pic" string="PIC" context="{'group_by':'pic'}" />
+						<filter name="group_by_create_date" string="Create Date"
+							context="{'group_by':'create_date'}" />
+						<filter name="group_by_create_uid" string="Create User"
+							context="{'group_by':'create_uid'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_vhr_rr_key_student">
+			<field name="name">Key student</field>
+			<field name="res_model">vhr.rr.key.student</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="groups_id" eval="" />
+			<field name="search_view_id" ref="view_vhr_rr_key_student_search" />
+		</record>
+
+	</data>
+</openerp>

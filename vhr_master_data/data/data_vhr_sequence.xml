@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		
+		
+		<record id="vhr_sequence_3" model="vhr.sequence">
+			<field name="name">vhr_sequence_hr_recruitment_degree</field>
+			<field name="model_id" eval="ref('hr_recruitment.model_hr_recruitment_degree')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_hr_recruitment_degree_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">DE</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_4" model="vhr.sequence">
+			<field name="name">vhr_sequence_hr_recruitment_source</field>
+			<field name="model_id" eval="ref('hr_recruitment.model_hr_recruitment_source')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_hr_recruitment_source_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_5" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_archive_file</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_archive_file')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_archive_file_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">ARF</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_6" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_assistance_form</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_assistance_form')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_assistance_form_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">ASSF</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_7" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_award_form</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_award_form')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_award_form_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">AWF</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_8" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_award_level</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_award_level')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_award_level_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">AWL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_9" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_certificate_level</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_certificate_level')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_certificate_level_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">CL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_10" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_change_form</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_change_form')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_change_form_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">CF</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_11" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_change_form_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_change_form_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_change_form_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">CFT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_12" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_collaborator_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_collaborator_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_collaborator_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">CT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+
+		<record id="vhr_sequence_14" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_equipment</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_equipment')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_equipment_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">EQ</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_15" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_exit</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_exit')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_exit_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">EX</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_16" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_exit_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_exit_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_exit_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">EXT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_17" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_function</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_function')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_function_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">FN</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_18" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_general_rating</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_general_rating')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_general_rating_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">GR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_19" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_hospital</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_hospital')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_hospital_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">HOS</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_20" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">JOB</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_21" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job_category</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job_category')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_category_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">JC</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_22" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job_family</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job_family')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_family_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">JF</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_23" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job_group</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job_group')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_group_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">JG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_24" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job_level</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job_level')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_level_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">JL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_25" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job_level_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job_level_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_level_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">JLT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_26" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job_role</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job_role')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_role_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">JR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_27" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job_title</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job_title')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_title_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">JT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_28" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_office</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_office')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_office_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">OFF</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_29" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_organization_class</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_organization_class')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_organization_class_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">OC</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_30" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_performance_rating</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_performance_rating')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_performance_rating_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_31" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_personal_document_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_personal_document_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_personal_document_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PDT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_32" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_priority_list</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_priority_list')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_priority_list_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_33" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_project_role</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_project_role')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_project_role_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_34" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_project_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_project_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_project_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_35" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_property</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_property')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_property_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PRO</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_36" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_ranking_level</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_ranking_level')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_ranking_level_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">RL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_37" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_recruitment_source_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_recruitment_source_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_recruitment_source_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">ST</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+			
+		<record id="vhr_sequence_40" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_room</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_room')"/>
+			<field name="field_id" eval="ref('vhr_master_data.model_vhr_room')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">RO</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_41" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_salary_level</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_salary_level')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_salary_level_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_42" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_school</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_school')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_school_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SCH</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_43" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_self_development</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_self_development')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_self_development_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SD</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_44" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_seniority</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_seniority')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_seniority_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SE</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_45" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_skill</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_skill')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_skill_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SK</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_46" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_skill_level</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_skill_level')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_skill_level_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SKL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_47" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_skill_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_skill_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_skill_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SKT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_48" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_sub_group</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_sub_group')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_sub_group_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">SG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_49" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_task_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_task_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_task_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">TT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_50" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_HIERARCHICAL_CHART')"/>
+			<field name="prefix">HC</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_51" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_INSURANCE_REPORT_GROUP')"/>
+			<field name="prefix">IRG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<!--
+		<record id="vhr_sequence_52" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_TRACK')"/>
+			<field name="prefix">TR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		-->
+		<record id="vhr_sequence_53" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_STAFF_CLASSIFICATION')"/>
+			<field name="prefix">SCL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_54" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_BLOOD_GROUP')"/>
+			<field name="prefix">BG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_55" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CAREER')"/>
+			<field name="prefix">CR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_56" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_EMAIL_TYPE')"/>
+			<field name="prefix">ET</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_57" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CERTIFICATE_RATING')"/>
+			<field name="prefix">CER</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_58" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_NATION')"/>
+			<field name="prefix">NAT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_59" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_FACULTY')"/>
+			<field name="prefix">FAC</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_60" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_RELIGION')"/>
+			<field name="prefix">RE</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_61" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_SPECIALITY')"/>
+			<field name="prefix">SPEC</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_62" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_TRAINING_FORM')"/>
+			<field name="prefix">TF</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_63" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_JOB_TYPE')"/>
+			<field name="prefix">JT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_64" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_TRAINING_TYPE')"/>
+			<field name="prefix">TT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_65" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_PRIORITY_LEVEL')"/>
+			<field name="prefix">PL</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_66" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_DECISION_STATUS')"/>
+			<field name="prefix">DS</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_67" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_RECOMMEND')"/>
+			<field name="prefix">RE</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_68" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_TASK_RESULT')"/>
+			<field name="prefix">TR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_69" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_RECRUITMENT_REASON')"/>
+			<field name="prefix">RR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>			
+		<record id="vhr_sequence_70" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_ERP_PAYMENT_TIME')"/>
+			<field name="prefix">EPT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_71" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CORE_VALUE')"/>
+			<field name="prefix">CV</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_72" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_PROBATION_FAIL_REASON')"/>
+			<field name="prefix">PFR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		
+		<record id="vhr_sequence_74" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTACT_TYPE')"/>
+			<field name="prefix">CT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<!--
+		<record id="vhr_sequence_75" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTRACT_SPECIAL_ALLOWANCE')"/>
+			<field name="prefix">CSA</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		-->
+		<!--
+		<record id="vhr_sequence_76" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTRACT_COLLABORATOR_MISSION')"/>
+			<field name="prefix">CCM</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		-->
+		<record id="vhr_sequence_77" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_WORK_GROUP')"/>
+			<field name="prefix">WG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_78" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_TIME_SHEET')"/>
+			<field name="prefix">TS</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_79" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_SALARY_TYPE')"/>
+			<field name="prefix">ST</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_80" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_SALARY_CRITERIA')"/>
+			<field name="prefix">SC</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_81" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_DND_PROGRAM')"/>
+			<field name="prefix">DP</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		<record id="vhr_sequence_82" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_TIME_GRADUATION')"/>
+			<field name="prefix">TG</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>	
+		<record id="vhr_sequence_83" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_INTERVIEW_ROUND')"/>
+			<field name="prefix">IR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		<record id="vhr_sequence_84" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_property_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_property_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_property_type_code')"/>
+			<field name="dimension_type_id"></field>
+			<field name="prefix">PROT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>		
+		
+		<record id="vhr_sequence_85" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_relationship_type</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_relationship_type')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_relationship_type_code')"/>
+			<field name="prefix">RT</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+			
+		<record id="vhr_sequence_86" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_grade</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_grade')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_grade_code')"/>
+			<field name="prefix">G</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		
+		<record id="vhr_sequence_87" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_dimension</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_dimension')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_dimension_code')"/>
+			<field name="dimension_type_id" eval="ref('vhr_master_data.data_dimension_type_CONTINUE_RECRUITING')"/>
+			<field name="prefix">CR</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		
+		<record id="vhr_sequence_88" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_personal_document_status</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_personal_document_status')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_personal_document_status_code')"/>
+			<field name="prefix">PDS</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		
+		<record id="vhr_sequence_89" model="vhr.sequence">
+			<field name="name">vhr_sequence_vhr_job_level_new</field>
+			<field name="model_id" eval="ref('vhr_master_data.model_vhr_job_level_new')"/>
+			<field name="field_id" eval="ref('vhr_master_data.field_vhr_job_level_new_code')"/>
+			<field name="prefix">JLN</field>
+			<field name="suffix"></field>
+			<field name="padding">3</field>
+		</record>
+		
+	</data>
+</openerp>

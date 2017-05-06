@@ -1,0 +1,109 @@
+<openerp>
+    <data>
+        <record id="view_vhr_ts_timesheet_period_form" model="ir.ui.view">
+            <field name="name">vhr.ts.timesheet.period.view.form</field>
+            <field name="model">vhr.ts.timesheet.period</field>
+            <field name="arch" type="xml">
+                <form string="Timesheet Period" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <group>
+                            	<field name="from_date" required="1" on_change="onchange_date(from_date, to_date)"/>
+                                <field name="to_date" required="1" on_change="onchange_date(from_date, to_date)"/>
+                                <field name="close_date" required='1'/>
+                            </group>
+                            <group>
+                            	<field name="name" readonly="1" options="{'save_readonly': True}"/>
+                                <field name="year" required="1" options="{'remove_thousand_seps': 1}"/>
+                                <field name="month" required="1"/>
+                                
+                            </group>
+                        </group>
+                        <group>
+                        	<field name="description"/>
+                        </group>
+                        <notebook>
+                        	<page string="Details">
+                        		<field name="detail_ids" nolabel='1' required='1' 
+                        			context="{'default_from_date':from_date,'default_to_date':to_date,
+                        					  'default_year':year,'default_month':month,'default_close_date':close_date}">
+                        			<tree version="7.0" editable='bottom'>
+                        				<field name="year" invisible='1' options="{'save_readonly': True}"/>
+					                    <field name="month" invisible='1' options="{'save_readonly': True}"/>
+					                    <field name="from_date" invisible='1' options="{'save_readonly': True}"/>
+					                    <field name="to_date" invisible='1' options="{'save_readonly': True}"/>
+					                    <field name="close_date" invisible='1' options="{'save_readonly': True}"/>
+					                    <field name="timesheet_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+					                    <field name="admin_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+					                    <field name="approve_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+					                    <field name="is_salary_calculation"/>
+					                    <field name="latest_generation" readonly="1" options="{'no_open': True, 'no_create': True}"/>
+					                    <field name="name" invisible="1"/>
+                        			</tree>
+                        		</field>
+                        	</page>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_ts_timesheet_period_tree" model="ir.ui.view">
+            <field name="name">vhr.ts.timesheet.period.view.tree</field>
+            <field name="model">vhr.ts.timesheet.period</field>
+            <field name="arch" type="xml">
+                <tree string="Timesheet Period" version="7.0">
+                	<field name="name"/>
+                    <field name="year" remove_thousand_seps="1"/>
+                    <field name="month"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="close_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_ts_timesheet_period_search" model="ir.ui.view">
+            <field name="name">vhr.ts.timesheet.period.view.search</field>
+            <field name="model">vhr.ts.timesheet.period</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="month"/>
+                    <field name="year"/>
+                    <group expand="0" string="Filter">
+                        <filter string="Current Month" name="current_month"
+                                domain="[('from_date','&lt;=',(context_today()).strftime('%Y-%m-%d')),
+                                ('to_date','&gt;=',(context_today()).strftime('%Y-%m-%d'))]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_vhr_ts_timesheet_period">
+            <field name="name">Timesheet Period</field>
+            <field name="res_model">vhr.ts.timesheet.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_current_month': 1,
+            					   'rule_for_tree_form': True,'duplicate':False}</field>
+            <field name="view_id" ref="view_vhr_ts_timesheet_period_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_ts_timesheet_period_search"/>
+        </record>
+
+    </data>
+</openerp>

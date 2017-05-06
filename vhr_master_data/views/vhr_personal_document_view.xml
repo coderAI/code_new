@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_vhr_personal_document_form" model="ir.ui.view">
+       		<field name="name">vhr.personal.document.view.form</field>
+       		<field name="model">vhr.personal.document</field>
+       		<field name="arch" type="xml">
+   				<form string="Personal Document" version="7.0">
+       				<sheet>
+       					<group col="4">
+       						<group>
+       							<field name="employee_id" required='1' options="{'no_quick_create':True, 'no_create':True}"
+       						  		on_change="onchange_employee_id(employee_id)"/>
+       							<field name="document_type_id" required='1'  options="{'no_quick_create':True, 'no_create':True}"/>
+       							<field name="number" required='1'/>
+       							<field name="status_id"
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True,'save_no_required': True}"/>
+       							<field name="issue_date"
+       						 		on_change="onchange_date(issue_date, effect_date, expiry_date)"/>
+       							<field name="effect_date" invisible='1'
+       						 		on_change="onchange_date(issue_date, effect_date, expiry_date)"/>
+	       						<field name="expiry_date" 
+	       						 	on_change="onchange_date(issue_date, effect_date, expiry_date)"/>	    
+	       						<field name="is_received_hard_copy"/> 		   						
+       						</group>
+       						<group>
+       							<field name="department_id" readonly='1' options="{'no_quick_create':True, 'no_create':True}"/>
+	       						<field name="country_id" options="{'no_quick_create':True, 'no_create':True}"/>
+	       						<field name="city_id" options="{'no_quick_create':True, 'no_create':True}"  string="Place of Issued"/>
+	       						<field name="district_id" options="{'no_quick_create':True, 'no_create':True}"/>	       						
+	       						<field name="active"/>
+       						</group>       						
+       					</group>
+       					<group colspan="4">
+       						<field name="note"/>       						
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+       			
+       		</field>
+       	</record>
+       	
+       	<record id="view_vhr_personal_document_tree" model="ir.ui.view">
+       		<field name="name">vhr.personal.document.view.tree</field>
+       		<field name="model">vhr.personal.document</field>
+       		<field name="arch" type="xml">
+      			<tree string="Personal Document" version="7.0">
+      				<field name="employee_id"/>
+      				<field name="department_id"/>
+					<field name="document_type_id"/>
+					<field name="number"/>
+       				<field name="issue_date"/>
+					<field name="expiry_date"/>
+					<field name="country_id"/>
+					<field name="status_id"/>
+					<field name="is_received_hard_copy"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+       	</record>
+       	
+       	<record id="view_vhr_personal_document_search" model="ir.ui.view">
+        	<field name="name">vhr.personal.document.view.search</field>
+        	<field name="model">vhr.personal.document</field>
+        	<field name="arch" type="xml">
+        		<search string="Personal Document">
+        			<group expand="0" string="Filter Receive Hard Copy">
+                    <filter string="Received Hard Copy" name="received_hard_copy" icon="terp-go-home" 
+                                domain="[('is_received_hard_copy', '=', True)]"/>
+                    <filter string="Not Received Hard Copy" name="not_received_hard_copy" icon="terp-go-home" 
+                                domain="[('is_received_hard_copy', '=', False)]"/>	
+                    </group>	
+        			<filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+        			<field name="name" string="Personal Document" 
+	                  		filter_domain="['|','|','|',('name','ilike',self),('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+
+					<field name="department_id"/>
+					<field name="number"/>
+					<field name="country_id"/>
+					
+                    
+        		</search>
+        	</field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_personal_document">
+       		<field name="name">Personal Document</field> 
+            <field name="res_model">vhr.personal.document</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_personal_document_tree"/>
+            <field name="search_view_id" ref="view_vhr_personal_document_search"/>
+       	</record>
+       	
+    </data>
+</openerp>

@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<template id="vhr_mysite.info_temp_collapse">
+			<div class="panel-group" t-att-id="'info_temp_accordion' + values['id']">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  	<a data-toggle="collapse" t-att-data-parent="'#info_temp_accordion' + values['id']" t-att-href="'#collapse' + values['id']">
+							  	<span class="glyphicon glyphicon-flash text-success"></span>
+							  	<span t-esc="'Yêu cầu #' + values['id']+ ' - ' + values['request_date'] + ' - ' + str(values['state'])" />
+						  	</a>
+						</h4>
+					</div>
+					<div t-att-id="'collapse' + values['id']" t-att-class="(values['state'] == 'verified') and 'panel-collapse collapse' or 'panel-collapse collapse in' ">
+						<div class="col-xs-12">
+							<t t-raw="0" />	
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	
+		<!-- PERSONAL INFO -->
+		<template id="vhr_mysite.personal_info_temp">
+			<div class="info-wrap">
+				<t t-if="values['my_employee']">
+					<t t-if="values['my_employee'].gender or values['my_employee'].birthday or
+							values['my_employee'].marital or values['my_employee'].children or
+							values['my_employee'].nation_id or values['my_employee'].religion_id">
+						
+						<div class="title-info"><h6>Thông tin cá nhân</h6></div>
+						<table class="table" id="my_personal_info_temp">
+							<tbody>
+								<t t-if="values['my_employee'].gender">
+									<tr>
+										<td class="col-xs-3">Giới tính</td>
+										<td>
+											<a href="#"><span t-esc="get_gender_name(values['my_employee'].gender)" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].birthday">
+			 						<tr>
+										<td class="col-xs-3">Ngày sinh</td>
+										<td>
+											<a href="#"><span t-esc="format_date(values['my_employee'].birthday)" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].marital">
+									<tr>
+										<td class="col-xs-3">Tình trạng hôn nhân</td>
+										<td>
+											<a href="#"><span t-esc="get_marital_name(values['my_employee'].marital)" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].children">
+									<tr>
+										<td class="col-xs-3">Số con</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].children" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].nation_id">
+									<tr>
+										<td class="col-xs-3">Dân tộc</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].nation_id.name" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].religion_id">
+									<tr>
+										<td class="col-xs-3">Tôn giáo</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].religion_id.name" /></a>
+										</td>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+						
+					</t>
+				</t>
+			</div>
+		</template>
+	
+		<!-- CONTACT INFO -->
+		<template id="vhr_mysite.contact_info_temp">
+			<div class="info-wrap">
+				<t t-if="values['my_employee']">
+					<t t-if="values['my_employee'].email or
+							values['my_employee'].mobile or values['my_employee'].street or
+							values['my_employee'].district_id or values['my_employee'].city_id or
+							values['my_employee'].temp_address or values['my_employee'].temp_district_id or
+							values['my_employee'].temp_city_id">
+						
+						<div class="title-info"><h6>Thông tin liên lạc</h6></div>
+						<table class="table" id="my_contact_info">
+							<tbody>
+								<t t-if="values['my_employee'].email">
+									<tr>
+										<td class="col-xs-3">Email cá nhân</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].email" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].mobile">
+									<tr>
+										<td class="col-xs-3">Điện thoại di động</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].mobile" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].street or values['my_employee'].district_id or values['my_employee'].city_id">
+									<tr class="highlight">
+										<td colspan="2">Địa chỉ thường trú</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].street">
+									<tr>
+										<td class="col-xs-3">Số nhà, tên đường</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].street" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].district_id">
+									<tr>
+										<td class="col-xs-3">Quận / Huyện</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].district_id.name" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].city_id">
+									<tr>
+										<td class="col-xs-3">Tỉnh / Thành phố</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].city_id.name" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].temp_address or values['my_employee'].temp_district_id or values['my_employee'].temp_city_id">
+									<tr class="highlight">
+										<td colspan="2">Địa chỉ tạm trú</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].temp_address">
+									<tr>
+										<td class="col-xs-3">Số nhà, tên đường</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].temp_address" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].temp_district_id">
+									<tr>
+										<td class="col-xs-3">Quận / Huyện</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].temp_district_id.name" /></a>
+										</td>
+									</tr>
+								</t>
+								<t t-if="values['my_employee'].temp_city_id">
+									<tr>
+										<td class="col-xs-3">Tỉnh / Thành phố</td>
+										<td>
+											<a href="#"><span t-esc="values['my_employee'].temp_city_id.name" /></a>
+										</td>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+						
+					</t>
+				</t>
+			</div>
+		</template>
+		
+		<!-- STORAGE INFO -->
+		<template id="vhr_mysite.document_info_temp">
+			<table class="table" id="my_document_info">
+				<thead>
+					<tr>
+						<th>Loại</th>
+						<th>Số</th>
+						<th>Ngày cấp</th>
+						<th>Ngày hết hạn</th>
+						<th>Quốc gia</th>
+						<th>Trạng thái</th>
+						<th>Yêu cầu</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="values['personal_documents']" t-as="document">
+						<t t-if="document and document.document_type_id">
+							<tr t-att-data-id="document.id">
+								<td>
+									<t t-if="document.document_type_id.id and document.document_type_id.name">
+										<span t-esc="document.document_type_id.name or ''" />
+									</t>
+								</td>
+								<td>
+									<span t-esc="document.number or ''" />
+								</td>
+								<td>
+									<t t-if="document.issue_date">
+										<span t-esc="document.issue_date and format_date(document.issue_date) or ''" />
+									</t>
+								</td>
+								<td>
+									<t t-if="document.expiry_date">
+										<span t-esc="format_date(document.expiry_date)" />
+									</t>
+								</td>
+								<td>
+									<t t-if="document.country_id">
+										<span t-esc="document.country_id.name" />
+									</t>
+								</td>
+								<td>
+									<t t-if="document.state">
+										<span t-esc="get_document_status(document.state)" />
+									</t>
+								</td>
+								<td>
+									<t t-if="document.mode">
+										<span t-esc="get_mode(document.mode)" />
+									</t>
+								</td>
+								<td></td>
+							</tr>
+						</t>
+					</t>
+				</tbody>
+			</table>
+		</template>
+		
+		<!-- PARTNER INFO -->
+    	<template id="vhr_mysite.partner_info_temp">
+    		<table class="table" id="my_partner_info">
+				<thead>
+					<tr>
+						<th>Họ tên</th>
+						<th>Mối liên hệ</th>
+						<th>Điện thoại di động</th>
+						<th>Điện thoại bàn</th>
+						<th>Địa chỉ</th>
+						<th>Khẩn cấp</th>
+						<th>Yêu cầu</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="values['relation_partners']" t-as="partner">
+						<t t-if="partner">
+							<tr t-att-data-id="partner.id">
+								<td>
+									<span t-esc="partner.name or ''" />
+								</td>
+								<td>
+									<t t-if="partner.relationship_id">
+										<span t-esc="partner.relationship_id.name" />
+									</t>
+								</td>
+								<td>
+									<span t-esc="partner.mobile or ''" />
+								</td>
+								<td>
+									<span t-esc="partner.phone or ''" />
+								</td>
+								<td>
+									<span t-esc="partner.street or ''" />
+									,&#160;
+									<t t-if="partner.district_id">
+										<span t-esc="partner.district_id.name" />
+									</t>
+									,&#160;
+									<t t-if="partner.city_id">
+										<span t-esc="partner.city_id.name" />
+									</t>
+								</td>
+								<td>
+									<t t-if="partner.is_emergency">
+										<input type="checkbox" checked="checked"
+												data-value="1"
+												class="my_partner_is_emergency"
+												data-field="is_emergency"/>
+									</t>
+									<t t-if="not partner.is_emergency">
+										<input type="checkbox"
+												data-value="0"
+												data-field="is_emergency"
+												class="my_partner_is_emergency" />
+									</t>
+								</td>
+								<td>
+									<t t-if="partner.mode">
+										<span t-esc="get_mode(partner.mode)" />
+									</t>
+								</td>
+								<td></td>
+							</tr>
+						</t>
+					</t>
+				</tbody>
+			</table>
+    	</template>
+    	
+    	<!-- EDUCATION INFO -->
+		<template id="vhr_mysite.education_info_temp">
+			<table class="table" id="my_education_table">
+				<thead>
+					<tr>
+						<th>Trường</th>
+						<th>Loại</th>
+						<th>Khoa</th>
+						<th>Chuyên ngành</th>
+						<th>Yêu cầu</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="values['certificates']" t-as="certificate">
+						<t t-if="certificate and certificate.school_id">
+							<tr t-att-data-id="certificate.id">
+								<td>
+									<t t-if="certificate.school_id">
+										<span t-esc="certificate.school_id.name" />
+									</t>
+								</td>
+								<td>
+									<t t-if="certificate.recruitment_degree_id">
+										<span t-esc="certificate.recruitment_degree_id.name" />
+									</t>
+								</td>
+								<td>
+									<t t-if="certificate.speciality_id">
+										<span t-esc="certificate.speciality_id.name" />
+									</t>
+								</td>
+								<td>
+									<t t-if="certificate.faculty_id">
+										<span t-esc="certificate.faculty_id.name" />
+									</t>
+								</td>
+								<td>
+									<t t-if="certificate.mode">
+										<span t-esc="get_mode(certificate.mode)" />
+									</t>
+								</td>
+								<td></td>
+							</tr>
+						</t>
+					</t>
+				</tbody>
+			</table>
+		</template>
+		
+		<!-- BANK INFO -->
+    	<template id="vhr_mysite.bank_info_temp">
+    		<table class="table" id="my_bank_info">
+				<thead>
+					<tr>
+						<th>Chủ tài khoản</th>
+						<th>Số tài khoản</th>
+						<th>Ngân hàng</th>
+						<th>Chi nhánh</th>
+						<th>Taì khoản chính</th>
+						<th>Yêu cầu</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="values['bank_accounts']" t-as="bank">
+						<t t-if="bank">
+							<tr t-att-data-id="bank.id">
+								<td>
+									<span t-esc="bank.owner_name or ''" />
+								</td>
+								<td>
+									<span t-esc="bank.acc_number or ''" />
+								</td>
+								<td>
+									<t t-if="bank.bank">
+										<span t-esc="bank.bank.name" />
+									</t>
+								</td>
+								<td>
+									<t t-if="bank.bank_branch">
+										<span t-esc="bank.bank_branch.name" />
+									</t>
+								</td>
+								<td>
+									<t t-if="bank.is_main">
+										<input type="checkbox" checked="checked"/>
+									</t>
+									<t t-if="not bank.is_main">
+										<input type="checkbox"/>
+									</t>
+								</td>
+								<td>
+									<t t-if="bank.mode">
+										<span t-esc="get_mode(bank.mode)" />
+									</t>
+								</td>
+							</tr>
+						</t>
+					</t>
+				</tbody>
+			</table>
+    	</template>
+		
+		<template id="vhr_mysite.tabs_info_temp">
+			<t t-if="values['personal_documents'] or values['relation_partners'] or values['certificates'] or values['bank_accounts']">
+			
+	    		<div class="title-info"><h6>Thông tin mở rộng</h6></div>
+	    		<div>
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist" t-att-id="'my_info_tabs_temp'+values['id']">
+						<t t-if="values['personal_documents']">
+							<li role="presentation" class="active">
+								<a t-att-href="'#my_tab_document' + values['id']" aria-controls="home" role="tab" data-toggle="tab">Giấy tờ cá nhân</a>
+							</li>
+						</t>
+						<t t-if="values['relation_partners']">
+							<li role="presentation">
+								<a t-att-href="'#my_tab_partner' + values['id']" aria-controls="profile" role="tab" data-toggle="tab">Người thân</a>
+							</li>
+						</t>
+						<t t-if="values['certificates']">
+							<li role="presentation">
+								<a t-att-href="'#my_tab_education' + values['id']" aria-controls="messages" role="tab" data-toggle="tab">Bằng cấp</a>
+							</li>
+						</t>
+						<t t-if="values['bank_accounts']">
+							<li role="presentation">
+								<a t-att-href="'#my_tab_bank' + values['id']" aria-controls="messages" role="tab" data-toggle="tab">Tài khoản ngân hàng</a>
+							</li>
+						</t>
+					</ul>
+					
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<t t-if="values['personal_documents']">
+							<div role="tabpanel" class="tab-pane fade in active" t-att-id="'my_tab_document' + values['id']">
+								<t t-call="vhr_mysite.document_info_temp" />
+							</div>
+						</t>
+						<t t-if="values['relation_partners']">
+							<div role="tabpanel" class="tab-pane fade" t-att-id="'my_tab_partner' + values['id']">
+								<t t-call="vhr_mysite.partner_info_temp" />
+							</div>
+						</t>
+						<t t-if="values['certificates']">
+							<div role="tabpanel" class="tab-pane fade" t-att-id="'my_tab_education' + values['id']">
+								<t t-call="vhr_mysite.education_info_temp" />
+							</div>
+						</t>
+						<t t-if="values['bank_accounts']">
+							<div role="tabpanel" class="tab-pane fade" t-att-id="'my_tab_bank' + values['id']">
+								<t t-call="vhr_mysite.bank_info_temp" />
+							</div>
+						</t>
+					</div>
+				</div>
+
+			</t>
+    	</template>
+	</data>
+</openerp>

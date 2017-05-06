@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate='1'>
+        <record id="update_cache_dimension_type" model="ir.config_parameter">
+            <field name="key">update.cache.dimension.type</field>
+            <field name="module_id" />
+            <field name="value">DND_PROGRAM,TIME_GRADUATION</field>
+            <field name="description">Clear cache when dimension type has changed</field>
+        </record>
+
+        <record id="default_program_event_source_ids" model="ir.config_parameter">
+            <field name="key">default.program.event.source</field>
+            <field name="module_id" />
+            <field name="value">72, 73, 74, 75, 76, 77, 78, 79, 80, 99, 100</field>
+            <field name="description">Default source Id in Program Event when create</field>
+        </record>
+        
+        <record id="hrs_recruitment_hrs_site_email" model="ir.config_parameter">
+            <field name="key">hrs.recruitment.hrs.site.email</field>
+            <field name="module_id" />
+            <field name="value">recruitment@hrs</field>
+            <field name="description">Email gửi/nhận hệ thống hrs site</field>
+        </record>
+        
+        <record id="hrs_recruitment_hrs_site_code_for_life" model="ir.config_parameter">
+            <field name="key">hrs.recruitment.hrs.site.code.for.life</field>
+            <field name="module_id" />
+            <field name="value">CAND_BENEFIT,CAND_ENVIRONMENT</field>
+            <field name="description">Show thông tin tại mục cuộc sống tại hrs</field>
+        </record>
+        <record id="hrs_recruitment_hrs_site_code_for_advice" model="ir.config_parameter">
+            <field name="key">hrs.recruitment.hrs.site.code.for.advice</field>
+            <field name="module_id" />
+            <field name="value">CAND_PREPARE_CV,CAND_INTERVIEW</field>
+            <field name="description">Show thông tin tại mục lời khuyên cho ứng viên</field>
+        </record>
+        <record id="hrs_recruitment_hrs_site_code_for_faqs" model="ir.config_parameter">
+            <field name="key">hrs.recruitment.hrs.site.code.for.faqs</field>
+            <field name="module_id" />
+            <field name="value">CAND_FAQS,FRESHER_FAQS,INTERNSHIP_FAQS</field>
+            <field name="description">Show thông tin FAQS</field>
+        </record>
+        <record id="hrs_recruitment_vhr_rr_run_validate_read" model="ir.config_parameter">
+            <field name="key">vhr.rr.run.validate.read</field>
+            <field name="module_id" />
+            <field name="value">1</field>
+            <field name="description">Bật kiểm tra hàm read - Nếu lỗi tắt tránh ảnh hưởng bussiness</field>
+        </record>
+        <!-- Email RR -->
+        <record id="rr_email_active_config" model="ir.config_parameter">
+            <field name="key">recruitment_email_config</field>
+            <field name="module_id" />
+            <field name="value">False</field>
+            <field name="description">Gửi email tool RR (==False : không gửi mail, == True : gửi mail)</field>
+        </record>
+        <!-- RR Age Limit config -->
+        <record id="rr_age_limit_config" model="ir.config_parameter">
+            <field name="key">vhr.rr.age.limit.config</field>
+            <field name="module_id" />
+            <field name="value">18</field>
+            <field name="description">Tuổi giới hạn tuyển dụng</field>
+        </record>
+        <!-- Percent of Gross Salary -->
+        <record id="rr_percent_gross_config" model="ir.config_parameter">
+            <field name="key">vhr.rr.percent.gross.config</field>
+            <field name="module_id" />
+            <field name="value">0.85</field>
+            <field name="description">Tỷ lệ gross salary</field>
+        </record>
+        <!-- Email System RR Tools -->
+        <record id="rr_email_system_config" model="ir.config_parameter">
+            <field name="key">vhr.rr.email.system.config</field>
+            <field name="module_id" />
+            <field name="value">hr.service@hrs</field>
+            <field name="description">Email gửi/nhận hệ thống recruitment</field>
+        </record>
+        <!-- Email Admin system RR Tools -->
+        <record id="rr_email_admin_tool_config" model="ir.config_parameter">
+            <field name="key">vhr.rr.email.admin.tool.config</field>
+            <field name="module_id" />
+            <field name="value">admin@hrs</field>
+            <field name="description">Email nhận các thông tin lỗi hệ thống RR</field>
+        </record>
+        <!-- Timezone Postgres Database -->
+        <record id="vhr_default_timezone_config" model="ir.config_parameter">
+            <field name="key">vhr.default.timezone.config</field>
+            <field name="value">7</field>
+            <field name="description">Default timezone config</field>
+        </record>
+        <!-- RR time config for send interview email -->
+        <record id="rr_recruitment_hour_send_email_config" model="ir.config_parameter">
+            <field name="key">vhr.rr.hour.send.email.config</field>
+            <field name="module_id" />
+            <field name="value">1</field>
+            <field name="description">ngày giờ hiện tại + thời gian config gửi mail mời phỏng vấn &lt; ngày giờ bắt đầu phỏng vấn</field>
+        </record>
+        <!-- RR title code  -->
+        <record id="rr_recruitment_title_code" model="ir.config_parameter">
+            <field name="key">vhr.rr.title.code</field>
+            <field name="module_id" />
+            <field name="value">Co1,Co2,Co3,Co4,Co5,Co6,Co7,Co8,Colla2,Colla3,HR58,IT1,IT2</field>
+            <field name="description">Title code cho quy trình tuyển dụng CTV/Intern/Fresher</field>
+        </record>
+        <!-- RR Level code  -->
+        <record id="rr_recruitment_level_code" model="ir.config_parameter">
+            <field name="key">vhr.rr.level.code</field>
+            <field name="module_id" />
+            <field name="value">Temporary,Freelancer,Freelancer-Office</field>
+            <field name="description">Level code cho quy trình tuyển dụng CTV/Intern/Fresher</field>
+        </record>
+        <!-- search count for skill  -->
+        <record id="rr_recruitment_search_count_skill" model="ir.config_parameter">
+            <field name="key">vhr.rr.search.count.skill</field>
+            <field name="module_id" />
+            <field name="value">50</field>
+            <field name="description">số lượng lần search từ khóa vượt ngưỡng thì tiến hành đánh skill</field>
+        </record>
+        <!--   -->
+        <record id="rr_recruitment_day_for_erp" model="ir.config_parameter">
+            <field name="key">vhr.rr.day.for.erp</field>
+            <field name="module_id" />
+            <field name="value">20</field>
+            <field name="description">ngày tính erp payment for user</field>
+        </record>
+        
+        <record id="rr_recruitment_group_read_cv_in_applicant" model="ir.config_parameter">
+            <field name="key">rr_recruitment_group_read_cv_in_applicant</field>
+            <field name="module_id" />
+            <field name="value">4,8</field>
+            <field name="description">HRBP:2,DEPTHEAD:3,RECRUITER:4,MANAGER:5,ADMIN:6,REPORTER:7,COLLABORATER:8,CANDB_ROLE:9</field>
+        </record>
+
+    </data>
+</openerp>

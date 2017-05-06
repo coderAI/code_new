@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+	<data>
+		
+		<record id="wiz_pentaho_report_prompt_inherit" model="ir.ui.view">
+            <field name="name">Pentaho Report Options Inherit</field>
+            <field name="model">ir.actions.report.promptwizard</field>
+            <field name="inherit_id" ref="pentaho_reports.wiz_pentaho_report_prompt"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group/field[@name='output_type']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/group/field[@name='report_action_id']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+		
+	</data>
+</openerp>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record model="ir.actions.act_window" id="act_vhr_interview_round">
+            <field name="name">Interview Round</field>
+            <field name="res_model">vhr.dimension</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('dimension_type_id.code','=','INTERVIEW_ROUND')]</field>
+            <field name="context">{'dimension_type': 'INTERVIEW_ROUND'}</field>
+            <field name="view_id" ref="view_vhr_dimension_tree"/>
+            <field name="groups_id" eval=""/>
+            <field name="search_view_id" ref="view_vhr_dimension_search"/>
+        </record>
+
+    </data>
+</openerp>

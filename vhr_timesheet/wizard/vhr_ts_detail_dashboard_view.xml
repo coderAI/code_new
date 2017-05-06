@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <!-- Public Holidays -->
+        <record model="ir.ui.view" id="view_vhr_ts_detail_dashboard_tree">
+            <field name="name">vhr.ts.detail.dashboard.tree</field>
+            <field name="model">vhr.ts.detail.dashboard</field>
+            <field name="limit">200</field>
+            <field name="arch" type="xml">
+                <tree string="Timesheet Detail Progress" colors="blue:state == 'unfinish'">
+                    <field name="year" remove_thousand_seps="1"/>
+                    <field name="month"/>
+                    <field name="timesheet_id"/>
+                    <field name="number_of_employee" class="hrs_font_weight_bold"/>
+                    <field name="generated"/>
+                    <field name="draft"/>
+                    <field name="sent"/>
+                    <field name="approve" class="hrs_font_weight_bold"/>
+                    <field name="reject"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_detail_dashboard_form">
+            <field name="name">vhr.ts.detail.dashboard.form</field>
+            <field name="model">vhr.ts.detail.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Details">
+                    <sheet>
+                        <group col="4">
+                            <field name="year" options="{'remove_thousand_seps': 1}"/>
+                            <field name="month"/>
+                            <field name="timesheet_id"/>
+                            <field name="number_of_employee"/>
+                            <field name="generated"/>
+                            <field name="draft"/>
+                            <field name="sent"/>
+                            <field name="approve"/>
+                            <field name="reject"/>
+                            <field name="state"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_detail_dashboard_search">
+            <field name="name">vhr.ts.detail.dashboard.search</field>
+            <field name="model">vhr.ts.detail.dashboard</field>
+            <field name="arch" type="xml">
+                <search string="Timesheet Detail Progress">
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_state" string="State"
+                                context="{'group_by':'state'}"/>
+                    </group>
+                    <group expand="0" string="Filter By">
+                        <filter name="finish" string="Finished"
+                                domain="[('state', '=', 'finish')]"/>
+                        <filter name="unfinish" string="Unfinished"
+                                domain="[('state', '=', 'unfinish')]"
+                                />
+                    </group>
+                    <field name="timesheet_id"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_detail_progress" model="ir.actions.act_window">
+            <field name="name">Timesheet Detail Progress</field>
+            <field name="res_model">vhr.ts.detail.dashboard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</openerp>

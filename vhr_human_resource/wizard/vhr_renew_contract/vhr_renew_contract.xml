@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--<record id="action_renew_hr_contract" model="ir.actions.act_window">
+            <field name="name">Renewal Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_hr_contract_form"/>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">
+                {'duplicate_active_id': context.get('contract_id', False),
+            	 'default_company_id': context.get('new_company_id', False),
+                 'default_type_id': context.get('type_id', False),
+                 'renew_status': 'renew',
+                 'default_include_probation': context.get('include_probation', False),
+                 'default_date_start': context.get('date_start', False),
+            	 'liquidation_date':context.get('liquidation_date',False),
+            	 'liquidation_reason':context.get('liquidation_reason',False),
+            	}
+            </field>
+        </record>-->
+        
+        <record id="vhr_renew_contract_view" model="ir.ui.view">
+            <field name="name">vhr.renew.contract.form</field>
+            <field name="model">vhr.renew.contract</field>
+            <field name="arch" type="xml">
+                <form string="Renew" version="7.0">
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <button name="action_renew_hr_contract"
+                                    context="{'contract_id': contract_id, 'type_id': new_type_id,
+                                              'date_start': new_date_start,
+                                              'include_probation': include_probation,
+                                              'liquidation_date': liquidation_date,
+                                              'liquidation_reason': liquidation_reason,
+                            				  'old_company_id': company_id,
+                               				  'old_type_id':type_id,
+                            				  'new_company_id': new_company_id,
+                            				  'new_date_start_temp': new_date_start_temp}"
+                                    string="Confirm" type="object"
+                                    class="oe_stat_button bg_icon_green" icon="fa-mail-forward"/>
+
+                            <button string="Cancel" class="oe_stat_button bg_icon_red" special="cancel" icon="fa-times"/>
+                        </div>
+                        <group string="Current contract's info">
+                            <group>
+                                <field name="employee_id" readonly="1" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                <field name="contract_id" readonly="1" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                <field name="type_id" readonly="1" options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                                <field name="company_id" readonly="1" invisible="1"/>
+                                <field name="is_on_probation" readonly="1" invisible="1"/>
+                                <field name="is_terminated" readonly="1" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="employee_code" readonly="1"/>
+                                <label for="date_start" string="Duration" readonly="1"/>
+                                <div>
+                                    <field name="date_start" class="oe_inline" readonly="1"/>
+                                    -
+                                    <field name="date_end" class="oe_inline" readonly="1"/>
+                                </div>
+                                <field name="liquidation_date" class="text_high"
+                                       attrs="{'readonly': [('is_terminated','=', True)]}"
+                                       on_change="onchange_liquidation(date_start,date_end,liquidation_date,context)"/>
+                                <field name="liquidation_reason" class="text_high"
+                                       attrs="{'readonly': [('is_terminated','=', True)]}"/>
+                            </group>
+                        </group>
+
+                        <group string="Renewal contract's info">
+                        	<group>
+                        		<field name="new_company_id" on_change="onchange_new_company_id(employee_id, company_id, new_company_id)"
+                        		options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}" required="1"/>
+                        	</group>
+                        	<br/>
+                            <group>
+                                <field name="new_type_id" domain="[('id', 'in', list_contract_type_id)]"
+                                	   options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"
+                                       on_change="on_change_new_info(new_type_id,new_date_start,new_date_start_temp)" required="1"/>
+                                <field name="list_contract_type_id" invisible="1"/>
+                                <field name="include_probation"
+                                       attrs="{'invisible': [('is_on_probation','=', False)]}"
+                                       on_change="onchange_include_probation(include_probation, employee_id, company_id, new_type_id)"/>
+                            </group>
+                            <group>
+                                <label for="new_date_start" string="Duration"/>
+                                <div>
+                                    <field name="new_date_start" on_change="on_change_new_info(new_type_id,new_date_start, new_date_start_temp)"
+                                           class="oe_inline" required="1"/>
+                                    -
+                                    <field name="new_date_end" options="{'save_readonly': True}"
+                                           class="oe_inline" readonly="1"/>
+                                </div>
+                                <field name='new_date_start_temp' invisible='1'/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_renew_contract" model="ir.actions.act_window">
+            <field name="name">Renewal Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vhr.renew.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="vhr_renew_contract_view"/>
+            <field name="target">new</field>
+            <field name="context">{'default_contract_id': active_id}</field>
+        </record>
+                
+    	<record id="view_hr_contract_form_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="vhr_human_resource.view_hr_contract_form"/>
+            <field name="arch" type="xml">
+	    		<xpath expr="//button[@name='action_print_contract']" position="after">
+	            	<button name="%(action_renew_contract)d"
+	            							save_no_required = 'True'
+	                                        attrs="{'invisible': ['|',('can_renew', '!=', True), ('state', 'not in', ['signed'])]}"
+	                                        string="Renew" type="action" groups="vhr_human_resource.vhr_cb_contract"
+	                                        class="oe_stat_button bg_icon_blue" icon="fa-undo"/>
+	            </xpath>
+            </field>
+		</record>
+	</data>
+</openerp>

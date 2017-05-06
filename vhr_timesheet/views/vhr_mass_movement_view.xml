@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_mass_movement_form_inherit" model="ir.ui.view">
+            <field name="name">vhr.mass.movement.view.form.inherit</field>
+            <field name="model">vhr.mass.movement</field>
+            <field eval="18" name="priority"/>
+            <field name="inherit_id" ref="vhr_human_resource.view_vhr_mass_movement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='salary_setting_id_new']" position="before">
+                	<!--<field name="ts_working_schedule_id_new"  
+                	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}" 
+                	on_change="onchange_working_schedule_id(ts_working_schedule_id_new)"/>-->
+                	<field name="ts_working_group_id_new"
+                	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                    <field name="timesheet_id_new" 
+                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

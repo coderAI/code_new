@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_vhr_student_event_tree" model="ir.ui.view">
+			<field name="name">vhr.student.event.tree</field>
+			<field name="model">vhr.student.event</field>
+			<field name="arch" type="xml">
+				<tree string="Student Event" version="7.0" editable="top">
+					<field name="code" required="1"/>
+					<field name="name" required="1"/>
+					<field name="name_en"/>
+					<field name="description"/>
+					<field name="active"/>
+				</tree>
+			</field>
+			<field name="groups_id" eval="[(6, 0, [ref('vhr_recruitment.vhr_recruitment_admin'),
+             										ref('vhr_recruitment.vhr_recruitment_manager')])]"/>
+		</record>
+		<record id="view_vhr_student_event_form" model="ir.ui.view">
+			<field name="name">vhr.student.event.form</field>
+			<field name="model">vhr.student.event</field>
+			<field name="arch" type="xml">
+				<form string="Student Event">
+					<sheet>
+						<div>
+                            <div class="oe_edit_only">
+                                <label for="name" string="Name"/>
+                            </div>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+							<group>
+								<field name="code" required="1"/>
+								<field name="description"/>
+							</group>
+							<group>
+								<field name="name_en"/>
+								<field name="active"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+			<field name="groups_id" eval="[(6, 0, [ref('vhr_recruitment.vhr_recruitment_admin'),
+             										ref('vhr_recruitment.vhr_recruitment_manager')])]"/>
+		</record>
+        <record model="ir.actions.act_window" id="action_vhr_student_event">
+			<field name="name">Student Event</field>
+			<field name="res_model">vhr.student.event</field>
+			<field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_student_event_tree"/>
+		</record>
+
+
+		<record id="view_vhr_student_organization_unit_tree" model="ir.ui.view">
+			<field name="name">vhr.student.organization.unit.tree</field>
+			<field name="model">vhr.student.organization.unit</field>
+			<field name="arch" type="xml">
+				<tree string="Student Organization Unit" version="7.0" editable="top">
+					<field name="code" required="1"/>
+					<field name="name" required="1"/>
+					<field name="name_en"/>
+					<field name="description"/>
+					<field name="active"/>
+				</tree>
+			</field>
+			<field name="groups_id" eval="[(6, 0, [ref('vhr_recruitment.vhr_recruitment_admin'),
+             										ref('vhr_recruitment.vhr_recruitment_manager')])]"/>
+		</record>
+		<record id="view_vhr_student_organization_unit_form" model="ir.ui.view">
+			<field name="name">vhr.student.organization.unit.form</field>
+			<field name="model">vhr.student.organization.unit</field>
+			<field name="arch" type="xml">
+				<form string="Student Organization Unit">
+					<sheet>
+						<div>
+                            <div class="oe_edit_only">
+                                <label for="name" string="Name"/>
+                            </div>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+							<group>
+								<field name="code" required="1"/>
+								<field name="description"/>
+							</group>
+							<group>
+								<field name="name_en"/>
+								<field name="active"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+			<field name="groups_id" eval="[(6, 0, [ref('vhr_recruitment.vhr_recruitment_admin'),
+             										ref('vhr_recruitment.vhr_recruitment_manager')])]"/>
+		</record>
+        <record model="ir.actions.act_window" id="action_vhr_student_organization_unit">
+			<field name="name">Student Organization Unit</field>
+			<field name="res_model">vhr.student.organization.unit</field>
+			<field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_student_organization_unit_tree"/>
+		</record>
+    </data>
+</openerp>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- PERSONAL INFO -->
+		<template id="vhr_mysite.personal_info_quick_edit">
+			<div class="info-wrap" t-if="show_basic">
+				<div class="title-info"><h6>Thông tin cá nhân</h6></div>
+				<table class="table" id="my_personal_info">
+					<tbody>
+						<t t-foreach="emp_field_ids" t-as="field">
+
+						<tr t-if="field.name == 'gender'">
+							<td class="col-xs-3">Giới tính</td>
+							<td>
+								<t t-if="my_employee and my_employee.gender">
+									<a href="#" id="my_gender" data-type="select"
+									   data-title="Giới tính của bạn"
+									   t-att-data-value="my_employee.gender"
+									   data-field="gender">
+									   <span t-esc="get_gender_name(my_employee.gender)" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.gender">
+									<a href="#" id="my_gender" data-type="select" data-value=""
+										data-title="Giới tính của bạn"
+										class="editable editable-click"
+										data-field="gender"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'birthday'">
+							<td class="col-xs-3 required">Ngày sinh</td>
+							<td>
+								<t t-if="my_employee and my_employee.birthday">
+									<a class="my_date_editable"
+										data-type="combodate" data-title="Ngày sinh của bạn"
+										t-att-data-value="my_employee and my_employee.birthday or ''"
+										data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY"
+										data-template="DD / MMM / YYYY"
+										data-field="birthday"
+										data-required="1">
+									<t t-esc="my_employee and format_date(my_employee.birthday) or ''" /></a>
+								</t>
+								<t t-if="not my_employee or not my_employee.birthday">
+									<a class="my_date_editable"
+										data-type="combodate" data-title="Ngày sinh của bạn"
+										t-att-data-value="my_employee and my_employee.birthday or ''"
+										data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY"
+										data-template="DD / MMM / YYYY"
+										data-field="birthday"
+										data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'marital'">
+							<td class="col-xs-3">Tình trạng hôn nhân</td>
+							<td>
+								<t t-if="my_employee and my_employee.marital">
+									<a href="#" id="my_marital" data-type="select"
+										t-att-data-value="my_employee.marital"
+										data-field="marital"
+									   	data-title="Bạn còn FA hay đã có gia đình?">
+									   	<span t-esc="get_marital_name(my_employee.marital)" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.marital">
+									<a href="#" id="my_marital" data-type="select"
+										data-field="marital"
+									   	data-title="Bạn còn FA hay đã có gia đình?"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'children'">
+							<td class="col-xs-3">Số con</td>
+							<td>
+								<t t-if="my_employee and my_employee.children">
+									<a href="#" id="my_children" class="my_number_editable"
+									   data-type="text"
+									   data-field="children"
+									   data-title="Bạn có mấy cháu rồi?">
+									   <span t-esc="my_employee.children" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.children">
+									<a href="#" id="my_children" class="my_number_editable"
+										data-type="text"
+										data-field="children" data-title="Bạn có mấy cháu rồi?"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'nation_id'">
+							<td class="col-xs-3">Dân tộc</td>
+							<td>
+								<t t-if="my_employee and my_employee.nation_id">
+									<a href="#" id="my_ethnic" data-type="select"
+										data-field="nation_id"
+										t-att-data-value="my_employee.nation_id.id"
+									   data-title="Dân tộc">
+									   <span t-esc="my_employee.nation_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.nation_id">
+									<a href="#" id="my_ethnic"
+										data-type="select"
+										data-field="nation_id"
+									   data-title="Dân tộc"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'religion_id'">
+							<td class="col-xs-3">Tôn giáo</td>
+							<td>
+								<t t-if="my_employee and my_employee.religion_id">
+									<a href="#" id="my_religion" data-type="select"
+										data-field="religion_id"
+										t-att-data-value="my_employee.religion_id.id"
+									   data-title="Tôn giáo">
+									   <span t-esc="my_employee.religion_id.name" />
+								   </a>
+								</t>
+								<t t-if="not my_employee or not my_employee.religion_id">
+									<a href="#" id="my_religion" data-type="select"
+										data-field="religion_id" data-title="Tôn giáo"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'office_id'">
+							<td class="col-xs-3">Nơi làm việc</td>
+							<td>
+								<t t-if="my_employee and my_employee.office_id">
+									<a href="#" id="my_office" data-type="select"
+										data-field="office_id"
+										t-att-data-value="my_employee.office_id.id"
+										data-title="Nơi bạn đang làm việc">
+										<span t-esc="my_employee.office_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.office_id">
+									<a href="#" id="my_office"
+										data-type="select"
+										data-field="office_id"
+									   	data-title="Nơi bạn đang làm việc"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'email'">
+							<td class="col-xs-3 required">Email cá nhân</td>
+							<td>
+								<t t-if="my_employee and my_employee.email">
+									<a class="my_input_editable" id="my_email"
+										t-att-data-value="my_employee.email"
+										data-type="text"
+										data-required="1"
+										data-title="Email cá nhân"
+										data-field="email">
+										<span t-esc="my_employee.email" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.email">
+									<a class="my_input_editable" id="my_email"
+										data-required="1"
+										data-type="text" data-title="Email cá nhân"
+										data-field="email"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'mobile'">
+							<td class="col-xs-3">Điện thoại di động</td>
+							<td>
+								<t t-if="my_employee and my_employee.mobile">
+									<a class="my_number_editable" id="my_phone"
+										t-att-data-value="my_employee.mobile"
+										data-type="text"
+										data-field="mobile"
+										data-title="Số di động của bạn">
+										<span t-esc="my_employee.mobile" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.mobile">
+									<a class="my_number_editable" id="my_phone"
+										data-field="mobile"
+										data-type="text" data-title="Số di động của bạn"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'street'">
+							<td class="col-xs-3">Số nhà, tên đường (thường trú)</td>
+							<td>
+								<t t-if="my_employee and my_employee.street">
+									<a class="my_input_editable" id="my_street"
+										data-type="text" data-field="street"
+										data-title="Số nhà, tên đường, phường / xã">
+										<span t-esc="my_employee.street" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.street">
+									<a class="my_input_editable" id="my_street"
+										data-type="text" data-field="street"
+										data-title="Số nhà, tên đường, phường / xã"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'district_id'">
+							<td class="col-xs-3">Quận / Huyện (thường trú)</td>
+							<td>
+								<t t-if="my_employee and my_employee.district_id">
+									<a href="#" id="my_district" data-type="select"
+										data-field="district_id"
+										t-att-data-value="my_employee.district_id.id"
+										data-title="Quận / Huyện">
+										<span t-esc="my_employee.district_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.district_id">
+									<a href="#" id="my_district" data-type="select"
+										data-field="district_id" data-title="Quận / Huyện"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'city_id'">
+							<td class="col-xs-3">Tỉnh / Thành Phố (thường trú)</td>
+							<td>
+								<t t-if="my_employee and my_employee.city_id">
+									<a href="#" id="my_city" data-type="select"
+										data-field="city_id"
+										t-att-data-value="my_employee.city_id.id"
+										data-title="Tỉnh / Thành Phố">
+										<span t-esc="my_employee.city_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.city_id">
+									<a href="#" id="my_city" data-type="select"
+										data-field="city_id" data-title="Tỉnh / Thành Phố"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'temp_address'">
+							<td class="col-xs-3">Số nhà, tên đường (tạm trú)</td>
+							<td>
+								<t t-if="my_employee and my_employee.temp_address">
+									<a class="my_input_editable" id="my_temp_street"
+										data-type="text" data-field="temp_address"
+										data-title="Số nhà, tên đường, phường / xã">
+										<span t-esc="my_employee.temp_address" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.temp_address">
+									<a class="my_input_editable" id="my_temp_street"
+										data-type="text" data-field="temp_address"
+										data-title="Số nhà, tên đường, phường / xã"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'temp_district_id'">
+							<td class="col-xs-3">Quận / Huyện (tạm trú)</td>
+							<td>
+								<t t-if="my_employee and my_employee.temp_district_id">
+									<a href="#" id="my_temp_district" data-type="select"
+										data-field="temp_district_id"
+										t-att-data-value="my_employee.temp_district_id.id"
+										data-title="Quận / Huyện">
+										<span t-esc="my_employee.temp_district_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.temp_district_id">
+									<a href="#" id="my_temp_district" data-type="select"
+										data-field="temp_district_id" data-title="Quận / Huyện"></a>
+								</t>
+							</td>
+						</tr>
+						<tr t-if="field.name == 'temp_city_id'">
+							<td class="col-xs-3">Tỉnh / Thành Phố (tạm trú)</td>
+							<td>
+								<t t-if="my_employee and my_employee.temp_city_id">
+									<a href="#" id="my_temp_city" data-type="select"
+										data-field="temp_city_id"
+										t-att-data-value="my_employee.temp_city_id.id"
+										data-title="Tỉnh / Thành Phố">
+										<span t-esc="my_employee.temp_city_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.temp_city_id">
+									<a href="#" id="my_temp_city" data-type="select"
+										data-field="temp_city_id" data-title="Tỉnh / Thành Phố"></a>
+								</t>
+							</td>
+						</tr>
+						
+						</t>
+					</tbody>
+				</table>
+			</div>
+		</template>
+
+		<!-- THE BUTTON UPDATE PROFILE -->
+		<template id="vhr_mysite.my_profile_button_save_quick_edit">
+			<div class="text-right">
+				<a href="#" class="btn btn-lg btn-primary" id="btn_profile_send" >Gửi</a>
+			</div>
+		</template>
+		
+		<template id="vhr_mysite.tabs_info_quick_edit" name="Chỉnh sửa nhanh">
+			<t t-if="show_extra">
+	    		<div class="info-wrap">
+		    		<div class="title-info"><h6>Thông tin mở rộng</h6></div>
+		    		<div>
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist" id="my_info_tabs">
+							<t t-foreach="emp_field_ids" t-as="field">
+								<li t-if="field.name == 'personal_document_temp_ids'" role="presentation" class="active">
+									<a href="#my_tab_document" aria-controls="home" role="tab" data-toggle="tab">Giấy tờ cá nhân</a>
+								</li>
+								<li t-if="field.name == 'relation_partner_temp_ids'" role="presentation">
+									<a href="#my_tab_partner" aria-controls="profile" role="tab" data-toggle="tab">Người thân</a>
+								</li>
+								<li t-if="field.name == 'certificate_ids'" role="presentation">
+									<a href="#my_tab_education" aria-controls="messages" role="tab" data-toggle="tab">Bằng cấp</a>
+								</li>
+								<li t-if="field.name == 'bank_ids'" role="presentation">
+									<a href="#my_tab_account" aria-controls="settings" role="tab" data-toggle="tab">Tài khoản ngân hàng</a>
+								</li>
+							</t>
+						</ul>
+						
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<t t-foreach="emp_field_ids" t-as="field">
+								<div t-if="field.name == 'personal_document_temp_ids'" role="tabpanel" class="tab-pane fade in active" id="my_tab_document">
+									<t t-call="vhr_mysite.document_info" />
+								</div>
+								<div t-if="field.name == 'relation_partner_temp_ids'" role="tabpanel" class="tab-pane fade" id="my_tab_partner">
+									<t t-call="vhr_mysite.partner_info" />
+								</div>
+								<div t-if="field.name == 'certificate_ids'" role="tabpanel" class="tab-pane fade" id="my_tab_education">
+									<t t-call="vhr_mysite.education_info" />
+								</div>
+								<div t-if="field.name == 'bank_ids'" role="tabpanel" class="tab-pane fade" id="my_tab_account">
+									<t t-call="vhr_mysite.account_info" />
+								</div>
+							</t>
+						</div>
+					</div>
+				</div>
+			</t>
+    	</template>
+	
+		<!-- TEMPLATE FOR PROFILE PAGE (NOW IS HOME PAGE) -->
+		<template id="vhr_mysite.my_profile_quick_edit" name="Chỉnh sửa nhanh">
+			<t t-call="website.layout">
+				<div class="my_profile">
+					<t t-call="vhr_mysite.my_profile_button_save_quick_edit" />
+					<t t-call="vhr_mysite.personal_info_quick_edit" />
+					<t t-call="vhr_mysite.tabs_info_quick_edit" />
+				</div>
+			</t>
+		</template>
+	</data>
+</openerp>

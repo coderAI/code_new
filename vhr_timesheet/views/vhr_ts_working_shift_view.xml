@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_ts_working_shift_tree">
+            <field name="name">vhr.ts.working.shift.tree</field>
+            <field name="model">vhr.ts.working.shift</field>
+            <field name="arch" type="xml">
+                <tree string="Working Shift">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="value_work_time"/>
+                    <field name="value_break_time"/>
+                    <field name="is_night_shift"/>
+                    <field name="first_shift_hours" string="Night shift allowance - First hours"/>
+                    <field name="last_shift_hours" string="Night shift allowance - Last hours"/>
+                    <field name="work_hour"/>
+                    <field name="type_workday_id"/>
+                    <field name="type_cs_shift"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+        
+
+        
+        <record model="ir.ui.view" id="view_vhr_ts_working_shift_form">
+            <field name="name">vhr.ts.working.shift.form</field>
+            <field name="model">vhr.ts.working.shift</field>
+            <field name="arch" type="xml">
+                <form version="7.0" string="Working Shift">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required='1'/>
+                                <field name="code" required='1'/>
+                                <label for="begin_work_time" string="Working Time(hh:mm)"/>
+                                <div>
+                                    <field name="begin_work_time" style="width: 45%%" widget="float_time" required="1"
+                                           on_change="onchange_work_time(begin_work_time,end_work_time)"/>
+                                    <label for="end_work_time" string="-"/>
+                                    <field name="end_work_time" style="width: 45%%" widget="float_time" required="1"
+                                           on_change="onchange_work_time(begin_work_time,end_work_time)"/>
+                                </div>
+                                <field name="work_hour" required="1" on_change="onchange_workhour(work_hour)"/>
+                                <field name="type_workday_id" required="1"
+                                       options="{'no_open': True, 'no_create': True}"/>
+                                <field name="color_name"/>
+                            </group>
+                            <group>
+                                <field name="name_en"/>
+                                <field name="is_night_shift"/>
+                                <label for="begin_break_time" string="Break Time(hh:mm)"/>
+                                <div>
+                                    <field name="begin_break_time" style="width: 45%%" widget="float_time"
+                                           on_change="onchange_break_time(begin_break_time,end_break_time)"/>
+                                    <label for="end_break_time" string="-"/>
+                                    <field name="end_break_time" style="width: 45%%" widget="float_time"
+                                           on_change="onchange_break_time(begin_break_time,end_break_time)"/>
+                                </div>
+
+                                <label for="first_shift_hours" string="Night shift allowance"/>
+                                <div>
+                                    <label for="end_break_time" string="First hours"/>
+                                    <field name="first_shift_hours" style="width: 45%%"/>
+                                    <label for="end_break_time" string="Last hours"/>
+                                    <field name="last_shift_hours" style="width: 45%%"/>
+                                </div>
+                                <field name="type_cs_shift" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+                                <field name="audit_log_ids" mode="tree"
+                                       widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+                                    <tree version="7.0">
+                                        <field name="timestamp" required="1" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="method" readonly="1"/>
+                                        <field name="field_description"/>
+                                        <field name="old_value_text"/>
+                                        <field name="new_value_text"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vhr_ts_working_shift_search">
+            <field name="name">vhr.ts.working.shift.search</field>
+            <field name="model">vhr.ts.working.shift</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group expand="0" string="Filter">
+                        <filter string="Active = True" name="active_true" icon="terp-stage"
+                                domain="[('active', '=', True)]"/>
+                        <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                                domain="[('active', '=', False)]"/>
+                    </group>
+
+                    <field name="name" string="Working Shift"
+                           filter_domain="['|','|','|',('name','ilike',self),('name_en','ilike',self),('code','ilike',self),('description','ilike',self)]"/>
+
+
+                    <field name="is_night_shift"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="act_vhr_ts_working_shift" model="ir.actions.act_window">
+            <field name="name">Working Shift</field>
+            <field name="res_model">vhr.ts.working.shift</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>

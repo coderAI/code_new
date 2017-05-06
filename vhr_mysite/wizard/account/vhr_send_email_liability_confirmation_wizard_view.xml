@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_vhr_send_email_liability_confirmation">
+            <field name="name">view.vhr.send.email.liability.confirmation</field>
+            <field name="model">vhr.send.email.liability.confirmation.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Send email to notify liabilites to employees ?" version="7.0">
+                    <label string="Send email to notify liabilites to employees ?" />
+                    <footer>
+                       <button name="btn_send" string="Yes" type="object" class="oe_highlight" />
+                        	or
+                    	<button string="No" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_vhr_send_email_liability_confirmation"
+                    key2="client_action_multi" name="Send Email"
+                    res_model="vhr.send.email.liability.confirmation.wizard"
+                    src_model="vhr.liability"
+                    view_mode="form" target="new" view_type="form"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		
+		<record id="vhr_transfer_remind_message" model="vhr.transfer.remind">
+			<field name="content">Chỉnh sửa thông báo này theo ý của bạn</field>
+			<field name="name">Tranfer Remind Message</field>
+		</record>
+		
+	</data>
+</openerp>

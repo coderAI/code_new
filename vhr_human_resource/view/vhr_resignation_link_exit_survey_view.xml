@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_vhr_resignation_link_exit_survey_form" model="ir.ui.view">
+       		<field name="name">vhr.resignation.link.exit.survey.view.form</field>
+       		<field name="model">vhr.resignation.link.exit.survey</field>
+       		<field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+       		<field name="arch" type="xml">
+       			<form string="Link Exit Survey" version="7.0">
+       				<sheet>
+       					<group>
+       							<field name="department_ids" required='1'  widget="many2many_tags"
+       							options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True}"/>
+       							<field name="link"/>
+       							<field name="active"/>
+       					</group>
+       					<group>
+       						<field name="description"/>
+       					</group>
+       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+       				</sheet>
+       			</form>
+       		</field>
+       	</record>
+       	
+       	<record id="view_vhr_resignation_link_exit_survey_tree" model="ir.ui.view">
+       		<field name="name">vhr.resignation.link.exit.survey.view.tree</field>
+       		<field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+       		<field name="model">vhr.resignation.link.exit.survey</field>
+       		<field name="arch" type="xml">
+      			<tree string="Link Exit Survey" version="7.0">
+					<field name="department_ids"/>
+					<field name="link"/>
+					<field name="active"/>
+      			</tree>
+     		</field>
+       	</record>
+       	
+       	<record id="view_vhr_resignation_link_exit_survey_search" model="ir.ui.view">
+        	<field name="name">vhr.resignation.link.exit.survey.view.search</field>
+        	<field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+        	<field name="model">vhr.resignation.link.exit.survey</field>
+        	<field name="arch" type="xml">
+        		<search string="Link Exit Survey">
+        			<group expand="0" string="Filter">
+        				<filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+	                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+	                            domain="[('active', '=', False)]"/>
+        			</group>
+        			<field name="name" string="Link Exit Survey" 
+        			 filter_domain="['|','|',('name','ilike',self),('department_ids','ilike',self),('link','ilike',self)]"/>
+        		</search>
+        	</field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_vhr_resignation_link_exit_survey">
+       		<field name="name">Link Exit Survey</field> 
+            <field name="res_model">vhr.resignation.link.exit.survey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_resignation_link_exit_survey_tree"/>
+            <field name="search_view_id" ref="view_vhr_resignation_link_exit_survey_search"/>
+       	</record>
+       	
+       	
+    </data>
+</openerp>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_timesheet_hr_contract_form_inherit" model="ir.ui.view">
+            <field name="name">timesheet.hr.contract.view.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="vhr_human_resource.view_hr_contract_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='change_form_id']" position="attributes">
+                    <attribute name="on_change">onchange_change_form_id(change_form_id,context)</attribute>
+                </xpath>	
+                <xpath expr="//field[@name='salary_setting_id']" position="before">
+                	<!--Khi đổi lại attribute required,invisible của 2 field này cần coi lại hàm "remove_working_record_part_if_no_change_form" trong create/write -->
+                    <field name="ts_working_group_id"
+                    attrs="{'readonly': [('is_readonly', '=', True)],'invisible':[('change_form_id','=',False)],'required':[('change_form_id','!=',False)]}"
+                    options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True,'save_no_required':True}"/>
+                	<field name="timesheet_id"
+                	attrs="{'readonly': [('is_readonly', '=', True)],'invisible':[('change_form_id','=',False)],'required':[('change_form_id','!=',False)]}"
+                     options="{'no_quick_create' : True, 'no_create':True, 'no_open': True,'save_readonly': True,'save_no_required':True}"/>
+                </xpath>
+            </field>
+		</record>
+	</data>
+</openerp>

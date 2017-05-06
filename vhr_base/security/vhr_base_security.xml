@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0" >
+		<record model="ir.module.category" id="module_vhr_sytem_group_category">
+            <field name="name">VHR SYSTEM</field>
+            <field name="description">All VHR module must be inherit on VHR SYSTEM group and customize specific permission.</field>
+            <field name="sequence">10</field>
+    	</record>
+    	
+	    <record id="hrs_group_system" model="res.groups">
+            <field name="name">HRS Group System</field>
+            <field name="comment">Member in hrs group system will be hidden in many2one field link to object hr_employee.</field>
+        </record>
+        
+        <!-- user user for esb service -->
+	    <record model="res.users" id="user_odoo_esb">
+	    	<field name="login">odoo_esb</field>
+			<field name="active">True</field>
+			<field name="name">Odoo ESB</field>
+	    </record>
+    </data>
+</openerp>

@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<!-- ADD DATA ASSETS -->
+		<!-- <template id="vhr_mysite.assets_common" inherit_id="web.assets_common">
+			replace jquery 1.8.3 by jquery v1.9.1
+			<xpath expr="//script[@src='/web/static/lib/jquery/jquery.js']" position="replace">
+				<script type="text/javascript" src="/vhr_mysite/static/lib/jquery.js"></script>
+			</xpath>
+		</template> -->
+
+		<template id="vhr_mysite.assets_frontend" inherit_id="website.assets_frontend"
+			name="VHR Mysite Assets Frontend">
+			<xpath expr="." position="inside">
+				<script type="text/javascript" src="/vhr_mysite/static/lib/flat_ui/js/flat-ui.min.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/flat_ui/js/application.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/bootstrap_datepicker/js/moment.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/bootstrap_datepicker/js/bootstrap-datepicker.min.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/bootstrap_editable/js/bootstrap-editable.min.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/bootstrap_tooltip/tooltip.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/bootstrap_bootbox/bootbox.min.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/bootstrap_datatable/jquery.dataTables.min.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/bootstrap_datatable/dataTables.bootstrap.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/bootstrap_tabs/tab.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/summernote/summernote.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/waves/js/waves.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/fastsearch/fastsearch.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/fastselect/fastselect.js"></script>
+				<script type="text/javascript" src="/vhr_mysite/static/lib/requirejs/require.js"></script>
+				
+				<link rel="stylesheet" href="/vhr_mysite/static/lib/bootstrap_datepicker/css/bootstrap-datepicker.min.css"/>
+				<link rel="stylesheet" href="/vhr_mysite/static/lib/bootstrap_editable/css/bootstrap-editable.css"/>
+				<link rel="stylesheet" href="/vhr_mysite/static/lib/waves/css/waves.css"/>
+				<link rel="stylesheet" href="/vhr_mysite/static/lib/flat_ui/css/flat-ui.css"/>
+				<link rel="stylesheet" href="/vhr_mysite/static/lib/summernote/summernote.css"/>
+				<link rel="stylesheet" href="/vhr_mysite/static/lib/fastselect/fastselect.css"/>
+				<link rel="stylesheet" href="/vhr_mysite/static/src/css/vhr_mysite.css"/>
+			</xpath>
+		</template>
+		
+		<!-- hide the edit image -->
+		<template id="vhr_mysite.homepage" inherit_id="website.homepage">
+			<xpath expr="//t[@t-call='website.layout']" position="replace">
+				 <t t-call="website.layout" />
+			</xpath>
+		</template>
+		
+		<!-- SCROLL TOP -->
+		<template id="vhr_mysite.scroll_top">
+			<div id="my_scroll_top">
+				<i class="fa fa-angle-up fa-3x"></i>
+			</div>
+		</template>
+		
+		<!-- NOTICES -->
+		<template id="vhr_mysite.my_notices">
+			<div class="my_notices">
+				<t t-if="my_notices">
+					<t t-foreach="my_notices" t-as="my_notice">
+						<div class="my_common_notice">
+							<i class="fa fa-check-square-o"></i><span t-raw="my_notice" />
+						</div>
+					</t>
+				</t>
+				<t t-if="my_suggestion_notices">
+					<t t-foreach="my_suggestion_notices" t-as="my_suggestion_notice">
+						<div class="my_suggestion_notice">
+							<i class="fa fa-thumbs-o-up"></i><span t-raw="my_suggestion_notice" />
+						</div>
+					</t>
+				</t>
+				<t t-if="my_system_notices">
+					<t t-foreach="my_system_notices" t-as="my_system_notice">
+						<div class="my_system_notice">
+							<i class="fa fa-exclamation-triangle"></i><span t-raw="my_system_notice" />
+						</div>
+					</t>
+				</t>
+			</div>
+		</template>
+
+		<!-- BASIC INFORMATION BAR -->
+		<template id="vhr_mysite.basic_info" name="Mysite basic information">
+			<div class="my-basic-profile col-xs-12">
+                <div class="logo col-lg-2 col-md-2 col-sm-2 col-xs-5">
+                    <img src="/vhr_mysite/static/src/img/Logo.png" />
+                </div>
+				<div class="user-name col-lg-8 col-md-8 col-sm-8 col-xs-12 hidden-xs text-right">
+					<a href="/">
+						<h4><span t-esc="my_current_employee and my_current_employee.name or ''" /></h4>
+					</a>
+					<h6><span t-esc="my_current_employee and my_current_employee.code or ''" /></h6>
+                    <p>
+                        <span t-esc="my_current_employee and my_current_employee.title_id and my_current_employee.title_id.name or ''" />
+                    </p>
+				</div>
+				<div class="user-avatar col-lg-2 col-md-2 col-sm-2 col-xs-7">
+					<div class="avatar-block">
+						<t t-if="my_current_employee and my_current_employee.image_medium">
+							<img id="my_avatar_display" class="img-responsive img-circle"
+								onclick="$('#my_avatar_file').click();"
+								t-att-alt="my_current_employee.name"
+								t-att-src="'data:image/png;base64,%s' % my_current_employee.image_medium" />
+						</t>
+						<t t-if="not my_current_employee or not my_current_employee.image_medium">
+							<img id="my_avatar_display"
+								onclick="$('#my_avatar_file').click();"
+								src="/web/static/src/img/placeholder.png" />
+						</t>
+					</div>
+					<input type="file" name="file" style="display: none;"
+							accept="image/png, image/jpeg, image/jpg"
+							id="my_avatar_file" /><br/>
+					<a id="my_avatar_save">
+						<i class="fa fa-floppy-o fa-lg"></i>
+					</a>
+				</div>
+                <div class="logan col-xs-12 text-center">SLOGAN</div>
+			</div>
+
+			<!-- <div class="my-position col-lg-6 col-md-6 col-sm-12 col-xs-12">
+				<table class="table">
+					<tbody>
+			            <tr>
+			                <td class="text-bold none-border col-lg-4 col-md-4 col-sm-4 col-xs-6">Cơ cấu tổ chức</td>
+			                <td class="none-border"><span t-esc="my_current_employee and
+			                					(my_current_employee.team_id and my_current_employee.team_id.complete_code or
+			                					(my_current_employee.department_id and my_current_employee.department_id.complete_code)) or ''" /></td>
+			            </tr>
+			           <tr>
+			                <td class="text-bold col-lg-4 col-md-4 col-sm-4 col-xs-6">Vị trí</td>
+			                <td><span t-esc="my_current_employee and my_current_employee.title_id.name or ''" /></td>
+			            </tr>
+			            <tr>
+			                <td class="text-bold none-border col-lg-4 col-md-4 col-sm-4 col-xs-6">Cấp bậc</td>
+			                <td class="none-border">
+			                	<span t-esc="my_current_employee and
+			                			not my_current_employee._check_zalo_group() and
+			                			my_current_employee.job_level_person_id.name or
+			                			'Đang cập nhật ...'" />
+			                </td>
+			            </tr>
+					</tbody>
+				</table>
+			</div>-->
+		</template>
+		
+		<!-- PERSONAL INFO -->
+		<template id="vhr_mysite.personal_info">
+			<div class="info-wrap"
+				data-toggle="tooltip" role="tooltip"
+       			data-placement="top" data-delay='{"show":"500", "hide":"100"}'
+              	title="Nhấp vào thông tin có dòng chấm xanh bên dưới để chỉnh sửa">
+				<div class="title-info"><h6>Thông tin cá nhân</h6></div>
+				<table class="table" id="my_personal_info">
+					<tbody>
+						<tr>
+							<td class="col-xs-3 required">Giới tính</td>
+							<td>
+								<t t-if="my_employee and my_employee.gender">
+									<a href="#" id="my_gender" data-type="select"
+									   data-title="Giới tính của bạn"
+									   t-att-data-value="my_employee.gender"
+									   data-field="gender"
+									   data-required="1">
+									   <t t-esc="get_gender_name(my_employee.gender)" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.gender">
+									<a href="#" id="my_gender" data-type="select" data-value=""
+										data-title="Giới tính của bạn"
+										class="editable editable-click"
+										data-field="gender"
+										data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 required">Ngày sinh</td>
+							<td>
+								<t t-if="my_employee and my_employee.birthday">
+									<a class="my_date_editable"
+										data-type="combodate" data-title="Ngày sinh của bạn"
+										t-att-data-value="my_employee and my_employee.birthday or ''"
+										data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY"
+										data-template="DD / MMM / YYYY"
+										data-field="birthday"
+										data-required="1">
+									<t t-esc="my_employee and format_date(my_employee.birthday) or ''" /></a>
+								</t>
+								<t t-if="not my_employee or not my_employee.birthday">
+									<a class="my_date_editable"
+										data-type="combodate" data-title="Ngày sinh của bạn"
+										t-att-data-value="my_employee and my_employee.birthday or ''"
+										data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY"
+										data-template="DD / MMM / YYYY"
+										data-field="birthday"
+										data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 required">Tình trạng hôn nhân</td>
+							<td>
+								<t t-if="my_employee and my_employee.marital">
+									<a href="#" id="my_marital" data-type="select"
+										t-att-data-value="my_employee.marital"
+										data-field="marital"
+									   	data-title="Tình trạng hôn nhân"
+									   	data-required="1">
+									   	<t t-esc="get_marital_name(my_employee.marital)" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.marital">
+									<a href="#" id="my_marital" data-type="select"
+										data-field="marital"
+									   	data-title="Tình trạng hôn nhân"
+									   	data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3">Số con</td>
+							<td>
+								<t t-if="my_employee and my_employee.children">
+									<a href="#" id="my_children"
+									   class="my_number_editable"
+									   t-att-data-value="my_employee.children"
+									   data-type="text"
+									   data-field="children"
+									   data-title="Bạn có mấy cháu rồi?">
+									   <span t-esc="my_employee.children" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.children">
+									<a href="#" id="my_children"
+										class="my_number_editable"
+										data-type="text"
+										data-field="children"
+										data-title="Bạn có mấy cháu rồi?"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3">Quốc tịch</td>
+							<td>
+								<t t-if="my_employee and my_employee.country_id">
+									<a href="#" id="my_country"
+										data-type="select"
+										data-field="country_id"
+										t-att-data-value="my_employee.country_id.id"
+									   	data-title="Quốc tịch">
+									   <t t-esc="my_employee.country_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.country_id">
+									<a href="#" id="my_ethnic"
+										data-type="select"
+										data-field="country_id"
+									   	data-title="Quốc tịch"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 required">Dân tộc</td>
+							<td>
+								<t t-if="my_employee and my_employee.nation_id">
+									<a href="#" id="my_ethnic"
+										data-type="select"
+										data-field="nation_id"
+										t-att-data-value="my_employee.nation_id.id"
+									   	data-title="Dân tộc"
+									   	data-required="1">
+									   <t t-esc="my_employee.nation_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.nation_id">
+									<a href="#" id="my_ethnic"
+										data-type="select"
+										data-field="nation_id"
+									   	data-title="Dân tộc"
+									   	data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3">Tôn giáo</td>
+							<td>
+								<t t-if="my_employee and my_employee.religion_id">
+									<a href="#" id="my_religion"
+										data-type="select"
+										data-field="religion_id"
+										t-att-data-value="my_employee.religion_id.id"
+									   	data-title="Tôn giáo">
+									   <span t-esc="my_employee.religion_id.name" />
+								   </a>
+								</t>
+								<t t-if="not my_employee or not my_employee.religion_id">
+									<a href="#" id="my_religion" data-type="select"
+										data-field="religion_id" data-title="Tôn giáo"></a>
+								</t>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</template>
+		
+		<!-- PERSONAL INFO -->
+		<template id="vhr_mysite.holiday_info">
+			<div class="info-wrap" t-if="holiday">
+				<div class="title-info"><h6>Thông tin nghỉ phép</h6></div>
+				<table class="table" id="my_holiday_info">
+					<tbody>
+						<tr>
+							<td class="col-xs-3">Tổng phép năm</td>
+							<td>
+								<a href="#"><t t-esc="holiday.total_days or 0" /></a>
+							</td>
+							<td class="col-xs-3">Tổng ngày nghỉ</td>
+							<td>
+								<a href="#"><t t-esc="holiday.total_taken_days or 0" /></a>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3">Tổng phép hết hạn</td>
+							<td>
+								<a href="#"><t t-esc="holiday.total_destroy_days or 0" /></a>
+							</td>
+							<td class="col-xs-3">Tổng phép còn lại</td>
+							<td>
+								<a href="#"><t t-esc="holiday.total_remain_days or 0" /></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</template>
+		
+		
+		
+		<!-- CONTACT INFO -->
+		<template id="vhr_mysite.contact_info">
+			<div class="info-wrap">
+				<div class="title-info"><h6>Thông tin liên lạc</h6></div>
+				<table class="table" id="my_contact_info">
+					<tbody>
+						<tr>
+							<td class="col-xs-3">Nơi làm việc</td>
+							<td>
+								<t t-if="my_employee and my_employee.office_id">
+									<a class="non_edit_field">
+										<span t-esc="my_employee.office_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.office_id">
+									<a class="non_edit_field">N/A</a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 required">Email cá nhân</td>
+							<td>
+								<t t-if="my_employee and my_employee.email">
+									<a class="my_input_editable" id="my_email"
+										t-att-data-value="my_employee.email"
+										data-type="email"
+										data-required="1"
+										data-title="Email cá nhân (không nhập email tại Cty)"
+										data-field="email">
+										<t t-esc="my_employee.email" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.email">
+									<a class="my_input_editable" id="my_email"
+										data-required="1"
+										data-type="email"
+										data-title="Email cá nhân (không nhập email tại Cty)"
+										data-field="email"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 required">Điện thoại di động</td>
+							<td>
+								<t t-if="my_employee and my_employee.mobile">
+									<a class="my_number_editable" id="my_phone"
+										t-att-data-value="my_employee.mobile"
+										data-type="text"
+										data-field="mobile"
+										data-title="Số di động của bạn"
+										data-required="1">
+										<span t-esc="my_employee.mobile" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.mobile">
+									<a class="my_number_editable" id="my_phone"
+										data-field="mobile"
+										data-type="text"
+										data-title="Số di động của bạn"
+										data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr class="highlight">
+							<td colspan="2">Địa chỉ thường trú</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 required">Tỉnh / Thành Phố</td>
+							<td>
+								<t t-if="my_employee and my_employee.city_id">
+									<a href="#" id="my_city" data-type="select"
+										data-field="city_id"
+										t-att-data-value="my_employee.city_id.id"
+										data-title="Tỉnh / Thành Phố"
+										data-required="1">
+										<t t-esc="my_employee.city_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.city_id">
+									<a href="#" id="my_city"
+										data-type="select"
+										data-value="-1"
+										data-field="city_id"
+										data-title="Tỉnh / Thành Phố"
+										data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 required">Quận / Huyện</td>
+							<td>
+								<t t-if="my_employee and my_employee.district_id">
+									<a href="#" id="my_district" data-type="select"
+										data-field="district_id"
+										t-att-data-value="my_employee.district_id.id"
+										data-title="Quận / Huyện"
+										data-required="1">
+										<t t-esc="my_employee.district_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.district_id">
+									<a href="#" id="my_district"
+										data-type="select"
+										data-field="district_id"
+										data-title="Quận / Huyện"
+										data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 required">Số nhà, tên đường</td>
+							<td>
+								<t t-if="my_employee and my_employee.street">
+									<a class="my_input_editable" id="my_street"
+										data-type="text"
+										data-field="street"
+										data-title="Số nhà, tên đường, phường / xã"
+										t-att-data-value="my_employee.street"
+										data-required="1">
+										<t t-esc="my_employee.street" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.street">
+									<a class="my_input_editable" id="my_street"
+										data-type="text"
+										data-field="street"
+										data-title="Số nhà, tên đường, phường / xã"
+										data-required="1"></a>
+								</t>
+							</td>
+						</tr>
+						<tr class="highlight">
+							<td colspan="2">Địa chỉ tạm trú</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3">Tỉnh / Thành Phố</td>
+							<td>
+								<t t-if="my_employee and my_employee.temp_city_id">
+									<a href="#" id="my_temp_city" data-type="select"
+										data-field="temp_city_id"
+										t-att-data-value="my_employee.temp_city_id.id"
+										data-title="Tỉnh / Thành Phố">
+										<span t-esc="my_employee.temp_city_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.temp_city_id">
+									<a href="#" id="my_temp_city" data-type="select"
+										data-field="temp_city_id" data-title="Tỉnh / Thành Phố"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3">Quận / Huyện</td>
+							<td>
+								<t t-if="my_employee and my_employee.temp_district_id">
+									<a href="#" id="my_temp_district" data-type="select"
+										data-field="temp_district_id"
+										t-att-data-value="my_employee.temp_district_id.id"
+										data-title="Quận / Huyện">
+										<t t-esc="my_employee.temp_district_id.name" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.temp_district_id">
+									<a href="#" id="my_temp_district" data-type="select"
+										data-field="temp_district_id" data-title="Quận / Huyện"></a>
+								</t>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3">Số nhà, tên đường</td>
+							<td>
+								<t t-if="my_employee and my_employee.temp_address">
+									<a class="my_input_editable"
+										id="my_temp_street"
+										data-type="text"
+										data-field="temp_address"
+										data-title="Số nhà, tên đường, phường / xã"
+										t-att-data-value="my_employee.temp_address">
+										<span t-esc="my_employee.temp_address" />
+									</a>
+								</t>
+								<t t-if="not my_employee or not my_employee.temp_address">
+									<a class="my_input_editable"
+										id="my_temp_street"
+										data-type="text"
+										data-field="temp_address"
+										data-title="Số nhà, tên đường, phường / xã"></a>
+								</t>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</template>
+		
+		<!-- THE BUTTON UPDATE PROFILE -->
+		<template id="vhr_mysite.my_profile_button_save">
+			<t t-if="my_editable">
+				<div class="text-right">
+					<a href="#" class="btn btn-lg btn-primary btn_profile_send" id="btn_profile_send" >
+						<span>Gửi</span>
+						<div class="oe_breathing" ></div>
+					</a>
+				</div>
+			</t>
+		</template>
+		
+		<template id="vhr_mysite.iso_image_tracking">
+			<t t-if="my_employee">
+				<img style="display: none;" 
+					t-att-src="'/vhr_mysite/static/src/img/blank.gif?randomnumber=' + 
+							gen_string_random(size=15) + '&amp;username=' + my_employee.login or 'no_user'"/>
+			</t>
+		</template>
+		
+		<!-- TEMPLATE FOR PROFILE PAGE (NOW IS HOME PAGE) -->
+		<template id="vhr_mysite.my_profile" name="Thông tin cá nhân">
+			<t t-call="website.layout">
+				<div class="my_profile">
+					<t t-call="vhr_mysite.my_profile_button_save" />
+					<t t-call="vhr_mysite.personal_info" />
+					<t t-call="vhr_mysite.contact_info" />
+					<!--<t t-call="vhr_mysite.holiday_info" />-->
+					<t t-call="vhr_mysite.tabs_info" />
+					<t t-call="vhr_mysite.my_profile_button_save" />
+					<t t-call="vhr_mysite.iso_image_tracking" />
+				</div>
+			</t>
+		</template>
+		
+		
+		
+		
+		<!-- Demo page -->
+		<template id="vhr_mysite.my_profile_demo" name="Thông tin cá nhân">
+			<t t-call="website.layout">
+				<div class="my_profile">
+					<t t-call="vhr_mysite.demo_page" />
+				</div>
+			</t>
+		</template>
+		
+		<!-- Demo page -->
+		<template id="vhr_mysite.demo_page">
+			<div class="container">
+			    <h1 class="mt32">Chức năng đang được thực hiện</h1>
+			    <p>
+			        Chào mừng bạn đến với giao diện MYSITE mới.<br/>
+			        Hiện tại MIS đang hoàn thiện chức năng để đưa đến những trải nghiệm mới mẻ cho Users.<br/>
+			        Hãy ghé thăm trong một thời gian ngắn nữa nhé :)
+			    </p>
+			    <div class="button-primary go-system" t-if="check_permission">
+					<h4 class="panel-title">
+					  	<a href="/web">
+					  		<i class="fa fa-sign-in fa-lg text-primary"></i>
+					  		<span>Hệ thống HR</span>
+					  	</a>
+					</h4>
+				</div>
+			</div>
+		</template>
+		
+		<!-- TEMPLATE FOR PROFILE PAGE TEMP -->
+		<template id="vhr_mysite.my_profile_temp" name="Yêu cầu thay đổi thông tin">
+			<t t-call="website.layout">
+				<div class="my_common_notice">
+					<i class="fa fa-file-o"></i>
+					<span>Thông tin yêu cầu thay đổi</span>
+				</div>
+				<div class="my_profile_temp">
+					<t t-foreach="res" t-as="values">
+						<t t-call="vhr_mysite.info_temp_collapse">
+							<t t-call="vhr_mysite.personal_info_temp" />
+							<t t-call="vhr_mysite.contact_info_temp" />
+							<t t-call="vhr_mysite.tabs_info_temp" />
+						</t>
+					</t>
+				</div>
+			</t>
+		</template>
+
+
+		<!-- CUSTOMIZE THE CURRENT WEBSITE LAYOUT -->
+		<template id="vhr_mysite.layout" inherit_id="website.layout" name="Mysite Layout">
+		
+			<!-- HEAD: Fix the title-->
+			<xpath expr="//head/t/t[@t-set='title']" position="replace">
+				<t t-set="additional_title" t-value="main_object.name"/>
+				<t t-set="title"><t t-raw="my_employee and my_employee.name + ' - ' or ''"/><t t-if="additional_title"><t t-raw="additional_title"/></t></t>
+			</xpath>
+			<!-- Insert the favicon -->
+			<xpath expr="//head" position="inside">
+				<link rel="icon" href="/vhr_mysite/static/src/img/icon_fav.ico" />
+			</xpath>
+			
+			<!-- HEADER: -->
+			<!-- add class app-header for the marionette app -->
+			<xpath expr="//header" position="attributes">
+				<attribute name="class">app-header</attribute>
+			</xpath>
+			<xpath expr="//header/div[@class='navbar navbar-default navbar-static-top']" position="attributes">
+				<attribute name="style">display: none</attribute>
+			</xpath>
+			<xpath expr="//header" position="inside">
+				<!--<div class="cover-image">-->
+					<!--<a href="/">-->
+						<!--<img src="/vhr_mysite/static/src/img/topBanner1.svg" />-->
+					<!--</a>-->
+				<!--</div>-->
+			</xpath>
+			
+			<!-- MAIN: -->
+			<!-- Replace main by new main for mysite:
+					- Add basic infomation in the top
+					- Add the side bar (menu) in the left
+					- Move the t-raw to the  -->
+			<xpath expr="//main" position="replace">
+				<main class="app-main">
+					<div id="my_employee_id">
+						<t t-esc="my_employee_id or 1" />
+					</div>
+					<div id="my_employee_name">
+						<t t-esc="my_employee_name or ''" />
+					</div>
+					<t t-if="my_employee">
+						<div class="basic-info row">
+							<t t-call="vhr_mysite.basic_info" />
+						</div>
+					</t>
+					
+					<div class="main-display row">
+						<!-- is show button hide side bar -->
+						<t t-if="show_button_toggle_sidebar">
+							<div class="button-toggle-sidebar col-xs-12">
+								<div id="button-toggle-sidebar">
+									<i class="fa fa-minus-square-o"></i>
+									<i class="fa fa-plus-square-o hidden"></i>
+									<div class="oe_breathing" ></div>
+								</div>
+							</div>
+						</t>
+						<t t-if="my_employee and not demo_page">
+							<div class="side-bar col-lg-3 col-md-3 col-sm-12 col-xs-12">
+								<ul class="list-group">
+									<t t-call="vhr_mysite.sidebar" />
+								</ul>
+							</div>
+							<div class="main-content col-lg-9 col-md-9 col-sm-12 col-xs-12">
+								<t t-if="show_notice">
+									<t t-call="vhr_mysite.my_notices" />
+								</t>
+								<t t-raw="0" />
+							</div>
+						</t>
+						<t t-if="not my_employee">
+							<div class="container">
+								<div class="row">
+									<div class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<t t-raw="0" />
+									</div>
+								</div>
+							</div>
+						</t>
+						
+						<!-- Demo page -->
+						<t t-if="my_employee and demo_page">
+							<div class="container">
+								<div class="row">
+									<div class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<t t-raw="0" />
+									</div>
+								</div>
+							</div>
+						</t>
+					</div>
+					<t t-call="vhr_mysite.scroll_top" />
+				</main>
+			</xpath>
+			
+			<!-- FOOTER: -->
+			<xpath expr="//footer" position="replace">
+				<footer class="app-footer">
+					<div class="container container_footer text-center">
+						<span class="footer-description">© 2016</span>
+					</div>
+				</footer>
+			</xpath>
+			
+			<!-- BODY -->
+			<xpath expr="//body" position="inside">
+				<script type="text/javascript" src="/vhr_mysite/static/src/js/config.js"></script>
+			</xpath>
+		</template>
+    </data>
+</openerp>

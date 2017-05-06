@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+		<delete model="workflow" search="[('name', '=', 'hr.wkf.holidays')]"/>
+	
+		
+    </data>
+</openerp>

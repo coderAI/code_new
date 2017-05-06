@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+		<record id="sequence_vhr_job" model="ir.sequence.type">
+		    <field name="name">VHR Job</field>
+		    <field name="code">vhr.job.sequence</field>
+		</record>
+	
+		<record id="sequence_vhr_job_seq" model="ir.sequence">
+		    <field name="name">VHR Job Sequence</field>
+		    <field name="code">vhr.job.sequence</field>
+		    <field eval="1" name="number_next"/>
+		    <field eval="1" name="number_increment"/>
+		</record>
+		
+		<record id="sequence_vhr_job_post" model="ir.sequence.type">
+		    <field name="name">VHR Job Post</field>
+		    <field name="code">vhr.job.post.sequence</field>
+		</record>
+	
+		<record id="sequence_vhr_job_post_seq" model="ir.sequence">
+		    <field name="name">VHR Job Post Sequence</field>
+		    <field name="code">vhr.job.post.sequence</field>
+		    <field eval="1" name="number_next"/>
+		    <field eval="1" name="number_increment"/>
+		</record>
+    </data>
+
+</openerp>

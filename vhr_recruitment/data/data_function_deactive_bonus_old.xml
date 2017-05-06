@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<function model="function.deactive.data.bonus.old" name="deactive_bonus_old">
+			<value>deactive_bonus_old</value>
+            <value>vhr_recruitment</value>
+            <value>1</value>
+        </function>
+       
+	</data>
+</openerp>

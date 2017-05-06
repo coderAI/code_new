@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="view_vhr_employee_temp_submit_form" model="ir.ui.view">
+        	<field name="name">vhr.employee.temp.submit.form</field>
+            <field name="model">vhr.employee.temp</field>
+            <field name="type">form</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Note" version="7.0">
+                    <separator string="Comment" colspan="4" required="context.get('required_comment',False)"/>
+                    <footer>
+                        <button name="execute_workflow"
+                                string="Submit"
+                                type="object" icon="gtk-save"
+                                class="oe_highlight" context="{'ACTION_COMMENT': action_comment}"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        	
+        <record model="ir.ui.view" id="tree_updating_employee">
+            <field name="name">updating_employee.tree</field>
+            <field name="model">vhr.employee.temp</field>
+            <field name="groups_id" eval="[(4, ref('vhr_human_resource.vhr_cb_profile'))]"/>
+            <field name="arch" type="xml">
+                <tree string="Updating employees" create="0" delete="0">
+               		<field name="request_date"/> 	
+                    <field name="employee_code"/>
+                    <field name="employee_id"/>
+                    <field name="gender"/>
+                    <field name="birthday"/>
+                    <field name="mobile"/>
+                    <field name="marital"/>
+                    <field name="nation_id"/>
+                    <field name="religion_id"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="form_updating_employee">
+            <field name="name">updating_employee_form</field>
+            <field name="model">vhr.employee.temp</field>
+            <field name="groups_id" eval="[(4, ref('vhr_human_resource.vhr_cb_profile'))]"/>
+            <field name="arch" type="xml">
+                <form string="Updating employees" create="0" delete="0">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_left oe_avatar" style="height:200px"
+                               modifiers="{}"/>
+                        <div>
+                            <h1>
+                                <div class="oe_left">
+                                    <field name="employee_id" string="Full Name" readonly="1"
+                                           options="{'no_open': True}"/>
+                                </div>
+
+                            </h1>
+                            <div>
+                                <button string="Return" type="object" name="prepare_return_draft"
+                                        class="oe_right oe_stat_button bg_icon_red"
+                                		context="{'action':'return', 'required_comment':True}"
+                                        icon="fa-mail-reply" states="waiting"/>
+
+                                <button string="Verify" type="object" name="open_window"
+                                        class="oe_right oe_stat_button bg_icon_green"
+                                		context="{'action':'submit'}"
+                                        icon="fa-mail-forward" states="waiting"/>
+                            </div>
+                        </div>
+                        <div class="oe_title" style="width:80%">
+                            <group class="adldress_format" col="4">
+                           		<field name="request_date" readonly="1"
+                                           options="{'no_open': True}"/>
+                           		<newline/>
+                                <field name="employee_code" readonly='1'/>
+                                <field name="gender"  attrs="{'class': [('state','=',False)]}" colors="blue:gender!=employee_gender"/>
+                                <field name="marital" colors="blue:marital!=employee_marital"/>
+                                <field name="birthday" colors="blue:birthday!=employee_birthday"/>
+                                <field name="birth_city_id" colors="blue:birth_city_id!=employee_birth_city_id"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                <field name="nation_id" colors="blue:nation_id!=employee_nation_id"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                <field name="religion_id" colors="blue:religion_id!=employee_religion_id"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                <field name="country_id" colors="blue:country_id!=employee_country_id"
+                                options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                <field name="mobile" colors="blue:mobile!=employee_mobile_phone"/>
+                                <field name="phone" colors="blue:phone!=employee_phone"/>
+                                <field name="email" colors="blue:email!=employee_email"/>
+                                <field name="children" colors="blue:children!=employee_children"/>
+                            </group>
+                            <group>
+                                <label for="street" string="Permanent Address"/>
+                                <div>
+                                    <div class="address_format">
+                                        <field name="street" placeholder="Street..." colors="blue:street!=employee_street"/>
+                                        <field name="city_id" placeholder="City" style="width: 25%%"
+                                       		 colors="blue:city_id!=employee_city_id"
+                                        	options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="district_id" placeholder="District"
+                                        		 colors="blue:district_id!=employee_district_id"
+                                               domain="[('city_id', '=', city_id)]"
+                                               options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" style="width: 25%%"/>
+                                    </div>
+                                </div>
+                                <label for="temp_address" string="Temporary Address"/>
+                                <div>
+                                    <field name="temp_address" placeholder="Street..." colors="blue:temp_address!=employee_temp_address"/>
+                                    <field name="temp_city_id" placeholder="City" style="width: 25%%"
+                                    		colors="blue:temp_city_id!=employee_temp_city_id"
+                                           options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                    <field name="temp_district_id" placeholder="District"
+                                    		colors="blue:temp_district_id!=employee_temp_district_id"
+                                    	   options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"
+                                           style="width: 25%%"
+                                           domain="[('city_id', '=', temp_city_id)]"/>
+                                </div>
+                            </group>
+                           <group invisible='1' col='4'>
+                           		<field name="employee_birthday"/>
+                           		<field name="employee_gender"/>
+                           		<field name="employee_birth_city_id"/>
+                           		<field name="employee_phone"/>
+                           		<field name="employee_email"/>
+                           		<field name="employee_marital"/>
+                           		<field name="employee_nation_id"/>
+                           		<field name="employee_religion_id"/>
+                           		<field name="employee_country_id"/>
+                           		<field name="employee_mobile_phone"/>
+                           		<field name="employee_street"/>
+                           		<field name="employee_city_id"/>
+                           		<field name="employee_district_id"/>
+                           		<field name="employee_temp_address"/>
+                           		<field name="employee_temp_city_id"/>
+                           		<field name="employee_temp_district_id"/>
+                           		<field name="employee_children"/>
+                           </group>
+                        </div>
+                        <notebook>
+                            <page string="Documents" attrs="{'invisible': [('personal_document_temp_ids', '=', [])]}">
+                            	<separator string="Changing Documents" colspan="4" />
+                                <field name="personal_document_temp_ids">
+                                    <tree editable="True" colors_field="True">
+                                    	<field name="origin_id" />
+                                        <field name="document_type_id"  colors="blue:document_type_id!=pd_document_type_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}" required="1"/>
+                                        <field name="number" required="1"  colors="blue:number!=pd_number"/>
+                                        <field name="issue_date" colors="blue:issue_date!=pd_issue_date"/>
+                                        <field name="expiry_date" colors="blue:expiry_date!=pd_expiry_date"/>
+                                        <field name="city_id" colors="blue:city_id!=pd_city_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="country_id" colors="blue:country_id!=pd_country_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <!--<field name="state" required="1" colors="blue:state!=pd_state"/>-->
+                                        <field name="mode" string="Request" />
+
+                                        <field name="pd_document_type_id" invisible='1'/>
+                                        <field name="pd_number"  invisible='1'/>
+                                        <field name="pd_issue_date"  invisible='1'/>
+                                        <field name="pd_expiry_date"  invisible='1'/>
+                                        <field name="pd_city_id" invisible='1'/>
+                                        <field name="pd_country_id" invisible='1'/>
+                                        <field name="pd_state" invisible='1'/>
+                                    </tree>
+                                </field>
+                                <separator string="Origin Documents" colspan="4" />
+                                <field name="employee_personal_document">
+                                	<tree>
+                                		<field name="id" />
+                                		<field name="document_type_id"/>
+                                        <field name="number"/>
+                                        <field name="issue_date"/>
+                                        <field name="expiry_date"/>
+                                        <field name="city_id"/>
+                                        <field name="country_id"/>
+                                        <!--<field name="state"/>-->
+                                	</tree>
+                                </field>
+                            </page>
+                            <page string="Certificates" attrs="{'invisible': [('certificate_ids', '=', [])]}">
+                            	<separator string="Changing Certificate" colspan="4" />
+                                <field name="certificate_ids">
+                                    <tree editable="True">
+                                    	<field name="origin_id" widget="int"/>
+                                        <field name="school_id" required="1" colors="blue:school_id !=ci_school_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="recruitment_degree_id" required="1" colors="blue:recruitment_degree_id !=ci_recruitment_degree_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="speciality_id" colors="blue:speciality_id !=ci_speciality_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="faculty_id" colors="blue:faculty_id !=ci_faculty_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="mode" string="Request" />
+
+                                        <field name="ci_school_id" invisible='1'/>
+                                        <field name="ci_recruitment_degree_id" invisible='1'/>
+                                        <field name="ci_speciality_id" invisible='1'/>
+                                        <field name="ci_faculty_id" invisible='1'/>
+
+                                    </tree>
+                                </field>
+                                <separator string="Origin Certificate" colspan="4" />
+                                <field name="employee_certificate_ids">
+                                    <tree>
+                                    	<field name="id"/>
+                                        <field name="school_id"/>
+                                        <field name="recruitment_degree_id"/>
+                                       	<field name="speciality_id"/>
+                                       	<field name="faculty_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Relationships" attrs="{'invisible': [('relation_partner_temp_ids', '=', [])]}">
+                            	<separator string="Changing Relationships" colspan="4" />
+                                <field name="relation_partner_temp_ids">
+                                    <tree editable="True">
+                                    	<field name="origin_id"/>
+                                        <field name="name" required="1" colors="blue:name !=ep_name"/>
+                                        <field name="relationship_id" required="1" colors="blue:relationship_id !=ep_relationship_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="mobile" colors="blue:mobile !=ep_mobile"/>
+                                        <field name="phone" colors="blue:phone !=ep_phone"/>
+                                        <field name="street" colors="blue:street !=ep_street"/>
+                                        <field name="district_id" colors="blue:district_id !=ep_district_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="city_id" colors="blue:city_id !=ep_city_id"
+                                        options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                        <field name="is_emergency" colors="blue:is_emergency !=ep_is_emergency"/>
+                                        <field name="is_referee" colors="blue:is_referee !=ep_is_referee"/>
+                                        <field name="mode" string="Request" />
+
+                                        <field name="ep_name" invisible='1'/>
+                                        <field name="ep_relationship_id" invisible='1'/>
+                                        <field name="ep_mobile" invisible='1'/>
+                                        <field name="ep_phone" invisible='1'/>
+                                        <field name="ep_street" invisible='1'/>
+                                        <field name="ep_district_id" invisible='1'/>
+                                        <field name="ep_city_id" invisible='1'/>
+                                        <field name="ep_is_emergency" invisible='1'/>
+                                        <field name="ep_is_referee" invisible='1'/>
+                                    </tree>
+                                </field>
+                                <separator string="Origin Relationships" colspan="4" />
+                                <field name="employee_relation_partners">
+                                	<tree>
+                                		<field name="id" />
+                                		<field name="name" required="1"/>
+                                        <field name="relationship_id"/>
+                                        <field name="mobile"/>
+                                        <field name="phone"/>
+                                        <field name="street"/>
+                                        <field name="district_id"/>
+                                        <field name="city_id" />
+                                        <field name="is_emergency"/>
+                                	</tree>
+                                </field>
+                            </page>
+                            <page string="Bank Account"  attrs="{'invisible': [('bank_ids', '=', [])]}">
+                            	<separator string="Changing Bank Account" colspan="4" />
+                                <field name="bank_ids">
+                                    <tree editable="bottom">
+                                    	<field name="origin_id"/>
+                                    	<field name="owner_name"
+                                    			colors="blue:owner_name!=rpb_owner_name"/>
+                                    	<field name="acc_number"
+                                    			colors="blue:acc_number!=rpb_acc_number"/>
+                                    	<field name="bank"
+                                    			colors="blue:bank !=rpb_bank"
+                                    			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                    	<field name="bank_branch"
+                                    			colors="blue:bank_branch!=rpb_bank_branch"
+                                    			options="{'no_quick_create' : True, 'no_create':True, 'no_open': True}"/>
+                                    	<field name="is_main"
+                                    			colors="blue:is_main!=rpb_is_main"/>
+<!--                                     	<field name="effect_from"
+                                    			colors="blue:effect_from!=rpb_effect_from"/> -->
+                                        <field name="mode" string="Request" />
+
+                                       <field name="rpb_owner_name" invisible="1"/>
+                                    	<field name="rpb_acc_number" invisible="1"/>
+                                    	<field name="rpb_bank" invisible="1"/>
+                                    	<field name="rpb_bank_branch"  invisible="1"/>
+                                    	<field name="rpb_is_main"  invisible="1"/>
+                                    	<!-- <field name="effect_from"  invisible="1"/> -->
+                                    </tree>
+                                </field>
+                                <separator string="Origin Bank Account" colspan="4" />
+                                <field name="employee_partner_banks">
+                                	<tree>
+                                		<field name="id"/>
+                                		<field name="owner_name"/>
+                                    	<field name="acc_number"/>
+                                    	<field name="bank"/>
+                                    	<field name="bank_branch"/>
+                                    	<field name="is_main"/>
+                                    	<field name="effect_from"/>
+                                	</tree>
+                                </field>
+                            </page>
+                           <page string="Log state changes" attrs="{'invisible': [('state','=',False)]}">
+                                    <field name="state_log_ids" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="filter_updating_employee">
+            <field name="name">updating_employee.filter</field>
+            <field name="model">vhr.employee.temp</field>
+            <field name="arch" type="xml">
+                <search string="Updating Employee">
+                    <field name="name" string="Employee"
+                           filter_domain="['|','|','|',('name','ilike',self),('employee_id.name','ilike',self),('employee_id.login','ilike',self),('employee_id.code','ilike',self)]"/>
+                    <filter name="waiting" string="Waiting" domain="[('state','=','waiting')]"/>
+                    <filter name="verified" string="Verified" domain="[('state','=','verified')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_updating_employee">
+            <field name="name">Updating employees</field>
+            <field name="res_model">vhr.employee.temp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="tree_updating_employee"/>
+            <field name="search_id" ref="filter_updating_employee"/>
+            <field name="domain">[('state', '!=', 'draft')]</field>
+            <field name="context">
+                {'search_default_waiting':True}
+            </field>
+        </record>
+
+		<menuitem name='Updating employee'
+				action="action_updating_employee"
+				id="menu_vhr_updating_employee" 
+        		sequence="2" parent="hr.menu_hr_main"
+        		groups="vhr_human_resource.vhr_cb_profile"/>     
+
+    </data>
+</openerp>

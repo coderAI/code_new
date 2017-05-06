@@ -1,0 +1,21 @@
+.openerp .bg_icon_red .stat_button_icon{
+    color:red;
+}
+.openerp .bg_icon_green .stat_button_icon{
+    color:green;
+}
+.openerp .bg_icon_orange .stat_button_icon{
+    color:orange;
+}
+.openerp .bg_icon_blue .stat_button_icon{
+    color:blue;
+}
+.kms_color_warning_lb{
+    color:blue;
+}
+.kms_font_weight_bold {
+    font-weight: bold;
+}
+.openerp .kms_table_header .oe_list_header_many2one{
+	width: 150px;
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="HRS Extra Asset Backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/vhr_monthly_calendar/static/src/css/monthly_calendar.css"/>
+                <script type="text/javascript"
+                        src="/vhr_monthly_calendar/static/src/js/monthly_calendar.js"></script>
+                <script type="text/javascript"
+                        src="/vhr_monthly_calendar/static/lib/jquery.freezeheader.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

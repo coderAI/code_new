@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate='1'>
+		<record id="data_dimension_type_RR_REQUEST_TYPE" model="vhr.dimension.type">
+            <field name="code">RR_REQUEST_TYPE</field>
+            <field name="name">RR_REQUEST_TYPE</field>
+            <field name="active">true</field>
+        </record>
+	</data>
+	<data noupdate='1'>
+		<record id="data_dimension_type_checklist_department" model="vhr.dimension.type">
+            <field name="code">CHECKLIST_DEPT</field>
+            <field name="name">CHECKLIST_DEPT</field>
+            <field name="active">true</field>
+        </record>
+	</data>
+    <data noupdate="1">
+        <record id="data_dimension_type_HIERARCHICAL_CHART" model="vhr.dimension.type">
+            <field name="code">HIERARCHICAL_CHART</field>
+            <field name="name">HIERARCHICAL_CHART</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_INSURANCE_REPORT_GROUP" model="vhr.dimension.type">
+            <field name="code">INSURANCE_REPORT_GROUP</field>
+            <field name="name">INSURANCE_REPORT_GROUP</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_TRACK" model="vhr.dimension.type">
+            <field name="code">TRACK</field>
+            <field name="name">TRACK</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_STAFF_CLASSIFICATION" model="vhr.dimension.type">
+            <field name="code">STAFF_CLASSIFICATION</field>
+            <field name="name">STAFF_CLASSIFICATION</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_BLOOD_GROUP" model="vhr.dimension.type">
+            <field name="code">BLOOD_GROUP</field>
+            <field name="name">BLOOD_GROUP</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_CAREER" model="vhr.dimension.type">
+            <field name="code">CAREER</field>
+            <field name="name">CAREER</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_EMAIL_TYPE" model="vhr.dimension.type">
+            <field name="code">EMAIL_TYPE</field>
+            <field name="name">EMAIL_TYPE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_CERTIFICATE_RATING" model="vhr.dimension.type">
+            <field name="code">CERTIFICATE_RATING</field>
+            <field name="name">CERTIFICATE_RATING</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_NATION" model="vhr.dimension.type">
+            <field name="code">NATION</field>
+            <field name="name">NATION</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_FACULTY" model="vhr.dimension.type">
+            <field name="code">FACULTY</field>
+            <field name="name">FACULTY</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_RELIGION" model="vhr.dimension.type">
+            <field name="code">RELIGION</field>
+            <field name="name">RELIGION</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_SPECIALITY" model="vhr.dimension.type">
+            <field name="code">SPECIALITY</field>
+            <field name="name">SPECIALITY</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_TRAINING_FORM" model="vhr.dimension.type">
+            <field name="code">TRAINING_FORM</field>
+            <field name="name">TRAINING_FORM</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_JOB_TYPE" model="vhr.dimension.type">
+            <field name="code">JOB_TYPE</field>
+            <field name="name">JOB_TYPE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_TRAINING_TYPE" model="vhr.dimension.type">
+            <field name="code">TRAINING_TYPE</field>
+            <field name="name">TRAINING_TYPE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_PRIORITY_LEVEL" model="vhr.dimension.type">
+            <field name="code">PRIORITY_LEVEL</field>
+            <field name="name">PRIORITY_LEVEL</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_DECISION_STATUS" model="vhr.dimension.type">
+            <field name="code">DECISION_STATUS</field>
+            <field name="name">DECISION_STATUS</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_RECOMMEND" model="vhr.dimension.type">
+            <field name="code">RECOMMEND</field>
+            <field name="name">RECOMMEND</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_TASK_RESULT" model="vhr.dimension.type">
+            <field name="code">TASK_RESULT</field>
+            <field name="name">TASK_RESULT</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_RECRUITMENT_REASON" model="vhr.dimension.type">
+            <field name="code">RECRUITMENT_REASON</field>
+            <field name="name">RECRUITMENT_REASON</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_ERP_PAYMENT_TIME" model="vhr.dimension.type">
+            <field name="code">ERP_PAYMENT_TIME</field>
+            <field name="name">ERP_PAYMENT_TIME</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_CORE_VALUE" model="vhr.dimension.type">
+            <field name="code">CORE_VALUE</field>
+            <field name="name">CORE_VALUE</field>
+            <field name="is_show_level">true</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_PROBATION_FAIL_REASON" model="vhr.dimension.type">
+            <field name="code">PROBATION_FAIL_REASON</field>
+            <field name="name">PROBATION_FAIL_REASON</field>
+            <field name="active">true</field>
+        </record>
+		
+        <!--TODO: Delete Later-->
+        <record id="data_dimension_type_RELATIONSHIP_TYPE" model="vhr.dimension.type">
+            <field name="code">RELATIONSHIP_TYPE</field>
+            <field name="name">RELATIONSHIP_TYPE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_CONTACT_TYPE" model="vhr.dimension.type">
+            <field name="code">CONTACT_TYPE</field>
+            <field name="name">CONTACT_TYPE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_TIME_GRADUATION" model="vhr.dimension.type">
+            <field name="code">TIME_GRADUATION</field>
+            <field name="name">TIME_GRADUATION</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_CONTRACT_SPECIAL_ALLOWANCE" model="vhr.dimension.type">
+            <field name="code">CONTRACT_SPECIAL_ALLOWANCE</field>
+            <field name="name">CONTRACT_SPECIAL_ALLOWANCE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_CONTRACT_COLLABORATOR_MISSION" model="vhr.dimension.type">
+            <field name="code">CONTRACT_COLLABORATOR_MISSION</field>
+            <field name="name">CONTRACT_COLLABORATOR_MISSION</field>
+            <field name="active">true</field>
+        </record>
+        
+        <record id="data_dimension_type_CONTRACT_COLLABORATOR_RESULT" model="vhr.dimension.type">
+            <field name="code">CONTRACT_COLLABORATOR_RESULT</field>
+            <field name="name">CONTRACT_COLLABORATOR_RESULT</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_HRS_CONFIG" model="vhr.dimension.type">
+            <field name="code">HRS_CONFIG</field>
+            <field name="name">HRS_CONFIG</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_WORK_GROUP" model="vhr.dimension.type">
+            <field name="code">WORK_GROUP</field>
+            <field name="name">WORK_GROUP</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_TIME_SHEET" model="vhr.dimension.type">
+            <field name="code">TIME_SHEET</field>
+            <field name="name">TIME_SHEET</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_SALARY_TYPE" model="vhr.dimension.type">
+            <field name="code">SALARY_TYPE</field>
+            <field name="name">SALARY_TYPE</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_SALARY_CRITERIA" model="vhr.dimension.type">
+            <field name="code">SALARY_CRITERIA</field>
+            <field name="name">SALARY_CRITERIA</field>
+            <field name="active">true</field>
+        </record>
+        <!-- RR - Loại Chương trình -->
+        <record id="data_dimension_type_DND_PROGRAM" model="vhr.dimension.type">
+            <field name="code">DND_PROGRAM</field>
+            <field name="name">DND_PROGRAM</field>
+            <field name="active">true</field>
+        </record>
+        <!--RR -  Khoảng thời gian tốt nghiệp -->
+        <record id="data_dimension_type_TIME_GRADUATION" model="vhr.dimension.type">
+            <field name="code">TIME_GRADUATION</field>
+            <field name="name">TIME_GRADUATION</field>
+            <field name="active">true</field>
+        </record>
+        <!--RR - Vòng Phỏng Vấn -->
+        <record id="data_dimension_type_INTERVIEW_ROUND" model="vhr.dimension.type">
+            <field name="code">INTERVIEW_ROUND</field>
+            <field name="name">INTERVIEW_ROUND</field>
+            <field name="active">true</field>
+        </record>
+        <!--RR - Độ Khó -->
+        <record id="data_dimension_type_DIFFICULT_LEVEL" model="vhr.dimension.type">
+            <field name="code">DIFFICULT_LEVEL</field>
+            <field name="name">DIFFICULT_LEVEL</field>
+            <field name="active">true</field>
+        </record>
+
+        <!-- Loại ngày nghỉ -->
+        <record id="data_dimension_type_PUBLIC_HOLIDAY_TYPE" model="vhr.dimension.type">
+            <field name="code">PUBLIC_HOLIDAY_TYPE</field>
+            <field name="name">PUBLIC_HOLIDAY_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        
+        <record id="data_dimension_type_CONTINUE_RECRUITING" model="vhr.dimension.type">
+            <field name="code">CONTINUE_RECRUITING</field>
+            <field name="name">CONTINUE_RECRUITING</field>
+            <field name="active">true</field>
+        </record>
+
+        <record id="data_dimension_type_OT_TYPE" model="vhr.dimension.type">
+            <field name="code">OT_TYPE</field>
+            <field name="name">OT_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- RR - Lý do cancel offer -->
+		<record id="data_dimension_type_CANCEL_OFFER" model="vhr.dimension.type">
+            <field name="code">CANCEL_OFFER</field>
+            <field name="name">CANCEL_OFFER</field>
+            <field name="active">true</field>
+        </record>
+        <record id="data_dimension_type_CANCEL_OFFER_TYPE" model="vhr.dimension.type">
+            <field name="code">CANCEL_OFFER_TYPE</field>
+            <field name="name">CANCEL_OFFER_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- RR - Lý do cancel/close Request-->
+		<record id="data_dimension_type_CLOSE_REQUEST" model="vhr.dimension.type">
+            <field name="code">CLOSE_REQUEST</field>
+            <field name="name">CLOSE_REQUEST</field>
+            <field name="active">true</field>
+        </record>
+        <!-- RR - Industry-->
+		<record id="data_dimension_type_INDUSTRY" model="vhr.dimension.type">
+            <field name="code">INDUSTRY</field>
+            <field name="name">INDUSTRY</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR LOAN -->
+        <record id="data_dimension_type_LOAN_TYPE" model="vhr.dimension.type">
+            <field name="code">LOAN_TYPE</field>
+            <field name="name">LOAN_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR Bonus type -->
+        <record id="data_dimension_type_PAYROLL_BONUS_TYPE" model="vhr.dimension.type">
+            <field name="code">PAYROLL_BONUS_TYPE</field>
+            <field name="name">PAYROLL_BONUS_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR Table type -->
+        <record id="data_dimension_type_PAYROLL_TABLE_TYPE" model="vhr.dimension.type">
+            <field name="code">PAYROLL_TABLE_TYPE</field>
+            <field name="name">PAYROLL_TABLE_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR Pay type (loại chi trả) -->
+        <record id="data_dimension_type_PR_PAY_TYPE" model="vhr.dimension.type">
+            <field name="code">PR_PAY_TYPE</field>
+            <field name="name">PR_PAY_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR operate type (loại tính toán) -->
+         <record id="data_dimension_type_PR_OPERATE_TYPE" model="vhr.dimension.type">
+            <field name="code">PR_OPERATE_TYPE</field>
+            <field name="name">PR_OPERATE_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR KPI Method (phương thức tính KPI) -->
+        <record id="data_dimension_type_PR_KPI_METHOD_CAL" model="vhr.dimension.type">
+            <field name="code">PR_KPI_METHOD_CAL</field>
+            <field name="name">PR_KPI_METHOD_CAL</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR Loan status -->
+        <record id="data_dimension_type_PR_LOAN_STATUS" model="vhr.dimension.type">
+            <field name="code">PR_LOAN_STATUS</field>
+            <field name="name">PR_LOAN_STATUS</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR Unit Type -->
+        <record id="data_dimension_type_PR_UNIT_TYPE" model="vhr.dimension.type">
+            <field name="code">PR_UNIT_TYPE</field>
+            <field name="name">PR_UNIT_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- VHR RR Question Type -->
+        <record id="data_dimension_type_RR_PROGRAM_QUESTION" model="vhr.dimension.type">
+            <field name="code">RR_PROGRAM_QUESTION</field>
+            <field name="name">RR_PROGRAM_QUESTION</field>
+            <field name="active">true</field>
+        </record>
+        <!-- VHR RR Question Part -->
+        <record id="data_dimension_type_RR_QUESTION_PART" model="vhr.dimension.type">
+            <field name="code">RR_QUESTION_PART</field>
+            <field name="name">RR_QUESTION_PART</field>
+            <field name="is_show_level">true</field>
+            <field name="active">true</field>
+        </record>     
+        <!-- VHR RR GROUP FACE Type -->
+        <record id="data_dimension_type_RR_PROGRAM_GROUP_FACE" model="vhr.dimension.type">
+            <field name="code">RR_PROGRAM_GROUP_FACE</field>
+            <field name="name">RR_PROGRAM_GROUP_FACE</field>
+            <field name="active">true</field>
+        </record>     
+        <!-- Student staff -->
+        <record id="data_dimension_type_STUDENT_STAFF" model="vhr.dimension.type">
+            <field name="code">STUDENT_STAFF</field>
+            <field name="name">STUDENT_STAFF</field>
+            <field name="active">true</field>
+        </record>  
+        <!-- PR LOAN PAY TYPE -->
+        <record id="data_dimension_type_PR_LOAN_PAY_TYPE" model="vhr.dimension.type">
+            <field name="code">PR_LOAN_PAY_TYPE</field>
+            <field name="name">PR_LOAN_PAY_TYPE</field>
+            <field name="active">true</field>
+        </record>
+        <!-- PR LOAN REDUCE TYPE -->
+        <record id="data_dimension_type_PR_LOAN_REDUCE_TYPE" model="vhr.dimension.type">
+            <field name="code">PR_LOAN_REDUCE_TYPE</field>
+            <field name="name">PR_LOAN_REDUCE_TYPE</field>
+            <field name="active">true</field>
+        </record>            
+    </data>
+</openerp>

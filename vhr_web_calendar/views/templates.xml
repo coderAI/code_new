@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="hrs Extra Asset Backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/vhr_web_calendar/static/lib/select2-bootstrap.css"/>
+                <script type="text/javascript" src="/vhr_web_calendar/static/lib/moment-with-locales.min.js"></script>
+
+                <link rel="stylesheet" href="/vhr_web_calendar/static/src/css/vhr_web_calendar.css"/>
+                <link rel="stylesheet" href="/vhr_web_calendar/static/src/css/fa-color.css"/>
+                <script type="text/javascript" src="/vhr_web_calendar/static/src/js/hrs_calendar.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

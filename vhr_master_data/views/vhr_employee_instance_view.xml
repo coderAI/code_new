@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_vhr_employee_instance_form_form" model="ir.ui.view">
+            <field name="name">vhr.employee.instance.view.form</field>
+            <field name="model">vhr.employee.instance</field>
+            <field name="arch" type="xml">
+                <form version="7.0" string="Employee Instance" edit="false" create="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_id" readonly="1"/>
+                                <field name="date_start" readonly="1"/>
+                                <field name="date_end" readonly="1"/>
+                                <field name="division_id" readonly="1"/>
+                                <field name="department_group_id" readonly="1"/> 
+                                <field name="department_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="team_id" readonly="1"/>
+                                <field name="title_id" readonly="1"/>
+                                <field name="job_level_id" readonly="1"/>
+                                <!--New Job level -->
+                                <field name="job_level_position_id" readonly="1"/>
+                                <field name="job_level_person_id" readonly="1"/>
+                                <field name="manager_id" readonly="1"/>
+                                <field name="report_to" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vhr_employee_instance_form_tree" model="ir.ui.view">
+            <field name="name">vhr.employee.instance.view.tree</field>
+            <field name="model">vhr.employee.instance</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Instance">                    
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="company_id"/>
+                    <field name="division_id"/>
+                    <field name="department_group_id"/>
+                    <field name="department_id"/>
+                    <field name="team_id"/>
+                    <field name="title_id"/>
+                    <field name="job_level_id"/>
+                    <field name="job_level_position_id"/>
+                    <field name="job_level_person_id"/>
+                    <field name="manager_id"/>
+                    <field name="report_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vhr_employee_instance_form_search" model="ir.ui.view">
+            <field name="name">vhr.employee.instance.view.search</field>
+            <field name="model">vhr.employee.instance</field>
+            <field name="arch" type="xml">
+                <search string="Employee Instance">
+                    <field name="name" string="Employee Instance"
+                           filter_domain="['|','|','|',('name','ilike',self),('name_en','ilike',self),('code','ilike',self),('description','ilike',self)]"/>
+
+                    <filter string="Active = True" name="active_true" icon="terp-stage"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+                            domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_vhr_employee_instance_form">
+            <field name="name">Employee Instance</field>
+            <field name="res_model">vhr.employee.instance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vhr_employee_instance_form_tree"/>
+            <field name="search_view_id" ref="view_vhr_employee_instance_form_search"/>
+        </record>
+
+
+    </data>
+</openerp>

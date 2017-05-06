@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate='1'>
+        <record id="data_assessment_calibration_1" model="vhr.assessment.calibration">
+            <field name="name">Top</field>
+            <field name="description"></field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_assessment_calibration_2" model="vhr.assessment.calibration">
+            <field name="name">Near Top</field>
+            <field name="description"></field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_assessment_calibration_3" model="vhr.assessment.calibration">
+            <field name="name">Middle +</field>
+            <field name="description"></field>
+            <field name="active" eval="False"/>
+        </record>
+        
+        <record id="data_assessment_calibration_4" model="vhr.assessment.calibration">
+            <field name="name">Middle</field>
+            <field name="description"></field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_assessment_calibration_5" model="vhr.assessment.calibration">
+            <field name="name">Middle -</field>
+            <field name="description"></field>
+            <field name="active" eval="False"/>
+        </record>
+        
+        <!-- <record id="data_assessment_calibration_6" model="vhr.assessment.calibration">
+            <field name="name">Bottom</field>
+            <field name="description"></field>
+            <field name="active" eval="True"/>
+        </record> -->
+        
+    </data>
+</openerp>

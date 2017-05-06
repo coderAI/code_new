@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record id="view_hr_recruitment_source_form" model="ir.ui.view">
+       		<field name="name">hr.recruitment.source.view.form</field>
+       		<field name="model">hr.recruitment.source</field>
+       		<field name="inherit_id" ref="hr_recruitment.hr_recruitment_source_form"/>
+       		<field name="arch" type="xml">
+       			<form position='replace'>
+       				<form string="Recruitment Source" version="7.0">
+	       				<sheet>
+	       					<group col="4">
+	       						<field name="name" required='1'/>
+	       						<field name="name_en"/>
+	       						<field name="code" required='1'/>
+	       						<field name="source_type_id" required='1'
+	       							options="{'no_quick_create':True, 'no_create':True}"
+	       							on_change="onchange_source_type_id(source_type_id)"/>
+	       						<field name="have_reference"/>
+	       						<field name="active"/>
+	       						<field name="auto_send_email" context="{'default_auto_send_email': True}"/>
+	       					</group>
+	       					<group>
+	       						<field name="description"/>
+	       					</group>
+	       					<notebook>
+       						<page string="Logs">
+	                        	<label string="*** Please press F5 to refresh the list of logs !" colspan="4"/>
+		                        <field name="audit_log_ids" mode="tree"
+		                               widget="one2many_list" readonly="1" nolabel="1" colspan="4">
+		                            <tree version="7.0">
+		                                <field name="timestamp" required="1" readonly="1"/>
+		                                <field name="user_id" readonly="1"/>
+		                                <field name="method" readonly="1"/>
+		                                <field name="field_description"/>
+		                                <field name="old_value_text"/>
+		                                <field name="new_value_text"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+       					</notebook>
+	       				</sheet>
+	       			</form>
+       			</form>
+       			
+       		</field>
+       	</record>
+       	
+       	<record id="view_hr_recruitment_source_tree" model="ir.ui.view">
+       		<field name="name">hr.recruitment.source.view.tree</field>
+       		<field name="model">hr.recruitment.source</field>
+       		<field name="arch" type="xml">
+      			<tree string="Recruitment Source" version="7.0">
+      				<field name="code"/>
+      				<field name="name"/>
+					<field name="name_en"/>
+					<field name="source_type_id" required='1'/>
+       				<field name="have_reference"/>
+					<field name="description"/>
+					<field name="auto_send_email"/>
+					<field name="active"/>
+      			</tree>
+     		</field>
+       	</record>
+       	
+       	<record id="view_hr_recruitment_source_search" model="ir.ui.view">
+        	<field name="name">hr.recruitment.source.view.search</field>
+        	<field name="model">hr.recruitment.source</field>
+        	<field name="arch" type="xml">
+        		<search string="Recruitment Source">
+        			<field name="name" string="Recruitment Source" 
+        			 filter_domain="['|','|','|',('name','ilike',self),('name_en','ilike',self),('code','ilike',self),('description','ilike',self)]"/>
+        			
+					<group expand="0" string="Group By">
+						<filter name="group_by_source" string="Source"
+                               context="{'group_by':'source_type_id'}"/>
+					</group>
+					<group expand="0" string="Filter">                    
+						<filter string="Active = True" name="active_true" icon="terp-stage"
+	                            domain="[('active', '=', True)]"/>
+	                    <filter string="Active = False" name="active_false" icon="STOCK_NEW"
+	                            domain="[('active', '=', False)]"/>
+	                    
+	                    <filter string="Having reference = True" name="active_true" icon="terp-stage"
+	                            domain="[('have_reference', '=', True)]"/>
+	                    <filter string="Having reference = False" name="active_false" icon="STOCK_NEW"
+	                            domain="[('have_reference', '=', False)]"/> 
+                    </group>	
+        		</search>
+        	</field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_hr_recruitment_source">
+       		<field name="name">Recruitment Source</field> 
+            <field name="res_model">hr.recruitment.source</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_hr_recruitment_source_tree"/>
+            <field name="search_view_id" ref="view_hr_recruitment_source_search"/>
+       	</record>
+       	
+       	
+    </data>
+</openerp>

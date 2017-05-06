@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0"> 
+	
+<!--		<record model="ir.cron" id="vhr_working_record_cron">-->
+<!--            <field name="name">Push Data to Employee</field>-->
+<!--            <field name="interval_number">1</field>-->
+<!--            <field name="interval_type">days</field>-->
+<!--            <field name="numbercall">-1</field>-->
+<!--            <field name="doall" eval="False"/>-->
+<!--            <field name="model" eval="'vhr.working.record'"/>-->
+<!--            <field name="function" eval="'cron_update_working_record_state'"/>-->
+<!--            <field name="args" eval="'()'" />-->
+<!--        </record>-->
+
+		<record model="ir.cron" id="vhr_update_property_management_cron">
+	            <field name="name">Cron Update Property Management</field>
+	            <field name="interval_number">1</field>
+	           <field name="interval_type">days</field>
+	            <field name="numbercall">-1</field>
+	            <field name="doall" eval="False"/>
+	            <field name="active" eval="False"/>
+	            <field name="model" eval="'vhr.property.management'"/>
+	            <field name="function" eval="'cron_get_asset_of_all_employee_from_ITAM'"/>
+	            <field name="args" eval="'()'" />
+        </record>		
+	</data>
+</openerp>
