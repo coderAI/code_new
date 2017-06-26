@@ -1394,8 +1394,8 @@ class vhr_job_applicant(osv.osv, vhr_recruitment_abstract):
 #                                              relation='vhr.job.group', string='Job Group'),
 #         'offer_job_family_id': fields.related('offer_job_group_id', 'job_family_id', type="many2one", store=True,
 #                                               relation='vhr.job.family', string='Job Family Offer'),
-        'offer_gross_salary': fields.float('Salary (Gross)', digits=(12, 0)),
-        'offer_probation_salary': fields.float('Probation Salary', digits=(12, 0)),
+        'offer_gross_salary': fields.float('Salary (Gross)', digits=(12, 3)),
+        'offer_probation_salary': fields.float('Probation Salary', digits=(12, 3)),
         'offer_company_id': fields.many2one('res.company', 'Working for',
                                             domain="[('com_group_id', '=', offer_com_group_id)]"),
         'offer_com_group_id': fields.many2one('vhr.company.group', 'Company group'),
@@ -1483,6 +1483,9 @@ class vhr_job_applicant(osv.osv, vhr_recruitment_abstract):
                 
         'is_send_email_erp_bonus_schedue': fields.boolean(string='Is Schedue'),
         'user_transfer': fields.many2one('res.users', 'User Transfer'),
+        
+        'share_handle_bys': fields.related('job_id', 'share_handle_bys', readonly=True, type='many2many', relation='hr.employee',
+                                    string='Share Handle by'),
     }
 
     _defaults = {
@@ -2048,7 +2051,7 @@ class vhr_job_applicant(osv.osv, vhr_recruitment_abstract):
             employee = hr_employee.search(cr, uid, [('user_id', '=', uid)], context={'active_test': False})
             emp = employee and employee[0] or 0
             
-            domain = ['&', ('handle_by', '!=', emp), ('share_handle_by', '!=', emp)]
+            domain = ['&', ('handle_by', '!=', emp), ('share_handle_bys', 'not child_of', emp)]
             for node in doc.xpath("//button[@code_execute='PRINT_REPORT']"):
                 node.set('modifiers', json.dumps({'invisible': domain}))
             
