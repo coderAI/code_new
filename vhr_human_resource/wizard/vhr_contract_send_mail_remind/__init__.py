@@ -1,3 +1,0 @@
-import vhr_contract_send_mail_remind
-import vhr_contract_delivery_wizard
-import vhr_contract_receive_hard_copy

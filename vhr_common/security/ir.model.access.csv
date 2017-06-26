@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-vhr_common_hr_employee_1,vhr_common_vhr_mass_status_detail,vhr_common.model_vhr_mass_status_detail,base.group_user,1,1,1,0
-vhr_common_hr_employee_2,vhr_common_vhr_mass_status,vhr_common.model_vhr_mass_status,base.group_user,1,1,1,0

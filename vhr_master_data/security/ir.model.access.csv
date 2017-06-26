@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-vhr_master_data.vhr_student_event_group_base_group_user_R,vhr_master_data.vhr_student_event_group_base_group_user_R,vhr_master_data.model_vhr_student_event,base.group_user,1,0,0,0
-vhr_master_data.vhr_student_organization_unit_base_group_user_R,vhr_master_data.vhr_student_organization_unit_base_group_user_R,vhr_master_data.model_vhr_student_organization_unit,base.group_user,1,0,0,0

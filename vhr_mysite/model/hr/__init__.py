@@ -1,7 +1,0 @@
-import vhr_employee_temp
-import vhr_certificate_info_temp
-import vhr_employee_partner_temp
-import vhr_personal_document_temp
-import vhr_employee_temp_quick_edit
-import vhr_res_partner_bank_temp
-import vhr_insurance_registration
